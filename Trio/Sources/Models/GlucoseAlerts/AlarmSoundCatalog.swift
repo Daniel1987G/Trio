@@ -9,6 +9,7 @@ enum AlarmSoundCatalog {
         ("urgent_low.caf", String(localized: "Urgent Low")),
         ("critical.caf", String(localized: "Critical")),
         ("alarm.caf", String(localized: "Alarm")),
+        ("xdripalert.aif", String(localized: "xDrip Alert")),
         ("bright_alarm.caf", String(localized: "Bright Alarm")),
         ("honk.caf", String(localized: "Honk")),
         ("trill.caf", String(localized: "Trill")),
