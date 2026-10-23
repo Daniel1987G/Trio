@@ -10,6 +10,7 @@ struct PumpView: View {
     let pumpStatusHighlightMessage: String?
     let battery: [OpenAPS_Battery]
     // Anzeigeinformationen; keine Änderung der Dosierungslogik.
+    let isfUnits: GlucoseUnits
     let profileISF: Decimal?
     let dynamicISF: Decimal?
     let dynamicISFChangedAt: Date?
@@ -167,11 +168,21 @@ struct PumpView: View {
 
     private func isfText(_ value: Decimal?) -> String {
         guard let value else { return "–" }
-        return NSDecimalNumber(decimal: value).rounding(accordingToBehavior: NSDecimalNumberHandler(
-            roundingMode: .plain, scale: 0,
-            raiseOnExactness: false, raiseOnOverflow: false,
-            raiseOnUnderflow: false, raiseOnDivideByZero: false
-        )).stringValue
+
+        if isfUnits == .mmolL {
+            return value.formattedAsMmolL
+        }
+
+        return NSDecimalNumber(decimal: value).rounding(
+            accordingToBehavior: NSDecimalNumberHandler(
+                roundingMode: .plain,
+                scale: 0,
+                raiseOnExactness: false,
+                raiseOnOverflow: false,
+                raiseOnUnderflow: false,
+                raiseOnDivideByZero: false
+            )
+        ).stringValue
     }
 
     private var isfArrowColor: Color {

@@ -110,16 +110,53 @@ extension Home.RootView {
 
     // Nur UI-Daten. Die Loop-Berechnung selbst bleibt unverändert.
     private var blackLayoutProfileISF: Decimal? {
-        // Vorübergehend ausgeblendet, bis die Initialisierung
-        // der Profilwerte zuverlässig geprüft wurde.
-        nil
+        let profile = state.fileStorage.retrieve(
+            OpenAPS.Settings.insulinSensitivities,
+            as: InsulinSensitivities.self
+        )
+
+        guard let entries = profile?.sensitivities,
+              !entries.isEmpty
+        else {
+            return nil
+        }
+
+        let calendar = Calendar.current
+        let now = state.timerDate
+        let midnight = calendar.startOfDay(for: now)
+        let currentMinutes = calendar.dateComponents(
+            [.minute], from: midnight, to: now
+        ).minute ?? 0
+
+        let sortedEntries = entries.sorted { $0.offset < $1.offset }
+
+        guard let current = sortedEntries.last(where: {
+            $0.offset <= currentMinutes
+        }) ?? sortedEntries.last,
+            current.sensitivity > 0
+        else {
+            return nil
+        }
+
+        return current.sensitivity
     }
 
     private var blackLayoutDynamicISF: Decimal? {
-        // Sicherheitsmodus: Die Historie bestätigt nicht zuverlässig,
-        // ob DynISF für die letzte Berechnung tatsächlich aktiv war.
-        // Deshalb keinen Wert fälschlich als DynISF anzeigen.
-        nil
+        guard let latest = state.enactedAndNonEnactedDeterminations.first,
+              let date = latest.deliverAt,
+              Date().timeIntervalSince(date) >= 0,
+              Date().timeIntervalSince(date) <= 15 * 60,
+              let reason = latest.reason,
+              reason.contains("Dynamic ISF: On"),
+              let sensitivity = latest.insulinSensitivity
+        else {
+            return nil
+        }
+
+        let value = sensitivity.decimalValue
+        guard value > 0 else { return nil }
+
+        return value
     }
 
     private func blackLayoutISFText(_ value: Decimal) -> String {
@@ -136,21 +173,9 @@ extension Home.RootView {
     }
 
     private var blackLayoutISFChangedAt: Date? {
-        guard let current = blackLayoutDynamicISF else { return nil }
-        let history = state.enactedAndNonEnactedDeterminations
-            .compactMap { determination -> (Decimal, Date)? in
-                guard let isf = determination.insulinSensitivity,
-                      let date = determination.deliverAt else { return nil }
-                return (isf.decimalValue, date)
-            }
-            .sorted { $0.1 > $1.1 }
-        guard let first = history.first, blackLayoutISFText(first.0) == blackLayoutISFText(current) else { return nil }
-        // Nur ein echter Wertwechsel ist ein Änderungszeitpunkt.
-        // Wenn die Historie davor nicht weit genug reicht, bleibt die Zeit unbekannt.
-        guard let older = history.firstIndex(where: { blackLayoutISFText($0.0) != blackLayoutISFText(current) }), older > 0 else {
-            return nil
-        }
-        return history[older - 1].1
+        // Änderungszeit erst anzeigen, wenn ein bestätigter
+        // Dynamic-ISF-Wertwechsel zuverlässig ermittelt wurde.
+        nil
     }
 
     var pumpView: some View {
@@ -162,6 +187,7 @@ extension Home.RootView {
             timerDate: state.timerDate,
             pumpStatusHighlightMessage: state.pumpStatusHighlightMessage,
             battery: state.batteryFromPersistence,
+            isfUnits: state.units,
             profileISF: blackLayoutProfileISF,
             dynamicISF: blackLayoutDynamicISF,
             dynamicISFChangedAt: blackLayoutISFChangedAt
