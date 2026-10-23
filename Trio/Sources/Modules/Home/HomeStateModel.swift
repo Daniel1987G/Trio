@@ -46,6 +46,7 @@ extension Home {
         var recentGlucose: BloodGlucose?
         var maxBasal: Decimal = 2
         var basalProfile: [BasalProfileEntry] = []
+        var blackLayoutISFProfile: InsulinSensitivities?
         var bgTargets = BGTargets(from: OpenAPS.defaults(for: OpenAPS.Settings.bgTargets))
             ?? BGTargets(units: .mgdL, userPreferredUnits: .mgdL, targets: [])
         var targetProfiles: [TargetProfile] = []
@@ -509,6 +510,12 @@ extension Home {
                     }
                     group.addTask {
                         await self.setupGlucoseTargets()
+                    }
+                    group.addTask {
+                        let profile = await self.provider.getISFProfile()
+                        await MainActor.run {
+                            self.blackLayoutISFProfile = profile
+                        }
                     }
                     group.addTask {
                         self.setupReservoir()

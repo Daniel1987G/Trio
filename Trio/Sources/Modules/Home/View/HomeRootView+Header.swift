@@ -110,12 +110,7 @@ extension Home.RootView {
 
     // Nur UI-Daten. Die Loop-Berechnung selbst bleibt unverändert.
     private var blackLayoutProfileISF: Decimal? {
-        let profile = state.fileStorage.retrieve(
-            OpenAPS.Settings.insulinSensitivities,
-            as: InsulinSensitivities.self
-        )
-
-        guard let entries = profile?.sensitivities,
+        guard let entries = state.blackLayoutISFProfile?.sensitivities,
               !entries.isEmpty
         else {
             return nil

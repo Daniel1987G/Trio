@@ -35,6 +35,13 @@ extension Home {
                 ?? []
         }
 
+        func getISFProfile() async -> InsulinSensitivities? {
+            await storage.retrieveAsync(
+                OpenAPS.Settings.insulinSensitivities,
+                as: InsulinSensitivities.self
+            )
+        }
+
         func getBGTargets() async -> BGTargets {
             await storage.retrieveAsync(OpenAPS.Settings.bgTargets, as: BGTargets.self)
                 ?? BGTargets(from: OpenAPS.defaults(for: OpenAPS.Settings.bgTargets))
