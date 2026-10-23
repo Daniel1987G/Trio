@@ -209,7 +209,7 @@ extension MealSettings {
                             }.padding(.top)
                         }.padding(.bottom)
                     }
-                ).listRowBackground(Color.chart)
+                ).listRowBackground(appState.trioCardBackgroundColor())
 
                 SettingInputSection(
                     decimalValue: $state.maxMealAbsorptionTime,

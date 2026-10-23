@@ -148,7 +148,7 @@ struct EditTempTargetForm: View {
                             hasChanges = true
                         }
                 }
-            }.listRowBackground(Color.chart)
+            }.listRowBackground(appState.trioCardBackgroundColor())
 
             Section {
                 // Picker on the right side
@@ -180,7 +180,7 @@ struct EditTempTargetForm: View {
                     )
                 }
             }
-            .listRowBackground(Color.chart)
+            .listRowBackground(appState.trioCardBackgroundColor())
 
             if target != TempTargetCalculations.normalTarget {
                 let computedHalfBasalTarget = Decimal(
@@ -244,14 +244,14 @@ struct EditTempTargetForm: View {
                             }
                         }
                     )
-                    .listRowBackground(Color.chart)
+                    .listRowBackground(appState.trioCardBackgroundColor())
                 }
             }
 
             Section {
                 DatePicker("Start Time", selection: $date, in: Date.now...)
                     .onChange(of: date) { hasChanges = true }
-            }.listRowBackground(Color.chart)
+            }.listRowBackground(appState.trioCardBackgroundColor())
 
             Section {
                 VStack {
@@ -311,7 +311,7 @@ struct EditTempTargetForm: View {
                         .listRowSeparator(.hidden, edges: .top)
                     }
                 }
-            }.listRowBackground(Color.chart)
+            }.listRowBackground(appState.trioCardBackgroundColor())
 
             if isEnabled {
                 Section {
@@ -383,7 +383,7 @@ struct EditTempTargetForm: View {
                 .tint(.white)
 
             Spacer()
-        }.listRowBackground(hasChanges ? Color(.systemBlue) : Color(.systemGray4))
+        }.listRowBackground(hasChanges ? Color(red: 85.0 / 255, green: 85.0 / 255, blue: 85.0 / 255) : Color(.systemGray4))
     }
 
     private func saveChanges() {

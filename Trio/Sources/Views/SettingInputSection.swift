@@ -84,6 +84,13 @@ struct SettingInputSection<VerboseHint: View>: View {
             header: { headerText.map(Text.init) },
             footer: { footerText.map(Text.init) }
         )
+        .listRowBackground(
+            Color(
+                red: 48.0 / 255,
+                green: 48.0 / 255,
+                blue: 48.0 / 255
+            )
+        )
         .settingsSearchTarget(label: label)
     }
 

@@ -31,7 +31,7 @@ struct KeyValueRow: View {
                 .textSelection(.enabled)
             Spacer()
             Text(value)
-                .foregroundColor(.secondary)
+                .foregroundColor(Color(red: 224.0 / 255, green: 224.0 / 255, blue: 224.0 / 255))
                 .multilineTextAlignment(.trailing)
                 .textSelection(.enabled)
         }

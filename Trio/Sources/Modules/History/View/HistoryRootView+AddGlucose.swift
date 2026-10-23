@@ -35,7 +35,9 @@ extension History.RootView {
                                 unitsText: state.units.rawValue
                             )
                         }
-                    }.listRowBackground(Color.chart)
+                    }.listRowBackground(
+                        Color(.sRGB, red: 0.19, green: 0.19, blue: 0.19, opacity: 1)
+                    )
 
                     Section {
                         HStack {
@@ -52,7 +54,8 @@ extension History.RootView {
                     }
                     .listRowBackground(
                         state.manualGlucose < limitLow || state
-                            .manualGlucose > limitHigh ? Color(.systemGray4) : Color(.systemBlue)
+                            .manualGlucose > limitHigh ? Color(.systemGray4) :
+                            Color(red: 85.0 / 255, green: 85.0 / 255, blue: 85.0 / 255)
                     )
                     .tint(.white)
                 }.scrollContentBackground(.hidden).background(appState.trioBackgroundColor(for: colorScheme))

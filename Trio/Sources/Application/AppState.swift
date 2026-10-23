@@ -4,17 +4,15 @@ import SwiftUI
 import UIKit
 
 @Observable class AppState {
-    func trioBackgroundColor(for colorScheme: ColorScheme) -> LinearGradient {
-        colorScheme == .dark
-            ? LinearGradient(
-                gradient: Gradient(colors: [Color.bgDarkBlue, Color.bgDarkerDarkBlue]),
-                startPoint: .top,
-                endPoint: .bottom
-            )
-            : LinearGradient(
-                gradient: Gradient(colors: [Color.gray.opacity(0.1)]),
-                startPoint: .top,
-                endPoint: .bottom
-            )
+    func trioCardBackgroundColor() -> Color {
+        Color(red: 48.0 / 255, green: 48.0 / 255, blue: 48.0 / 255)
+    }
+
+    func trioBackgroundColor(for _: ColorScheme) -> LinearGradient {
+        LinearGradient(
+            colors: [.black, .black],
+            startPoint: .top,
+            endPoint: .bottom
+        )
     }
 }

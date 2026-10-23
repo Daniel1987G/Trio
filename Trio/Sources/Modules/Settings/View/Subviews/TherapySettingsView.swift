@@ -24,7 +24,7 @@ struct TherapySettingsView: BaseView {
                     Text("Units and Limits").navigationLink(to: .unitsAndLimits, from: self)
                 }
             )
-            .listRowBackground(Color.chart)
+            .listRowBackground(appState.trioCardBackgroundColor())
 
             Section(
                 header: Text("Basic Insulin Rates & Targets"),
@@ -35,7 +35,7 @@ struct TherapySettingsView: BaseView {
                     Text("Insulin Sensitivities").navigationLink(to: .isfEditor, from: self)
                 }
             )
-            .listRowBackground(Color.chart)
+            .listRowBackground(appState.trioCardBackgroundColor())
         }
         .scrollContentBackground(.hidden)
         .background(appState.trioBackgroundColor(for: colorScheme))

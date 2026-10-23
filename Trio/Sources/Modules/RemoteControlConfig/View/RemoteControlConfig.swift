@@ -85,7 +85,7 @@ extension RemoteControlConfig {
                         .foregroundColor(.white)
                         .frame(maxWidth: .infinity)
                     }
-                ).listRowBackground(Color.chart)
+                ).listRowBackground(appState.trioCardBackgroundColor())
             }
             .listSectionSpacing(sectionSpacing)
             .sheet(isPresented: $shouldDisplayHint) {

@@ -171,7 +171,7 @@ extension CGMSettings {
                             label: { Text("Configure Nightscout").foregroundStyle(Color.accentColor) }
                         )
                     }
-                ).listRowBackground(Color.chart)
+                ).listRowBackground(appState.trioCardBackgroundColor())
 
                 if let url = state.url {
                     Section {
@@ -238,7 +238,7 @@ extension CGMSettings {
                         }
                     }
                 }
-            ).listRowBackground(Color.chart)
+            ).listRowBackground(appState.trioCardBackgroundColor())
         }
 
         var simulatorConfigurationSection: some View {
@@ -263,7 +263,7 @@ extension CGMSettings {
                                 .padding(.bottom).lineLimit(nil)
                         }.foregroundStyle(Color.secondary).font(.footnote)
                     }
-                ).listRowBackground(Color.chart)
+                ).listRowBackground(appState.trioCardBackgroundColor())
 
                 Section {
                     VStack(alignment: .leading, spacing: 10) {
@@ -285,7 +285,7 @@ extension CGMSettings {
                         .lineLimit(nil)
                         .padding(.bottom)
                     }
-                }.listRowBackground(Color.chart)
+                }.listRowBackground(appState.trioCardBackgroundColor())
 
                 Section(
                     header: Text("Sensor Lifecycle Scenario"),
@@ -316,7 +316,7 @@ extension CGMSettings {
                             .foregroundStyle(Color.secondary)
                             .lineLimit(nil)
                     }
-                }.listRowBackground(Color.chart)
+                }.listRowBackground(appState.trioCardBackgroundColor())
 
                 if !produceStaleValues {
                     Section {
@@ -344,7 +344,7 @@ extension CGMSettings {
                                 .lineLimit(nil)
                                 .padding(.bottom)
                         }
-                    }.listRowBackground(Color.chart)
+                    }.listRowBackground(appState.trioCardBackgroundColor())
 
                     Section {
                         VStack(alignment: .leading, spacing: 10) {
@@ -380,7 +380,7 @@ extension CGMSettings {
                                 .lineLimit(nil)
                                 .padding(.bottom)
                         }
-                    }.listRowBackground(Color.chart)
+                    }.listRowBackground(appState.trioCardBackgroundColor())
 
                     Section {
                         VStack(alignment: .leading, spacing: 10) {
@@ -407,7 +407,7 @@ extension CGMSettings {
                                 .lineLimit(nil)
                                 .padding(.bottom)
                         }
-                    }.listRowBackground(Color.chart)
+                    }.listRowBackground(appState.trioCardBackgroundColor())
 
                     Section {
                         VStack(alignment: .leading, spacing: 10) {
@@ -436,7 +436,7 @@ extension CGMSettings {
                                 .lineLimit(nil)
                                 .padding(.bottom)
                         }
-                    }.listRowBackground(Color.chart)
+                    }.listRowBackground(appState.trioCardBackgroundColor())
                 }
 
                 Section {

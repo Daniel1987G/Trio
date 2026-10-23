@@ -57,12 +57,12 @@ extension AppDiagnostics {
                             state.applyDiagnostics()
                         }
                     }
-                ).listRowBackground(Color.chart)
+                ).listRowBackground(appState.trioCardBackgroundColor())
 
                 Section {
                     NavigationLink("What's sent") { TelemetryPreviewView() }
                     NavigationLink("Privacy details") { TelemetryPrivacyView() }
-                }.listRowBackground(Color.chart)
+                }.listRowBackground(appState.trioCardBackgroundColor())
 
                 Section {
                     VStack(alignment: .leading, spacing: 8) {

@@ -28,7 +28,7 @@ extension ShortcutsConfig {
                             "Trio lets you create automations using iOS Shortcuts. Go to the Shortcuts app to create new automations."
                         )
                     }
-                ).listRowBackground(Color.chart)
+                ).listRowBackground(appState.trioCardBackgroundColor())
 
                 Section {
                     Button {

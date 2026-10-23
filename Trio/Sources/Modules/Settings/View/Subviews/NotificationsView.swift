@@ -50,7 +50,7 @@ struct NotificationsView: BaseView {
                         .buttonStyle(.bordered)
                     }.padding(.vertical)
                 }
-            ).listRowBackground(Color.chart)
+            ).listRowBackground(appState.trioCardBackgroundColor())
 
             Section(
                 header: Text("Manage iOS Preferences"),
@@ -59,7 +59,7 @@ struct NotificationsView: BaseView {
 
                     manageNotifications
                 }
-            ).listRowBackground(Color.chart)
+            ).listRowBackground(appState.trioCardBackgroundColor())
 
             Section(
                 header: Text("Notification Center"),
@@ -73,7 +73,7 @@ struct NotificationsView: BaseView {
                     Text("Day & Night Windows")
                         .navigationLink(to: .alarmWindows, from: self)
                 }
-            ).listRowBackground(Color.chart)
+            ).listRowBackground(appState.trioCardBackgroundColor())
 
             Section(
                 header: Text("Other Notifications"),
@@ -84,7 +84,7 @@ struct NotificationsView: BaseView {
 
                     Text("Calendar Events").navigationLink(to: .calendarEventSettings, from: self)
                 }
-            ).listRowBackground(Color.chart)
+            ).listRowBackground(appState.trioCardBackgroundColor())
         }
         .listSectionSpacing(sectionSpacing)
         .onReceive(

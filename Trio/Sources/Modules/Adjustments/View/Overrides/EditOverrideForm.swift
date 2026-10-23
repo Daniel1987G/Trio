@@ -135,7 +135,7 @@ struct EditOverrideForm: View {
                             .multilineTextAlignment(.trailing)
                     }
                 }
-                .listRowBackground(Color.chart)
+                .listRowBackground(appState.trioCardBackgroundColor())
             }
 
             // Percentage Picker
@@ -214,7 +214,7 @@ struct EditOverrideForm: View {
                     hasChanges = true
                 }
             }
-            .listRowBackground(Color.chart)
+            .listRowBackground(appState.trioCardBackgroundColor())
 
             Section {
                 Toggle(isOn: $target_override) {
@@ -252,7 +252,7 @@ struct EditOverrideForm: View {
                     }
                 }
             }
-            .listRowBackground(Color.chart)
+            .listRowBackground(appState.trioCardBackgroundColor())
 
             Section {
                 // Picker for Disable SMB settings
@@ -355,7 +355,7 @@ struct EditOverrideForm: View {
                     }
                 }
             }
-            .listRowBackground(Color.chart)
+            .listRowBackground(appState.trioCardBackgroundColor())
 
             if !smbIsOff {
                 Section {
@@ -430,7 +430,7 @@ struct EditOverrideForm: View {
                         }
                     }
                 }
-                .listRowBackground(Color.chart)
+                .listRowBackground(appState.trioCardBackgroundColor())
             }
 
             Section {
@@ -495,7 +495,7 @@ struct EditOverrideForm: View {
                     }
                 }
             }
-            .listRowBackground(Color.chart)
+            .listRowBackground(appState.trioCardBackgroundColor())
         }
     }
 
@@ -548,7 +548,7 @@ struct EditOverrideForm: View {
                     .tint(.white)
             }
         )
-        .listRowBackground(isInvalid ? Color(.systemGray4) : Color(.systemBlue))
+        .listRowBackground(isInvalid ? Color(.systemGray4) : Color(red: 85.0 / 255, green: 85.0 / 255, blue: 85.0 / 255))
     }
 
     private func isOverrideInvalid() -> (Bool, String?) {

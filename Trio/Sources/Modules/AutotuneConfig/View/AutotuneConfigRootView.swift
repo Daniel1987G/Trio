@@ -98,7 +98,7 @@ extension AutotuneConfig {
                             Text("Run now")
                         }
                         .frame(maxWidth: .infinity, alignment: .center)
-                        .listRowBackground(Color(.systemBlue))
+                        .listRowBackground(Color(red: 48.0 / 255, green: 48.0 / 255, blue: 48.0 / 255))
                         .tint(.white)
                     }
                 )
@@ -123,7 +123,7 @@ extension AutotuneConfig {
                                 Text(state.units.rawValue + "/U").foregroundColor(.secondary)
                             }
                         }
-                        .listRowBackground(Color.chart)
+                        .listRowBackground(appState.trioCardBackgroundColor())
                     }
 
                     Section(header: Text("Basal profile")) {
@@ -146,7 +146,7 @@ extension AutotuneConfig {
                                 .foregroundColor(.secondary)
                         }
                     }
-                    .listRowBackground(Color.chart)
+                    .listRowBackground(appState.trioCardBackgroundColor())
 
                     Section {
                         Button {

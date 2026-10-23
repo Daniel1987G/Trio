@@ -351,7 +351,7 @@ extension Treatments {
                             Section {
                                 ForecastChart(state: state)
                                     .padding(.vertical)
-                            }.listRowBackground(Color.chart)
+                            }.listRowBackground(appState.trioCardBackgroundColor())
 
                             Section {
                                 carbsTextField()
@@ -430,11 +430,11 @@ extension Treatments {
                                         maxLength: 25
                                     )
                                 }
-                            }.listRowBackground(Color.chart)
+                            }.listRowBackground(appState.trioCardBackgroundColor())
 
                             Section {
                                 bolusSection
-                            }.listRowBackground(Color.chart)
+                            }.listRowBackground(appState.trioCardBackgroundColor())
 
                             treatmentButton
                         }
@@ -566,7 +566,7 @@ extension Treatments {
         var treatmentButton: some View {
             let shouldDisplayBolusProgress = bolusInProgressForEntry
 
-            var treatmentButtonBackground = Color(.systemBlue)
+            var treatmentButtonBackground = Color(red: 85.0 / 255, green: 85.0 / 255, blue: 85.0 / 255)
             if limitExceeded {
                 treatmentButtonBackground = Color(.systemRed)
             } else if disableTaskButton {
@@ -646,7 +646,7 @@ extension Treatments {
                 RoundedRectangle(cornerRadius: 15)
                     .fill(
                         colorScheme == .dark
-                            ? Color(red: 0.03921568627, green: 0.133333333, blue: 0.2156862745)
+                            ? Color(red: 48.0 / 255, green: 48.0 / 255, blue: 48.0 / 255)
                             : Color.insulin.opacity(0.2)
                     )
                     .frame(height: 56)

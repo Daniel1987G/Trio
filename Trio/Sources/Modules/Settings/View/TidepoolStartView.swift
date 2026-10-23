@@ -56,7 +56,7 @@ struct TidepoolStartView: BaseView {
                         HStack(alignment: .center) {
                             Text("You can connect Trio to seamlessly upload and manage your diabetes data on Tidepool.")
                                 .font(.footnote)
-                                .foregroundColor(.secondary)
+                                .foregroundColor(Color(red: 224.0 / 255, green: 224.0 / 255, blue: 224.0 / 255))
                                 .lineLimit(nil)
                                 .multilineTextAlignment(.leading)
                                 .fixedSize(horizontal: false, vertical: true)
@@ -74,7 +74,7 @@ struct TidepoolStartView: BaseView {
                         }.padding(.top)
                     }.padding(.vertical)
                 }
-            ).listRowBackground(Color.chart)
+            ).listRowBackground(appState.trioCardBackgroundColor())
         }
         .sheet(isPresented: $state.setupTidepool) {
             if let serviceUIType = state.serviceUIType,

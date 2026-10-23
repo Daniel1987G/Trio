@@ -60,7 +60,10 @@ extension ISFEditor {
                         }
                         .frame(width: UIScreen.main.bounds.width * 0.9, alignment: .center)
                         .disabled(shouldDisableButton)
-                        .background(shouldDisableButton ? Color(.systemGray4) : Color(.systemBlue))
+                        .background(
+                            shouldDisableButton ? Color(.systemGray4) :
+                                Color(red: 85.0 / 255, green: 85.0 / 255, blue: 85.0 / 255)
+                        )
                         .tint(.white)
                         .clipShape(RoundedRectangle(cornerRadius: 8))
                     }

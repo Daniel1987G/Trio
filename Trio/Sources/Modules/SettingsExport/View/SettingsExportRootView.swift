@@ -84,7 +84,7 @@ extension SettingsExport {
                             .padding(.vertical, 2)
                         }
                     }
-                ).listRowBackground(Color.chart)
+                ).listRowBackground(appState.trioCardBackgroundColor())
 
                 Section {
                     Button(action: {
@@ -144,7 +144,8 @@ extension SettingsExport {
                         .frame(maxWidth: .infinity, alignment: .center)
                         .tint(.white)
                 }.listRowBackground(
-                    state.selectedCategories.isEmpty ? Color(.systemGray4) : Color(.systemBlue)
+                    state.selectedCategories
+                        .isEmpty ? Color(.systemGray4) : Color(red: 85.0 / 255, green: 85.0 / 255, blue: 85.0 / 255)
                 )
             }
             .listSectionSpacing(sectionSpacing)

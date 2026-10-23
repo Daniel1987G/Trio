@@ -139,7 +139,7 @@ struct WatchConfigGarminView: View {
                         }.padding(.top)
                     }.padding(.vertical)
                 }
-            ).listRowBackground(Color.chart)
+            ).listRowBackground(appState.trioCardBackgroundColor())
 
             // MARK: - Device List Section
 
@@ -154,7 +154,7 @@ struct WatchConfigGarminView: View {
                             .onDelete(perform: onDelete)
                         }
                     }
-                ).listRowBackground(Color.chart)
+                ).listRowBackground(appState.trioCardBackgroundColor())
 
                 // MARK: - App Settings Navigation Section
 
@@ -174,7 +174,7 @@ struct WatchConfigGarminView: View {
                         }
                         .foregroundColor(.primary)
                     }
-                ).listRowBackground(Color.chart)
+                ).listRowBackground(appState.trioCardBackgroundColor())
             }
         }
         .listSectionSpacing(sectionSpacing)

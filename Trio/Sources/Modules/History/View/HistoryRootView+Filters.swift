@@ -73,7 +73,7 @@ extension History.RootView {
             }
             .padding()
             .presentationCompactAdaptation(.popover)
-            .background(Color.chart)
+            .background(Color(red: 48.0 / 255, green: 48.0 / 255, blue: 48.0 / 255))
         }
     }
 

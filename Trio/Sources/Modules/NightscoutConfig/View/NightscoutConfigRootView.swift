@@ -60,7 +60,7 @@ extension NightscoutConfig {
                             NavigationLink("Upload", destination: NightscoutUploadView(state: state))
                             NavigationLink("Fetch", destination: NightscoutFetchView(state: state))
                         }
-                    ).listRowBackground(Color.chart)
+                    ).listRowBackground(appState.trioCardBackgroundColor())
 
                     Section(
                         content:
@@ -92,7 +92,7 @@ extension NightscoutConfig {
                                         "Backfill missing glucose data from Nightscout."
                                     )
                                     .font(.footnote)
-                                    .foregroundColor(.secondary)
+                                    .foregroundColor(Color(red: 224.0 / 255, green: 224.0 / 255, blue: 224.0 / 255))
                                     .lineLimit(nil)
                                     .multilineTextAlignment(.leading)
                                     .fixedSize(horizontal: false, vertical: true)
@@ -121,7 +121,7 @@ extension NightscoutConfig {
                                 }.padding(.top)
                             }.padding(.vertical)
                         }
-                    ).listRowBackground(Color.chart)
+                    ).listRowBackground(appState.trioCardBackgroundColor())
                 }
                 .listSectionSpacing(sectionSpacing)
             }

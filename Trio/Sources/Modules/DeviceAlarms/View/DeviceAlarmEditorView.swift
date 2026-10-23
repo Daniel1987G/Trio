@@ -52,7 +52,7 @@ struct DeviceAlarmEditorView: View {
                         String(localized: "Override Silence & Focus Mode"),
                         isOn: $working.overridesSilenceAndDND
                     )
-                }.listRowBackground(Color.chart)
+                }.listRowBackground(appState.trioCardBackgroundColor())
 
                 AlarmActiveSection(activeOption: $working.activeOption)
                 AlarmAudioSection(
@@ -67,7 +67,7 @@ struct DeviceAlarmEditorView: View {
                             .font(.footnote)
                             .foregroundColor(.secondary)
                     }
-                }.listRowBackground(Color.chart)
+                }.listRowBackground(appState.trioCardBackgroundColor())
 
                 if !isNew, store.canDelete(working) {
                     Section {
@@ -77,7 +77,7 @@ struct DeviceAlarmEditorView: View {
                         } label: {
                             Text("Delete Variant")
                         }
-                    }.listRowBackground(Color.chart)
+                    }.listRowBackground(appState.trioCardBackgroundColor())
                 }
             }
             .scrollContentBackground(.hidden).background(appState.trioBackgroundColor(for: colorScheme))

@@ -26,7 +26,7 @@ struct DevicesView: BaseView {
                     Text("Smart Watch").navigationLink(to: .watch, from: self)
                 }
             )
-            .listRowBackground(Color.chart)
+            .listRowBackground(appState.trioCardBackgroundColor())
         }
         .scrollContentBackground(.hidden)
         .background(appState.trioBackgroundColor(for: colorScheme))

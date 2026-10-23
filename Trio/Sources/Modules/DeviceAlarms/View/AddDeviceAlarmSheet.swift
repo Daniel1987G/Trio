@@ -34,7 +34,7 @@ struct AddDeviceAlarmSheet: View {
                             }
                         }
                     }
-                }.listRowBackground(Color.chart)
+                }.listRowBackground(appState.trioCardBackgroundColor())
             }
             .scrollContentBackground(.hidden).background(appState.trioBackgroundColor(for: colorScheme))
             .navigationTitle("Add Variant")

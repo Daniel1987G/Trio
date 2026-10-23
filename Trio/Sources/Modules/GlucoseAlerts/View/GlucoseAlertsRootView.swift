@@ -41,14 +41,14 @@ extension GlucoseAlerts {
                         ForEach(enabledAlerts) { alarm in
                             row(for: alarm)
                         }
-                    }.listRowBackground(Color.chart)
+                    }.listRowBackground(appState.trioCardBackgroundColor())
                 }
                 if !disabledAlerts.isEmpty {
                     Section(header: Text("Disabled")) {
                         ForEach(disabledAlerts) { alarm in
                             row(for: alarm).opacity(0.6)
                         }
-                    }.listRowBackground(Color.chart)
+                    }.listRowBackground(appState.trioCardBackgroundColor())
                 }
                 if !cgmHandledAlerts.isEmpty {
                     Section(
@@ -58,7 +58,7 @@ extension GlucoseAlerts {
                         ForEach(cgmHandledAlerts) { alarm in
                             row(for: alarm).opacity(0.6)
                         }
-                    }.listRowBackground(Color.chart)
+                    }.listRowBackground(appState.trioCardBackgroundColor())
                 }
 
                 // FIXME: make this into a nice setting with mini and verbose hint
@@ -66,7 +66,7 @@ extension GlucoseAlerts {
                     Text("Day & Night Windows")
                         .foregroundStyle(Color.accentColor)
                         .navigationLink(to: .alarmWindows, from: self)
-                }.listRowBackground(Color.chart)
+                }.listRowBackground(appState.trioCardBackgroundColor())
 
                 Section(footer: Text(useCGMAlertsFooter)) {
                     Toggle(isOn: Binding(
@@ -83,7 +83,7 @@ extension GlucoseAlerts {
                         Text("Use CGM App Alerts")
                     }
                     .disabled(!state.cgmProvidesOwnAlerts)
-                }.listRowBackground(Color.chart)
+                }.listRowBackground(appState.trioCardBackgroundColor())
 
                 SettingInputSection(
                     decimalValue: $decimalPlaceholder,

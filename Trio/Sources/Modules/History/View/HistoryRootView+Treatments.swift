@@ -19,7 +19,9 @@ extension History.RootView {
                     systemImage: "syringe"
                 )
             }
-        }.listRowBackground(Color.chart)
+        }.listRowBackground(
+            Color(.sRGB, red: 0.19, green: 0.19, blue: 0.19, opacity: 1)
+        )
     }
 
     var filteredPumpEvents: [PumpEventStored] {

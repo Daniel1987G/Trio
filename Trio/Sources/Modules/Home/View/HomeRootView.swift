@@ -12,6 +12,14 @@ extension Home {
         @Environment(\.colorScheme) var colorScheme
         @Environment(AppState.self) var appState
 
+        private var homeBackgroundGradient: LinearGradient {
+            LinearGradient(
+                colors: [.black, .black],
+                startPoint: .top,
+                endPoint: .bottom
+            )
+        }
+
         @State var state = StateModel()
 
         @State var settingsPath = NavigationPath()
@@ -208,7 +216,7 @@ extension Home {
             .safeAreaInset(edge: .bottom, spacing: 0) {
                 bottomControls()
             }
-            .background(appState.trioBackgroundColor(for: colorScheme))
+            .background(homeBackgroundGradient)
             .onReceive(
                 resolver.resolve(AlertPermissionsChecker.self)!.$notificationsDisabled,
                 perform: {

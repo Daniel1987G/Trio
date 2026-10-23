@@ -160,7 +160,7 @@ struct MealPresetView: View {
 
                 Spacer()
             }
-        }.listRowBackground(Color.chart)
+        }.listRowBackground(appState.trioCardBackgroundColor())
     }
 
     private var addPresetToTreatmentsButton: some View {
@@ -178,7 +178,7 @@ struct MealPresetView: View {
                 .frame(maxWidth: .infinity, alignment: .center)
         }
         .disabled(noPresetChosen)
-        .listRowBackground(noPresetChosen ? Color(.systemGray3) : Color(.systemBlue))
+        .listRowBackground(noPresetChosen ? Color(.systemGray3) : Color(red: 85.0 / 255, green: 85.0 / 255, blue: 85.0 / 255))
         .shadow(radius: 3)
         .clipShape(RoundedRectangle(cornerRadius: 8))
     }
@@ -240,7 +240,7 @@ struct MealPresetView: View {
                         }
                     }
                 }
-            }.listRowBackground(Color.chart)
+            }.listRowBackground(appState.trioCardBackgroundColor())
         }
     }
 

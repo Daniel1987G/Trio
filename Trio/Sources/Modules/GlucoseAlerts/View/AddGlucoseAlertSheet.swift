@@ -16,7 +16,7 @@ struct AddGlucoseAlertSheet: View {
                         ForEach(availableTypes) { type in
                             availableRow(for: type)
                         }
-                    }.listRowBackground(Color.chart)
+                    }.listRowBackground(appState.trioCardBackgroundColor())
                 }
                 if !unavailableTypes.isEmpty {
                     Section(
@@ -28,7 +28,7 @@ struct AddGlucoseAlertSheet: View {
                         ForEach(unavailableTypes) { type in
                             unavailableRow(for: type)
                         }
-                    }.listRowBackground(Color.chart)
+                    }.listRowBackground(appState.trioCardBackgroundColor())
                 }
             }
             .scrollContentBackground(.hidden).background(appState.trioBackgroundColor(for: colorScheme))

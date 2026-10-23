@@ -67,7 +67,7 @@ struct NightscoutConnectView: View {
                         .tint(Color.loopRed)
                     }
                 }
-            ).listRowBackground(Color.chart)
+            ).listRowBackground(appState.trioCardBackgroundColor())
 
             if state.isConnectedToNS {
                 Section {

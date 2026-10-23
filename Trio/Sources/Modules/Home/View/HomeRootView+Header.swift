@@ -108,6 +108,55 @@ extension Home.RootView {
         }
     }
 
+    // Nur UI-Daten. Die Loop-Berechnung selbst bleibt unverändert.
+    private var blackLayoutProfileISF: Decimal? {
+        guard let schedule = state.fileStorage.retrieve(
+            OpenAPS.Settings.insulinSensitivities, as: InsulinSensitivities.self
+        ), !schedule.sensitivities.isEmpty else { return nil }
+        let components = Calendar.current.dateComponents([.hour, .minute], from: state.timerDate)
+        let minute = (components.hour ?? 0) * 60 + (components.minute ?? 0)
+        let sorted = schedule.sensitivities.sorted { $0.offset < $1.offset }
+        return (sorted.last { $0.offset <= minute } ?? sorted.last)?.sensitivity
+    }
+
+    private var blackLayoutDynamicISF: Decimal? {
+        // Sicherheitsmodus: Die Historie bestätigt nicht zuverlässig,
+        // ob DynISF für die letzte Berechnung tatsächlich aktiv war.
+        // Deshalb keinen Wert fälschlich als DynISF anzeigen.
+        nil
+    }
+
+    private func blackLayoutISFText(_ value: Decimal) -> String {
+        NSDecimalNumber(decimal: value).rounding(
+            accordingToBehavior: NSDecimalNumberHandler(
+                roundingMode: .plain,
+                scale: 0,
+                raiseOnExactness: false,
+                raiseOnOverflow: false,
+                raiseOnUnderflow: false,
+                raiseOnDivideByZero: false
+            )
+        ).stringValue
+    }
+
+    private var blackLayoutISFChangedAt: Date? {
+        guard let current = blackLayoutDynamicISF else { return nil }
+        let history = state.enactedAndNonEnactedDeterminations
+            .compactMap { determination -> (Decimal, Date)? in
+                guard let isf = determination.insulinSensitivity,
+                      let date = determination.deliverAt else { return nil }
+                return (isf.decimalValue, date)
+            }
+            .sorted { $0.1 > $1.1 }
+        guard let first = history.first, blackLayoutISFText(first.0) == blackLayoutISFText(current) else { return nil }
+        // Nur ein echter Wertwechsel ist ein Änderungszeitpunkt.
+        // Wenn die Historie davor nicht weit genug reicht, bleibt die Zeit unbekannt.
+        guard let older = history.firstIndex(where: { blackLayoutISFText($0.0) != blackLayoutISFText(current) }), older > 0 else {
+            return nil
+        }
+        return history[older - 1].1
+    }
+
     var pumpView: some View {
         PumpView(
             reservoir: state.reservoir,
@@ -116,7 +165,10 @@ extension Home.RootView {
             activatedAtDate: state.pumpActivatedAtDate,
             timerDate: state.timerDate,
             pumpStatusHighlightMessage: state.pumpStatusHighlightMessage,
-            battery: state.batteryFromPersistence
+            battery: state.batteryFromPersistence,
+            profileISF: blackLayoutProfileISF,
+            dynamicISF: blackLayoutDynamicISF,
+            dynamicISFChangedAt: blackLayoutISFChangedAt
         )
         .onTapGesture {
             if state.pumpDisplayState == nil {
@@ -142,6 +194,27 @@ extension Home.RootView {
                 state.shouldDisplayPumpSetupSheet.toggle()
             }
         }
+    }
+
+    // Restlaufzeit im rechten Header, unabhängig vom CGM-Fortschrittsring.
+    private func sensorRemainingString(until date: Date) -> String {
+        let seconds = max(0, date.timeIntervalSince(state.timerDate))
+        let days = Int(seconds / 86400)
+        let hours = Int(seconds.truncatingRemainder(dividingBy: 86400) / 3600)
+        let minutes = Int(seconds.truncatingRemainder(dividingBy: 3600) / 60)
+        if days >= 1 { return "\(days)d \(hours)h" }
+        if hours >= 1 { return "\(hours)h \(minutes)m" }
+        return "\(minutes)m"
+    }
+
+    private func sensorRemainingColor(until date: Date) -> Color {
+        date.timeIntervalSince(state.timerDate) <= 36 * 60 * 60 ? .loopRed : .white
+    }
+
+    private func sensorFrameColor(until date: Date) -> Color {
+        date.timeIntervalSince(state.timerDate) <= 36 * 60 * 60
+            ? Color.loopRed.opacity(0.65)
+            : Color.white.opacity(0.45)
     }
 
     @ViewBuilder func rightHeaderPanel() -> some View {
@@ -194,6 +267,29 @@ extension Home.RootView {
                 .accessibilityElement(children: .ignore)
                 .accessibilityLabel(Text("Eventual glucose"))
                 .accessibilityValue(Text(verbatim: "--"))
+            }
+
+            // Sensor-Restlaufzeit rechts direkt unter dem erwarteten Wert.
+            if let sensorExpiresAt = state.cgmSensorExpiresAt {
+                HStack {
+                    Image(systemName: "wave.3.right.circle.fill")
+                        .font(.body)
+                        .foregroundStyle(.white)
+                    Text(sensorRemainingString(until: sensorExpiresAt))
+                        .font(.body)
+                        .fontWeight(.bold)
+                        .fontDesign(.rounded)
+                        .foregroundStyle(sensorRemainingColor(until: sensorExpiresAt))
+                }
+                .padding(.vertical, 5)
+                .padding(.horizontal, 10)
+                .overlay {
+                    Capsule()
+                        .stroke(sensorFrameColor(until: sensorExpiresAt), lineWidth: 1.5)
+                }
+                .accessibilityElement(children: .ignore)
+                .accessibilityLabel(Text("Sensor remaining time"))
+                .accessibilityValue(Text(sensorRemainingString(until: sensorExpiresAt)))
             }
         }
     }

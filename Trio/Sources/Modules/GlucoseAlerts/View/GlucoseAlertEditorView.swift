@@ -73,7 +73,7 @@ struct GlucoseAlertEditorView: View {
                         } label: {
                             Text("Delete Alarm")
                         }
-                    }.listRowBackground(Color.chart)
+                    }.listRowBackground(appState.trioCardBackgroundColor())
                 }
             }
             .scrollContentBackground(.hidden).background(appState.trioBackgroundColor(for: colorScheme))
@@ -118,7 +118,7 @@ struct GlucoseAlertEditorView: View {
                 String(localized: "Override Silence & Focus Mode"),
                 isOn: $working.overridesSilenceAndDND
             )
-        }.listRowBackground(Color.chart)
+        }.listRowBackground(appState.trioCardBackgroundColor())
     }
 
     private var urgentLowBody: some View {

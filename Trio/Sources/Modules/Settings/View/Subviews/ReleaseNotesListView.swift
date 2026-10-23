@@ -20,11 +20,11 @@ struct ReleaseNotesListView: View {
 
                             Text(release.publishedDateString)
                                 .font(.caption)
-                                .foregroundColor(.secondary)
+                                .foregroundColor(Color(red: 224.0 / 255, green: 224.0 / 255, blue: 224.0 / 255))
                         }
                     }
                 }
-            }.listRowBackground(Color.chart)
+            }.listRowBackground(appState.trioCardBackgroundColor())
         }
         .scrollContentBackground(.hidden)
         .background(appState.trioBackgroundColor(for: colorScheme))

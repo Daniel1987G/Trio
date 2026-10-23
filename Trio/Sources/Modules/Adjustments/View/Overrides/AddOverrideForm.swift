@@ -70,7 +70,7 @@ struct AddOverrideForm: View {
                     TextField("(Optional)", text: $state.overrideName).multilineTextAlignment(.trailing)
                 }
             }
-            .listRowBackground(Color.chart)
+            .listRowBackground(appState.trioCardBackgroundColor())
 
             Section(footer: state.percentageDescription(state.overridePercentage)) {
                 // Percentage Picker
@@ -150,7 +150,7 @@ struct AddOverrideForm: View {
                     }
                 }
             }
-            .listRowBackground(Color.chart)
+            .listRowBackground(appState.trioCardBackgroundColor())
 
             Section {
                 Toggle(isOn: $state.shouldOverrideTarget) {
@@ -183,7 +183,7 @@ struct AddOverrideForm: View {
                     }
                 }
             }
-            .listRowBackground(Color.chart)
+            .listRowBackground(appState.trioCardBackgroundColor())
 
             Section {
                 // Picker for ISF/CR settings
@@ -274,7 +274,7 @@ struct AddOverrideForm: View {
                     }
                 }
             }
-            .listRowBackground(Color.chart)
+            .listRowBackground(appState.trioCardBackgroundColor())
 
             if !state.smbIsOff {
                 Section {
@@ -332,7 +332,7 @@ struct AddOverrideForm: View {
                         }
                     }
                 }
-                .listRowBackground(Color.chart)
+                .listRowBackground(appState.trioCardBackgroundColor())
             }
 
             Section {
@@ -379,7 +379,7 @@ struct AddOverrideForm: View {
                     }
                 }
             }
-            .listRowBackground(Color.chart)
+            .listRowBackground(appState.trioCardBackgroundColor())
         }
     }
 
@@ -411,7 +411,7 @@ struct AddOverrideForm: View {
                         .frame(maxWidth: .infinity, alignment: .center)
                         .tint(.white)
                 }
-            ).listRowBackground(isInvalid ? Color(.systemGray4) : Color(.systemBlue))
+            ).listRowBackground(isInvalid ? Color(.systemGray4) : Color(red: 85.0 / 255, green: 85.0 / 255, blue: 85.0 / 255))
 
             Section {
                 Button(action: {

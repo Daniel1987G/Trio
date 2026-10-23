@@ -26,7 +26,7 @@ extension UnitsLimitsSettings {
                             Text("mmol/L").tag(1)
                         }
                     }
-                ).listRowBackground(Color.chart)
+                ).listRowBackground(appState.trioCardBackgroundColor())
 
                 SettingInputSection(
                     decimalValue: $state.maxIOB,

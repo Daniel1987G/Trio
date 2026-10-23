@@ -26,7 +26,7 @@ struct FeatureSettingsView: BaseView {
                     Text("Remote Control").navigationLink(to: .remoteControlConfig, from: self)
                 }
             )
-            .listRowBackground(Color.chart)
+            .listRowBackground(appState.trioCardBackgroundColor())
 
             Section(
                 header: Text("Trio Personalization"),
@@ -35,7 +35,7 @@ struct FeatureSettingsView: BaseView {
                     Text("App Icons").navigationLink(to: .iconConfig, from: self)
                 }
             )
-            .listRowBackground(Color.chart)
+            .listRowBackground(appState.trioCardBackgroundColor())
 
             Section(
                 header: Text("Anonymized Data Sharing"),
@@ -43,7 +43,7 @@ struct FeatureSettingsView: BaseView {
                     Text("App Diagnostics").navigationLink(to: .appDiagnostics, from: self)
                 }
             )
-            .listRowBackground(Color.chart)
+            .listRowBackground(appState.trioCardBackgroundColor())
         }
         .scrollContentBackground(.hidden)
         .background(appState.trioBackgroundColor(for: colorScheme))

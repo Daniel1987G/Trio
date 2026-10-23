@@ -47,7 +47,7 @@ struct ContactImageDetailView: View {
                     content: {
                         TextField("Enter Name (Optional)", text: $contactImageEntry.name)
                     }
-                ).listRowBackground(Color.chart)
+                ).listRowBackground(appState.trioCardBackgroundColor())
 
                 Section(header: Text("Style")) {
                     Picker("Layout", selection: $contactImageEntry.layout) {
@@ -65,14 +65,14 @@ struct ContactImageDetailView: View {
                     if contactImageEntry.layout != .bobble {
                         Toggle("High Contrast Mode", isOn: $contactImageEntry.hasHighContrast)
                     }
-                }.listRowBackground(Color.chart)
+                }.listRowBackground(appState.trioCardBackgroundColor())
 
                 if contactImageEntry.layout == .bobble {
                     Section(header: Text("Glucose Bobble Options")) {
                         colorModePicker
                         Toggle("Show Minutes Since Reading", isOn: $contactImageEntry.bobbleShowMinutesAgo)
                         Toggle("Show Delta", isOn: $contactImageEntry.bobbleShowDelta)
-                    }.listRowBackground(Color.chart)
+                    }.listRowBackground(appState.trioCardBackgroundColor())
                 }
 
                 if contactImageEntry.layout != .bobble {
@@ -96,7 +96,7 @@ struct ContactImageDetailView: View {
                                 Text(value.displayName).tag(value)
                             }
                         }
-                    }.listRowBackground(Color.chart)
+                    }.listRowBackground(appState.trioCardBackgroundColor())
 
                     // Ring Settings Section
                     Section(header: Text("Ring Settings")) {
@@ -118,7 +118,7 @@ struct ContactImageDetailView: View {
                                 }
                             }
                         }
-                    }.listRowBackground(Color.chart)
+                    }.listRowBackground(appState.trioCardBackgroundColor())
 
                     // Font Settings Section
                     Section(header: Text("Font Settings")) {
@@ -130,7 +130,7 @@ struct ContactImageDetailView: View {
                         }
                         fontWeightPicker
                         fontWidthPicker
-                    }.listRowBackground(Color.chart)
+                    }.listRowBackground(appState.trioCardBackgroundColor())
                 }
             }
         }
@@ -185,7 +185,7 @@ struct ContactImageDetailView: View {
                     .padding(10)
             })
                 .frame(width: UIScreen.main.bounds.width * 0.9, alignment: .center)
-                .background(isUnchanged ? Color(.systemGray4) : Color(.systemBlue))
+                .background(isUnchanged ? Color(.systemGray4) : Color(red: 85.0 / 255, green: 85.0 / 255, blue: 85.0 / 255))
                 .disabled(isUnchanged)
                 .tint(.white)
                 .clipShape(RoundedRectangle(cornerRadius: 8))

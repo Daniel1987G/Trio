@@ -48,7 +48,7 @@ struct AlarmBGSection: View {
                     .frame(maxWidth: .infinity)
                 }
             }
-        }.listRowBackground(Color.chart)
+        }.listRowBackground(Color(red: 48.0 / 255, green: 48.0 / 255, blue: 48.0 / 255))
     }
 
     private var pickerValues: [Decimal] {

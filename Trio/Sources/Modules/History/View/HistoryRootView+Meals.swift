@@ -19,7 +19,9 @@ extension History.RootView {
                     systemImage: "fork.knife"
                 )
             }
-        }.listRowBackground(Color.chart)
+        }.listRowBackground(
+            Color(.sRGB, red: 0.19, green: 0.19, blue: 0.19, opacity: 1)
+        )
     }
 
     @ViewBuilder func mealView(_ meal: CarbEntryStored) -> some View {

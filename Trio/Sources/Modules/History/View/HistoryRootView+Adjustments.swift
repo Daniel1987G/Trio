@@ -19,7 +19,9 @@ extension History.RootView {
                 )
             }
         }
-        .listRowBackground(Color.chart)
+        .listRowBackground(
+            Color(.sRGB, red: 0.19, green: 0.19, blue: 0.19, opacity: 1)
+        )
     }
 
     fileprivate var combinedAdjustments: [AdjustmentItem] {

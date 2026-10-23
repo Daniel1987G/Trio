@@ -16,7 +16,7 @@ struct ProgressBar: View {
                         width: min(CGFloat(self.value) * geometry.size.width, geometry.size.width),
                         height: geometry.size.height
                     )
-                    .foregroundColor(.accentColor)
+                    .foregroundColor(Color(red: 0.8, green: 0.8, blue: 0.8))
                     .animation(.linear, value: value)
             }
         }

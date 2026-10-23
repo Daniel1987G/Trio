@@ -67,14 +67,14 @@ extension DeviceAlarms {
                             row(for: config)
                                 .opacity(config.isEnabled ? 1 : 0.5)
                         }
-                    }.listRowBackground(Color.chart)
+                    }.listRowBackground(appState.trioCardBackgroundColor())
                 }
 
                 Section {
                     Text("Day & Night Windows")
                         .foregroundStyle(Color.accentColor)
                         .navigationLink(to: .alarmWindows, from: self)
-                }.listRowBackground(Color.chart)
+                }.listRowBackground(appState.trioCardBackgroundColor())
             }
             .scrollContentBackground(.hidden)
             .background(appState.trioBackgroundColor(for: colorScheme))

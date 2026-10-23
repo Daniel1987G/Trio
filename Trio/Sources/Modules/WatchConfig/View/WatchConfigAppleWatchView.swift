@@ -75,7 +75,7 @@ struct WatchConfigAppleWatchView: BaseView {
                         }
                     }
                 }
-            ).listRowBackground(Color.chart)
+            ).listRowBackground(appState.trioCardBackgroundColor())
         }
         .listSectionSpacing(sectionSpacing)
         .sheet(isPresented: $shouldDisplayHint) {

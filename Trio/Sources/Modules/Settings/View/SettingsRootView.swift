@@ -56,6 +56,10 @@ extension Settings {
         @Environment(\.colorScheme) var colorScheme
         @EnvironmentObject var appIcons: Icons
         @Environment(AppState.self) var appState
+        private var settingsCardBackground: Color {
+            Color(.sRGB, red: 48.0 / 255, green: 48.0 / 255, blue: 48.0 / 255, opacity: 1)
+        }
+
         @Environment(SettingsSearchHighlight.self) var searchHighlight
 
         private var filteredItems: [FilteredSettingItem] {
@@ -96,7 +100,7 @@ extension Settings {
                 } else {
                     Text("Latest version: Fetching...")
                         .font(.footnote)
-                        .foregroundColor(.secondary)
+                        .foregroundColor(Color(red: 224.0 / 255, green: 224.0 / 255, blue: 224.0 / 255))
                 }
 
                 // Show latest dev version on any branch except main
@@ -123,7 +127,7 @@ extension Settings {
                     } else {
                         Text("Latest dev: Fetching...")
                             .font(.footnote)
-                            .foregroundColor(.secondary)
+                            .foregroundColor(Color(red: 224.0 / 255, green: 224.0 / 255, blue: 224.0 / 255))
                     }
                 }
             }
@@ -193,11 +197,11 @@ extension Settings {
                                             )
                                             Text("\(buildDetails.expirationHeaderString): \(formattedDate)")
                                                 .font(.footnote)
-                                                .foregroundColor(.secondary)
+                                                .foregroundColor(Color(red: 224.0 / 255, green: 224.0 / 255, blue: 224.0 / 255))
                                         } else {
                                             Text("Simulator Build has no expiry")
                                                 .font(.footnote)
-                                                .foregroundColor(.secondary)
+                                                .foregroundColor(Color(red: 224.0 / 255, green: 224.0 / 255, blue: 224.0 / 255))
                                         }
 
                                         versionInfoView
@@ -205,7 +209,7 @@ extension Settings {
                                 }
                             }
                         }
-                    ).listRowBackground(Color.chart)
+                    ).listRowBackground(settingsCardBackground)
 
                     let miniHintTextColorForDisabled: Color = colorScheme == .dark ? .orange : .accentColor
                     let miniHintTextColor: Color = dosingModeDisabled ? miniHintTextColorForDisabled : .secondary
@@ -264,7 +268,7 @@ extension Settings {
                             }.padding(.bottom)
                         }
                     )
-                    .listRowBackground(Color.chart)
+                    .listRowBackground(settingsCardBackground)
                     .settingsSearchTarget(label: String(localized: "Dosing Mode"))
                     .onAppear {
                         dosingModeDisabled = !state.hasCgmAndPump()
@@ -278,7 +282,7 @@ extension Settings {
                             }
                         }
                     )
-                    .listRowBackground(Color.chart)
+                    .listRowBackground(settingsCardBackground)
 
                     Section(
                         header: Text("Support & Community"),
@@ -291,7 +295,7 @@ extension Settings {
                                         .foregroundColor(.primary)
                                     Spacer()
                                     Image(systemName: "chevron.right")
-                                        .foregroundColor(.secondary)
+                                        .foregroundColor(Color(red: 224.0 / 255, green: 224.0 / 255, blue: 224.0 / 255))
                                         .font(.footnote)
                                 }
                             }
@@ -307,7 +311,7 @@ extension Settings {
                                         .foregroundColor(.primary)
                                     Spacer()
                                     Image(systemName: "chevron.right")
-                                        .foregroundColor(.secondary)
+                                        .foregroundColor(Color(red: 224.0 / 255, green: 224.0 / 255, blue: 224.0 / 255))
                                         .font(.footnote)
                                 }
                             }
@@ -323,7 +327,7 @@ extension Settings {
                                         .foregroundColor(.primary)
                                     Spacer()
                                     Image(systemName: "chevron.right")
-                                        .foregroundColor(.secondary)
+                                        .foregroundColor(Color(red: 224.0 / 255, green: 224.0 / 255, blue: 224.0 / 255))
                                         .font(.footnote)
                                 }
                             }
@@ -339,13 +343,13 @@ extension Settings {
                                         .foregroundColor(.primary)
                                     Spacer()
                                     Image(systemName: "chevron.right")
-                                        .foregroundColor(.secondary)
+                                        .foregroundColor(Color(red: 224.0 / 255, green: 224.0 / 255, blue: 224.0 / 255))
                                         .font(.footnote)
                                 }
                             }
                             .frame(maxWidth: .infinity, alignment: .leading)
                         }
-                    ).listRowBackground(Color.chart)
+                    ).listRowBackground(settingsCardBackground)
 
                     if !releaseNotesService.releases.isEmpty {
                         Section(
@@ -363,14 +367,14 @@ extension Settings {
                                                     comment: "Marks the release notes entry matching the running build"
                                                 )
                                                 .font(.caption)
-                                                .foregroundColor(.secondary)
+                                                .foregroundColor(Color(red: 224.0 / 255, green: 224.0 / 255, blue: 224.0 / 255))
                                             }
 
                                             Spacer()
 
                                             Text(current.publishedDateString)
                                                 .font(.caption)
-                                                .foregroundColor(.secondary)
+                                                .foregroundColor(Color(red: 224.0 / 255, green: 224.0 / 255, blue: 224.0 / 255))
                                         }
                                     }
                                 }
@@ -384,7 +388,7 @@ extension Settings {
                                     }
                                 }
                             }
-                        ).listRowBackground(Color.chart)
+                        ).listRowBackground(settingsCardBackground)
                     }
 
                     Section(
@@ -396,7 +400,7 @@ extension Settings {
                             ))
                                 .navigationLink(to: .settingsExport, from: self)
                         }
-                    ).listRowBackground(Color.chart)
+                    ).listRowBackground(settingsCardBackground)
 
                 } else {
                     Section(
@@ -413,7 +417,11 @@ extension Settings {
                                             if let path = filteredItem.settingItem.path {
                                                 Text(path.map(\.localized).joined(separator: " > "))
                                                     .font(.caption)
-                                                    .foregroundColor(.secondary)
+                                                    .foregroundColor(Color(
+                                                        red: 224.0 / 255,
+                                                        green: 224.0 / 255,
+                                                        blue: 224.0 / 255
+                                                    ))
                                             }
                                         }
                                     }
@@ -426,7 +434,7 @@ extension Settings {
                                     Text("found.")
                             }
                         }
-                    ).listRowBackground(Color.chart)
+                    ).listRowBackground(settingsCardBackground)
                 }
             }
             .overlay(alignment: .bottom) {

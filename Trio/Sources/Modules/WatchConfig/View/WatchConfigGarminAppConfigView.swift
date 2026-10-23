@@ -92,7 +92,7 @@ struct WatchConfigGarminAppConfigView: View {
                         }.padding(.top)
                     }.padding(.bottom)
                 }
-            ).listRowBackground(Color.chart)
+            ).listRowBackground(appState.trioCardBackgroundColor())
 
             // MARK: - Datafield Selection Section
 
@@ -133,7 +133,7 @@ struct WatchConfigGarminAppConfigView: View {
                         }.padding(.top)
                     }.padding(.bottom)
                 }
-            ).listRowBackground(Color.chart)
+            ).listRowBackground(appState.trioCardBackgroundColor())
 
             // MARK: - Data Field Selection Section
 
@@ -204,7 +204,7 @@ struct WatchConfigGarminAppConfigView: View {
                         }.padding(.top)
                     }.padding(.bottom)
                 }
-            ).listRowBackground(Color.chart)
+            ).listRowBackground(appState.trioCardBackgroundColor())
         }
         .listSectionSpacing(sectionSpacing)
         .scrollContentBackground(.hidden)

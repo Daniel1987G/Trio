@@ -82,7 +82,7 @@ struct AddContactImageSheet: View {
                         content: {
                             TextField("Enter Name (Optional)", text: $contactName)
                         }
-                    ).listRowBackground(Color.chart)
+                    ).listRowBackground(appState.trioCardBackgroundColor())
 
                     // Layout Section
                     Section(header: Text("Style")) {
@@ -100,14 +100,14 @@ struct AddContactImageSheet: View {
                         if layout != .bobble {
                             Toggle("High Contrast Mode", isOn: $hasHighContrast)
                         }
-                    }.listRowBackground(Color.chart)
+                    }.listRowBackground(appState.trioCardBackgroundColor())
 
                     if layout == .bobble {
                         Section(header: Text("Glucose Bobble Options")) {
                             colorModePicker
                             Toggle("Show Minutes Since Reading", isOn: $bobbleShowMinutesAgo)
                             Toggle("Show Delta", isOn: $bobbleShowDelta)
-                        }.listRowBackground(Color.chart)
+                        }.listRowBackground(appState.trioCardBackgroundColor())
                     }
 
                     if layout != .bobble {
@@ -131,7 +131,7 @@ struct AddContactImageSheet: View {
                                 }
                             }
 
-                        }.listRowBackground(Color.chart)
+                        }.listRowBackground(appState.trioCardBackgroundColor())
 
                         // Ring Settings Section
                         Section(header: Text("Ring Settings")) {
@@ -153,7 +153,7 @@ struct AddContactImageSheet: View {
                                     }
                                 }
                             }
-                        }.listRowBackground(Color.chart)
+                        }.listRowBackground(appState.trioCardBackgroundColor())
 
                         // Font Settings Section
                         Section(header: Text("Font Settings")) {
@@ -165,7 +165,7 @@ struct AddContactImageSheet: View {
                             }
                             fontWeightPicker
                             fontWidthPicker
-                        }.listRowBackground(Color.chart)
+                        }.listRowBackground(appState.trioCardBackgroundColor())
                     }
                 }
 
@@ -218,7 +218,7 @@ struct AddContactImageSheet: View {
                     .padding(10)
             })
                 .frame(width: UIScreen.main.bounds.width * 0.9, alignment: .center)
-                .background(Color(.systemBlue))
+                .background(Color(red: 48.0 / 255, green: 48.0 / 255, blue: 48.0 / 255))
                 .tint(.white)
                 .clipShape(RoundedRectangle(cornerRadius: 8))
                 .padding(5)

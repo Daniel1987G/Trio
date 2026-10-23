@@ -124,7 +124,7 @@ extension AutosensSettings {
                         ).buttonStyle(BorderlessButtonStyle())
                     }.padding(.top)
                 }.padding(.bottom)
-            }.listRowBackground(Color.chart)
+            }.listRowBackground(appState.trioCardBackgroundColor())
         }
 
         var body: some View {

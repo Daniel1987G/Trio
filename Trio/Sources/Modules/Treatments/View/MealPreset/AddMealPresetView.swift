@@ -39,7 +39,7 @@ struct AddMealPresetView: View {
                 } header: {
                     Text("New Preset")
                 }
-                .listRowBackground(Color.chart)
+                .listRowBackground(appState.trioCardBackgroundColor())
 
                 Section {
                     carbsTextField()
@@ -47,7 +47,7 @@ struct AddMealPresetView: View {
                         proteinAndFat()
                     }
                 }
-                .listRowBackground(Color.chart)
+                .listRowBackground(appState.trioCardBackgroundColor())
 
                 savePresetButton
             }
@@ -116,7 +116,7 @@ struct AddMealPresetView: View {
                 .foregroundStyle(Color.white)
                 .frame(maxWidth: .infinity, alignment: .center)
         }
-        .listRowBackground(isFormValid ? Color(.systemBlue) : Color(.systemGray))
+        .listRowBackground(isFormValid ? Color(red: 85.0 / 255, green: 85.0 / 255, blue: 85.0 / 255) : Color(.systemGray))
         .shadow(radius: 3)
         .clipShape(RoundedRectangle(cornerRadius: 8))
         .disabled(!isFormValid)

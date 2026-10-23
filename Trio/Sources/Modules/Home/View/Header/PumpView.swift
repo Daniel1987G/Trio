@@ -9,9 +9,26 @@ struct PumpView: View {
     let timerDate: Date
     let pumpStatusHighlightMessage: String?
     let battery: [OpenAPS_Battery]
+    // Anzeigeinformationen; keine Änderung der Dosierungslogik.
+    let profileISF: Decimal?
+    let dynamicISF: Decimal?
+    let dynamicISFChangedAt: Date?
     @Environment(\.colorScheme) var colorScheme
 
     let NORMAL_PATCH_AGE = TimeInterval.hours(80)
+
+    private var pumpInfoBorderColor: Color {
+        Color.white.opacity(colorScheme == .dark ? 0.55 : 0.35)
+    }
+
+    private var isMedtrumPump: Bool {
+        name.localizedCaseInsensitiveContains("medtrum")
+    }
+
+    private var reservoirIsLow: Bool {
+        guard let reservoir, reservoir != 0xDEAD_BEEF else { return false }
+        return reservoir < 50
+    }
 
     private var batteryFormatter: NumberFormatter {
         let formatter = NumberFormatter()
@@ -85,10 +102,10 @@ struct PumpView: View {
                     }
                     .padding(.vertical, 5)
                     .padding(.horizontal, 10)
-                    .foregroundStyle(reservoirColor)
+                    .foregroundStyle(reservoirIsLow ? Color.loopRed : Color.white)
                     .overlay(
                         Capsule()
-                            .stroke(reservoirColor.opacity(0.4), lineWidth: 2)
+                            .stroke(reservoirIsLow ? Color.loopRed : pumpInfoBorderColor, lineWidth: 1.5)
                     )
                     .accessibilityElement(children: .ignore)
                     .accessibilityLabel(Text("Reservoir"))
@@ -106,13 +123,76 @@ struct PumpView: View {
                     .accessibilityElement(children: .ignore)
                     .accessibilityLabel(Text("Pump battery"))
                     .accessibilityValue(Text(batteryAccessibilityValue))
+                    .padding(.vertical, 5)
+                    .padding(.horizontal, 10)
+                    .overlay(Capsule().stroke(pumpInfoBorderColor, lineWidth: 1.5))
                 }
+
+                // Black Layout: kompakte ISF-Anzeige statt Katheter-Tragedauer.
+                VStack(alignment: .leading, spacing: 1) {
+                    HStack(spacing: 3) {
+                        Text(isfText(profileISF))
+                            .foregroundStyle(Color.white)
+                        Text("→")
+                            .foregroundStyle(isfArrowColor)
+                        Text(isfText(dynamicISF))
+                            .foregroundStyle(Color.white)
+                    }
+                    .font(.callout).fontWeight(.bold).fontDesign(.rounded)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.8)
+
+                    HStack(spacing: 3) {
+                        Image(systemName: "clock")
+                        Text(dynamicISFChangedAt.map {
+                            $0.formatted(date: .omitted, time: .shortened)
+                        } ?? "–")
+                    }
+                    .font(.caption2)
+                    .foregroundStyle(Color.gray)
+                    .lineLimit(1)
+                }
+                .padding(.vertical, 4)
+                .padding(.horizontal, 10)
+                .overlay(Capsule().stroke(pumpInfoBorderColor, lineWidth: 1.5))
+                .accessibilityElement(children: .combine)
+                .accessibilityLabel(Text("Profil-ISF zu berechnetem ISF, Zeitpunkt der letzten Änderung"))
 
                 if let date = expiresAtDate {
                     PatchTimer(forDate: date)
                 }
             }
         }
+    }
+
+    private func isfText(_ value: Decimal?) -> String {
+        guard let value else { return "–" }
+        return NSDecimalNumber(decimal: value).rounding(accordingToBehavior: NSDecimalNumberHandler(
+            roundingMode: .plain, scale: 0,
+            raiseOnExactness: false, raiseOnOverflow: false,
+            raiseOnUnderflow: false, raiseOnDivideByZero: false
+        )).stringValue
+    }
+
+    private var isfArrowColor: Color {
+        guard let profileISF, let dynamicISF else { return .white }
+        let shownProfile = NSDecimalNumber(string: isfText(profileISF))
+        let shownDynamic = NSDecimalNumber(string: isfText(dynamicISF))
+        if shownDynamic.compare(shownProfile) == .orderedDescending {
+            return Color.loopGreen
+        }
+        if shownDynamic.compare(shownProfile) == .orderedAscending {
+            return Color.orange
+        }
+        return .white
+    }
+
+    private func cannulaAgeString(since date: Date) -> String {
+        let seconds = max(0, timerDate.timeIntervalSince(date))
+        let days = Int(seconds / 86400)
+        let hours = Int(seconds.truncatingRemainder(dividingBy: 86400) / 3600)
+        return "\(days)" + String(localized: "d", comment: "abbreviation for days") + " \(hours)" +
+            String(localized: "h", comment: "abbreviation for hours")
     }
 
     @ViewBuilder private func PatchTimer(forDate date: Date) -> some View {

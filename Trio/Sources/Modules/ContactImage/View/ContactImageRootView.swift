@@ -46,7 +46,7 @@ extension ContactImage {
                         content: {
                             Text("No Contact Trick Entries.")
                         }
-                    ).listRowBackground(Color.chart)
+                    ).listRowBackground(appState.trioCardBackgroundColor())
                 } else {
                     ForEach(state.contactImageEntries, id: \.id) { entry in
                         NavigationLink(destination: ContactImageDetailView(entry: entry, state: state)) {
@@ -84,7 +84,7 @@ extension ContactImage {
                     .foregroundStyle(.secondary)
                 }
 
-            }.listRowBackground(Color.chart)
+            }.listRowBackground(appState.trioCardBackgroundColor())
         }
 
         private func onDelete(offsets: IndexSet) {

@@ -81,7 +81,7 @@ struct CarbEntryEditorView: View {
     }
 
     private var buttonBackgroundColor: Color {
-        var treatmentButtonBackground = Color(.systemBlue)
+        var treatmentButtonBackground = Color(red: 85.0 / 255, green: 85.0 / 255, blue: 85.0 / 255)
         if limitExceeded {
             treatmentButtonBackground = Color(.systemRed)
         } else if isButtonDisabled {
@@ -171,7 +171,7 @@ struct CarbEntryEditorView: View {
                         Image(systemName: "square.and.pencil")
                         TextFieldWithToolBarString(text: $editedNote, placeholder: String(localized: "Note..."), maxLength: 25)
                     }
-                }.listRowBackground(Color.chart)
+                }.listRowBackground(appState.trioCardBackgroundColor())
 
                 Section {
                     DatePicker(
@@ -179,7 +179,7 @@ struct CarbEntryEditorView: View {
                         selection: $editedDate,
                         displayedComponents: [.date, .hourAndMinute]
                     )
-                }.listRowBackground(Color.chart)
+                }.listRowBackground(appState.trioCardBackgroundColor())
             }
             .safeAreaInset(
                 edge: .bottom,

@@ -79,7 +79,7 @@ struct AddTempTargetForm: View {
                     TextField("(Optional)", text: $state.tempTargetName)
                         .multilineTextAlignment(.trailing)
                 }
-            }.listRowBackground(Color.chart)
+            }.listRowBackground(appState.trioCardBackgroundColor())
 
             Section {
                 let settingsProvider = PickerSettingsProvider.shared
@@ -118,7 +118,7 @@ struct AddTempTargetForm: View {
                     }
                 }
             }
-            .listRowBackground(Color.chart)
+            .listRowBackground(appState.trioCardBackgroundColor())
 
             if state.tempTargetTarget != TempTargetCalculations.normalTarget {
                 if state.isAdjustSensEnabled() {
@@ -168,13 +168,13 @@ struct AddTempTargetForm: View {
                             }
                         }
                     )
-                    .listRowBackground(Color.chart)
+                    .listRowBackground(appState.trioCardBackgroundColor())
                 }
             }
 
             Section {
                 DatePicker("Start Time", selection: $state.date, in: Date.now...)
-            }.listRowBackground(Color.chart)
+            }.listRowBackground(appState.trioCardBackgroundColor())
 
             Section {
                 VStack {
@@ -217,7 +217,7 @@ struct AddTempTargetForm: View {
                         }
                     }
                 }
-            }.listRowBackground(Color.chart)
+            }.listRowBackground(appState.trioCardBackgroundColor())
         }
     }
 
@@ -290,7 +290,11 @@ struct AddTempTargetForm: View {
                         .frame(maxWidth: .infinity, alignment: .center)
                         .tint(.white)
                 }
-            ).listRowBackground(isTempTargetInvalid ? Color(.systemGray4) : Color(.systemBlue))
+            )
+            .listRowBackground(
+                isTempTargetInvalid ? Color(.systemGray4) :
+                    Color(red: 85.0 / 255, green: 85.0 / 255, blue: 85.0 / 255)
+            )
 
             Section {
                 Button(action: {

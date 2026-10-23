@@ -59,7 +59,7 @@ extension Calibrations {
                         }
                         label: { Text("Add") }
                             .disabled(state.newCalibration <= 0)
-                    }.listRowBackground(Color.chart)
+                    }.listRowBackground(appState.trioCardBackgroundColor())
 
                     Section(header: Text("Info")) {
                         HStack {
@@ -72,7 +72,7 @@ extension Calibrations {
                             Spacer()
                             Text(formatter.string(from: state.intercept as NSNumber)!)
                         }
-                    }.listRowBackground(Color.chart)
+                    }.listRowBackground(appState.trioCardBackgroundColor())
 
                     Section(header: Text("Remove")) {
                         Button {
@@ -103,13 +103,13 @@ extension Calibrations {
 
                             }.onDelete(perform: delete)
                         }
-                    }.listRowBackground(Color.chart)
+                    }.listRowBackground(appState.trioCardBackgroundColor())
 
                     if state.calibrations.isNotEmpty {
                         Section(header: Text("Chart")) {
                             CalibrationsChart(state: state)
                                 .frame(minHeight: geo.size.width)
-                        }.listRowBackground(Color.chart)
+                        }.listRowBackground(appState.trioCardBackgroundColor())
                     }
                 }
             }

@@ -40,6 +40,7 @@ extension CGMSettings {
                                     HStack {
                                         Image(systemName: "sensor.tag.radiowaves.forward.fill")
                                         Text(cgmState.displayName)
+                                            .foregroundColor(.white)
                                     }
                                     .frame(maxWidth: .infinity, minHeight: 50, alignment: .center)
                                     .font(.title2)
@@ -81,7 +82,7 @@ extension CGMSettings {
                         }
                     }
                 )
-                .listRowBackground(Color.chart)
+                .listRowBackground(appState.trioCardBackgroundColor())
 
                 if state.cgmCurrent.type == .plugin && state.cgmCurrent.id.contains("Libre") {
                     Section {
@@ -89,7 +90,7 @@ extension CGMSettings {
                             destination: Calibrations.RootView(resolver: resolver),
                             label: { Text("Libre Calibrations") }
                         )
-                    }.listRowBackground(Color.chart)
+                    }.listRowBackground(appState.trioCardBackgroundColor())
                 }
 
                 SettingInputSection(

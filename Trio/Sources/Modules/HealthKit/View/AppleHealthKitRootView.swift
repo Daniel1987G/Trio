@@ -61,7 +61,7 @@ extension AppleHealthKit {
                         }
                         .padding(.vertical)
                         .foregroundColor(Color.secondary)
-                    }.listRowBackground(Color.chart)
+                    }.listRowBackground(appState.trioCardBackgroundColor())
                 }
             }
             .listSectionSpacing(sectionSpacing)

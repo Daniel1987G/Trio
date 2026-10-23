@@ -27,7 +27,7 @@ struct AlgorithmSettings: BaseView {
                     Text("Target Behavior").navigationLink(to: .targetBehavior, from: self)
                     Text("Additionals").navigationLink(to: .algorithmAdvancedSettings, from: self)
                 }
-            ).listRowBackground(Color.chart)
+            ).listRowBackground(appState.trioCardBackgroundColor())
         }
         .scrollContentBackground(.hidden)
         .background(appState.trioBackgroundColor(for: colorScheme))

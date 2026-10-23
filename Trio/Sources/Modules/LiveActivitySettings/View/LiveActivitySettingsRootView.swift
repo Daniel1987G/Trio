@@ -35,7 +35,7 @@ extension LiveActivitySettings {
                         content: {
                             Text("Live Activities must be enabled under iOS Settings to allow Trio to display live data.")
                         }
-                    ).listRowBackground(Color.chart)
+                    ).listRowBackground(appState.trioCardBackgroundColor())
 
                     Section {
                         Button {
@@ -190,7 +190,7 @@ extension LiveActivitySettings {
                                     ).foregroundStyle(Color.accentColor)
                                 }
                             }
-                        }.listRowBackground(Color.chart)
+                        }.listRowBackground(appState.trioCardBackgroundColor())
 
                         Section {
                             VStack {
@@ -245,7 +245,7 @@ extension LiveActivitySettings {
                                     ).buttonStyle(BorderlessButtonStyle())
                                 }.padding(.top)
                             }.padding(.bottom)
-                        }.listRowBackground(Color.chart)
+                        }.listRowBackground(appState.trioCardBackgroundColor())
                     }
                 }
             }

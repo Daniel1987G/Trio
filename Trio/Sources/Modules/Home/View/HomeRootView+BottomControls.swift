@@ -319,11 +319,11 @@ extension Home.RootView {
     }
 
     // same track pattern as BolusProgressBar, slightly slimmer
-    @ViewBuilder func remainingBar(_ fraction: Double?, tint: Color) -> some View {
+    @ViewBuilder func remainingBar(_ fraction: Double?, tint _: Color) -> some View {
         GeometryReader { barGeo in
             if let fraction {
                 RoundedRectangle(cornerRadius: 15)
-                    .fill(tint.opacity(0.85))
+                    .fill(Color(red: 0.8, green: 0.8, blue: 0.8))
                     .frame(width: barGeo.size.width * fraction, height: 4)
                     .frame(maxHeight: .infinity, alignment: .bottom)
             }
@@ -513,7 +513,7 @@ extension Home.RootView {
             .padding(.horizontal, 10)
             .padding(.trailing, 8)
             .frame(height: HomeLayout.bottomPanelHeight)
-            .glassPanel(tint: .insulin, tintOpacity: 0.18, strokeOpacity: 0.30)
+            .glassPanel(tint: .clear, tintOpacity: 0, strokeOpacity: 0.30)
             .overlay(alignment: .bottom) {
                 // bar hugs the panel's bottom edge (the slot no longer has outer bottom padding)
                 BolusProgressBar(progress: progress)

@@ -40,6 +40,7 @@ extension PumpConfig {
                                         .scaledToFit()
                                         .frame(maxWidth: 100)
                                     Text(pumpState.name)
+                                        .foregroundColor(.white)
                                 }
                                 .frame(maxWidth: .infinity, minHeight: 50, alignment: .center)
                                 .font(.title2)
@@ -79,7 +80,7 @@ extension PumpConfig {
                             }.padding(.vertical)
                         }
                     }
-                ).listRowBackground(Color.chart)
+                ).listRowBackground(appState.trioCardBackgroundColor())
             }
             .scrollContentBackground(.hidden).background(appState.trioBackgroundColor(for: colorScheme))
             .onAppear(perform: configureView)

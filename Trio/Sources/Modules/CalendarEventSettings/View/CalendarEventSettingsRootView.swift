@@ -59,7 +59,7 @@ extension CalendarEventSettings {
                                 }
                             }
                         }
-                    }.listRowBackground(Color.chart)
+                    }.listRowBackground(appState.trioCardBackgroundColor())
 
                     SettingInputSection(
                         decimalValue: $decimalPlaceholder,
