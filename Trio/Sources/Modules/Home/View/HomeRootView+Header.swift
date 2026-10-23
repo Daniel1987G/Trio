@@ -110,13 +110,9 @@ extension Home.RootView {
 
     // Nur UI-Daten. Die Loop-Berechnung selbst bleibt unverändert.
     private var blackLayoutProfileISF: Decimal? {
-        guard let schedule = state.fileStorage.retrieve(
-            OpenAPS.Settings.insulinSensitivities, as: InsulinSensitivities.self
-        ), !schedule.sensitivities.isEmpty else { return nil }
-        let components = Calendar.current.dateComponents([.hour, .minute], from: state.timerDate)
-        let minute = (components.hour ?? 0) * 60 + (components.minute ?? 0)
-        let sorted = schedule.sensitivities.sorted { $0.offset < $1.offset }
-        return (sorted.last { $0.offset <= minute } ?? sorted.last)?.sensitivity
+        // Vorübergehend ausgeblendet, bis die Initialisierung
+        // der Profilwerte zuverlässig geprüft wurde.
+        nil
     }
 
     private var blackLayoutDynamicISF: Decimal? {
