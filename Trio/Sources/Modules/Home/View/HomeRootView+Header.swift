@@ -141,22 +141,18 @@ extension Home.RootView {
         return current.sensitivity
     }
 
+    // Zuletzt berechneter ISF – Autosens oder Dynamic ISF.
     private var blackLayoutDynamicISF: Decimal? {
         guard let latest = state.enactedAndNonEnactedDeterminations.first,
               let date = latest.deliverAt,
-              Date().timeIntervalSince(date) >= 0,
-              Date().timeIntervalSince(date) <= 15 * 60,
-              let reason = latest.reason,
-              reason.contains("Dynamic ISF: On"),
-              let sensitivity = latest.insulinSensitivity
+              (0 ... 900).contains(Date().timeIntervalSince(date)),
+              let sensitivity = latest.insulinSensitivity,
+              sensitivity.decimalValue > 0
         else {
             return nil
         }
 
-        let value = sensitivity.decimalValue
-        guard value > 0 else { return nil }
-
-        return value
+        return sensitivity.decimalValue
     }
 
     private func blackLayoutISFText(_ value: Decimal) -> String {
@@ -173,9 +169,55 @@ extension Home.RootView {
     }
 
     private var blackLayoutISFChangedAt: Date? {
-        // Änderungszeit erst anzeigen, wenn ein bestätigter
-        // Dynamic-ISF-Wertwechsel zuverlässig ermittelt wurde.
-        nil
+        guard let current = blackLayoutDynamicISF else { return nil }
+
+        func displayed(_ value: Decimal) -> Decimal {
+            let scale: Int = state.units == .mmolL ? 1 : 0
+            return Trio.rounded(
+                value.asUnit(state.units),
+                scale: scale,
+                roundingMode: .plain
+            )
+        }
+
+        let now = Date()
+        let history = state.enactedAndNonEnactedDeterminations
+            .compactMap { entry -> (value: Decimal, date: Date)? in
+                guard let date = entry.deliverAt,
+                      date <= now,
+                      let isf = entry.insulinSensitivity,
+                      isf.decimalValue > 0
+                else {
+                    return nil
+                }
+                return (displayed(isf.decimalValue), date)
+            }
+            .sorted { $0.date > $1.date }
+
+        guard let first = history.first,
+              first.value == displayed(current)
+        else {
+            return nil
+        }
+
+        var changedAt = first.date
+        var previousDate = first.date
+
+        for entry in history.dropFirst() {
+            // Bei größeren Datenlücken keine Uhrzeit behaupten.
+            guard previousDate.timeIntervalSince(entry.date) <= 900 else {
+                return nil
+            }
+
+            if entry.value != first.value {
+                return changedAt
+            }
+
+            changedAt = entry.date
+            previousDate = entry.date
+        }
+
+        return nil
     }
 
     var pumpView: some View {
