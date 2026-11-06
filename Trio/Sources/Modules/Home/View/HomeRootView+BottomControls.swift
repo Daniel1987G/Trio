@@ -475,6 +475,7 @@ extension Home.RootView {
                     + String(localized: " U", comment: "Insulin unit")
             let bolusLabel = state
                 .bolusStatus == .inProgress ? String(localized: "Bolusing") : String(localized: "Initiating…")
+            let pulses = omnipodPulses(total: bolusTotal as Decimal, progress: progress)
 
             HStack {
                 Image(systemName: "cross.vial.fill")
@@ -487,13 +488,13 @@ extension Home.RootView {
                     Text(bolusLabel)
                         .font(.subheadline)
                         .frame(maxWidth: .infinity, alignment: .leading)
-                    Text(bolusString)
+                    Text(bolusString + (pulses.map { " · " + $0 } ?? ""))
                         .font(.caption)
                         .frame(maxWidth: .infinity, alignment: .leading)
                 }.padding(.leading, 5)
                     .accessibilityElement(children: .ignore)
                     .accessibilityLabel(Text(bolusLabel))
-                    .accessibilityValue(Text(bolusString))
+                    .accessibilityValue(Text(bolusString + (pulses.map { ", " + $0 } ?? "")))
 
                 Spacer()
 
@@ -522,6 +523,21 @@ extension Home.RootView {
             }
             .padding(.horizontal, 10)
         }
+    }
+
+    /// "10 of 20 pulses" for an Omnipod bolus. The total is in actual units, so it is converted to pump
+    /// units for the insulin concentration first (2 U of U200 are 1 pump U = 20 pulses).
+    func omnipodPulses(total: Decimal, progress: Decimal) -> String? {
+        guard let pulseSize = state.omnipodPulseSize, pulseSize > 0 else { return nil }
+        let pumpUnits = state.pumpInsulinConcentration.toPump(total)
+        let totalPulses = Int(Double(truncating: (pumpUnits / pulseSize) as NSNumber).rounded())
+        guard totalPulses > 0 else { return nil }
+        let fraction = min(max(Double(truncating: progress as NSNumber), 0), 1)
+        let delivered = Int((fraction * Double(totalPulses)).rounded(.down))
+        return String(
+            localized: "\(delivered) of \(totalPulses) pulses",
+            comment: "Omnipod bolus progress: delivered and total pod pulses"
+        )
     }
 
     func statsDistributionBar(_ segments: [(color: Color, fraction: CGFloat)]) -> some View {
@@ -663,7 +679,8 @@ extension Home.RootView {
             maxIOB: state.maxIOB,
             hasUnacknowledgedReleaseNotes: releaseNotesService.hasUnacknowledgedNotes,
             dosingMode: state.dosingMode,
-            now: state.timerDate
+            now: state.timerDate,
+            extendedBolus: state.visibleExtendedBolus
         )
     }
 
@@ -677,6 +694,7 @@ extension Home.RootView {
         tintOpacity: Double? = nil,
         strokeOpacity: Double? = nil,
         strokeWidth: CGFloat? = nil,
+        accessorySystemImage: String = "chevron.right",
         action: @escaping () -> Void
     ) -> some View {
         Button(action: action) {
@@ -695,7 +713,7 @@ extension Home.RootView {
 
                     Spacer(minLength: 8)
 
-                    Image(systemName: "chevron.right")
+                    Image(systemName: accessorySystemImage)
                         .font(.system(size: 15, weight: .semibold))
                         .foregroundStyle(.secondary)
                 }
@@ -771,6 +789,8 @@ extension Home.RootView {
             ) {
                 showReleaseNotes = true
             }
+        case let .extendedBolus(bolus):
+            extendedBolusBanner(bolus)
         case let .dosingModeLimited(mode):
             panelBanner(
                 systemImage: mode.icon,
@@ -783,6 +803,66 @@ extension Home.RootView {
         case .stats:
             statsBanner()
         }
+    }
+
+    @ViewBuilder func extendedBolusBanner(_ bolus: ExtendedBolus) -> some View {
+        let delivered = insulinText(bolus.deliveredUnits)
+        let total = insulinText(bolus.totalUnits)
+        if bolus.isActive {
+            let minutesLeft = max(0, Int(bolus.endDate.timeIntervalSince(state.timerDate) / 60))
+            let minutesToStart = Int((bolus.extendedStartDate.timeIntervalSince(state.timerDate) / 60).rounded(.up))
+            panelBanner(
+                systemImage: "timer",
+                title: String(localized: "Extended Bolus", comment: "Home panel title for a running extended bolus"),
+                subtitle: bolus.isWaitingForStart(at: state.timerDate) ?
+                    String(
+                        localized: "\(total) starts in \(formatHrMin(max(1, minutesToStart))) · tap to stop",
+                        comment: "Home panel subtitle while an extended bolus waits for its delayed start: total, time until start"
+                    ) :
+                    String(
+                        localized: "\(delivered) of \(total) · \(formatHrMin(minutesLeft)) left · tap to stop",
+                        comment: "Home panel subtitle for a running extended bolus: delivered, total, time left"
+                    ),
+                tint: .insulin
+            ) {
+                showCancelExtendedBolusDialog = true
+            }
+            .confirmationDialog(
+                String(localized: "Stop Extended Bolus?"),
+                isPresented: $showCancelExtendedBolusDialog,
+                titleVisibility: .visible
+            ) {
+                Button(String(localized: "Stop Extended Bolus"), role: .destructive) {
+                    state.cancelExtendedBolus()
+                }
+                Button(String(localized: "Cancel"), role: .cancel) {}
+            } message: {
+                Text("\(delivered) of \(total) have been delivered. The rest will not be given.")
+            }
+        } else {
+            panelBanner(
+                systemImage: "exclamationmark.triangle.fill",
+                title: String(localized: "Extended Bolus Stopped", comment: "Home panel title"),
+                subtitle: (
+                    bolus.endReason == .lowGlucose
+                        ? String(localized: "Low glucose · \(delivered) of \(total) delivered")
+                        : String(localized: "Not completed in time · \(delivered) of \(total) delivered")
+                ) + " · " + String(localized: "tap to dismiss", comment: "Home panel: hides the notice"),
+                tint: .orange,
+                accessorySystemImage: "xmark"
+            ) {
+                state.dismissStoppedExtendedBolus()
+            }
+            .accessibilityHint(Text(String(localized: "Hides this notice", comment: "Accessibility hint")))
+        }
+    }
+
+    private func insulinText(_ units: Decimal) -> String {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.minimumFractionDigits = 0
+        formatter.maximumFractionDigits = 2
+        return (formatter.string(from: units as NSNumber) ?? "0") + String(localized: " U", comment: "Insulin unit")
     }
 
     /// The mode picker sits on the Settings root, so there is no sub-screen target to push.
@@ -799,18 +879,136 @@ extension Home.RootView {
         ))
     }
 
+    // MARK: - Rescue carbs
+
+    /// Temp target of the rescue carbs setting in the user's glucose unit.
+    private var rescueTempTargetText: String {
+        let mgdL = Decimal(RescueCarbSettings.tempTarget)
+        if state.units == .mmolL {
+            let formatter = NumberFormatter()
+            formatter.numberStyle = .decimal
+            formatter.minimumFractionDigits = 1
+            formatter.maximumFractionDigits = 1
+            return (formatter.string(from: mgdL.asMmolL as NSNumber) ?? "") + " " + GlucoseUnits.mmolL.rawValue
+        }
+        return "\(RescueCarbSettings.tempTarget) " + GlucoseUnits.mgdL.rawValue
+    }
+
+    private var rescueCarbsDialogMessage: String {
+        var lines = [String(
+            localized: "Logs \(RescueCarbSettings.grams) g rescue carbs. They are not counted as carbs on board, so Trio does not give insulin for them.",
+            comment: "Rescue carbs confirmation"
+        )]
+        if RescueCarbSettings.tempTargetEnabled {
+            lines.append(String(
+                localized: "Starts a temp target of \(rescueTempTargetText) for \(RescueCarbSettings.duration) min.",
+                comment: "Rescue carbs confirmation"
+            ))
+        }
+        if let recent = rescueCarbsRecent {
+            let minutes = max(0, Int(Date().timeIntervalSince(recent.date) / 60))
+            lines.append(String(
+                localized: "Rescue carbs were already logged \(minutes) min ago (\(recent.grams) g).",
+                comment: "Rescue carbs confirmation"
+            ))
+        }
+        return lines.joined(separator: "\n\n")
+    }
+
+    private func rescueCarbsResultText(_ result: RescueCarbsResult) -> String {
+        var text = String(localized: "\(result.grams) g rescue carbs logged.", comment: "Rescue carbs result")
+        switch result.tempTarget {
+        case let .started(_, minutes):
+            text += " " + String(
+                localized: "Temp target \(rescueTempTargetText) for \(minutes) min started.",
+                comment: "Rescue carbs result"
+            )
+        case .keptActive:
+            text += " " + String(
+                localized: "The active temp target is at least as high and keeps running.",
+                comment: "Rescue carbs result"
+            )
+        case .disabled:
+            break
+        case let .failed(message):
+            text += " " + String(
+                localized: "The temp target could not be started: \(message)",
+                comment: "Rescue carbs result"
+            )
+        }
+        return text
+    }
+
+    @ViewBuilder var rescueCarbsButton: some View {
+        Button {
+            rescueCarbsRecent = state.rescueCarbsManager?.recentEntry()
+            showRescueCarbsDialog = true
+        } label: {
+            VStack(spacing: 2) {
+                // ear of wheat: ties the button to carbs
+                Image("wheatEar")
+                    .renderingMode(.template)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 22, height: 22)
+                    .accessibilityHidden(true)
+                Text("\(RescueCarbSettings.grams) g")
+                    .font(.caption2.weight(.semibold))
+            }
+            .foregroundStyle(Color.red)
+            .frame(width: 54, height: HomeLayout.bottomPanelHeight)
+            .glassPanel(tint: .red, tintOpacity: 0.12, strokeOpacity: 0.30)
+        }
+        .buttonStyle(.plain)
+        .padding(.trailing, 10)
+        .accessibilityLabel(Text("Rescue Carbs"))
+        .confirmationDialog(
+            Text("Rescue Carbs"),
+            isPresented: $showRescueCarbsDialog,
+            titleVisibility: .visible
+        ) {
+            Button(String(localized: "Log \(RescueCarbSettings.grams) g Rescue Carbs", comment: "Rescue carbs button")) {
+                let impact = UIImpactFeedbackGenerator(style: .heavy)
+                impact.impactOccurred()
+                Task {
+                    guard let manager = state.rescueCarbsManager else { return }
+                    let result = await manager.logRescueCarbs()
+                    await MainActor.run { rescueCarbsMessage = rescueCarbsResultText(result) }
+                }
+            }
+            Button("Cancel", role: .cancel) {}
+        } message: {
+            Text(rescueCarbsDialogMessage)
+        }
+        .alert(
+            Text("Rescue Carbs"),
+            isPresented: Binding(
+                get: { rescueCarbsMessage != nil },
+                set: { if !$0 { rescueCarbsMessage = nil } }
+            )
+        ) {
+            Button("OK", role: .cancel) {}
+        } message: {
+            Text(rescueCarbsMessage ?? "")
+        }
+    }
+
     /// Bottom-anchored fixed zone: adjustment/bolus panel above the stats banner.
     @ViewBuilder func bottomControls() -> some View {
         VStack(spacing: HomeLayout.bottomZonePadding) {
-            Group {
-                if let progress = state.bolusProgress {
-                    bolusView(progress)
-                } else {
-                    adjustmentView()
+            HStack(spacing: 0) {
+                Group {
+                    if let progress = state.bolusProgress {
+                        bolusView(progress)
+                    } else {
+                        adjustmentView()
+                    }
                 }
+                .frame(height: HomeLayout.bottomPanelHeight)
+                .animation(.easeInOut(duration: 0.2), value: state.bolusProgress != nil)
+
+                rescueCarbsButton
             }
-            .frame(height: HomeLayout.bottomPanelHeight)
-            .animation(.easeInOut(duration: 0.2), value: state.bolusProgress != nil)
 
             multiUsePanel()
                 .frame(height: HomeLayout.statsBannerHeight)

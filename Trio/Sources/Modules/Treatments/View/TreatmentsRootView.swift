@@ -1,6 +1,7 @@
 import Charts
 import CoreData
 import LoopKitUI
+import PhotosUI
 import SwiftUI
 import Swinject
 
@@ -25,6 +26,16 @@ extension Treatments {
         @State private var pushed: Bool = false
         @State private var debounce: DispatchWorkItem?
         @State private var showFatProteinOrderBanner = false
+
+        // Meal photo analysis
+        @State private var showPhotoSourceDialog = false
+        @State private var showCamera = false
+        @State private var showPhotoLibrary = false
+        @State private var photoPickerItem: PhotosPickerItem?
+        @State private var showMealPhotoSheet = false
+        @State private var showMealPhotoSetupAlert = false
+        /// Camera result, analyzed once the camera cover has gone (two modals cannot overlap).
+        @State private var capturedMealPhoto: UIImage?
 
         /// Check whether the on-screen keyboard is currently up.
         @State private var isKeyboardVisible = false
@@ -236,6 +247,30 @@ extension Treatments {
             }
         }
 
+        /// Opens camera or library and estimates carbs, fat and protein with the configured AI provider.
+        private var mealPhotoButton: some View {
+            Button {
+                if state.isMealPhotoConfigured {
+                    showPhotoSourceDialog = true
+                } else {
+                    showMealPhotoSetupAlert = true
+                }
+            } label: {
+                HStack {
+                    Image(systemName: "camera.viewfinder")
+                    Text("Estimate from Photo")
+                    Spacer()
+                    Image(systemName: "sparkles").foregroundStyle(.secondary)
+                }
+            }
+            .buttonStyle(.borderless)
+        }
+
+        private func startMealPhotoAnalysis(_ image: UIImage) {
+            state.analyzeMealPhoto(image)
+            showMealPhotoSheet = true
+        }
+
         /// Own view for Reduced Bolus / Super Bolus toggles, the recommendation readout and the Bolus field
         @ViewBuilder private var bolusSection: some View {
             if state.fattyMeals || state.sweetMeals {
@@ -269,6 +304,31 @@ extension Treatments {
                                 }
                             }
                         }
+                    }
+                }
+            }
+
+            if state.iob > 0 || state.ignorePositiveIOB {
+                VStack(alignment: .leading, spacing: 4) {
+                    Toggle(isOn: $state.ignorePositiveIOB) {
+                        Text(
+                            String(
+                                localized: "Don't subtract IOB (\(formatter.string(from: state.iob as NSNumber) ?? "0") U)",
+                                comment: "Bolus calculator: do not subtract positive insulin on board"
+                            )
+                        )
+                    }
+                    .toggleStyle(RadioButtonToggleStyle())
+                    .font(.footnote)
+                    .onChange(of: state.ignorePositiveIOB) {
+                        Task { state.insulinCalculated = await state.calculateInsulin() }
+                    }
+                    if state.ignorePositiveIOB {
+                        Text(
+                            "Active insulin is not taken into account for this bolus. Use only if it no longer acts on this meal or correction: risk of stacking insulin and of hypoglycemia. Max IOB still applies."
+                        )
+                        .font(.caption)
+                        .foregroundStyle(.orange)
                     }
                 }
             }
@@ -341,6 +401,170 @@ extension Treatments {
                 Spacer()
                 Toggle("", isOn: $state.externalInsulin).toggleStyle(CheckboxToggleStyle())
             }
+
+            if !state.externalInsulin {
+                extendedBolusRows
+            }
+        }
+
+        /// Meal type with a pre-selected bolus strategy, and the extended bolus it may set up.
+        @ViewBuilder private var extendedBolusRows: some View {
+            Picker(selection: Binding(
+                get: { state.mealCarbType },
+                set: { state.selectMealCarbType($0) }
+            )) {
+                ForEach(MealCarbType.allCases) { type in
+                    Text(type.displayName).tag(type)
+                }
+            } label: {
+                Text("Meal Type")
+            }
+            .pickerStyle(.menu)
+            .disabled(state.isExtendedBolusRunning)
+
+            if state.mealCarbType != .standard {
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(state.mealCarbType.examples).font(.caption).foregroundStyle(.secondary)
+                    Text(state.mealCarbType.strategy).font(.footnote)
+                }
+            }
+
+            HStack {
+                Text("Extended Bolus")
+                Spacer()
+                Toggle("", isOn: $state.useExtendedBolus).toggleStyle(CheckboxToggleStyle())
+            }
+            .disabled(state.isExtendedBolusRunning)
+
+            if state.isExtendedBolusRunning {
+                Text("An extended bolus is already running. Stop it on the Home screen to start a new one.")
+                    .font(.footnote)
+                    .foregroundStyle(.secondary)
+            } else if state.useExtendedBolus {
+                if state.extendedCoversFPU {
+                    fpuRows
+                } else {
+                    Stepper(value: $state.extendedImmediatePercent, in: 0 ... 90, step: 10) {
+                        HStack {
+                            Text("Immediate Part")
+                            Spacer()
+                            Text("\(state.extendedImmediatePercent) %").foregroundStyle(.secondary)
+                        }
+                    }
+                }
+                Stepper(value: $state.extendedDurationMinutes, in: 30 ... 480, step: 30) {
+                    HStack {
+                        Text("Extended Over")
+                        Spacer()
+                        Text(formatHrMin(state.extendedDurationMinutes)).foregroundStyle(.secondary)
+                    }
+                }
+                Stepper(
+                    value: $state.extendedDelayMinutes,
+                    in: MealCarbTypeSettings.extendedDelayRange,
+                    step: MealCarbTypeSettings.extendedDelayStep
+                ) {
+                    HStack {
+                        Text("Extended Part Starts")
+                        Spacer()
+                        Text(
+                            state.extendedDelayMinutes == 0 ?
+                                String(localized: "immediately", comment: "Extended bolus delay of 0 minutes") :
+                                String(
+                                    localized: "after \(formatHrMin(state.extendedDelayMinutes))",
+                                    comment: "Extended bolus delay, e.g. 'after 30 m'"
+                                )
+                        )
+                        .foregroundStyle(.secondary)
+                    }
+                }
+                let split = state.extendedBolusSplit
+                let immediateText = formatter.string(from: split.immediate as NSNumber) ?? "0"
+                let extendedText = formatter.string(from: split.extended as NSNumber) ?? "0"
+                let entryCount = state.extendedCarbSchedule(from: Date()).count
+                let startText = state.extendedDelayMinutes == 0 ?
+                    String(localized: "immediately", comment: "Extended bolus delay of 0 minutes") :
+                    String(
+                        localized: "after \(formatHrMin(state.extendedDelayMinutes))",
+                        comment: "Extended bolus delay, e.g. 'after 30 m'"
+                    )
+                Group {
+                    if split.extended > 0, state.extendedCarbGrams <= 0 {
+                        Text("The extended part cannot be entered as carbs without a carb ratio.")
+                            .foregroundStyle(.red)
+                    } else {
+                        Text(
+                            "Now \(immediateText) U as a bolus. The remaining \(extendedText) U are entered as \(state.extendedCarbGrams) g carbs in \(entryCount) entries over \(formatHrMin(state.extendedDurationMinutes)), starting \(startText). The loop doses for each entry when it becomes due."
+                        )
+                    }
+                }
+                .font(.footnote)
+                .foregroundStyle(.secondary)
+
+                if state.pendingExtendedCarbGrams > 0 {
+                    Text(
+                        "Another extended bolus is still running with \(state.pendingExtendedCarbGrams) g carbs to come. Its entries and the new ones add up; the chart shows each in its own row."
+                    )
+                    .font(.footnote)
+                    .foregroundStyle(.secondary)
+                }
+                if state.extendedCarbsMayExceedMaxCOB {
+                    let maxCOBText = Formatter.integerFormatter.string(from: state.maxCOB as NSNumber) ?? "0"
+                    Text(
+                        "COB, the carbs still to come and this meal can add up to more than Max COB (\(maxCOBText) g). The loop then counts at most \(maxCOBText) g and doses less than planned."
+                    )
+                    .font(.footnote)
+                    .foregroundStyle(.orange)
+                }
+            }
+        }
+
+        /// FPU count, the insulin for it and why fat/protein are not also entered as delayed carbs.
+        @ViewBuilder private var fpuRows: some View {
+            Stepper(
+                value: Binding(
+                    get: { state.extendedFPU },
+                    set: {
+                        state.extendedFPU = $0
+                        state.updateExtendedDurationForFPU()
+                    }
+                ),
+                in: 0 ... 12,
+                step: 0.5
+            ) {
+                HStack {
+                    Text("Fat-Protein Units (FPU)")
+                    Spacer()
+                    Text(fpuFormatter.string(from: state.extendedFPU as NSNumber) ?? "0").foregroundStyle(.secondary)
+                }
+            }
+            let fpu = state.fpuInsulin
+            if state.effectiveCarbRatio > 0 {
+                Text(
+                    "FPU insulin: \(state.fpuInsulinPercent) % of \(formatter.string(from: fpu.full as NSNumber) ?? "0") U = \(formatter.string(from: fpu.given as NSNumber) ?? "0") U (1 FPU like 10 g carbs, carb ratio \(formatter.string(from: state.effectiveCarbRatio as NSNumber) ?? "0") g/U). The bolus field above is given now."
+                )
+                .font(.footnote)
+                .foregroundStyle(.secondary)
+            } else {
+                Text("No carb ratio available, the FPU insulin cannot be calculated.")
+                    .font(.footnote)
+                    .foregroundStyle(.orange)
+            }
+            if state.fat > 0 || state.protein > 0 {
+                Text(
+                    "Fat and protein are entered only once, as the carb entries of the extended part, so they are not covered twice."
+                )
+                .font(.footnote)
+                .foregroundStyle(.secondary)
+            }
+        }
+
+        private var fpuFormatter: NumberFormatter {
+            let formatter = NumberFormatter()
+            formatter.numberStyle = .decimal
+            formatter.minimumFractionDigits = 1
+            formatter.maximumFractionDigits = 1
+            return formatter
         }
 
         var body: some View {
@@ -354,6 +578,8 @@ extension Treatments {
                             }.listRowBackground(Color.chart)
 
                             Section {
+                                mealPhotoButton
+
                                 carbsTextField()
                                     .id(FocusedField.carbs)
 
@@ -514,6 +740,58 @@ extension Treatments {
             .sheet(isPresented: $state.showInfo) {
                 PopupView(state: state)
             }
+            .confirmationDialog(
+                String(localized: "Analyze Meal Photo"),
+                isPresented: $showPhotoSourceDialog,
+                titleVisibility: .visible
+            ) {
+                if UIImagePickerController.isSourceTypeAvailable(.camera) {
+                    Button(String(localized: "Take Photo")) { showCamera = true }
+                }
+                Button(String(localized: "Choose from Library")) { showPhotoLibrary = true }
+                Button(String(localized: "Cancel"), role: .cancel) {}
+            }
+            .fullScreenCover(isPresented: $showCamera, onDismiss: {
+                if let image = capturedMealPhoto {
+                    capturedMealPhoto = nil
+                    startMealPhotoAnalysis(image)
+                }
+            }) {
+                CameraImagePicker { image in
+                    capturedMealPhoto = image
+                }
+                .ignoresSafeArea()
+            }
+            .photosPicker(isPresented: $showPhotoLibrary, selection: $photoPickerItem, matching: .images)
+            .onChange(of: photoPickerItem) {
+                guard let item = photoPickerItem else { return }
+                photoPickerItem = nil
+                Task {
+                    if let data = try? await item.loadTransferable(type: Data.self), let image = UIImage(data: data) {
+                        startMealPhotoAnalysis(image)
+                    }
+                }
+            }
+            .sheet(isPresented: $showMealPhotoSheet, onDismiss: {
+                // closing the sheet without taking over the values discards the analysis
+                if case .result = state.mealPhotoState { state.mealPhotoState = .idle }
+            }) {
+                MealPhotoAnalysisSheet(
+                    photoState: state.mealPhotoState,
+                    fatProteinEnabled: state.useFPUconversion,
+                    onApply: { analysis in state.applyMealPhoto(analysis) },
+                    onRetry: {
+                        if let image = state.mealPhotoState.image { state.analyzeMealPhoto(image) }
+                    }
+                )
+            }
+            .alert(String(localized: "Meal Photo Analysis"), isPresented: $showMealPhotoSetupAlert) {
+                Button(String(localized: "OK"), role: .cancel) {}
+            } message: {
+                Text(
+                    "To estimate a meal from a photo, add an API key for Anthropic Claude, OpenAI or Google Gemini in Settings → Features → Treatments → Meal Settings → Meal Photo Analysis."
+                )
+            }
             .sheet(isPresented: $showPresetSheet, onDismiss: {
                 showPresetSheet = false
             }) {
@@ -542,6 +820,23 @@ extension Treatments {
         }
 
         @State private var showConfirmDialogForBolusing = false
+        @State private var showZeroBolusWarning = false
+
+        /// Continues with the regular flow: the low-glucose confirmation if needed, otherwise the treatment.
+        private func proceedWithTreatment() {
+            if bolusWarning.shouldConfirm {
+                showConfirmDialogForBolusing = true
+            } else {
+                state.invokeTreatmentsTask()
+            }
+        }
+
+        /// Back to the bolus field, once the sheet is gone so the keyboard can appear.
+        private func focusBolusField() {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                focusedField = .bolus
+            }
+        }
 
         private var bolusWarning: (shouldConfirm: Bool, warningMessage: String, color: Color) {
             let isGlucoseVeryLow = state.currentBG < 54
@@ -580,10 +875,10 @@ extension Treatments {
                         .listRowInsets(EdgeInsets(top: 4, leading: 0, bottom: 4, trailing: 0))
                 } else {
                     Button {
-                        if bolusWarning.shouldConfirm {
-                            showConfirmDialogForBolusing = true
+                        if state.amount == 0 {
+                            showZeroBolusWarning = true
                         } else {
-                            state.invokeTreatmentsTask()
+                            proceedWithTreatment()
                         }
                     } label: {
                         HStack {
@@ -623,6 +918,22 @@ extension Treatments {
                         .padding(.top, -22)
                 }
             }
+            .glassActionSheet(
+                Text("The bolus to deliver is 0 U."),
+                message: state.insulinCalculated > 0 ?
+                    Text("Recommended: \(state.insulinCalculated.description) U") : nil,
+                isPresented: $showZeroBolusWarning,
+                actions: [
+                    GlassSheetAction("Continue without Bolus") {
+                        proceedWithTreatment()
+                    },
+                    GlassSheetAction("Back to Bolus Field") {
+                        focusBolusField()
+                    }
+                ],
+                onCancel: { focusBolusField() },
+                tint: .red
+            )
         }
 
         /// Card-style in-progress visualizer matching Home's `bolusView` look:
@@ -712,7 +1023,9 @@ extension Treatments {
                 return Text("Max Protein of \(state.maxProtein.description) g Exceeded")
             }
 
-            let hasInsulin = state.amount > 0
+            // a fat/protein-only meal can have only the extended FPU part
+            let hasInsulin = state.amount > 0 ||
+                (!state.externalInsulin && state.extendedCoversFPU && state.extendedBolusSplit.extended > 0)
             let hasCarbs = state.carbs > 0
             let hasFatOrProtein = state.fat > 0 || state.protein > 0
             let bolusString = state.externalInsulin ? String(localized: "External Insulin") : String(localized: "Enact Bolus")

@@ -3,6 +3,14 @@ import Swinject
 
 extension MealSettings {
     struct RootView: BaseView {
+        @AppStorage(MealCarbTypeSettings.fpuInsulinPercentKey) private var fpuInsulinPercent: Int = MealCarbType
+            .defaultFPUInsulinPercent
+        @AppStorage(MealCarbTypeSettings.extendedDelayMinutesKey) private var extendedDelayMinutes: Int = 0
+        @AppStorage(RescueCarbSettings.gramsKey) private var rescueGrams: Int = RescueCarbSettings.defaultGrams
+        @AppStorage(RescueCarbSettings.tempTargetEnabledKey) private var rescueTempTargetEnabled: Bool = true
+        @AppStorage(RescueCarbSettings.tempTargetKey) private var rescueTempTarget: Int = RescueCarbSettings
+            .defaultTempTarget
+        @AppStorage(RescueCarbSettings.durationKey) private var rescueDuration: Int = RescueCarbSettings.defaultDuration
         let resolver: Resolver
 
         @StateObject var state = StateModel()
@@ -40,8 +48,98 @@ extension MealSettings {
             return formatter
         }
 
+        /// Rescue temp target (stored in mg/dL) in the user's glucose unit.
+        private var rescueTempTargetText: String {
+            if state.units == .mmolL {
+                return (conversionFormatter.string(from: Decimal(rescueTempTarget).asMmolL as NSNumber) ?? "") + " " +
+                    GlucoseUnits.mmolL.rawValue
+            }
+            return "\(rescueTempTarget) " + GlucoseUnits.mgdL.rawValue
+        }
+
         var body: some View {
             List {
+                Section(
+                    header: Text("Meal Photo Analysis"),
+                    content: {
+                        Text("Meal Photo Analysis").navigationLink(to: .mealPhotoSettings, from: self)
+                    }
+                ).listRowBackground(Color.chart)
+
+                Section(
+                    header: Text("Rescue Carbs"),
+                    footer: Text(
+                        "The rescue carbs button on the home screen logs this amount without adding it to carbs on board, so Trio does not give insulin for it when glucose rises again. The temp target additionally slows down insulin delivery after the low. An active temp target that is at least as high keeps running."
+                    )
+                ) {
+                    Stepper(value: $rescueGrams, in: RescueCarbSettings.gramsRange, step: 1) {
+                        HStack {
+                            Text("Amount")
+                            Spacer()
+                            Text("\(rescueGrams) g").foregroundStyle(.secondary)
+                        }
+                    }
+                    Toggle("Start Temp Target", isOn: $rescueTempTargetEnabled)
+                    if rescueTempTargetEnabled {
+                        Stepper(value: $rescueTempTarget, in: RescueCarbSettings.tempTargetRange, step: 5) {
+                            HStack {
+                                Text("Temp Target")
+                                Spacer()
+                                Text(rescueTempTargetText).foregroundStyle(.secondary)
+                            }
+                        }
+                        Stepper(value: $rescueDuration, in: RescueCarbSettings.durationRange, step: 15) {
+                            HStack {
+                                Text("Duration")
+                                Spacer()
+                                Text("\(rescueDuration) min").foregroundStyle(.secondary)
+                            }
+                        }
+                    }
+                }.listRowBackground(Color.chart)
+
+                Section(
+                    header: Text("Extended Bolus"),
+                    footer: Text(
+                        "Default time between the immediate bolus and the first carb entry of the extended part. The extended part is entered as carbs (units × carb ratio), one entry every 30 minutes over the chosen duration; the loop doses for each entry when it becomes due. The time can be changed for each bolus in the treatment screen."
+                    )
+                ) {
+                    Stepper(
+                        value: $extendedDelayMinutes,
+                        in: MealCarbTypeSettings.extendedDelayRange,
+                        step: MealCarbTypeSettings.extendedDelayStep
+                    ) {
+                        HStack {
+                            Text("Extended Part Starts")
+                            Spacer()
+                            Text(
+                                extendedDelayMinutes == 0 ?
+                                    String(localized: "immediately", comment: "Extended bolus delay of 0 minutes") :
+                                    String(
+                                        localized: "after \(extendedDelayMinutes) min",
+                                        comment: "Extended bolus delay in minutes, e.g. 'after 30 min'"
+                                    )
+                            )
+                            .foregroundStyle(.secondary)
+                        }
+                    }
+                }.listRowBackground(Color.chart)
+
+                Section(
+                    header: Text("Extended Bolus for Fat and Protein"),
+                    footer: Text(
+                        "Used when the meal type \"Rich in Fat and Protein\" or \"Fat/Protein Almost Without Carbs\" is selected in the treatment screen: per fat-protein unit (FPU = 100 kcal from fat and protein) as much insulin as per 10 g carbs, times this share. Starting with about 50 % is usually recommended to avoid lows. Discuss changes with your diabetes team."
+                    )
+                ) {
+                    Stepper(value: $fpuInsulinPercent, in: 10 ... 100, step: 10) {
+                        HStack {
+                            Text("FPU Insulin Share")
+                            Spacer()
+                            Text("\(fpuInsulinPercent) %").foregroundStyle(.secondary)
+                        }
+                    }
+                }.listRowBackground(Color.chart)
+
                 Section(
                     header: Text("Limits per Entry"),
                     content: {

@@ -3,6 +3,7 @@ import SpriteKit
 import SwiftDate
 import SwiftUI
 import Swinject
+import UIKit
 
 extension Home {
     struct RootView: BaseView {
@@ -19,6 +20,11 @@ extension Home {
         @State var isStatusPopupPresented = false
         @State var showCancelAlert = false
         @State var showCancelConfirmDialog = false
+        @State var showCancelExtendedBolusDialog = false
+        @State var showRescueCarbsDialog = false
+        @AppStorage(HomeHeaderStyle.storageKey) var headerStyle: HomeHeaderStyle = .bento
+        @State var rescueCarbsRecent: RescueCarbEntry?
+        @State var rescueCarbsMessage: String?
         @State var isConfirmStopOverrideShown = false
         @State var isConfirmStopOverridePresented = false
         @State var isConfirmStopTempTargetShown = false
@@ -52,6 +58,8 @@ extension Home {
         @State var chartReadoutDeterminationDate: Date? = nil
         /// Whether the readout owns the meal slot. The one thing the fade is keyed on.
         @State var isChartReadoutVisible = false
+        /// Set while the full-screen chart (statistics button in the header) is shown.
+        @State var landscapeChart: LandscapeChartOrientation?
 
         @FetchRequest(fetchRequest: OverrideStored.fetch(
             NSPredicate.lastActiveOverride,
@@ -76,7 +84,8 @@ extension Home {
         @ViewBuilder func mainChart(geo: GeometryProxy) -> some View {
             // the chart is the only flexible zone: it takes what the fixed slots leave over
             let chartHeight = max(
-                geo.size.height - HomeLayout.headerHeight - HomeLayout.mealSlotHeight - HomeLayout.bottomZoneHeight,
+                geo.size.height - HomeLayout.headerHeight - HomeLayout.mealSlotHeight - HomeLayout.chartTopGap
+                    - HomeLayout.bottomZoneHeight,
                 HomeLayout.chartMinHeight
             )
             ZStack {
@@ -229,10 +238,15 @@ extension Home {
                        bluetoothManager.bluetoothAuthorization != .authorized
                     {
                         BluetoothRequiredView()
+                    } else if headerStyle == .bento {
+                        bentoHeaderTop()
                     } else {
                         HStack(alignment: .center, spacing: 0) {
-                            pumpView
-                                .frame(maxWidth: .infinity, alignment: .leading)
+                            HStack(spacing: 8) {
+                                statisticsButton(tile: false)
+                                pumpView
+                            }
+                            .frame(maxWidth: .infinity, alignment: .leading)
 
                             glucoseView
                                 .frame(width: 130)
@@ -254,9 +268,18 @@ extension Home {
                     .animation(ChartSelectionLookup.readoutFade, value: isChartReadoutVisible)
                     .task(id: chartSelection) { await updateChartReadout() }
 
+                // air between the header and the chart; subtracted from the chart height above
+                Color.clear.frame(height: HomeLayout.chartTopGap)
+
                 mainChart(geo: geo)
             }
             .frame(maxWidth: .infinity)
+        }
+
+        /// Pulled out of `mainView()`: that builder chain is already close to the type-checker's limit.
+        /// Read from the state mirror, never `state.settingsManager`, which is nil until `configureView()`.
+        private var pumpInsulinConcentration: InsulinConcentration {
+            state.pumpInsulinConcentration
         }
 
         @ViewBuilder func mainView() -> some View {
@@ -322,6 +345,7 @@ extension Home {
                     PumpConfig.PumpSetupView(
                         pumpEntry: pumpEntry,
                         pumpInitialSettings: state.pumpInitialSettings,
+                        insulinConcentration: pumpInsulinConcentration,
                         bluetoothManager: state.provider.apsManager.bluetoothManager!,
                         completionDelegate: state,
                         setupDelegate: state
@@ -584,6 +608,18 @@ extension Home {
                     CustomProgressView(text: String(localized: "Updating IOB...", comment: "Progress text when updating IOB"))
                 }
             }
+            .onAppear { UIDevice.current.beginGeneratingDeviceOrientationNotifications() }
+            .onReceive(Foundation.NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)) { _ in
+                updateLandscapeChart(for: UIDevice.current.orientation)
+            }
+            .fullScreenCover(isPresented: Binding(
+                get: { landscapeChart != nil },
+                set: { if !$0 { landscapeChart = nil } }
+            )) {
+                HomeLandscapeChartView(state: state, orientation: landscapeChart ?? .left) {
+                    landscapeChart = nil
+                }
+            }
             .sheet(isPresented: $showQuickPickTreatmentsPicker) {
                 QuickPickTreatmentsView(
                     bolusSuggestions: state.quickPickBolusSuggestions,
@@ -667,5 +703,50 @@ func formatTimeRange(start: String?, end: String?) -> String {
         } else {
             return ""
         }
+    }
+}
+
+// MARK: - Landscape chart
+
+extension Home.RootView {
+    /// Opens the full-screen chart. It never opens by itself; turning the phone only chooses which
+    /// way the open chart is turned. Closed with its close button.
+    func openLandscapeChart() {
+        landscapeChart = LandscapeChartOrientation(UIDevice.current.orientation) ?? .left
+    }
+
+    /// While the full-screen chart is open, follow the phone between the two landscape sides.
+    func updateLandscapeChart(for deviceOrientation: UIDeviceOrientation) {
+        guard landscapeChart != nil, let orientation = LandscapeChartOrientation(deviceOrientation) else { return }
+        landscapeChart = orientation
+    }
+
+    /// Statistics button in the header, left of the pump information; opens the full-screen chart.
+    @ViewBuilder func statisticsButton(tile: Bool) -> some View {
+        Button {
+            openLandscapeChart()
+        } label: {
+            if tile {
+                BentoTile(tint: nil, cornerRadius: 16) {
+                    Image(systemName: "chart.bar.xaxis")
+                        .font(.system(size: 18, weight: .semibold))
+                        .foregroundStyle(Color.primary)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                }
+                .frame(width: 48)
+            } else {
+                Image(systemName: "chart.bar.xaxis")
+                    .font(.callout)
+                    .foregroundStyle(.primary)
+                    .frame(width: 32, height: 32)
+                    .overlay(
+                        Circle()
+                            .stroke(Color.primary.opacity(0.4), lineWidth: 2)
+                    )
+            }
+        }
+        .buttonStyle(.plain)
+        .accessibilityLabel(Text("Statistics"))
+        .accessibilityHint(Text("Shows the chart across the whole display", comment: "Accessibility hint"))
     }
 }

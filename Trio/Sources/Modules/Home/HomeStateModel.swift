@@ -11,6 +11,7 @@ import LibreTransmitter
 import LoopKit
 import LoopKitUI
 import Observation
+import OmnipodKit
 import SwiftDate
 import SwiftUI
 import SyaiKit
@@ -26,6 +27,7 @@ extension Home {
         @ObservationIgnored @Injected() var glucoseStorage: GlucoseStorage!
         @ObservationIgnored @Injected() var carbsStorage: CarbsStorage!
         @ObservationIgnored @Injected() var tempTargetStorage: TempTargetsStorage!
+        @ObservationIgnored @Injected() var rescueCarbsManager: RescueCarbsManager!
         @ObservationIgnored @Injected() var overrideStorage: OverrideStorage!
         @ObservationIgnored @Injected() var bluetoothManager: BluetoothStateManager!
         @ObservationIgnored @Injected() var iobService: IOBService!
@@ -57,6 +59,11 @@ extension Home {
         var lastLoopDate: Date = .distantPast
         var battery: Battery?
         var reservoir: Decimal?
+        /// Mirrors of the settings for the header: the view renders before `settingsManager` is injected.
+        var pumpInsulinConcentration: InsulinConcentration = .u100
+        var pumpInsulinConcentrationSyncPending = false
+        /// Insulin per pod pulse in pump units (0.05) while an Omnipod is paired, for the bolus progress readout.
+        var omnipodPulseSize: Decimal?
         var pumpName = ""
         var pumpExpiresAtDate: Date?
         var pumpActivatedAtDate: Date?
@@ -70,6 +77,10 @@ extension Home {
         var errorMessage: String?
         var errorDate: Date?
         var bolusProgress: Decimal?
+        var extendedBolus: ExtendedBolus?
+        /// A stopped extended bolus the user dismissed from the home panel (kept across launches).
+        var dismissedExtendedBolusID: UUID? = UserDefaults.standard
+            .string(forKey: "home.dismissedExtendedBolusID").flatMap(UUID.init(uuidString:))
         var eventualBG: Int?
         var units: GlucoseUnits = .mgdL
         var pumpDisplayState: PumpDisplayState?
@@ -81,6 +92,8 @@ extension Home {
         var iobProjection: [ProjectionPoint] = []
         var cobProjection: [ProjectionPoint] = []
         var autosensMax: Decimal = 1.2
+        /// Dynamic ISF (preferences.useNewFormula) is on; the loop tile then shows how it moves the ISF.
+        var isDynamicISFEnabled = false
         var lowGlucose: Decimal = 70
         var highGlucose: Decimal = 180
         var currentGlucoseTarget: Decimal = 100
@@ -109,6 +122,10 @@ extension Home {
         /// the range they were computed for; see `refreshExtendedStatsPanel(force:)`.
         var extendedStatsPanel: (range: HomeStatsPanelRange, stats: HomeStatsPanelStats)?
         var insulinFromPersistence: [PumpEventStored] = []
+        /// Delivered extended bolus portions, to draw them apart from SMBs.
+        var extendedBolusPortions: [ExtendedBolusPortion] = []
+        /// Extended boluses entered as carb equivalents; drawn as a bar instead of fat-protein dots.
+        var extendedCarbPlans: [ExtendedCarbPlan] = []
         var tempBasals: [PumpEventStored] = []
         var suspendAndResumeEvents: [PumpEventStored] = []
         var batteryFromPersistence: [OpenAPS_Battery] = []
@@ -461,6 +478,8 @@ extension Home {
         /// Debounces the forecast recompute — the most expensive `onContentChange` callback,
         /// which a manual re-determine fires twice in quick succession.
         @ObservationIgnored var forecastUpdateTask: Task<Void, Never>?
+        /// Debounces writes of the header widget snapshot.
+        @ObservationIgnored var headerWidgetTask: Task<Void, Never>?
 
         /// In-flight fetch for `extendedStatsPanel`; a newer refresh cancels it so results land in order.
         @ObservationIgnored var extendedStatsPanelTask: Task<Void, Never>?
@@ -527,6 +546,7 @@ extension Home {
                 .sink { [weak self] _ in
                     guard let self = self else { return }
                     self.currentIOB = self.iobService.currentIOB ?? 0
+                    self.scheduleHeaderWidgetUpdate()
                     self.iobProjection = self.iobService.iobProjection.compactMap { entry in
                         entry.time.map { ProjectionPoint(date: $0, value: NSDecimalNumber(decimal: entry.iob).doubleValue) }
                     }
@@ -557,6 +577,7 @@ extension Home {
                 DispatchQueue.main.async { [weak self] in
                     guard let self else { return }
                     self.timerDate = Date()
+                    self.scheduleHeaderWidgetUpdate()
                     // pump status is not observable; a status-only change writes no event
                     if self.manualTempBasal != self.apsManager.isManualTempBasal {
                         self.manualTempBasal = self.apsManager.isManualTempBasal
@@ -674,11 +695,17 @@ extension Home {
                 .weakAssign(to: \.bolusProgress, on: self)
                 .store(in: &lifetime)
 
+            apsManager.extendedBolus
+                .receive(on: DispatchQueue.main)
+                .weakAssign(to: \.extendedBolus, on: self)
+                .store(in: &lifetime)
+
             apsManager.pumpDisplayState
                 .receive(on: DispatchQueue.main)
                 .sink { [weak self] state in
                     guard let self = self else { return }
                     self.pumpDisplayState = state
+                    self.omnipodPulseSize = state == nil ? nil : self.currentOmnipodPulseSize()
                     if state == nil {
                         self.reservoir = nil
                         self.battery = nil
@@ -702,8 +729,35 @@ extension Home {
             case isf
         }
 
+        /// The pod's smallest bolus step is one pulse.
+        private func currentOmnipodPulseSize() -> Decimal? {
+            guard let pump = apsManager.pumpManager, pump is OmniPumpManager,
+                  let step = pump.supportedBolusVolumes.first, step > 0
+            else { return nil }
+            return Decimal(step).rounded(scale: 3)
+        }
+
+        func cancelExtendedBolus() {
+            apsManager.cancelExtendedBolus()
+        }
+
+        /// Hides the "stopped" notice of an extended bolus; a running one cannot be dismissed.
+        func dismissStoppedExtendedBolus() {
+            guard let bolus = extendedBolus, !bolus.isActive else { return }
+            dismissedExtendedBolusID = bolus.id
+            UserDefaults.standard.set(bolus.id.uuidString, forKey: "home.dismissedExtendedBolusID")
+        }
+
+        /// The extended bolus the home panel shows: nil once a stopped one was dismissed.
+        var visibleExtendedBolus: ExtendedBolus? {
+            guard let bolus = extendedBolus else { return nil }
+            return !bolus.isActive && bolus.id == dismissedExtendedBolusID ? nil : bolus
+        }
+
         @MainActor private func setupSettings() async {
             units = settingsManager.settings.units
+            pumpInsulinConcentration = settingsManager.settings.pumpInsulinConcentration
+            pumpInsulinConcentrationSyncPending = settingsManager.settings.pumpInsulinConcentrationSyncPending
             dosingMode = settingsManager.settings.dosingMode
             lastLoopDate = apsManager.lastLoopDate
             alarm = provider.glucoseStorage.alarm
@@ -711,6 +765,7 @@ extension Home {
             isSmoothingEnabled = settingsManager.settings.smoothGlucose
             glucoseColorScheme = settingsManager.settings.glucoseColorScheme
             autosensMax = settingsManager.preferences.autosensMax
+            isDynamicISFEnabled = settingsManager.preferences.useNewFormula
             lowGlucose = settingsManager.settings.low
             highGlucose = settingsManager.settings.high
             eA1cDisplayUnit = settingsManager.settings.eA1cDisplayUnit
@@ -884,6 +939,7 @@ extension Home {
                 let reservoir = await provider.pumpReservoir()
                 await MainActor.run {
                     self.reservoir = reservoir
+                    self.scheduleHeaderWidgetUpdate()
                 }
             }
         }
@@ -936,6 +992,9 @@ extension Home {
             case let syai as SyaiCGMManager:
                 return syai.sensorExpirationDate
 
+            case let diaExpert as DiaExpertCGMManager:
+                return diaExpert.sensorExpiresAt
+
             default:
                 return nil
             }
@@ -984,6 +1043,9 @@ extension Home {
             case let syai as SyaiCGMManager:
                 return syai.sensorWarmupEndDate
 
+            case let diaExpert as DiaExpertCGMManager:
+                return diaExpert.sensorWarmupEndsAt
+
             default:
                 return nil
             }
@@ -1007,6 +1069,8 @@ extension Home.StateModel:
 
     func settingsDidChange(_ settings: TrioSettings) {
         dosingMode = settings.dosingMode
+        pumpInsulinConcentration = settings.pumpInsulinConcentration
+        pumpInsulinConcentrationSyncPending = settings.pumpInsulinConcentrationSyncPending
         units = settingsManager.settings.units
         manualTempBasal = apsManager.isManualTempBasal
         isSmoothingEnabled = settingsManager.settings.smoothGlucose
@@ -1051,6 +1115,7 @@ extension Home.StateModel:
 
     func preferencesDidChange(_: Preferences) {
         autosensMax = settingsManager.preferences.autosensMax
+        isDynamicISFEnabled = settingsManager.preferences.useNewFormula
         settingHalfBasalTarget = settingsManager.preferences.halfBasalExerciseTarget
         highTTraisesSens = settingsManager.preferences.highTemptargetRaisesSensitivity
         isExerciseModeActive = settingsManager.preferences.exerciseMode

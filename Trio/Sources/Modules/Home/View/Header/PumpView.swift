@@ -9,6 +9,10 @@ struct PumpView: View {
     let timerDate: Date
     let pumpStatusHighlightMessage: String?
     let battery: [OpenAPS_Battery]
+    /// Needed only for the pod's "more than 50 pump units" reading, which is not converted upstream.
+    var insulinConcentration: InsulinConcentration = .u100
+    /// The pump's basal schedule / limits were not yet rewritten for `insulinConcentration`.
+    var insulinConcentrationSyncPending: Bool = false
     @Environment(\.colorScheme) var colorScheme
 
     let NORMAL_PATCH_AGE = TimeInterval.hours(80)
@@ -17,6 +21,39 @@ struct PumpView: View {
         let formatter = NumberFormatter()
         formatter.numberStyle = .percent
         return formatter
+    }
+
+    private var showsConcentrationBadge: Bool {
+        !insulinConcentration.isStandard || insulinConcentrationSyncPending
+    }
+
+    /// "U200" (or "U200!" while the pump still has to be updated) on a filled pill.
+    @ViewBuilder private var concentrationBadge: some View {
+        if showsConcentrationBadge {
+            Text("U\(insulinConcentration.rawValue)" + (insulinConcentrationSyncPending ? "!" : ""))
+                .font(.system(size: 9, weight: .heavy, design: .rounded))
+                .foregroundStyle(.white)
+                .padding(.horizontal, 4)
+                .padding(.vertical, 1)
+                .background(Capsule().fill(insulinConcentrationSyncPending ? Color.red : Color.insulin))
+                .fixedSize()
+        }
+    }
+
+    private var concentrationAccessibilitySuffix: String {
+        guard showsConcentrationBadge else { return "" }
+        return ", U\(insulinConcentration.rawValue)"
+            + (insulinConcentrationSyncPending ? ", " + String(localized: "pump not updated") : "")
+    }
+
+    /// Label for a pod that only reports "more than 50 (pump) units", expressed in actual units.
+    private var unknownReservoirLabel: String {
+        Self.unknownReservoirLabel(insulinConcentration)
+    }
+
+    static func unknownReservoirLabel(_ concentration: InsulinConcentration) -> String {
+        let actual = Int(concentration.fromPump(50.0))
+        return "\(actual)+ " + String(localized: "U", comment: "Insulin unit")
     }
 
     private var hourglassIcon: String {
@@ -69,7 +106,7 @@ struct PumpView: View {
                             .font(.callout)
 
                         if reservoir == 0xDEAD_BEEF {
-                            Text("50+ " + String(localized: "U", comment: "Insulin unit"))
+                            Text(unknownReservoirLabel)
                                 .font(.callout)
                                 .fontWeight(.bold)
                                 .fontDesign(.rounded)
@@ -90,9 +127,15 @@ struct PumpView: View {
                         Capsule()
                             .stroke(reservoirColor.opacity(0.4), lineWidth: 2)
                     )
+                    // concentrated insulin as a corner badge, so the capsule keeps its width
+                    .overlay(alignment: .topTrailing) {
+                        concentrationBadge
+                            .alignmentGuide(.top) { $0[VerticalAlignment.center] }
+                            .alignmentGuide(.trailing) { $0[HorizontalAlignment.center] + 4 }
+                    }
                     .accessibilityElement(children: .ignore)
                     .accessibilityLabel(Text("Reservoir"))
-                    .accessibilityValue(Text(reservoirAccessibilityValue))
+                    .accessibilityValue(Text(reservoirAccessibilityValue + concentrationAccessibilitySuffix))
                 }
 
                 if (battery.first?.display) != nil, let shouldBatteryDisplay = battery.first?.display, shouldBatteryDisplay {
@@ -122,7 +165,7 @@ struct PumpView: View {
                 .foregroundStyle(timerColor, timerColorSecondary)
                 .symbolRenderingMode(.palette)
 
-            let remainingTimeString = remainingTimeString(time: date.timeIntervalSince(timerDate))
+            let remainingTimeString = Self.remainingTimeString(time: date.timeIntervalSince(timerDate))
 
             Text(remainingTimeString)
                 .font(date.timeIntervalSince(timerDate) > 0 ? .callout : .subheadline)
@@ -144,7 +187,8 @@ struct PumpView: View {
         .accessibilityValue(Text(remainingTimeStringAccessible(time: date.timeIntervalSince(timerDate))))
     }
 
-    private func remainingTimeString(time: TimeInterval) -> String {
+    /// Shared with the bento header.
+    static func remainingTimeString(time: TimeInterval) -> String {
         guard time > 0 else {
             return String(localized: "Replace pod", comment: "View/Header when pod expired")
         }
@@ -201,7 +245,7 @@ struct PumpView: View {
     private var reservoirAccessibilityValue: String {
         guard let reservoir = reservoir else { return "" }
         let amount = reservoir == 0xDEAD_BEEF
-            ? "50+ " + String(localized: "U", comment: "Insulin unit")
+            ? unknownReservoirLabel
             : (Formatter.integerFormatter.string(from: reservoir as NSNumber) ?? "0")
             + " " + String(localized: "U", comment: "Insulin unit")
         switch reservoir {
@@ -244,6 +288,10 @@ struct PumpView: View {
     }
 
     private var reservoirColor: Color {
+        Self.reservoirColor(reservoir)
+    }
+
+    static func reservoirColor(_ reservoir: Decimal?) -> Color {
         guard let reservoir = reservoir else {
             return .gray
         }
@@ -259,11 +307,15 @@ struct PumpView: View {
     }
 
     private var timerColor: Color {
-        if let activatedAt = activatedAtDate {
-            return abs(activatedAt.timeIntervalSinceNow) > NORMAL_PATCH_AGE ? Color.yellow : Color.loopGreen
+        Self.timerColor(activatedAt: activatedAtDate, expiresAt: expiresAtDate, timerDate: timerDate)
+    }
+
+    static func timerColor(activatedAt: Date?, expiresAt: Date?, timerDate: Date) -> Color {
+        if let activatedAt {
+            return abs(activatedAt.timeIntervalSinceNow) > TimeInterval.hours(80) ? Color.yellow : Color.loopGreen
         }
 
-        guard let expiresAt = expiresAtDate else {
+        guard let expiresAt else {
             return .gray
         }
 

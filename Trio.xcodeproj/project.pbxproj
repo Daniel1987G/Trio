@@ -7,12 +7,31 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		72B30B74EB28A35185B95793 /* GlucoseComplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36BD80A9B7D3FBEBF493E0F2 /* GlucoseComplication.swift */; };
+		A839C337A0954A98B6DE1103 /* SensitivityReportTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B92E941B0123A19FB3064C /* SensitivityReportTests.swift */; };
+		584DF0150F2E74F8166D5E7F /* SensitivityReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = E449FF7862B7DC79891C050E /* SensitivityReport.swift */; };
+		6DDF82CD19343784DE017ACA /* SensitivityReportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353A37BA07C6A4FAC1BEC35B /* SensitivityReportView.swift */; };
+		02C884F869321104B6EF1D91 /* DynamicISFBadgeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A42A5F232AA95699F55B57E /* DynamicISFBadgeTests.swift */; };
+		E19159CB59CE83109BE4B1BE /* HeaderWidgetSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE01A57C33ECE78F0877C1E /* HeaderWidgetSnapshotTests.swift */; };
+		5D6502A4184A35441A8A049B /* HomeStateModel+HeaderWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = B41E617313F332A00E84EB9C /* HomeStateModel+HeaderWidget.swift */; };
+		BDD252286A4B78A81865778C /* HeaderWidgetSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D91AB4FDC7EEE5BFD7A3C93 /* HeaderWidgetSnapshot.swift */; };
+		C9B1E3A44D0299ADEC3E596D /* HeaderWidgetSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D91AB4FDC7EEE5BFD7A3C93 /* HeaderWidgetSnapshot.swift */; };
+		46678803675DBDEFAD9B367A /* LiveActivityColorsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66802C0ADC54598CE35B49F5 /* LiveActivityColorsTests.swift */; };
+		5B0BE0407393EE296E64DD93 /* LiveActivityColorsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA9D5B36D9817BE6430E36F /* LiveActivityColorsView.swift */; };
+		98A823E70390F165F0EC5EDE /* DiaExpertCGMTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F63B2EAC72C4239113E11C95 /* DiaExpertCGMTests.swift */; };
+		1AB3BC3779CBD6B99F441E0B /* DiaExpertCGMManager+UI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0583080667EFE80A8EB04F9 /* DiaExpertCGMManager+UI.swift */; };
+		877CFA0F9FDF626751B9F40A /* DiaExpertCGMManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E6DC81D741151E45409D36 /* DiaExpertCGMManager.swift */; };
+		FCB0EDD234205730B65C2793 /* DiaExpertCGMState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA256E1E1EA27F6FF6214C48 /* DiaExpertCGMState.swift */; };
+		39F89DFB628E9CFFE0EAF3DE /* DiaExpertProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961168CA0BF5B9CBA4215648 /* DiaExpertProtocol.swift */; };
 		03B15F4B3077CD4B00DFEBE4 /* SyaiKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03B15F4A3077CD4B00DFEBE4 /* SyaiKit.framework */; };
 		03B15F4D3077CD5400DFEBE4 /* SyaiKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03B15F4C3077CD5400DFEBE4 /* SyaiKitUI.framework */; };
 		03B15F4E3077CD6100DFEBE4 /* SyaiKitUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 03B15F4C3077CD5400DFEBE4 /* SyaiKitUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		03B15F4F3077CD6100DFEBE4 /* SyaiKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 03B15F4A3077CD4B00DFEBE4 /* SyaiKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		041D1E995A6AE92E9289DC49 /* TreatmentsDataFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D1A7CA8C10C4403D4BBFA7 /* TreatmentsDataFlow.swift */; };
+		0905BC064131EF3A27E3A2C4 /* BackupRestoreRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6D0F74EC97200794FE25EB9 /* BackupRestoreRootView.swift */; };
+		0B1033FA3AE60C417811B16D /* ExtendedBolus.swift in Sources */ = {isa = PBXBuildFile; fileRef = D959946BAE0CECB9D25C00EB /* ExtendedBolus.swift */; };
 		0D9A5E34A899219C5C4CDFAF /* HistoryStateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9455FA2D92E77A6C4AFED8A3 /* HistoryStateModel.swift */; };
+		0F98DB6217F538B479F12A5D /* ExtendedBolusTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4D71E549C8665F5358AC813 /* ExtendedBolusTests.swift */; };
 		10DAA318F47843A4B894173D /* ContainerResolutionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98546920BB7247B0AC73449A /* ContainerResolutionTests.swift */; };
 		110AEDE32C5193D200615CC9 /* BolusIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 110AEDE02C5193D100615CC9 /* BolusIntent.swift */; };
 		110AEDE42C5193D200615CC9 /* BolusIntentRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 110AEDE12C5193D100615CC9 /* BolusIntentRequest.swift */; };
@@ -24,7 +43,10 @@
 		118DF76B2C5ECBC60067FEB7 /* CancelOverrideIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118DF7652C5ECBC60067FEB7 /* CancelOverrideIntent.swift */; };
 		118DF76D2C5ECBC60067FEB7 /* OverridePresetEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118DF7672C5ECBC60067FEB7 /* OverridePresetEntity.swift */; };
 		118DF76E2C5ECBC60067FEB7 /* OverridePresetsIntentRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118DF7682C5ECBC60067FEB7 /* OverridePresetsIntentRequest.swift */; };
+		121CB50A36E2CE29864DA4EB /* AIReportDataFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B6779B0A0D49D2F9EF6F6E2 /* AIReportDataFlow.swift */; };
+		16ED300B34DA8A793338F852 /* RescueCarbsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56D6BE47176662AEEBB982A /* RescueCarbsManager.swift */; };
 		17A9D0899046B45E87834820 /* CarbRatioEditorProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C8D5F457B5AFF763F8CF3DF /* CarbRatioEditorProvider.swift */; };
+		17D0569322A3B35964983D9F /* BackupRestoreStateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED74A80CCB5E5146BACD215 /* BackupRestoreStateModel.swift */; };
 		19012CDC291D2CB900FB8210 /* LoopStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19012CDB291D2CB900FB8210 /* LoopStats.swift */; };
 		190EBCC429FF136900BA767D /* UserInterfaceSettingsDataFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 190EBCC329FF136900BA767D /* UserInterfaceSettingsDataFlow.swift */; };
 		190EBCC629FF138000BA767D /* UserInterfaceSettingsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 190EBCC529FF138000BA767D /* UserInterfaceSettingsProvider.swift */; };
@@ -56,11 +78,20 @@
 		19F95FF529F10FCF00314DDC /* StatProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19F95FF429F10FCF00314DDC /* StatProvider.swift */; };
 		19F95FF729F10FEE00314DDC /* StatStateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19F95FF629F10FEE00314DDC /* StatStateModel.swift */; };
 		19F95FFA29F1102A00314DDC /* StatRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19F95FF929F1102A00314DDC /* StatRootView.swift */; };
+		1A4E957A62C6F1FE569E49BE /* MealPhotoAnalysisSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54E5F2C9AC8CD01E33E97E8D /* MealPhotoAnalysisSheet.swift */; };
+		1AEF0C192C384996501FFA16 /* BackupRestoreDataFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ACA05C412EB6E3F04AB3607 /* BackupRestoreDataFlow.swift */; };
 		1BBB001DAD60F3B8CEA4B1C7 /* ISFEditorStateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505E09DC17A0C3D0AF4B66FE /* ISFEditorStateModel.swift */; };
 		1D845DF2E3324130E1D95E67 /* HistoryProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60744C3E9BB3652895C908CC /* HistoryProvider.swift */; };
+		1F462045422C01C9CB3E6FBF /* InsulinConcentrationSettingsRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 252BA1DE298FC42DF5032069 /* InsulinConcentrationSettingsRootView.swift */; };
 		23888883D4EA091C88480FF2 /* TreatmentsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19984D62EFC0035A9E9644D /* TreatmentsProvider.swift */; };
 		25726254CCC5496EB7BD95C8 /* CGMSensorStateLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41BEC89F0411CF3EF0F6A61B /* CGMSensorStateLog.swift */; };
+		2E2EF59E50831EC9E59DBA49 /* TherapyReportDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635945C53FBCDA516E3C6FCB /* TherapyReportDocument.swift */; };
+		2F1D316B4EE4CBBDAB560589 /* InsulinConcentrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E19B6787AC306607F96871A /* InsulinConcentrationTests.swift */; };
+		3173BD49F93B4C46E65FFFA2 /* TherapyReportTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69D796B3656EA7D3C9A75DF6 /* TherapyReportTests.swift */; };
 		320D030F724170A637F06D50 /* (null) in Sources */ = {isa = PBXBuildFile; };
+		32CA86074FA34D21138037A8 /* MealPhotoSettingsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7601C26A600BAC9EF56682B /* MealPhotoSettingsProvider.swift */; };
+		363B3C335AEC279F64EE98AF /* AIReportRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076718802ADC8373A5161F68 /* AIReportRootView.swift */; };
+		36BDB3927CB9ABFB548ED2B0 /* CarbEntryMutationServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19B7FC1E8CD873546B563CB /* CarbEntryMutationServiceTests.swift */; };
 		3811DE0B25C9D32F00A708ED /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3811DE0725C9D32E00A708ED /* BaseView.swift */; };
 		3811DE0C25C9D32F00A708ED /* BaseProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3811DE0825C9D32F00A708ED /* BaseProvider.swift */; };
 		3811DE1025C9D37700A708ED /* Swinject in Frameworks */ = {isa = PBXBuildFile; productRef = 3811DE0F25C9D37700A708ED /* Swinject */; };
@@ -141,7 +172,6 @@
 		38AEE73D25F0200C0013F05B /* TrioSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38AEE73C25F0200C0013F05B /* TrioSettings.swift */; };
 		38AEE75225F022080013F05B /* SettingsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38AEE75125F022080013F05B /* SettingsManager.swift */; };
 		38AEE75725F0F18E0013F05B /* CarbsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38AEE75625F0F18E0013F05B /* CarbsStorage.swift */; };
-		E73259BE7A7D1AFB93D6B8DF /* CarbEntryMutationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2F107674CF1D9C0A2A9ACF /* CarbEntryMutationService.swift */; };
 		38B17B6625DD90E0005CAE3D /* SwiftDate in Frameworks */ = {isa = PBXBuildFile; productRef = 38B17B6525DD90E0005CAE3D /* SwiftDate */; };
 		38B4F3AF25E2979F00E76A18 /* IndexedCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38B4F3AE25E2979F00E76A18 /* IndexedCollection.swift */; };
 		38B4F3C325E2A20B00E76A18 /* PumpSetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38B4F3C225E2A20B00E76A18 /* PumpSetupView.swift */; };
@@ -201,6 +231,7 @@
 		38FEF3FC2737E53800574A46 /* MainStateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FEF3FB2737E53800574A46 /* MainStateModel.swift */; };
 		38FEF3FE2738083E00574A46 /* CGMSettingsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FEF3FD2738083E00574A46 /* CGMSettingsProvider.swift */; };
 		38FEF413273B317A00574A46 /* HKUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FEF412273B317A00574A46 /* HKUnit.swift */; };
+		39714DB1CF5B2C1F8D990CED /* LiveActivityGlucoseStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E2CF3BABA4BF1C48CC96FD7 /* LiveActivityGlucoseStyle.swift */; };
 		3B0B4E6C2DE1439F005C6627 /* LockedResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0B4E6B2DE1439A005C6627 /* LockedResolver.swift */; };
 		3B139EF32DF06CE100D40797 /* AutosensGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B139EF22DF06CDC00D40797 /* AutosensGenerator.swift */; };
 		3B1C5C292D68E1E3004E9273 /* IobCalculation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1C5C242D68E1E3004E9273 /* IobCalculation.swift */; };
@@ -280,6 +311,7 @@
 		3B5CD2CB2D4AECD500CE213C /* ProfileTargetsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5CD2C62D4AECD500CE213C /* ProfileTargetsTests.swift */; };
 		3B5CD2CD2D4AECD500CE213C /* ProfileIsfTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5CD2C42D4AECD500CE213C /* ProfileIsfTests.swift */; };
 		3B5CD2CE2D4AECD500CE213C /* ProfileBasalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5CD2C12D4AECD500CE213C /* ProfileBasalTests.swift */; };
+		3B5F2CCBCD27E95A478D8EC6 /* MealCarbType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48213B7A4332451C6D3F6995 /* MealCarbType.swift */; };
 		3B5F45B62D6A239500F70982 /* DoubleApproximateMatching.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5F45B52D6A239000F70982 /* DoubleApproximateMatching.swift */; };
 		3B8221B22E5882E300585156 /* DetermineBasalEarlyExitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B8221B12E5882D900585156 /* DetermineBasalEarlyExitTests.swift */; };
 		3B997DCB2DC00849006B6BB2 /* JSONImporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B997DCA2DC00849006B6BB2 /* JSONImporter.swift */; };
@@ -319,6 +351,7 @@
 		3E54EF2D2E476DA40006F54D /* MedtrumKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3E54EF2B2E476DA40006F54D /* MedtrumKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3E62C7822F54CC1B00433237 /* BolusDisplayThreshold.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E62C7812F54CC1600433237 /* BolusDisplayThreshold.swift */; };
 		3E705AFB2FF94FAB0007F96B /* BolusStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E705AFA2FF94FAB0007F96B /* BolusStatus.swift */; };
+		3E7E28C723AD4F68EE0616C1 /* MealPhotoAnalysis.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1BC7F51748AF01D8BB08D4 /* MealPhotoAnalysis.swift */; };
 		3E84DA402F48D96000033608 /* EversenseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E84DA3F2F48D96000033608 /* EversenseKit.framework */; };
 		3E84DA412F48D96000033608 /* EversenseKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3E84DA3F2F48D96000033608 /* EversenseKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3EF667132FE48509009FB31A /* BasalDeliveryState+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF667122FE48502009FB31A /* BasalDeliveryState+Extension.swift */; };
@@ -340,9 +373,10 @@
 		4984D1D42EA2939E00263E83 /* WatchConfigGarminAppConfigView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4984D1D32EA2939E00263E83 /* WatchConfigGarminAppConfigView.swift */; };
 		49B9B57F2D5768D2009C6B59 /* AdjustmentStored+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B9B57E2D5768D2009C6B59 /* AdjustmentStored+Helper.swift */; };
 		49C782A72F73D9870062B0DD /* AlertEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C782A62F73D9870062B0DD /* AlertEntry.swift */; };
-		4A3C7DA31A04D14F83DC2957 /* CGMSensorStateLogTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71A58E19DE23455CB842C50C /* CGMSensorStateLogTests.swift */; };
+		4A3C7DA31A04D14F83DC2957 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		5075C1608E6249A51495C422 /* TargetsEditorProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BDEA2DC60EDE0A3CA54DC73 /* TargetsEditorProvider.swift */; };
 		53F2382465BF74DB1A967C8B /* PumpConfigProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8630D58BDAD6D9C650B9B39 /* PumpConfigProvider.swift */; };
+		55C30C0C1C92FCF011B7ACC6 /* AIReportProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DBD228DAD451184F992B7BA /* AIReportProvider.swift */; };
 		581516A42BCED84A00BF67D7 /* DebuggingIdentifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 581516A32BCED84A00BF67D7 /* DebuggingIdentifiers.swift */; };
 		581516A92BCEEDF800BF67D7 /* NSPredicates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 581516A82BCEEDF800BF67D7 /* NSPredicates.swift */; };
 		581AC4392BE22ED10038760C /* JSONConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 581AC4382BE22ED10038760C /* JSONConverter.swift */; };
@@ -385,10 +419,15 @@
 		5E12FE0E2EBC0000000000C2 /* LibreLoopUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5E12FE0E2EBC0000000000A2 /* LibreLoopUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5E12FE112EBC0000000000A2 /* LoopAlgorithm in Frameworks */ = {isa = PBXBuildFile; productRef = 5E12FE112EBC0000000000A1 /* LoopAlgorithm */; };
 		5E12FE112EBC0000000000B2 /* RoundWhiteDiscKit in Frameworks */ = {isa = PBXBuildFile; productRef = 5E12FE112EBC0000000000B1 /* RoundWhiteDiscKit */; };
+		5E750BBAD827130DC53D8162 /* BackupRestoreProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C5F544FBB2BC5A1012E2A08 /* BackupRestoreProvider.swift */; };
+		6277F416B0ADF2A34C3F73EA /* InsulinConcentration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4FE95ECD2244F62E309D3F6 /* InsulinConcentration.swift */; };
 		63E890B4D951EAA91C071D5C /* BasalProfileEditorStateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFF91130F2FCCC7EBBA11AD /* BasalProfileEditorStateModel.swift */; };
 		642F76A05A4FF530463A9FD0 /* NightscoutConfigRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8782B44544F38F2B2D82C38E /* NightscoutConfigRootView.swift */; };
+		6506D09E7C1B4155D9A9E41B /* BackupManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26A9EE2018C7C0C31F7540D /* BackupManager.swift */; };
 		65070A332BFDCB83006F213F /* TidepoolStartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65070A322BFDCB83006F213F /* TidepoolStartView.swift */; };
 		6632A0DC746872439A858B44 /* ISFEditorDataFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BDA519C9B890FD9A5DFCF3 /* ISFEditorDataFlow.swift */; };
+		67B21AB2C813E38D120B0BE6 /* TherapyReportDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4A013744BCF2E62880468F /* TherapyReportDataSource.swift */; };
+		688AA49E510CCFDDE0599173 /* MealPhotoSettingsStateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790C6C2C5BF63B702D1C1B6F /* MealPhotoSettingsStateModel.swift */; };
 		69A31254F2451C20361D172F /* TreatmentsStateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223EC0494F55A91E3EA69EF4 /* TreatmentsStateModel.swift */; };
 		69B9A368029F7EB39F525422 /* CarbRatioEditorStateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64AA5E04A2761F6EEA6568E1 /* CarbRatioEditorStateModel.swift */; };
 		6B1A8D192B14D91600E76752 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B1A8D182B14D91600E76752 /* WidgetKit.framework */; };
@@ -399,14 +438,14 @@
 		6B1A8D282B14D91700E76752 /* LiveActivityExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 6B1A8D172B14D91600E76752 /* LiveActivityExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		6B1A8D2E2B156EEF00E76752 /* LiveActivityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B1A8D2D2B156EEF00E76752 /* LiveActivityManager.swift */; };
 		6BCF84DD2B16843A003AD46E /* LiveActivityAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCF84DC2B16843A003AD46E /* LiveActivityAttributes.swift */; };
-		AC096399E4D2F4950BA8E5CF /* LiveActivityGlucoseStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E2CF3BABA4BF1C48CC96FD7 /* LiveActivityGlucoseStyle.swift */; };
-		39714DB1CF5B2C1F8D990CED /* LiveActivityGlucoseStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E2CF3BABA4BF1C48CC96FD7 /* LiveActivityGlucoseStyle.swift */; };
-		8B74AA51DC49429FB9F19159 /* LiveActivitySimpleWidgetConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD6672C97F2AB74125F46DD5 /* LiveActivitySimpleWidgetConfiguration.swift */; };
 		6BCF84DE2B16843A003AD46E /* LiveActivityAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCF84DC2B16843A003AD46E /* LiveActivityAttributes.swift */; };
+		6C866EFFC9C0C81CE8AB2CAB /* WatchBentoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 517F3D56F29B544BA04A63AB /* WatchBentoView.swift */; };
+		6D45168F0BA0B773D7DF2149 /* HomeRootView+Bento.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949BD611E40C94673DE56649 /* HomeRootView+Bento.swift */; };
+		6DFB6231C997FAF941F2A4E8 /* InsulinConcentrationSettingsDataFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A88DA3970225F874AF632C6 /* InsulinConcentrationSettingsDataFlow.swift */; };
 		6EADD581738D64431902AC0A /* (null) in Sources */ = {isa = PBXBuildFile; };
 		71D44AAB2CA5F5EA0036EE9E /* AlertPermissionsChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D44AAA2CA5F5EA0036EE9E /* AlertPermissionsChecker.swift */; };
 		72F1BD388F42FCA6C52E4500 /* ConfigEditorProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44080E4709E3AE4B73054563 /* ConfigEditorProvider.swift */; };
-		782BE9AEFDD94938A6F3EFE9 /* NightscoutImportRoundTripTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EFF860E684B4C9488D438DD /* NightscoutImportRoundTripTests.swift */; };
+		782BE9AEFDD94938A6F3EFE9 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		786B6E8A8E294AE883581154 /* QuickPickTreatmentsConfigDataFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D543DE17E0054AF0821411BB /* QuickPickTreatmentsConfigDataFlow.swift */; };
 		7A11AC0DE000000000000020 /* HomeStatsPanelFace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A11AC0DE000000000000120 /* HomeStatsPanelFace.swift */; };
 		7A11AC0DE000000000000030 /* UIHostingController+KeyboardSafeArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A11AC0DE000000000000130 /* UIHostingController+KeyboardSafeArea.swift */; };
@@ -425,29 +464,43 @@
 		7A11AC0DE000000000000116 /* GlassChrome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A11AC0DE000000000000016 /* GlassChrome.swift */; };
 		7A11AC0DE00000000000011D /* PumpEventPredicateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A11AC0DE00000000000001D /* PumpEventPredicateTests.swift */; };
 		7A11AC0DE000000000000171 /* GlassActionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A11AC0DE000000000000170 /* GlassActionSheet.swift */; };
+		7ABEE8C794CD404A4E26A0FD /* TherapyReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82E334D03EBCA7485A69FD55 /* TherapyReport.swift */; };
 		7F7B756BE8543965D9FDF1A2 /* HistoryDataFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = A401509D21F7F35D4E109EDA /* HistoryDataFlow.swift */; };
+		805099B41A33B7C8E9EF7A43 /* MealPhotoSettingsDataFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D45F36EEAE606DCA5E0781 /* MealPhotoSettingsDataFlow.swift */; };
+		808E90ADEA47DA1BF91DFE39 /* BentoHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5330881AFAF292B93EA1DE /* BentoHeaderView.swift */; };
 		87F4D02B8D4D4D329BA291D2 /* QuickPickTreatmentsConfigStateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91711E7CA54747EFAD6540EE /* QuickPickTreatmentsConfigStateModel.swift */; };
 		88AB39B23C9552BD6E0C9461 /* ISFEditorRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBB3BAE7494CB771ABAC7B8B /* ISFEditorRootView.swift */; };
 		8A91342A2D63D9A1007F8874 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 8A9134292D63D9A1007F8874 /* Localizable.xcstrings */; };
 		8A91342C2D63D9A2007F8874 /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 8A91342B2D63D9A2007F8874 /* InfoPlist.xcstrings */; };
+		8B74AA51DC49429FB9F19159 /* LiveActivitySimpleWidgetConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD6672C97F2AB74125F46DD5 /* LiveActivitySimpleWidgetConfiguration.swift */; };
 		8B759CFCF47B392BB365C251 /* BasalProfileEditorDataFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F94DD2853CF42BA4E30616 /* BasalProfileEditorDataFlow.swift */; };
+		940584C38CB62676214A2107 /* RemoteMealMutationPayloadTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF74BBFE9F7B8CA9187C4DB /* RemoteMealMutationPayloadTests.swift */; };
+		95054A87410E3F8EC670E2A7 /* SettingsBackupTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CBC2A14508E3C394D6186B1 /* SettingsBackupTests.swift */; };
 		9702FF92A09C53942F20D7EA /* TargetsEditorRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD795BA46B193644D48138C /* TargetsEditorRootView.swift */; };
 		9825E5E923F0B8FA80C8C7C7 /* NightscoutConfigStateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A48AE3AC813A49A517846A /* NightscoutConfigStateModel.swift */; };
 		98641AF4F92123DA668AB931 /* CarbRatioEditorRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BDC6993C1087310EDFC428 /* CarbRatioEditorRootView.swift */; };
+		99045C718E2906323DE16E07 /* RescueCarbsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F3A0D04F514207AAC0E4C1 /* RescueCarbsTests.swift */; };
+		9F677A2FA4401E6834DD982F /* MealCarbTypeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3681A0000F1A566D6707A38 /* MealCarbTypeTests.swift */; };
 		A33352ED40476125EBAC6EE0 /* CarbRatioEditorDataFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E22146D3DF4853786C78132 /* CarbRatioEditorDataFlow.swift */; };
+		A6E2A8AD32DB65B4CCB4AB8D /* RescueCarbs.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDEE2DAC0EB57F07B229227D /* RescueCarbs.swift */; };
+		AA61693A1105A494230369CB /* MealPhotoAnalysisTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EA6B9B85DA8C46631DB06F6 /* MealPhotoAnalysisTests.swift */; };
 		AABB00022C54389F00211FAC /* TreatmentsSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABB00012C54389F00211FAC /* TreatmentsSettingsView.swift */; };
+		AC096399E4D2F4950BA8E5CF /* LiveActivityGlucoseStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E2CF3BABA4BF1C48CC96FD7 /* LiveActivityGlucoseStyle.swift */; };
 		AC19EF2C94084B5BA0175D1D /* SettingsSearchHighlight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48B83503461B4F8D97B30115 /* SettingsSearchHighlight.swift */; };
 		AD3D2CD42CD01B9EB8F26522 /* PumpConfigDataFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF65DA88F972B56090AD6AC3 /* PumpConfigDataFlow.swift */; };
 		B015AFE32E500000000D7351 /* BolusSafetyValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B015AFE12E500000000D7351 /* BolusSafetyValidator.swift */; };
 		B015AFE52E500000000D7351 /* BolusSafetyValidatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B015AFE42E500000000D7351 /* BolusSafetyValidatorTests.swift */; };
 		B015AFF32E600000000D7351 /* AdjustmentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B015AFF12E600000000D7351 /* AdjustmentManager.swift */; };
 		B015AFF52E600000000D7351 /* AdjustmentManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B015AFF42E600000000D7351 /* AdjustmentManagerTests.swift */; };
+		B0CD946F5C13EC281F97C64B /* WatchDialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F695824D7A03E78B93373DBE /* WatchDialView.swift */; };
 		B63C9D934FC54853BC4EF29A /* NightscoutUploadSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10E61A0885164081B57C357C /* NightscoutUploadSerializer.swift */; };
 		B6E925132EB3932A0076D719 /* OmnipodKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6E925122EB3932A0076D719 /* OmnipodKit.framework */; };
 		B6E925142EB3932A0076D719 /* OmnipodKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B6E925122EB3932A0076D719 /* OmnipodKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B7C465E9472624D8A2BE2A6A /* (null) in Sources */ = {isa = PBXBuildFile; };
 		B958F1B72BA0711600484851 /* MKRingProgressView in Frameworks */ = {isa = PBXBuildFile; productRef = B958F1B62BA0711600484851 /* MKRingProgressView */; };
 		BA00D96F7B2FF169A06FB530 /* CGMSettingsStateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C018D1680307A31C9ED7120 /* CGMSettingsStateModel.swift */; };
+		BAABEECB426905D45B36D18F /* HomeLandscapeChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE1DB593AB8B080FB33C573A /* HomeLandscapeChartView.swift */; };
+		BAF2C6FEA93FA1DC5058C35D /* SettingsBackup.swift in Sources */ = {isa = PBXBuildFile; fileRef = D58DA9D441FB78DA359171DA /* SettingsBackup.swift */; };
 		BB5227A51D9D4377A1A70BA6 /* TempTargetData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B8F3B0E159844FD8746DFC0 /* TempTargetData.swift */; };
 		BD04ECCE2D29952A008C5FEB /* BolusProgressOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD04ECCD2D299522008C5FEB /* BolusProgressOverlay.swift */; };
 		BD0B2EF32C5998E600B3298F /* MealPresetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD0B2EF22C5998E600B3298F /* MealPresetView.swift */; };
@@ -457,89 +510,6 @@
 		BD1179242F4E22C100F90001 /* TrioUserNotificationAlertScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1179252F4E22C100F90001 /* TrioUserNotificationAlertScheduler.swift */; };
 		BD1179282F4E22C100F90001 /* TrioAlertCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1179292F4E22C100F90001 /* TrioAlertCategory.swift */; };
 		BD1179322F4E22C100F90001 /* CriticalAlertAudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1179312F4E22C100F90001 /* CriticalAlertAudioPlayer.swift */; };
-		CAF300000000000000000002 /* CriticalAlertAlarmScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF300000000000000000001 /* CriticalAlertAlarmScheduler.swift */; };
-		CAF200000000000000000000 /* Trio/Resources/Sounds/alarm.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF100000000000000000000 /* Trio/Resources/Sounds/alarm.caf */; };
-		CAF500000000000000000001 /* Trio/Resources/Sounds/acoustic_cr_harsh.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF500000000000000000000 /* Trio/Resources/Sounds/acoustic_cr_harsh.caf */; };
-		CAF500000000000000000003 /* Trio/Resources/Sounds/acoustic_cr_medium.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF500000000000000000002 /* Trio/Resources/Sounds/acoustic_cr_medium.caf */; };
-		CAF500000000000000000005 /* Trio/Resources/Sounds/acoustic_cr_mild.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF500000000000000000004 /* Trio/Resources/Sounds/acoustic_cr_mild.caf */; };
-		CAF500000000000000000007 /* Trio/Resources/Sounds/acoustic_dcr_harsh.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF500000000000000000006 /* Trio/Resources/Sounds/acoustic_dcr_harsh.caf */; };
-		CAF500000000000000000009 /* Trio/Resources/Sounds/acoustic_dcr_medium.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF500000000000000000008 /* Trio/Resources/Sounds/acoustic_dcr_medium.caf */; };
-		CAF50000000000000000000B /* Trio/Resources/Sounds/acoustic_dcr_mild.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF50000000000000000000A /* Trio/Resources/Sounds/acoustic_dcr_mild.caf */; };
-		CAF50000000000000000000D /* Trio/Resources/Sounds/acoustic_dts_harsh.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF50000000000000000000C /* Trio/Resources/Sounds/acoustic_dts_harsh.caf */; };
-		CAF50000000000000000000F /* Trio/Resources/Sounds/acoustic_dts_medium.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF50000000000000000000E /* Trio/Resources/Sounds/acoustic_dts_medium.caf */; };
-		CAF500000000000000000011 /* Trio/Resources/Sounds/acoustic_dts_mild.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF500000000000000000010 /* Trio/Resources/Sounds/acoustic_dts_mild.caf */; };
-		CAF500000000000000000013 /* Trio/Resources/Sounds/acoustic_hg_harsh.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF500000000000000000012 /* Trio/Resources/Sounds/acoustic_hg_harsh.caf */; };
-		CAF500000000000000000015 /* Trio/Resources/Sounds/acoustic_hg_medium.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF500000000000000000014 /* Trio/Resources/Sounds/acoustic_hg_medium.caf */; };
-		CAF500000000000000000017 /* Trio/Resources/Sounds/acoustic_hg_mild.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF500000000000000000016 /* Trio/Resources/Sounds/acoustic_hg_mild.caf */; };
-		CAF500000000000000000019 /* Trio/Resources/Sounds/acoustic_lg_harsh.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF500000000000000000018 /* Trio/Resources/Sounds/acoustic_lg_harsh.caf */; };
-		CAF50000000000000000001B /* Trio/Resources/Sounds/acoustic_lg_medium.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF50000000000000000001A /* Trio/Resources/Sounds/acoustic_lg_medium.caf */; };
-		CAF50000000000000000001D /* Trio/Resources/Sounds/acoustic_lg_mild.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF50000000000000000001C /* Trio/Resources/Sounds/acoustic_lg_mild.caf */; };
-		CAF50000000000000000001F /* Trio/Resources/Sounds/acoustic_lgs_harsh.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF50000000000000000001E /* Trio/Resources/Sounds/acoustic_lgs_harsh.caf */; };
-		CAF500000000000000000021 /* Trio/Resources/Sounds/acoustic_lgs_medium.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF500000000000000000020 /* Trio/Resources/Sounds/acoustic_lgs_medium.caf */; };
-		CAF500000000000000000023 /* Trio/Resources/Sounds/acoustic_lgs_mild.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF500000000000000000022 /* Trio/Resources/Sounds/acoustic_lgs_mild.caf */; };
-		CAF500000000000000000025 /* Trio/Resources/Sounds/acoustic_ulg_harsh.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF500000000000000000024 /* Trio/Resources/Sounds/acoustic_ulg_harsh.caf */; };
-		CAF500000000000000000027 /* Trio/Resources/Sounds/acoustic_ulg_medium.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF500000000000000000026 /* Trio/Resources/Sounds/acoustic_ulg_medium.caf */; };
-		CAF500000000000000000029 /* Trio/Resources/Sounds/acoustic_ulg_mild.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF500000000000000000028 /* Trio/Resources/Sounds/acoustic_ulg_mild.caf */; };
-		CAF50000000000000000002B /* Trio/Resources/Sounds/electronic_cr_harsh.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF50000000000000000002A /* Trio/Resources/Sounds/electronic_cr_harsh.caf */; };
-		CAF50000000000000000002D /* Trio/Resources/Sounds/electronic_cr_medium.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF50000000000000000002C /* Trio/Resources/Sounds/electronic_cr_medium.caf */; };
-		CAF50000000000000000002F /* Trio/Resources/Sounds/electronic_cr_mild.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF50000000000000000002E /* Trio/Resources/Sounds/electronic_cr_mild.caf */; };
-		CAF500000000000000000031 /* Trio/Resources/Sounds/electronic_dcr_harsh.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF500000000000000000030 /* Trio/Resources/Sounds/electronic_dcr_harsh.caf */; };
-		CAF500000000000000000033 /* Trio/Resources/Sounds/electronic_dcr_medium.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF500000000000000000032 /* Trio/Resources/Sounds/electronic_dcr_medium.caf */; };
-		CAF500000000000000000035 /* Trio/Resources/Sounds/electronic_dcr_mild.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF500000000000000000034 /* Trio/Resources/Sounds/electronic_dcr_mild.caf */; };
-		CAF500000000000000000037 /* Trio/Resources/Sounds/electronic_dts_harsh.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF500000000000000000036 /* Trio/Resources/Sounds/electronic_dts_harsh.caf */; };
-		CAF500000000000000000039 /* Trio/Resources/Sounds/electronic_dts_medium.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF500000000000000000038 /* Trio/Resources/Sounds/electronic_dts_medium.caf */; };
-		CAF50000000000000000003B /* Trio/Resources/Sounds/electronic_dts_mild.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF50000000000000000003A /* Trio/Resources/Sounds/electronic_dts_mild.caf */; };
-		CAF50000000000000000003D /* Trio/Resources/Sounds/electronic_hg_harsh.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF50000000000000000003C /* Trio/Resources/Sounds/electronic_hg_harsh.caf */; };
-		CAF50000000000000000003F /* Trio/Resources/Sounds/electronic_hg_medium.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF50000000000000000003E /* Trio/Resources/Sounds/electronic_hg_medium.caf */; };
-		CAF500000000000000000041 /* Trio/Resources/Sounds/electronic_hg_mild.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF500000000000000000040 /* Trio/Resources/Sounds/electronic_hg_mild.caf */; };
-		CAF500000000000000000043 /* Trio/Resources/Sounds/electronic_lg_harsh.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF500000000000000000042 /* Trio/Resources/Sounds/electronic_lg_harsh.caf */; };
-		CAF500000000000000000045 /* Trio/Resources/Sounds/electronic_lg_medium.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF500000000000000000044 /* Trio/Resources/Sounds/electronic_lg_medium.caf */; };
-		CAF500000000000000000047 /* Trio/Resources/Sounds/electronic_lg_mild.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF500000000000000000046 /* Trio/Resources/Sounds/electronic_lg_mild.caf */; };
-		CAF500000000000000000049 /* Trio/Resources/Sounds/electronic_lgs_harsh.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF500000000000000000048 /* Trio/Resources/Sounds/electronic_lgs_harsh.caf */; };
-		CAF50000000000000000004B /* Trio/Resources/Sounds/electronic_lgs_medium.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF50000000000000000004A /* Trio/Resources/Sounds/electronic_lgs_medium.caf */; };
-		CAF50000000000000000004D /* Trio/Resources/Sounds/electronic_lgs_mild.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF50000000000000000004C /* Trio/Resources/Sounds/electronic_lgs_mild.caf */; };
-		CAF50000000000000000004F /* Trio/Resources/Sounds/electronic_ulg_harsh.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF50000000000000000004E /* Trio/Resources/Sounds/electronic_ulg_harsh.caf */; };
-		CAF500000000000000000051 /* Trio/Resources/Sounds/electronic_ulg_medium.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF500000000000000000050 /* Trio/Resources/Sounds/electronic_ulg_medium.caf */; };
-		CAF500000000000000000053 /* Trio/Resources/Sounds/electronic_ulg_mild.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF500000000000000000052 /* Trio/Resources/Sounds/electronic_ulg_mild.caf */; };
-		CAF500000000000000000055 /* Trio/Resources/Sounds/glass_bell.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF500000000000000000054 /* Trio/Resources/Sounds/glass_bell.caf */; };
-		CAF500000000000000000057 /* Trio/Resources/Sounds/hard_saw_wave.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF500000000000000000056 /* Trio/Resources/Sounds/hard_saw_wave.caf */; };
-		CAF500000000000000000059 /* Trio/Resources/Sounds/harp.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF500000000000000000058 /* Trio/Resources/Sounds/harp.caf */; };
-		CAF50000000000000000005B /* Trio/Resources/Sounds/meow.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF50000000000000000005A /* Trio/Resources/Sounds/meow.caf */; };
-		CAF50000000000000000005D /* Trio/Resources/Sounds/open_can.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF50000000000000000005C /* Trio/Resources/Sounds/open_can.caf */; };
-		CAF50000000000000000005F /* Trio/Resources/Sounds/open_wrapper.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF50000000000000000005E /* Trio/Resources/Sounds/open_wrapper.caf */; };
-		CAF500000000000000000061 /* Trio/Resources/Sounds/saw_wave.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF500000000000000000060 /* Trio/Resources/Sounds/saw_wave.caf */; };
-		CAF500000000000000000063 /* Trio/Resources/Sounds/sine_wave.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF500000000000000000062 /* Trio/Resources/Sounds/sine_wave.caf */; };
-		CAF500000000000000000065 /* Trio/Resources/Sounds/voice_cr_amy.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF500000000000000000064 /* Trio/Resources/Sounds/voice_cr_amy.caf */; };
-		CAF500000000000000000067 /* Trio/Resources/Sounds/voice_cr_bryce.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF500000000000000000066 /* Trio/Resources/Sounds/voice_cr_bryce.caf */; };
-		CAF500000000000000000069 /* Trio/Resources/Sounds/voice_dcr_amy.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF500000000000000000068 /* Trio/Resources/Sounds/voice_dcr_amy.caf */; };
-		CAF50000000000000000006B /* Trio/Resources/Sounds/voice_dcr_bryce.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF50000000000000000006A /* Trio/Resources/Sounds/voice_dcr_bryce.caf */; };
-		CAF50000000000000000006D /* Trio/Resources/Sounds/voice_dts_amy.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF50000000000000000006C /* Trio/Resources/Sounds/voice_dts_amy.caf */; };
-		CAF50000000000000000006F /* Trio/Resources/Sounds/voice_dts_bryce.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF50000000000000000006E /* Trio/Resources/Sounds/voice_dts_bryce.caf */; };
-		CAF500000000000000000071 /* Trio/Resources/Sounds/voice_hg_amy.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF500000000000000000070 /* Trio/Resources/Sounds/voice_hg_amy.caf */; };
-		CAF500000000000000000073 /* Trio/Resources/Sounds/voice_hg_bryce.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF500000000000000000072 /* Trio/Resources/Sounds/voice_hg_bryce.caf */; };
-		CAF500000000000000000075 /* Trio/Resources/Sounds/voice_lg_amy.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF500000000000000000074 /* Trio/Resources/Sounds/voice_lg_amy.caf */; };
-		CAF500000000000000000077 /* Trio/Resources/Sounds/voice_lg_bryce.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF500000000000000000076 /* Trio/Resources/Sounds/voice_lg_bryce.caf */; };
-		CAF500000000000000000079 /* Trio/Resources/Sounds/voice_lgs_amy.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF500000000000000000078 /* Trio/Resources/Sounds/voice_lgs_amy.caf */; };
-		CAF50000000000000000007B /* Trio/Resources/Sounds/voice_lgs_bryce.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF50000000000000000007A /* Trio/Resources/Sounds/voice_lgs_bryce.caf */; };
-		CAF50000000000000000007D /* Trio/Resources/Sounds/voice_ulg_amy.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF50000000000000000007C /* Trio/Resources/Sounds/voice_ulg_amy.caf */; };
-		CAF50000000000000000007F /* Trio/Resources/Sounds/voice_ulg_bryce.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF50000000000000000007E /* Trio/Resources/Sounds/voice_ulg_bryce.caf */; };
-		CAF200000000000000000001 /* Trio/Resources/Sounds/bloom.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF100000000000000000001 /* Trio/Resources/Sounds/bloom.caf */; };
-		CAF200000000000000000002 /* Trio/Resources/Sounds/bloop.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF100000000000000000002 /* Trio/Resources/Sounds/bloop.caf */; };
-		CAF200000000000000000003 /* Trio/Resources/Sounds/bright_alarm.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF100000000000000000003 /* Trio/Resources/Sounds/bright_alarm.caf */; };
-		CAF200000000000000000004 /* Trio/Resources/Sounds/chime.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF100000000000000000004 /* Trio/Resources/Sounds/chime.caf */; };
-		CAF200000000000000000005 /* Trio/Resources/Sounds/clear_chimes.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF100000000000000000005 /* Trio/Resources/Sounds/clear_chimes.caf */; };
-		CAF200000000000000000006 /* Trio/Resources/Sounds/critical.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF100000000000000000006 /* Trio/Resources/Sounds/critical.caf */; };
-		CAF200000000000000000007 /* Trio/Resources/Sounds/crying.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF100000000000000000007 /* Trio/Resources/Sounds/crying.caf */; };
-		CAF200000000000000000008 /* Trio/Resources/Sounds/dings.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF100000000000000000008 /* Trio/Resources/Sounds/dings.caf */; };
-		CAF200000000000000000009 /* Trio/Resources/Sounds/high_chimes.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF100000000000000000009 /* Trio/Resources/Sounds/high_chimes.caf */; };
-		CAF20000000000000000000A /* Trio/Resources/Sounds/honk.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF10000000000000000000A /* Trio/Resources/Sounds/honk.caf */; };
-		CAF20000000000000000000B /* Trio/Resources/Sounds/minimal.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF10000000000000000000B /* Trio/Resources/Sounds/minimal.caf */; };
-		CAF20000000000000000000C /* Trio/Resources/Sounds/mood_synth.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF10000000000000000000C /* Trio/Resources/Sounds/mood_synth.caf */; };
-		CAF20000000000000000000D /* Trio/Resources/Sounds/simple.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF10000000000000000000D /* Trio/Resources/Sounds/simple.caf */; };
-		CAF20000000000000000000E /* Trio/Resources/Sounds/spring.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF10000000000000000000E /* Trio/Resources/Sounds/spring.caf */; };
-		CAF20000000000000000000F /* Trio/Resources/Sounds/synth.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF10000000000000000000F /* Trio/Resources/Sounds/synth.caf */; };
-		CAF200000000000000000010 /* Trio/Resources/Sounds/trill.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF100000000000000000010 /* Trio/Resources/Sounds/trill.caf */; };
-		CAF200000000000000000011 /* Trio/Resources/Sounds/urgent_low.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF100000000000000000011 /* Trio/Resources/Sounds/urgent_low.caf */; };
 		BD1179402F4E22C100F90001 /* ForecastedGlucoseEvaluator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1179412F4E22C100F90001 /* ForecastedGlucoseEvaluator.swift */; };
 		BD1179522F4E22C100F90001 /* DayNightOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1179512F4E22C100F90001 /* DayNightOptions.swift */; };
 		BD1179542F4E22C100F90001 /* GlucoseAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1179532F4E22C100F90001 /* GlucoseAlert.swift */; };
@@ -576,13 +546,11 @@
 		BD1179AC2F4E22C100F90001 /* GlucoseSourceKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1179AD2F4E22C100F90001 /* GlucoseSourceKey.swift */; };
 		BD11A001000000000000A002 /* AlertMuterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD11A000000000000000A002 /* AlertMuterTests.swift */; };
 		BD11A001000000000000A003 /* DeviceAlertsStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD11A000000000000000A003 /* DeviceAlertsStoreTests.swift */; };
-		CAF600000000000000000002 /* AlarmSoundCatalogTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF600000000000000000001 /* AlarmSoundCatalogTests.swift */; };
 		BD11A001000000000000A006 /* ForecastedGlucoseEvaluatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD11A000000000000000A006 /* ForecastedGlucoseEvaluatorTests.swift */; };
 		BD11A001000000000000A007 /* GlucoseAlertConfigurationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD11A000000000000000A007 /* GlucoseAlertConfigurationTests.swift */; };
 		BD11A001000000000000A008 /* GlucoseAlertTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD11A000000000000000A008 /* GlucoseAlertTests.swift */; };
 		BD11A001000000000000A009 /* TrioAlertCategoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD11A000000000000000A009 /* TrioAlertCategoryTests.swift */; };
 		BD11A001000000000000A00A /* GlucoseAlertCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD11A000000000000000A00A /* GlucoseAlertCoordinatorTests.swift */; };
-		BD11A011000000000000A01A /* CGMManagerAlertOwnershipTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD11A010000000000000A01A /* CGMManagerAlertOwnershipTests.swift */; };
 		BD11A001000000000000A00B /* TrioModalAlertSchedulerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD11A000000000000000A00B /* TrioModalAlertSchedulerTests.swift */; };
 		BD11A001000000000000A00C /* NotLoopingMonitorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD11A000000000000000A00C /* NotLoopingMonitorTests.swift */; };
 		BD11A001000000000000A00D /* AlertCatalogRegistryEntriesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD11A000000000000000A00D /* AlertCatalogRegistryEntriesTests.swift */; };
@@ -594,6 +562,7 @@
 		BD11A001000000000000A013 /* TandemKitAlertEmissionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD11A000000000000000A013 /* TandemKitAlertEmissionTests.swift */; };
 		BD11A001000000000000A014 /* AlertColdStartReplayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD11A000000000000000A014 /* AlertColdStartReplayTests.swift */; };
 		BD11A011000000000000A011 /* RoundBasalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD11A010000000000000A011 /* RoundBasalTests.swift */; };
+		BD11A011000000000000A01A /* CGMManagerAlertOwnershipTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD11A010000000000000A01A /* CGMManagerAlertOwnershipTests.swift */; };
 		BD11A013000000000000A011 /* BasalRoundingDriverParityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD11A012000000000000A011 /* BasalRoundingDriverParityTests.swift */; };
 		BD11A015000000000000A011 /* PumpRateTables.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD11A014000000000000A011 /* PumpRateTables.swift */; };
 		BD11C001000000000000C001 /* CGMSensorDisplayState.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD11C000000000000000C001 /* CGMSensorDisplayState.swift */; };
@@ -674,13 +643,10 @@
 		BD8FC05B2D6618AF00B95AED /* DeterminationStorageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8FC05A2D6618AF00B95AED /* DeterminationStorageTests.swift */; };
 		BD8FC05E2D6618CE00B95AED /* BolusCalculatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8FC05D2D6618CE00B95AED /* BolusCalculatorTests.swift */; };
 		BD8FC0602D6619DB00B95AED /* CarbsStorageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8FC05F2D6619DB00B95AED /* CarbsStorageTests.swift */; };
-		36BDB3927CB9ABFB548ED2B0 /* CarbEntryMutationServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19B7FC1E8CD873546B563CB /* CarbEntryMutationServiceTests.swift */; };
 		BD8FC0622D6619E600B95AED /* OverrideStorageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8FC0612D6619E600B95AED /* OverrideStorageTests.swift */; };
 		BD8FC0642D6619EF00B95AED /* TempTargetStorageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8FC0632D6619EF00B95AED /* TempTargetStorageTests.swift */; };
 		BD8FC0662D661A0000B95AED /* GlucoseStorageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8FC0652D661A0000B95AED /* GlucoseStorageTests.swift */; };
 		BD8FC0712D661B0000B95AED /* TidepoolTherapySettingsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8FC0702D661B0000B95AED /* TidepoolTherapySettingsTests.swift */; };
-		CD1235B000000000000000F2 /* TidepoolUploadSerializerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1235A000000000000000F1 /* TidepoolUploadSerializerTests.swift */; };
-		CE1425B000000000000000A2 /* CarbsEntryLoopKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1425A000000000000000A1 /* CarbsEntryLoopKitTests.swift */; };
 		BDA25EE42D260CD500035F34 /* AppleWatchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA25EE32D260CCF00035F34 /* AppleWatchManager.swift */; };
 		BDA25EE62D260D5E00035F34 /* WatchState.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA25EE52D260D5800035F34 /* WatchState.swift */; };
 		BDA25EFD2D261C0000035F34 /* WatchState.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA25EFC2D261BF200035F34 /* WatchState.swift */; };
@@ -737,6 +703,7 @@
 		C2BA6B992F758E7600348E6A /* NotificationIdentifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BA6B982F758E7600348E6A /* NotificationIdentifiers.swift */; };
 		C2BA6B9A2F7593C300348E6A /* NotificationIdentifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BA6B982F758E7600348E6A /* NotificationIdentifiers.swift */; };
 		C5BAAA36C643401D97A8CE11 /* QuickPickTreatmentsConfigRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3EBC8BA17C4627BD32C58F /* QuickPickTreatmentsConfigRootView.swift */; };
+		C6C6D4834E3BDD8B7FDAF067 /* MealPhotoAnalyzer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87CC2CA8F9D22249E63F3AED /* MealPhotoAnalyzer.swift */; };
 		CA01000000000000000010C2 /* AlertCatalogVendor.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA01000000000000000010C1 /* AlertCatalogVendor.swift */; };
 		CA01000000000000000010C4 /* AlertCatalogRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA01000000000000000010C3 /* AlertCatalogRegistry.swift */; };
 		CA01000000000000000010C6 /* CGMManagerAlertOwnership.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA01000000000000000010C5 /* CGMManagerAlertOwnership.swift */; };
@@ -746,6 +713,9 @@
 		CA05000000000000000010C2 /* AlarmGramsSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA05000000000000000010C1 /* AlarmGramsSection.swift */; };
 		CA06000000000000000010C2 /* GlucoseAlertsStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA06000000000000000010C1 /* GlucoseAlertsStoreTests.swift */; };
 		CA07000000000000000010C2 /* TelemetrySendGateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA07000000000000000010C1 /* TelemetrySendGateTests.swift */; };
+		CA0924000000000000000002 /* GRICalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA0924000000000000000001 /* GRICalculator.swift */; };
+		CA0924000000000000000004 /* GRIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA0924000000000000000003 /* GRIView.swift */; };
+		CA0924000000000000000006 /* GRICalculatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA0924000000000000000005 /* GRICalculatorTests.swift */; };
 		CA370FC152BC98B3D1832968 /* BasalProfileEditorRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8BCB0C37DEB5EC377B9612 /* BasalProfileEditorRootView.swift */; };
 		CAF200000000000000000000 /* Trio/Resources/Sounds/alarm.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF100000000000000000000 /* Trio/Resources/Sounds/alarm.caf */; };
 		CAF200000000000000000001 /* Trio/Resources/Sounds/bloom.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF100000000000000000001 /* Trio/Resources/Sounds/bloom.caf */; };
@@ -766,16 +736,93 @@
 		CAF200000000000000000010 /* Trio/Resources/Sounds/trill.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF100000000000000000010 /* Trio/Resources/Sounds/trill.caf */; };
 		CAF200000000000000000011 /* Trio/Resources/Sounds/urgent_low.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF100000000000000000011 /* Trio/Resources/Sounds/urgent_low.caf */; };
 		CAF300000000000000000002 /* CriticalAlertAlarmScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF300000000000000000001 /* CriticalAlertAlarmScheduler.swift */; };
+		CAF500000000000000000001 /* Trio/Resources/Sounds/acoustic_cr_harsh.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF500000000000000000000 /* Trio/Resources/Sounds/acoustic_cr_harsh.caf */; };
+		CAF500000000000000000003 /* Trio/Resources/Sounds/acoustic_cr_medium.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF500000000000000000002 /* Trio/Resources/Sounds/acoustic_cr_medium.caf */; };
+		CAF500000000000000000005 /* Trio/Resources/Sounds/acoustic_cr_mild.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF500000000000000000004 /* Trio/Resources/Sounds/acoustic_cr_mild.caf */; };
+		CAF500000000000000000007 /* Trio/Resources/Sounds/acoustic_dcr_harsh.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF500000000000000000006 /* Trio/Resources/Sounds/acoustic_dcr_harsh.caf */; };
+		CAF500000000000000000009 /* Trio/Resources/Sounds/acoustic_dcr_medium.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF500000000000000000008 /* Trio/Resources/Sounds/acoustic_dcr_medium.caf */; };
+		CAF50000000000000000000B /* Trio/Resources/Sounds/acoustic_dcr_mild.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF50000000000000000000A /* Trio/Resources/Sounds/acoustic_dcr_mild.caf */; };
+		CAF50000000000000000000D /* Trio/Resources/Sounds/acoustic_dts_harsh.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF50000000000000000000C /* Trio/Resources/Sounds/acoustic_dts_harsh.caf */; };
+		CAF50000000000000000000F /* Trio/Resources/Sounds/acoustic_dts_medium.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF50000000000000000000E /* Trio/Resources/Sounds/acoustic_dts_medium.caf */; };
+		CAF500000000000000000011 /* Trio/Resources/Sounds/acoustic_dts_mild.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF500000000000000000010 /* Trio/Resources/Sounds/acoustic_dts_mild.caf */; };
+		CAF500000000000000000013 /* Trio/Resources/Sounds/acoustic_hg_harsh.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF500000000000000000012 /* Trio/Resources/Sounds/acoustic_hg_harsh.caf */; };
+		CAF500000000000000000015 /* Trio/Resources/Sounds/acoustic_hg_medium.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF500000000000000000014 /* Trio/Resources/Sounds/acoustic_hg_medium.caf */; };
+		CAF500000000000000000017 /* Trio/Resources/Sounds/acoustic_hg_mild.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF500000000000000000016 /* Trio/Resources/Sounds/acoustic_hg_mild.caf */; };
+		CAF500000000000000000019 /* Trio/Resources/Sounds/acoustic_lg_harsh.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF500000000000000000018 /* Trio/Resources/Sounds/acoustic_lg_harsh.caf */; };
+		CAF50000000000000000001B /* Trio/Resources/Sounds/acoustic_lg_medium.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF50000000000000000001A /* Trio/Resources/Sounds/acoustic_lg_medium.caf */; };
+		CAF50000000000000000001D /* Trio/Resources/Sounds/acoustic_lg_mild.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF50000000000000000001C /* Trio/Resources/Sounds/acoustic_lg_mild.caf */; };
+		CAF50000000000000000001F /* Trio/Resources/Sounds/acoustic_lgs_harsh.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF50000000000000000001E /* Trio/Resources/Sounds/acoustic_lgs_harsh.caf */; };
+		CAF500000000000000000021 /* Trio/Resources/Sounds/acoustic_lgs_medium.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF500000000000000000020 /* Trio/Resources/Sounds/acoustic_lgs_medium.caf */; };
+		CAF500000000000000000023 /* Trio/Resources/Sounds/acoustic_lgs_mild.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF500000000000000000022 /* Trio/Resources/Sounds/acoustic_lgs_mild.caf */; };
+		CAF500000000000000000025 /* Trio/Resources/Sounds/acoustic_ulg_harsh.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF500000000000000000024 /* Trio/Resources/Sounds/acoustic_ulg_harsh.caf */; };
+		CAF500000000000000000027 /* Trio/Resources/Sounds/acoustic_ulg_medium.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF500000000000000000026 /* Trio/Resources/Sounds/acoustic_ulg_medium.caf */; };
+		CAF500000000000000000029 /* Trio/Resources/Sounds/acoustic_ulg_mild.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF500000000000000000028 /* Trio/Resources/Sounds/acoustic_ulg_mild.caf */; };
+		CAF50000000000000000002B /* Trio/Resources/Sounds/electronic_cr_harsh.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF50000000000000000002A /* Trio/Resources/Sounds/electronic_cr_harsh.caf */; };
+		CAF50000000000000000002D /* Trio/Resources/Sounds/electronic_cr_medium.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF50000000000000000002C /* Trio/Resources/Sounds/electronic_cr_medium.caf */; };
+		CAF50000000000000000002F /* Trio/Resources/Sounds/electronic_cr_mild.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF50000000000000000002E /* Trio/Resources/Sounds/electronic_cr_mild.caf */; };
+		CAF500000000000000000031 /* Trio/Resources/Sounds/electronic_dcr_harsh.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF500000000000000000030 /* Trio/Resources/Sounds/electronic_dcr_harsh.caf */; };
+		CAF500000000000000000033 /* Trio/Resources/Sounds/electronic_dcr_medium.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF500000000000000000032 /* Trio/Resources/Sounds/electronic_dcr_medium.caf */; };
+		CAF500000000000000000035 /* Trio/Resources/Sounds/electronic_dcr_mild.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF500000000000000000034 /* Trio/Resources/Sounds/electronic_dcr_mild.caf */; };
+		CAF500000000000000000037 /* Trio/Resources/Sounds/electronic_dts_harsh.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF500000000000000000036 /* Trio/Resources/Sounds/electronic_dts_harsh.caf */; };
+		CAF500000000000000000039 /* Trio/Resources/Sounds/electronic_dts_medium.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF500000000000000000038 /* Trio/Resources/Sounds/electronic_dts_medium.caf */; };
+		CAF50000000000000000003B /* Trio/Resources/Sounds/electronic_dts_mild.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF50000000000000000003A /* Trio/Resources/Sounds/electronic_dts_mild.caf */; };
+		CAF50000000000000000003D /* Trio/Resources/Sounds/electronic_hg_harsh.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF50000000000000000003C /* Trio/Resources/Sounds/electronic_hg_harsh.caf */; };
+		CAF50000000000000000003F /* Trio/Resources/Sounds/electronic_hg_medium.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF50000000000000000003E /* Trio/Resources/Sounds/electronic_hg_medium.caf */; };
+		CAF500000000000000000041 /* Trio/Resources/Sounds/electronic_hg_mild.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF500000000000000000040 /* Trio/Resources/Sounds/electronic_hg_mild.caf */; };
+		CAF500000000000000000043 /* Trio/Resources/Sounds/electronic_lg_harsh.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF500000000000000000042 /* Trio/Resources/Sounds/electronic_lg_harsh.caf */; };
+		CAF500000000000000000045 /* Trio/Resources/Sounds/electronic_lg_medium.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF500000000000000000044 /* Trio/Resources/Sounds/electronic_lg_medium.caf */; };
+		CAF500000000000000000047 /* Trio/Resources/Sounds/electronic_lg_mild.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF500000000000000000046 /* Trio/Resources/Sounds/electronic_lg_mild.caf */; };
+		CAF500000000000000000049 /* Trio/Resources/Sounds/electronic_lgs_harsh.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF500000000000000000048 /* Trio/Resources/Sounds/electronic_lgs_harsh.caf */; };
+		CAF50000000000000000004B /* Trio/Resources/Sounds/electronic_lgs_medium.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF50000000000000000004A /* Trio/Resources/Sounds/electronic_lgs_medium.caf */; };
+		CAF50000000000000000004D /* Trio/Resources/Sounds/electronic_lgs_mild.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF50000000000000000004C /* Trio/Resources/Sounds/electronic_lgs_mild.caf */; };
+		CAF50000000000000000004F /* Trio/Resources/Sounds/electronic_ulg_harsh.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF50000000000000000004E /* Trio/Resources/Sounds/electronic_ulg_harsh.caf */; };
+		CAF500000000000000000051 /* Trio/Resources/Sounds/electronic_ulg_medium.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF500000000000000000050 /* Trio/Resources/Sounds/electronic_ulg_medium.caf */; };
+		CAF500000000000000000053 /* Trio/Resources/Sounds/electronic_ulg_mild.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF500000000000000000052 /* Trio/Resources/Sounds/electronic_ulg_mild.caf */; };
+		CAF500000000000000000055 /* Trio/Resources/Sounds/glass_bell.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF500000000000000000054 /* Trio/Resources/Sounds/glass_bell.caf */; };
+		CAF500000000000000000057 /* Trio/Resources/Sounds/hard_saw_wave.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF500000000000000000056 /* Trio/Resources/Sounds/hard_saw_wave.caf */; };
+		CAF500000000000000000059 /* Trio/Resources/Sounds/harp.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF500000000000000000058 /* Trio/Resources/Sounds/harp.caf */; };
+		CAF50000000000000000005B /* Trio/Resources/Sounds/meow.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF50000000000000000005A /* Trio/Resources/Sounds/meow.caf */; };
+		CAF50000000000000000005D /* Trio/Resources/Sounds/open_can.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF50000000000000000005C /* Trio/Resources/Sounds/open_can.caf */; };
+		CAF50000000000000000005F /* Trio/Resources/Sounds/open_wrapper.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF50000000000000000005E /* Trio/Resources/Sounds/open_wrapper.caf */; };
+		CAF500000000000000000061 /* Trio/Resources/Sounds/saw_wave.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF500000000000000000060 /* Trio/Resources/Sounds/saw_wave.caf */; };
+		CAF500000000000000000063 /* Trio/Resources/Sounds/sine_wave.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF500000000000000000062 /* Trio/Resources/Sounds/sine_wave.caf */; };
+		CAF500000000000000000065 /* Trio/Resources/Sounds/voice_cr_amy.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF500000000000000000064 /* Trio/Resources/Sounds/voice_cr_amy.caf */; };
+		CAF500000000000000000067 /* Trio/Resources/Sounds/voice_cr_bryce.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF500000000000000000066 /* Trio/Resources/Sounds/voice_cr_bryce.caf */; };
+		CAF500000000000000000069 /* Trio/Resources/Sounds/voice_dcr_amy.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF500000000000000000068 /* Trio/Resources/Sounds/voice_dcr_amy.caf */; };
+		CAF50000000000000000006B /* Trio/Resources/Sounds/voice_dcr_bryce.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF50000000000000000006A /* Trio/Resources/Sounds/voice_dcr_bryce.caf */; };
+		CAF50000000000000000006D /* Trio/Resources/Sounds/voice_dts_amy.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF50000000000000000006C /* Trio/Resources/Sounds/voice_dts_amy.caf */; };
+		CAF50000000000000000006F /* Trio/Resources/Sounds/voice_dts_bryce.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF50000000000000000006E /* Trio/Resources/Sounds/voice_dts_bryce.caf */; };
+		CAF500000000000000000071 /* Trio/Resources/Sounds/voice_hg_amy.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF500000000000000000070 /* Trio/Resources/Sounds/voice_hg_amy.caf */; };
+		CAF500000000000000000073 /* Trio/Resources/Sounds/voice_hg_bryce.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF500000000000000000072 /* Trio/Resources/Sounds/voice_hg_bryce.caf */; };
+		CAF500000000000000000075 /* Trio/Resources/Sounds/voice_lg_amy.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF500000000000000000074 /* Trio/Resources/Sounds/voice_lg_amy.caf */; };
+		CAF500000000000000000077 /* Trio/Resources/Sounds/voice_lg_bryce.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF500000000000000000076 /* Trio/Resources/Sounds/voice_lg_bryce.caf */; };
+		CAF500000000000000000079 /* Trio/Resources/Sounds/voice_lgs_amy.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF500000000000000000078 /* Trio/Resources/Sounds/voice_lgs_amy.caf */; };
+		CAF50000000000000000007B /* Trio/Resources/Sounds/voice_lgs_bryce.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF50000000000000000007A /* Trio/Resources/Sounds/voice_lgs_bryce.caf */; };
+		CAF50000000000000000007D /* Trio/Resources/Sounds/voice_ulg_amy.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF50000000000000000007C /* Trio/Resources/Sounds/voice_ulg_amy.caf */; };
+		CAF90000000000000000001B /* Trio/Resources/Sounds/voice_dts_thorsten.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF90000000000000000001A /* Trio/Resources/Sounds/voice_dts_thorsten.caf */; };
+		CAF900000000000000000019 /* Trio/Resources/Sounds/voice_dts_eva.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF900000000000000000018 /* Trio/Resources/Sounds/voice_dts_eva.caf */; };
+		CAF900000000000000000017 /* Trio/Resources/Sounds/voice_dcr_thorsten.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF900000000000000000016 /* Trio/Resources/Sounds/voice_dcr_thorsten.caf */; };
+		CAF900000000000000000015 /* Trio/Resources/Sounds/voice_dcr_eva.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF900000000000000000014 /* Trio/Resources/Sounds/voice_dcr_eva.caf */; };
+		CAF900000000000000000013 /* Trio/Resources/Sounds/voice_cr_thorsten.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF900000000000000000012 /* Trio/Resources/Sounds/voice_cr_thorsten.caf */; };
+		CAF900000000000000000011 /* Trio/Resources/Sounds/voice_cr_eva.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF900000000000000000010 /* Trio/Resources/Sounds/voice_cr_eva.caf */; };
+		CAF90000000000000000000F /* Trio/Resources/Sounds/voice_hg_thorsten.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF90000000000000000000E /* Trio/Resources/Sounds/voice_hg_thorsten.caf */; };
+		CAF90000000000000000000D /* Trio/Resources/Sounds/voice_hg_eva.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF90000000000000000000C /* Trio/Resources/Sounds/voice_hg_eva.caf */; };
+		CAF90000000000000000000B /* Trio/Resources/Sounds/voice_lgs_thorsten.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF90000000000000000000A /* Trio/Resources/Sounds/voice_lgs_thorsten.caf */; };
+		CAF900000000000000000009 /* Trio/Resources/Sounds/voice_lgs_eva.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF900000000000000000008 /* Trio/Resources/Sounds/voice_lgs_eva.caf */; };
+		CAF900000000000000000007 /* Trio/Resources/Sounds/voice_lg_thorsten.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF900000000000000000006 /* Trio/Resources/Sounds/voice_lg_thorsten.caf */; };
+		CAF900000000000000000005 /* Trio/Resources/Sounds/voice_lg_eva.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF900000000000000000004 /* Trio/Resources/Sounds/voice_lg_eva.caf */; };
+		CAF900000000000000000003 /* Trio/Resources/Sounds/voice_ulg_thorsten.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF900000000000000000002 /* Trio/Resources/Sounds/voice_ulg_thorsten.caf */; };
+		CAF900000000000000000001 /* Trio/Resources/Sounds/voice_ulg_eva.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF900000000000000000000 /* Trio/Resources/Sounds/voice_ulg_eva.caf */; };
+		CAF50000000000000000007F /* Trio/Resources/Sounds/voice_ulg_bryce.caf in Resources */ = {isa = PBXBuildFile; fileRef = CAF50000000000000000007E /* Trio/Resources/Sounds/voice_ulg_bryce.caf */; };
+		CAF600000000000000000002 /* AlarmSoundCatalogTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF600000000000000000001 /* AlarmSoundCatalogTests.swift */; };
 		CC6C406E2ACDD69E009B8058 /* RawFetchedProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC6C406D2ACDD69E009B8058 /* RawFetchedProfile.swift */; };
 		CC76E9512BD4812E008BEB61 /* Forecast+helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC76E9502BD4812E008BEB61 /* Forecast+helper.swift */; };
 		CD1235B000000000000000F2 /* TidepoolUploadSerializerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1235A000000000000000F1 /* TidepoolUploadSerializerTests.swift */; };
 		CD1235D000000000000000F4 /* TidepoolUploadSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1235C000000000000000F3 /* TidepoolUploadSerializer.swift */; };
+		CE1425B000000000000000A2 /* CarbsEntryLoopKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1425A000000000000000A1 /* CarbsEntryLoopKitTests.swift */; };
 		CE1856F52ADC4858007E39C7 /* AddCarbPresetIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1856F42ADC4858007E39C7 /* AddCarbPresetIntent.swift */; };
 		CE1856F72ADC4869007E39C7 /* CarbPresetIntentRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1856F62ADC4869007E39C7 /* CarbPresetIntentRequest.swift */; };
 		CE1F6DD92BADF4620064EB8D /* PluginManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1F6DD82BADF4620064EB8D /* PluginManagerTests.swift */; };
-		DC01A00E2E9F100000000005 /* DeviceCatalogTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC01A00D2E9F100000000004 /* DeviceCatalogTests.swift */; };
-		10DAA318F47843A4B894173D /* ContainerResolutionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98546920BB7247B0AC73449A /* ContainerResolutionTests.swift */; };
-		940584C38CB62676214A2107 /* RemoteMealMutationPayloadTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF74BBFE9F7B8CA9187C4DB /* RemoteMealMutationPayloadTests.swift */; };
 		CE1F6DDB2BAE08B60064EB8D /* TidepoolManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1F6DDA2BAE08B60064EB8D /* TidepoolManager.swift */; };
 		CE1F6DE72BAF1A180064EB8D /* BuildDetails.plist in Resources */ = {isa = PBXBuildFile; fileRef = CE1F6DE62BAF1A180064EB8D /* BuildDetails.plist */; };
 		CE1F6DE92BAF37C90064EB8D /* TidepoolConfigView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1F6DE82BAF37C90064EB8D /* TidepoolConfigView.swift */; };
@@ -822,10 +869,14 @@
 		CEE9A6592BBB418300EB5194 /* CalibrationsDataFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE9A6542BBB418300EB5194 /* CalibrationsDataFlow.swift */; };
 		CEE9A65C2BBB41C800EB5194 /* CalibrationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE9A65B2BBB41C800EB5194 /* CalibrationService.swift */; };
 		CEE9A65E2BBC9F6500EB5194 /* CalibrationsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE9A65D2BBC9F6500EB5194 /* CalibrationsTests.swift */; };
+		D3A2FB324887E4EAD7AE773F /* MealPhotoSettingsRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3DE460633B74F2246E1FE4F /* MealPhotoSettingsRootView.swift */; };
+		D66C4D9E20EB615DAB16B9D5 /* AITextClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50CDC04C021A7BDEB19D2B64 /* AITextClient.swift */; };
 		D6D02515BBFBE64FEBE89856 /* HistoryRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881E04BA5E0A003DE8E0A9C6 /* HistoryRootView.swift */; };
 		D6DEC113821A7F1056C4AA1E /* NightscoutConfigDataFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F2A13DF0EDEEEDC4106AA2A /* NightscoutConfigDataFlow.swift */; };
+		D7A9BDE0A1CFCF3812023077 /* WatchArcView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF0393C6836AC0147F2F18F /* WatchArcView.swift */; };
 		D7C5E1F4A7B91E2F3C5D6E70 /* TimeInterval+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C5E1F4A7B91E2F3C5D6E71 /* TimeInterval+Convenience.swift */; };
 		D9441F789E7043278FD01494 /* HomeStateModel+QuickPickTreatments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1E8522E7684C6AA742F6E4 /* HomeStateModel+QuickPickTreatments.swift */; };
+		DAD96D27D8FB9CD2887F0034 /* AIReportStateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED552E28CD556AB561F2A9D0 /* AIReportStateModel.swift */; };
 		DB0BA0010000000000000003 /* DevelopmentBranchAlerter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0BA0010000000000000002 /* DevelopmentBranchAlerter.swift */; };
 		DB0BB002000000000000000C /* ReleaseNotes.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0BB002000000000000000B /* ReleaseNotes.swift */; };
 		DB0BB002000000000000000E /* ReleaseNotesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0BB002000000000000000D /* ReleaseNotesService.swift */; };
@@ -896,7 +947,6 @@
 		DD30BA1A2E08AB9F00DA677C /* CarbImpactParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD30BA192E08AB9F00DA677C /* CarbImpactParams.swift */; };
 		DD32CF982CC82463003686D6 /* TrioRemoteControl+Bolus.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD32CF972CC82460003686D6 /* TrioRemoteControl+Bolus.swift */; };
 		DD32CF9A2CC8247B003686D6 /* TrioRemoteControl+Meal.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD32CF992CC8246F003686D6 /* TrioRemoteControl+Meal.swift */; };
-		FF0425EA9C0AFF6A6DF0B10D /* TrioRemoteControl+MealMutation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0480CC863D1BBC71668F34B3 /* TrioRemoteControl+MealMutation.swift */; };
 		DD32CF9C2CC82499003686D6 /* TrioRemoteControl+TempTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD32CF9B2CC82495003686D6 /* TrioRemoteControl+TempTarget.swift */; };
 		DD32CF9E2CC824C5003686D6 /* TrioRemoteControl+Override.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD32CF9D2CC824C2003686D6 /* TrioRemoteControl+Override.swift */; };
 		DD32CFA02CC824D6003686D6 /* TrioRemoteControl+APNS.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD32CF9F2CC824D3003686D6 /* TrioRemoteControl+APNS.swift */; };
@@ -1069,7 +1119,11 @@
 		E592A3782CEEC038009A472C /* ContactImageDataFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = E592A3732CEEC038009A472C /* ContactImageDataFlow.swift */; };
 		E592A3792CEEC038009A472C /* ContactImageRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E592A3712CEEC038009A472C /* ContactImageRootView.swift */; };
 		E592A37A2CEEC038009A472C /* ContactImageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E592A3742CEEC038009A472C /* ContactImageProvider.swift */; };
+		E6942F65FB687D57C26210DF /* InsulinConcentrationSettingsStateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84E903DE2565341107F409F /* InsulinConcentrationSettingsStateModel.swift */; };
+		E73259BE7A7D1AFB93D6B8DF /* CarbEntryMutationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2F107674CF1D9C0A2A9ACF /* CarbEntryMutationService.swift */; };
 		E974172296125A5AE99E634C /* PumpConfigRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD22C985B79A2F0D2EA3D9D /* PumpConfigRootView.swift */; };
+		EA8C7CC958065CC43DD4ACFB /* WatchStatusListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 721B4821410612696C23EA21 /* WatchStatusListView.swift */; };
+		F4D8225F05DA6E11B713F9F1 /* InsulinConcentrationSettingsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F8E31EDFF20DB49EDC5BDE /* InsulinConcentrationSettingsProvider.swift */; };
 		F5CA3DB1F9DC8B05792BBFAA /* CGMSettingsDataFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B5C0607505A38F256BF99A /* CGMSettingsDataFlow.swift */; };
 		F5F7E6C1B7F098F59EB67EC5 /* TargetsEditorDataFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA49538D56989D8DA6FCF538 /* TargetsEditorDataFlow.swift */; };
 		F816825E28DB441200054060 /* HeartBeatManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F816825D28DB441200054060 /* HeartBeatManager.swift */; };
@@ -1086,13 +1140,12 @@
 		FAB1E00000000000000000C3 /* ParityScenarios.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB1E00000000000000000B3 /* ParityScenarios.swift */; };
 		FAB1E00000000000000000C4 /* ParityGoldenTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB1E00000000000000000B4 /* ParityGoldenTests.swift */; };
 		FAB1E00000000000000000C5 /* ParityPerformanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB1E00000000000000000B5 /* ParityPerformanceTests.swift */; };
+		FB004D9CDB7CF894E9CDC941 /* PumpManager+InsulinConcentration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8656D7A3AEE6D9D24B86B9D6 /* PumpManager+InsulinConcentration.swift */; };
 		FB9012AE66284A92A6531037 /* NightscoutUploadSerializerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39FF1EC12CF4B1EBB13BE26 /* NightscoutUploadSerializerTests.swift */; };
 		FE41E4D629463EE20047FD55 /* NightscoutPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE41E4D529463EE20047FD55 /* NightscoutPreferences.swift */; };
 		FE66D16B291F74F8005D6F77 /* Bundle+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE66D16A291F74F8005D6F77 /* Bundle+Extensions.swift */; };
 		FEFFA7A22929FE49007B8193 /* UIDevice+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEFFA7A12929FE49007B8193 /* UIDevice+Extensions.swift */; };
-		CA0924000000000000000002 /* GRICalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA0924000000000000000001 /* GRICalculator.swift */; };
-		CA0924000000000000000004 /* GRIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA0924000000000000000003 /* GRIView.swift */; };
-		CA0924000000000000000006 /* GRICalculatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA0924000000000000000005 /* GRICalculatorTests.swift */; };
+		FF0425EA9C0AFF6A6DF0B10D /* TrioRemoteControl+MealMutation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0480CC863D1BBC71668F34B3 /* TrioRemoteControl+MealMutation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1210,9 +1263,30 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		4A5821B70D8833574E792658 /* TrioWatchComplication.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TrioWatchComplication.entitlements; sourceTree = "<group>"; };
+		AAE2696C19B40241AC6EC9EB /* TrioWatchApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TrioWatchApp.entitlements; sourceTree = "<group>"; };
+		36BD80A9B7D3FBEBF493E0F2 /* GlucoseComplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GlucoseComplication.swift"; sourceTree = "<group>"; };
+		D4B92E941B0123A19FB3064C /* SensitivityReportTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SensitivityReportTests.swift"; sourceTree = "<group>"; };
+		E449FF7862B7DC79891C050E /* SensitivityReport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SensitivityReport.swift"; sourceTree = "<group>"; };
+		353A37BA07C6A4FAC1BEC35B /* SensitivityReportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SensitivityReportView.swift"; sourceTree = "<group>"; };
+		8A42A5F232AA95699F55B57E /* DynamicISFBadgeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DynamicISFBadgeTests.swift"; sourceTree = "<group>"; };
+		BEE01A57C33ECE78F0877C1E /* HeaderWidgetSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HeaderWidgetSnapshotTests.swift"; sourceTree = "<group>"; };
+		16125DCD1E114A831142EA2A /* LiveActivity.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LiveActivity.entitlements; sourceTree = "<group>"; };
+		B41E617313F332A00E84EB9C /* HomeStateModel+HeaderWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeStateModel+HeaderWidget.swift"; sourceTree = "<group>"; };
+		5D91AB4FDC7EEE5BFD7A3C93 /* HeaderWidgetSnapshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HeaderWidgetSnapshot.swift"; sourceTree = "<group>"; };
+		66802C0ADC54598CE35B49F5 /* LiveActivityColorsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LiveActivityColorsTests.swift"; sourceTree = "<group>"; };
+		3AA9D5B36D9817BE6430E36F /* LiveActivityColorsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LiveActivityColorsView.swift"; sourceTree = "<group>"; };
+		F63B2EAC72C4239113E11C95 /* DiaExpertCGMTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DiaExpertCGMTests.swift"; sourceTree = "<group>"; };
+		B0583080667EFE80A8EB04F9 /* DiaExpertCGMManager+UI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DiaExpertCGMManager+UI.swift"; sourceTree = "<group>"; };
+		79E6DC81D741151E45409D36 /* DiaExpertCGMManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DiaExpertCGMManager.swift"; sourceTree = "<group>"; };
+		AA256E1E1EA27F6FF6214C48 /* DiaExpertCGMState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DiaExpertCGMState.swift"; sourceTree = "<group>"; };
+		961168CA0BF5B9CBA4215648 /* DiaExpertProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DiaExpertProtocol.swift"; sourceTree = "<group>"; };
 		03B15F4A3077CD4B00DFEBE4 /* SyaiKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SyaiKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		03B15F4C3077CD5400DFEBE4 /* SyaiKitUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SyaiKitUI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		0480CC863D1BBC71668F34B3 /* TrioRemoteControl+MealMutation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TrioRemoteControl+MealMutation.swift"; sourceTree = "<group>"; };
+		076718802ADC8373A5161F68 /* AIReportRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIReportRootView.swift; sourceTree = "<group>"; };
 		0A1E8522E7684C6AA742F6E4 /* HomeStateModel+QuickPickTreatments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeStateModel+QuickPickTreatments.swift"; sourceTree = "<group>"; };
+		0A88DA3970225F874AF632C6 /* InsulinConcentrationSettingsDataFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsulinConcentrationSettingsDataFlow.swift; sourceTree = "<group>"; };
 		10E61A0885164081B57C357C /* NightscoutUploadSerializer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NightscoutUploadSerializer.swift; sourceTree = "<group>"; };
 		110AEDE02C5193D100615CC9 /* BolusIntent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BolusIntent.swift; sourceTree = "<group>"; };
 		110AEDE12C5193D100615CC9 /* BolusIntentRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BolusIntentRequest.swift; sourceTree = "<group>"; };
@@ -1256,8 +1330,12 @@
 		19F95FF429F10FCF00314DDC /* StatProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatProvider.swift; sourceTree = "<group>"; };
 		19F95FF629F10FEE00314DDC /* StatStateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatStateModel.swift; sourceTree = "<group>"; };
 		19F95FF929F1102A00314DDC /* StatRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatRootView.swift; sourceTree = "<group>"; };
+		1C1BC7F51748AF01D8BB08D4 /* MealPhotoAnalysis.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealPhotoAnalysis.swift; sourceTree = "<group>"; };
+		1E19B6787AC306607F96871A /* InsulinConcentrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsulinConcentrationTests.swift; sourceTree = "<group>"; };
 		223EC0494F55A91E3EA69EF4 /* TreatmentsStateModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TreatmentsStateModel.swift; sourceTree = "<group>"; };
+		252BA1DE298FC42DF5032069 /* InsulinConcentrationSettingsRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsulinConcentrationSettingsRootView.swift; sourceTree = "<group>"; };
 		2AD22C985B79A2F0D2EA3D9D /* PumpConfigRootView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PumpConfigRootView.swift; sourceTree = "<group>"; };
+		2ED74A80CCB5E5146BACD215 /* BackupRestoreStateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackupRestoreStateModel.swift; sourceTree = "<group>"; };
 		2EEC5C2927FA4C5DA61A1A40 /* QuickPickTreatmentsConfigProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickPickTreatmentsConfigProvider.swift; sourceTree = "<group>"; };
 		2F2A13DF0EDEEEDC4106AA2A /* NightscoutConfigDataFlow.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = NightscoutConfigDataFlow.swift; sourceTree = "<group>"; };
 		36F58DDD71F0E795464FA3F0 /* TargetsEditorStateModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TargetsEditorStateModel.swift; sourceTree = "<group>"; };
@@ -1354,7 +1432,6 @@
 		38AEE73C25F0200C0013F05B /* TrioSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrioSettings.swift; sourceTree = "<group>"; };
 		38AEE75125F022080013F05B /* SettingsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsManager.swift; sourceTree = "<group>"; };
 		38AEE75625F0F18E0013F05B /* CarbsStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarbsStorage.swift; sourceTree = "<group>"; };
-		3A2F107674CF1D9C0A2A9ACF /* CarbEntryMutationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarbEntryMutationService.swift; sourceTree = "<group>"; };
 		38B4F3AE25E2979F00E76A18 /* IndexedCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndexedCollection.swift; sourceTree = "<group>"; };
 		38B4F3C225E2A20B00E76A18 /* PumpSetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PumpSetupView.swift; sourceTree = "<group>"; };
 		38B4F3C525E5017E00E76A18 /* NotificationCenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationCenter.swift; sourceTree = "<group>"; };
@@ -1416,6 +1493,7 @@
 		38FEF3FB2737E53800574A46 /* MainStateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainStateModel.swift; sourceTree = "<group>"; };
 		38FEF3FD2738083E00574A46 /* CGMSettingsProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGMSettingsProvider.swift; sourceTree = "<group>"; };
 		38FEF412273B317A00574A46 /* HKUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HKUnit.swift; sourceTree = "<group>"; };
+		3A2F107674CF1D9C0A2A9ACF /* CarbEntryMutationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarbEntryMutationService.swift; sourceTree = "<group>"; };
 		3B0B4E6B2DE1439A005C6627 /* LockedResolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LockedResolver.swift; sourceTree = "<group>"; };
 		3B139EF22DF06CDC00D40797 /* AutosensGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutosensGenerator.swift; sourceTree = "<group>"; };
 		3B1C5C242D68E1E3004E9273 /* IobCalculation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IobCalculation.swift; sourceTree = "<group>"; };
@@ -1509,6 +1587,7 @@
 		3BF768BD6264FF7D71D66767 /* NightscoutConfigProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = NightscoutConfigProvider.swift; sourceTree = "<group>"; };
 		3BF92F392D86F1AA006B545A /* iob-error-log.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "iob-error-log.json"; sourceTree = "<group>"; };
 		3E5308A43002BC970075629E /* AccuChekKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = AccuChekKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3E5330881AFAF292B93EA1DE /* BentoHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BentoHeaderView.swift; sourceTree = "<group>"; };
 		3E54EF2B2E476DA40006F54D /* MedtrumKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = MedtrumKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E62C7812F54CC1600433237 /* BolusDisplayThreshold.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BolusDisplayThreshold.swift; sourceTree = "<group>"; };
 		3E705AFA2FF94FAB0007F96B /* BolusStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BolusStatus.swift; sourceTree = "<group>"; };
@@ -1517,8 +1596,10 @@
 		3F60E97100041040446F44E7 /* PumpConfigStateModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PumpConfigStateModel.swift; sourceTree = "<group>"; };
 		3F8A87AA037BD079BA3528BA /* ConfigEditorDataFlow.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ConfigEditorDataFlow.swift; sourceTree = "<group>"; };
 		41BEC89F0411CF3EF0F6A61B /* CGMSensorStateLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGMSensorStateLog.swift; sourceTree = "<group>"; };
+		41F3A0D04F514207AAC0E4C1 /* RescueCarbsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RescueCarbsTests.swift; sourceTree = "<group>"; };
 		42369F66CF91F30624C0B3A6 /* BasalProfileEditorProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = BasalProfileEditorProvider.swift; sourceTree = "<group>"; };
 		44080E4709E3AE4B73054563 /* ConfigEditorProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ConfigEditorProvider.swift; sourceTree = "<group>"; };
+		48213B7A4332451C6D3F6995 /* MealCarbType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealCarbType.swift; sourceTree = "<group>"; };
 		48B83503461B4F8D97B30115 /* SettingsSearchHighlight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsSearchHighlight.swift; sourceTree = "<group>"; };
 		49090A8C2E9FE8D200D0F5DB /* GarminWatchSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GarminWatchSettings.swift; sourceTree = "<group>"; };
 		491D6FB92D56741C00C49F67 /* TempTargetRunStored+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TempTargetRunStored+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -1529,9 +1610,14 @@
 		4984D1D32EA2939E00263E83 /* WatchConfigGarminAppConfigView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchConfigGarminAppConfigView.swift; sourceTree = "<group>"; };
 		49B9B57E2D5768D2009C6B59 /* AdjustmentStored+Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AdjustmentStored+Helper.swift"; sourceTree = "<group>"; };
 		49C782A62F73D9870062B0DD /* AlertEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertEntry.swift; sourceTree = "<group>"; };
+		4ACA05C412EB6E3F04AB3607 /* BackupRestoreDataFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackupRestoreDataFlow.swift; sourceTree = "<group>"; };
 		4B8F3B0E159844FD8746DFC0 /* TempTargetData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempTargetData.swift; sourceTree = "<group>"; };
+		4C5F544FBB2BC5A1012E2A08 /* BackupRestoreProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackupRestoreProvider.swift; sourceTree = "<group>"; };
 		4DD795BA46B193644D48138C /* TargetsEditorRootView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TargetsEditorRootView.swift; sourceTree = "<group>"; };
 		505E09DC17A0C3D0AF4B66FE /* ISFEditorStateModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ISFEditorStateModel.swift; sourceTree = "<group>"; };
+		50CDC04C021A7BDEB19D2B64 /* AITextClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AITextClient.swift; sourceTree = "<group>"; };
+		517F3D56F29B544BA04A63AB /* WatchBentoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchBentoView.swift; sourceTree = "<group>"; };
+		54E5F2C9AC8CD01E33E97E8D /* MealPhotoAnalysisSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealPhotoAnalysisSheet.swift; sourceTree = "<group>"; };
 		581516A32BCED84A00BF67D7 /* DebuggingIdentifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebuggingIdentifiers.swift; sourceTree = "<group>"; };
 		581516A82BCEEDF800BF67D7 /* NSPredicates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSPredicates.swift; sourceTree = "<group>"; };
 		581AC4382BE22ED10038760C /* JSONConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONConverter.swift; sourceTree = "<group>"; };
@@ -1568,13 +1654,16 @@
 		5A2325532BFCBF65003518CA /* NightscoutFetchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NightscoutFetchView.swift; sourceTree = "<group>"; };
 		5A2325572BFCC168003518CA /* NightscoutConnectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NightscoutConnectView.swift; sourceTree = "<group>"; };
 		5C018D1680307A31C9ED7120 /* CGMSettingsStateModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CGMSettingsStateModel.swift; sourceTree = "<group>"; };
+		5D4A013744BCF2E62880468F /* TherapyReportDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TherapyReportDataSource.swift; sourceTree = "<group>"; };
 		5D5B4F8B4194BB7E260EF251 /* ConfigEditorStateModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ConfigEditorStateModel.swift; sourceTree = "<group>"; };
 		5E12FE0E2EBC0000000000A1 /* LibreLoop.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = LibreLoop.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E12FE0E2EBC0000000000A2 /* LibreLoopUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = LibreLoopUI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		60744C3E9BB3652895C908CC /* HistoryProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HistoryProvider.swift; sourceTree = "<group>"; };
+		635945C53FBCDA516E3C6FCB /* TherapyReportDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TherapyReportDocument.swift; sourceTree = "<group>"; };
 		64AA5E04A2761F6EEA6568E1 /* CarbRatioEditorStateModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CarbRatioEditorStateModel.swift; sourceTree = "<group>"; };
 		65070A322BFDCB83006F213F /* TidepoolStartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TidepoolStartView.swift; sourceTree = "<group>"; };
 		67F94DD2853CF42BA4E30616 /* BasalProfileEditorDataFlow.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = BasalProfileEditorDataFlow.swift; sourceTree = "<group>"; };
+		69D796B3656EA7D3C9A75DF6 /* TherapyReportTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TherapyReportTests.swift; sourceTree = "<group>"; };
 		6B1A8D012B14D88B00E76752 /* UniformTypeIdentifiers.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UniformTypeIdentifiers.framework; path = System/Library/Frameworks/UniformTypeIdentifiers.framework; sourceTree = SDKROOT; };
 		6B1A8D172B14D91600E76752 /* LiveActivityExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = LiveActivityExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		6B1A8D182B14D91600E76752 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
@@ -1585,9 +1674,11 @@
 		6B1A8D252B14D91700E76752 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6B1A8D2D2B156EEF00E76752 /* LiveActivityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveActivityManager.swift; sourceTree = "<group>"; };
 		6BCF84DC2B16843A003AD46E /* LiveActivityAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveActivityAttributes.swift; sourceTree = "<group>"; };
-		7E2CF3BABA4BF1C48CC96FD7 /* LiveActivityGlucoseStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveActivityGlucoseStyle.swift; sourceTree = "<group>"; };
-		CD6672C97F2AB74125F46DD5 /* LiveActivitySimpleWidgetConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveActivitySimpleWidgetConfiguration.swift; sourceTree = "<group>"; };
+		6DBD228DAD451184F992B7BA /* AIReportProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIReportProvider.swift; sourceTree = "<group>"; };
+		6EA6B9B85DA8C46631DB06F6 /* MealPhotoAnalysisTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealPhotoAnalysisTests.swift; sourceTree = "<group>"; };
 		71D44AAA2CA5F5EA0036EE9E /* AlertPermissionsChecker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertPermissionsChecker.swift; sourceTree = "<group>"; };
+		721B4821410612696C23EA21 /* WatchStatusListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchStatusListView.swift; sourceTree = "<group>"; };
+		790C6C2C5BF63B702D1C1B6F /* MealPhotoSettingsStateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealPhotoSettingsStateModel.swift; sourceTree = "<group>"; };
 		79BDA519C9B890FD9A5DFCF3 /* ISFEditorDataFlow.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ISFEditorDataFlow.swift; sourceTree = "<group>"; };
 		7A11AC0DE000000000000006 /* HomeRootView+Refresh.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeRootView+Refresh.swift"; sourceTree = "<group>"; };
 		7A11AC0DE000000000000009 /* PumpEventFinalizationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PumpEventFinalizationTests.swift; sourceTree = "<group>"; };
@@ -1606,20 +1697,31 @@
 		7A11AC0DE000000000000130 /* UIHostingController+KeyboardSafeArea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIHostingController+KeyboardSafeArea.swift"; sourceTree = "<group>"; };
 		7A11AC0DE000000000000160 /* WallClockParityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WallClockParityTests.swift; sourceTree = "<group>"; };
 		7A11AC0DE000000000000170 /* GlassActionSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlassActionSheet.swift; sourceTree = "<group>"; };
+		7AF74BBFE9F7B8CA9187C4DB /* RemoteMealMutationPayloadTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteMealMutationPayloadTests.swift; sourceTree = "<group>"; };
 		7E22146D3DF4853786C78132 /* CarbRatioEditorDataFlow.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CarbRatioEditorDataFlow.swift; sourceTree = "<group>"; };
+		7E2CF3BABA4BF1C48CC96FD7 /* LiveActivityGlucoseStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveActivityGlucoseStyle.swift; sourceTree = "<group>"; };
+		82E334D03EBCA7485A69FD55 /* TherapyReport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TherapyReport.swift; sourceTree = "<group>"; };
+		8656D7A3AEE6D9D24B86B9D6 /* PumpManager+InsulinConcentration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PumpManager+InsulinConcentration.swift"; sourceTree = "<group>"; };
 		8782B44544F38F2B2D82C38E /* NightscoutConfigRootView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = NightscoutConfigRootView.swift; sourceTree = "<group>"; };
+		87CC2CA8F9D22249E63F3AED /* MealPhotoAnalyzer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealPhotoAnalyzer.swift; sourceTree = "<group>"; };
 		881E04BA5E0A003DE8E0A9C6 /* HistoryRootView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HistoryRootView.swift; sourceTree = "<group>"; };
 		8A54068ABDAE4898B243DF14 /* QuickPickTreatmentsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickPickTreatmentsView.swift; sourceTree = "<group>"; };
 		8A9134292D63D9A1007F8874 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		8A91342B2D63D9A2007F8874 /* InfoPlist.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = InfoPlist.xcstrings; sourceTree = "<group>"; };
+		8CBC2A14508E3C394D6186B1 /* SettingsBackupTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsBackupTests.swift; sourceTree = "<group>"; };
 		91711E7CA54747EFAD6540EE /* QuickPickTreatmentsConfigStateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickPickTreatmentsConfigStateModel.swift; sourceTree = "<group>"; };
 		920DDB21E5D0EB813197500D /* ConfigEditorRootView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ConfigEditorRootView.swift; sourceTree = "<group>"; };
 		9455FA2D92E77A6C4AFED8A3 /* HistoryStateModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HistoryStateModel.swift; sourceTree = "<group>"; };
+		949BD611E40C94673DE56649 /* HomeRootView+Bento.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeRootView+Bento.swift"; sourceTree = "<group>"; };
+		96D45F36EEAE606DCA5E0781 /* MealPhotoSettingsDataFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealPhotoSettingsDataFlow.swift; sourceTree = "<group>"; };
 		98546920BB7247B0AC73449A /* ContainerResolutionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerResolutionTests.swift; sourceTree = "<group>"; };
+		9B6779B0A0D49D2F9EF6F6E2 /* AIReportDataFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIReportDataFlow.swift; sourceTree = "<group>"; };
 		9C8D5F457B5AFF763F8CF3DF /* CarbRatioEditorProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CarbRatioEditorProvider.swift; sourceTree = "<group>"; };
 		9F9F137F126D9F8DEB799F26 /* ISFEditorProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ISFEditorProvider.swift; sourceTree = "<group>"; };
 		A0A48AE3AC813A49A517846A /* NightscoutConfigStateModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = NightscoutConfigStateModel.swift; sourceTree = "<group>"; };
+		A19B7FC1E8CD873546B563CB /* CarbEntryMutationServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarbEntryMutationServiceTests.swift; sourceTree = "<group>"; };
 		A401509D21F7F35D4E109EDA /* HistoryDataFlow.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HistoryDataFlow.swift; sourceTree = "<group>"; };
+		A6D0F74EC97200794FE25EB9 /* BackupRestoreRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackupRestoreRootView.swift; sourceTree = "<group>"; };
 		A8630D58BDAD6D9C650B9B39 /* PumpConfigProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PumpConfigProvider.swift; sourceTree = "<group>"; };
 		AABB00012C54389F00211FAC /* TreatmentsSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreatmentsSettingsView.swift; sourceTree = "<group>"; };
 		AAFF91130F2FCCC7EBBA11AD /* BasalProfileEditorStateModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = BasalProfileEditorStateModel.swift; sourceTree = "<group>"; };
@@ -1634,7 +1736,9 @@
 		B3919BBB515547118D684CD2 /* LoopIndicatorTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LoopIndicatorTests.swift; sourceTree = "<group>"; };
 		B3919BBB515547118D684CE2 /* DosingModeClampTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DosingModeClampTests.swift; sourceTree = "<group>"; };
 		B3919BBB515547118D684CF2 /* AlgorithmSuggestedBolusTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AlgorithmSuggestedBolusTests.swift; sourceTree = "<group>"; };
+		B4D71E549C8665F5358AC813 /* ExtendedBolusTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtendedBolusTests.swift; sourceTree = "<group>"; };
 		B6E925122EB3932A0076D719 /* OmnipodKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = OmnipodKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B84E903DE2565341107F409F /* InsulinConcentrationSettingsStateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsulinConcentrationSettingsStateModel.swift; sourceTree = "<group>"; };
 		B9B5C0607505A38F256BF99A /* CGMSettingsDataFlow.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CGMSettingsDataFlow.swift; sourceTree = "<group>"; };
 		BA49538D56989D8DA6FCF538 /* TargetsEditorDataFlow.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TargetsEditorDataFlow.swift; sourceTree = "<group>"; };
 		BD04ECCD2D299522008C5FEB /* BolusProgressOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BolusProgressOverlay.swift; sourceTree = "<group>"; };
@@ -1645,89 +1749,6 @@
 		BD1179252F4E22C100F90001 /* TrioUserNotificationAlertScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrioUserNotificationAlertScheduler.swift; sourceTree = "<group>"; };
 		BD1179292F4E22C100F90001 /* TrioAlertCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrioAlertCategory.swift; sourceTree = "<group>"; };
 		BD1179312F4E22C100F90001 /* CriticalAlertAudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CriticalAlertAudioPlayer.swift; sourceTree = "<group>"; };
-		CAF300000000000000000001 /* CriticalAlertAlarmScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CriticalAlertAlarmScheduler.swift; sourceTree = "<group>"; };
-		CAF100000000000000000000 /* Trio/Resources/Sounds/alarm.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/alarm.caf; sourceTree = SOURCE_ROOT; };
-		CAF500000000000000000000 /* Trio/Resources/Sounds/acoustic_cr_harsh.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/acoustic_cr_harsh.caf; sourceTree = SOURCE_ROOT; };
-		CAF500000000000000000002 /* Trio/Resources/Sounds/acoustic_cr_medium.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/acoustic_cr_medium.caf; sourceTree = SOURCE_ROOT; };
-		CAF500000000000000000004 /* Trio/Resources/Sounds/acoustic_cr_mild.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/acoustic_cr_mild.caf; sourceTree = SOURCE_ROOT; };
-		CAF500000000000000000006 /* Trio/Resources/Sounds/acoustic_dcr_harsh.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/acoustic_dcr_harsh.caf; sourceTree = SOURCE_ROOT; };
-		CAF500000000000000000008 /* Trio/Resources/Sounds/acoustic_dcr_medium.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/acoustic_dcr_medium.caf; sourceTree = SOURCE_ROOT; };
-		CAF50000000000000000000A /* Trio/Resources/Sounds/acoustic_dcr_mild.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/acoustic_dcr_mild.caf; sourceTree = SOURCE_ROOT; };
-		CAF50000000000000000000C /* Trio/Resources/Sounds/acoustic_dts_harsh.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/acoustic_dts_harsh.caf; sourceTree = SOURCE_ROOT; };
-		CAF50000000000000000000E /* Trio/Resources/Sounds/acoustic_dts_medium.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/acoustic_dts_medium.caf; sourceTree = SOURCE_ROOT; };
-		CAF500000000000000000010 /* Trio/Resources/Sounds/acoustic_dts_mild.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/acoustic_dts_mild.caf; sourceTree = SOURCE_ROOT; };
-		CAF500000000000000000012 /* Trio/Resources/Sounds/acoustic_hg_harsh.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/acoustic_hg_harsh.caf; sourceTree = SOURCE_ROOT; };
-		CAF500000000000000000014 /* Trio/Resources/Sounds/acoustic_hg_medium.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/acoustic_hg_medium.caf; sourceTree = SOURCE_ROOT; };
-		CAF500000000000000000016 /* Trio/Resources/Sounds/acoustic_hg_mild.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/acoustic_hg_mild.caf; sourceTree = SOURCE_ROOT; };
-		CAF500000000000000000018 /* Trio/Resources/Sounds/acoustic_lg_harsh.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/acoustic_lg_harsh.caf; sourceTree = SOURCE_ROOT; };
-		CAF50000000000000000001A /* Trio/Resources/Sounds/acoustic_lg_medium.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/acoustic_lg_medium.caf; sourceTree = SOURCE_ROOT; };
-		CAF50000000000000000001C /* Trio/Resources/Sounds/acoustic_lg_mild.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/acoustic_lg_mild.caf; sourceTree = SOURCE_ROOT; };
-		CAF50000000000000000001E /* Trio/Resources/Sounds/acoustic_lgs_harsh.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/acoustic_lgs_harsh.caf; sourceTree = SOURCE_ROOT; };
-		CAF500000000000000000020 /* Trio/Resources/Sounds/acoustic_lgs_medium.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/acoustic_lgs_medium.caf; sourceTree = SOURCE_ROOT; };
-		CAF500000000000000000022 /* Trio/Resources/Sounds/acoustic_lgs_mild.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/acoustic_lgs_mild.caf; sourceTree = SOURCE_ROOT; };
-		CAF500000000000000000024 /* Trio/Resources/Sounds/acoustic_ulg_harsh.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/acoustic_ulg_harsh.caf; sourceTree = SOURCE_ROOT; };
-		CAF500000000000000000026 /* Trio/Resources/Sounds/acoustic_ulg_medium.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/acoustic_ulg_medium.caf; sourceTree = SOURCE_ROOT; };
-		CAF500000000000000000028 /* Trio/Resources/Sounds/acoustic_ulg_mild.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/acoustic_ulg_mild.caf; sourceTree = SOURCE_ROOT; };
-		CAF50000000000000000002A /* Trio/Resources/Sounds/electronic_cr_harsh.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/electronic_cr_harsh.caf; sourceTree = SOURCE_ROOT; };
-		CAF50000000000000000002C /* Trio/Resources/Sounds/electronic_cr_medium.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/electronic_cr_medium.caf; sourceTree = SOURCE_ROOT; };
-		CAF50000000000000000002E /* Trio/Resources/Sounds/electronic_cr_mild.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/electronic_cr_mild.caf; sourceTree = SOURCE_ROOT; };
-		CAF500000000000000000030 /* Trio/Resources/Sounds/electronic_dcr_harsh.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/electronic_dcr_harsh.caf; sourceTree = SOURCE_ROOT; };
-		CAF500000000000000000032 /* Trio/Resources/Sounds/electronic_dcr_medium.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/electronic_dcr_medium.caf; sourceTree = SOURCE_ROOT; };
-		CAF500000000000000000034 /* Trio/Resources/Sounds/electronic_dcr_mild.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/electronic_dcr_mild.caf; sourceTree = SOURCE_ROOT; };
-		CAF500000000000000000036 /* Trio/Resources/Sounds/electronic_dts_harsh.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/electronic_dts_harsh.caf; sourceTree = SOURCE_ROOT; };
-		CAF500000000000000000038 /* Trio/Resources/Sounds/electronic_dts_medium.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/electronic_dts_medium.caf; sourceTree = SOURCE_ROOT; };
-		CAF50000000000000000003A /* Trio/Resources/Sounds/electronic_dts_mild.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/electronic_dts_mild.caf; sourceTree = SOURCE_ROOT; };
-		CAF50000000000000000003C /* Trio/Resources/Sounds/electronic_hg_harsh.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/electronic_hg_harsh.caf; sourceTree = SOURCE_ROOT; };
-		CAF50000000000000000003E /* Trio/Resources/Sounds/electronic_hg_medium.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/electronic_hg_medium.caf; sourceTree = SOURCE_ROOT; };
-		CAF500000000000000000040 /* Trio/Resources/Sounds/electronic_hg_mild.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/electronic_hg_mild.caf; sourceTree = SOURCE_ROOT; };
-		CAF500000000000000000042 /* Trio/Resources/Sounds/electronic_lg_harsh.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/electronic_lg_harsh.caf; sourceTree = SOURCE_ROOT; };
-		CAF500000000000000000044 /* Trio/Resources/Sounds/electronic_lg_medium.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/electronic_lg_medium.caf; sourceTree = SOURCE_ROOT; };
-		CAF500000000000000000046 /* Trio/Resources/Sounds/electronic_lg_mild.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/electronic_lg_mild.caf; sourceTree = SOURCE_ROOT; };
-		CAF500000000000000000048 /* Trio/Resources/Sounds/electronic_lgs_harsh.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/electronic_lgs_harsh.caf; sourceTree = SOURCE_ROOT; };
-		CAF50000000000000000004A /* Trio/Resources/Sounds/electronic_lgs_medium.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/electronic_lgs_medium.caf; sourceTree = SOURCE_ROOT; };
-		CAF50000000000000000004C /* Trio/Resources/Sounds/electronic_lgs_mild.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/electronic_lgs_mild.caf; sourceTree = SOURCE_ROOT; };
-		CAF50000000000000000004E /* Trio/Resources/Sounds/electronic_ulg_harsh.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/electronic_ulg_harsh.caf; sourceTree = SOURCE_ROOT; };
-		CAF500000000000000000050 /* Trio/Resources/Sounds/electronic_ulg_medium.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/electronic_ulg_medium.caf; sourceTree = SOURCE_ROOT; };
-		CAF500000000000000000052 /* Trio/Resources/Sounds/electronic_ulg_mild.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/electronic_ulg_mild.caf; sourceTree = SOURCE_ROOT; };
-		CAF500000000000000000054 /* Trio/Resources/Sounds/glass_bell.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/glass_bell.caf; sourceTree = SOURCE_ROOT; };
-		CAF500000000000000000056 /* Trio/Resources/Sounds/hard_saw_wave.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/hard_saw_wave.caf; sourceTree = SOURCE_ROOT; };
-		CAF500000000000000000058 /* Trio/Resources/Sounds/harp.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/harp.caf; sourceTree = SOURCE_ROOT; };
-		CAF50000000000000000005A /* Trio/Resources/Sounds/meow.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/meow.caf; sourceTree = SOURCE_ROOT; };
-		CAF50000000000000000005C /* Trio/Resources/Sounds/open_can.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/open_can.caf; sourceTree = SOURCE_ROOT; };
-		CAF50000000000000000005E /* Trio/Resources/Sounds/open_wrapper.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/open_wrapper.caf; sourceTree = SOURCE_ROOT; };
-		CAF500000000000000000060 /* Trio/Resources/Sounds/saw_wave.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/saw_wave.caf; sourceTree = SOURCE_ROOT; };
-		CAF500000000000000000062 /* Trio/Resources/Sounds/sine_wave.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/sine_wave.caf; sourceTree = SOURCE_ROOT; };
-		CAF500000000000000000064 /* Trio/Resources/Sounds/voice_cr_amy.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/voice_cr_amy.caf; sourceTree = SOURCE_ROOT; };
-		CAF500000000000000000066 /* Trio/Resources/Sounds/voice_cr_bryce.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/voice_cr_bryce.caf; sourceTree = SOURCE_ROOT; };
-		CAF500000000000000000068 /* Trio/Resources/Sounds/voice_dcr_amy.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/voice_dcr_amy.caf; sourceTree = SOURCE_ROOT; };
-		CAF50000000000000000006A /* Trio/Resources/Sounds/voice_dcr_bryce.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/voice_dcr_bryce.caf; sourceTree = SOURCE_ROOT; };
-		CAF50000000000000000006C /* Trio/Resources/Sounds/voice_dts_amy.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/voice_dts_amy.caf; sourceTree = SOURCE_ROOT; };
-		CAF50000000000000000006E /* Trio/Resources/Sounds/voice_dts_bryce.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/voice_dts_bryce.caf; sourceTree = SOURCE_ROOT; };
-		CAF500000000000000000070 /* Trio/Resources/Sounds/voice_hg_amy.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/voice_hg_amy.caf; sourceTree = SOURCE_ROOT; };
-		CAF500000000000000000072 /* Trio/Resources/Sounds/voice_hg_bryce.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/voice_hg_bryce.caf; sourceTree = SOURCE_ROOT; };
-		CAF500000000000000000074 /* Trio/Resources/Sounds/voice_lg_amy.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/voice_lg_amy.caf; sourceTree = SOURCE_ROOT; };
-		CAF500000000000000000076 /* Trio/Resources/Sounds/voice_lg_bryce.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/voice_lg_bryce.caf; sourceTree = SOURCE_ROOT; };
-		CAF500000000000000000078 /* Trio/Resources/Sounds/voice_lgs_amy.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/voice_lgs_amy.caf; sourceTree = SOURCE_ROOT; };
-		CAF50000000000000000007A /* Trio/Resources/Sounds/voice_lgs_bryce.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/voice_lgs_bryce.caf; sourceTree = SOURCE_ROOT; };
-		CAF50000000000000000007C /* Trio/Resources/Sounds/voice_ulg_amy.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/voice_ulg_amy.caf; sourceTree = SOURCE_ROOT; };
-		CAF50000000000000000007E /* Trio/Resources/Sounds/voice_ulg_bryce.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/voice_ulg_bryce.caf; sourceTree = SOURCE_ROOT; };
-		CAF100000000000000000001 /* Trio/Resources/Sounds/bloom.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/bloom.caf; sourceTree = SOURCE_ROOT; };
-		CAF100000000000000000002 /* Trio/Resources/Sounds/bloop.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/bloop.caf; sourceTree = SOURCE_ROOT; };
-		CAF100000000000000000003 /* Trio/Resources/Sounds/bright_alarm.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/bright_alarm.caf; sourceTree = SOURCE_ROOT; };
-		CAF100000000000000000004 /* Trio/Resources/Sounds/chime.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/chime.caf; sourceTree = SOURCE_ROOT; };
-		CAF100000000000000000005 /* Trio/Resources/Sounds/clear_chimes.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/clear_chimes.caf; sourceTree = SOURCE_ROOT; };
-		CAF100000000000000000006 /* Trio/Resources/Sounds/critical.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/critical.caf; sourceTree = SOURCE_ROOT; };
-		CAF100000000000000000007 /* Trio/Resources/Sounds/crying.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/crying.caf; sourceTree = SOURCE_ROOT; };
-		CAF100000000000000000008 /* Trio/Resources/Sounds/dings.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/dings.caf; sourceTree = SOURCE_ROOT; };
-		CAF100000000000000000009 /* Trio/Resources/Sounds/high_chimes.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/high_chimes.caf; sourceTree = SOURCE_ROOT; };
-		CAF10000000000000000000A /* Trio/Resources/Sounds/honk.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/honk.caf; sourceTree = SOURCE_ROOT; };
-		CAF10000000000000000000B /* Trio/Resources/Sounds/minimal.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/minimal.caf; sourceTree = SOURCE_ROOT; };
-		CAF10000000000000000000C /* Trio/Resources/Sounds/mood_synth.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/mood_synth.caf; sourceTree = SOURCE_ROOT; };
-		CAF10000000000000000000D /* Trio/Resources/Sounds/simple.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/simple.caf; sourceTree = SOURCE_ROOT; };
-		CAF10000000000000000000E /* Trio/Resources/Sounds/spring.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/spring.caf; sourceTree = SOURCE_ROOT; };
-		CAF10000000000000000000F /* Trio/Resources/Sounds/synth.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/synth.caf; sourceTree = SOURCE_ROOT; };
-		CAF100000000000000000010 /* Trio/Resources/Sounds/trill.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/trill.caf; sourceTree = SOURCE_ROOT; };
-		CAF100000000000000000011 /* Trio/Resources/Sounds/urgent_low.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/urgent_low.caf; sourceTree = SOURCE_ROOT; };
 		BD1179412F4E22C100F90001 /* ForecastedGlucoseEvaluator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastedGlucoseEvaluator.swift; sourceTree = "<group>"; };
 		BD1179512F4E22C100F90001 /* DayNightOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayNightOptions.swift; sourceTree = "<group>"; };
 		BD1179532F4E22C100F90001 /* GlucoseAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlucoseAlert.swift; sourceTree = "<group>"; };
@@ -1764,13 +1785,11 @@
 		BD1179AD2F4E22C100F90001 /* GlucoseSourceKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlucoseSourceKey.swift; sourceTree = "<group>"; };
 		BD11A000000000000000A002 /* AlertMuterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertMuterTests.swift; sourceTree = "<group>"; };
 		BD11A000000000000000A003 /* DeviceAlertsStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceAlertsStoreTests.swift; sourceTree = "<group>"; };
-		CAF600000000000000000001 /* AlarmSoundCatalogTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmSoundCatalogTests.swift; sourceTree = "<group>"; };
 		BD11A000000000000000A006 /* ForecastedGlucoseEvaluatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastedGlucoseEvaluatorTests.swift; sourceTree = "<group>"; };
 		BD11A000000000000000A007 /* GlucoseAlertConfigurationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlucoseAlertConfigurationTests.swift; sourceTree = "<group>"; };
 		BD11A000000000000000A008 /* GlucoseAlertTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlucoseAlertTests.swift; sourceTree = "<group>"; };
 		BD11A000000000000000A009 /* TrioAlertCategoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrioAlertCategoryTests.swift; sourceTree = "<group>"; };
 		BD11A000000000000000A00A /* GlucoseAlertCoordinatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlucoseAlertCoordinatorTests.swift; sourceTree = "<group>"; };
-		BD11A010000000000000A01A /* CGMManagerAlertOwnershipTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGMManagerAlertOwnershipTests.swift; sourceTree = "<group>"; };
 		BD11A000000000000000A00B /* TrioModalAlertSchedulerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrioModalAlertSchedulerTests.swift; sourceTree = "<group>"; };
 		BD11A000000000000000A00C /* NotLoopingMonitorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotLoopingMonitorTests.swift; sourceTree = "<group>"; };
 		BD11A000000000000000A00D /* AlertCatalogRegistryEntriesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertCatalogRegistryEntriesTests.swift; sourceTree = "<group>"; };
@@ -1782,6 +1801,7 @@
 		BD11A000000000000000A013 /* TandemKitAlertEmissionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TandemKitAlertEmissionTests.swift; sourceTree = "<group>"; };
 		BD11A000000000000000A014 /* AlertColdStartReplayTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertColdStartReplayTests.swift; sourceTree = "<group>"; };
 		BD11A010000000000000A011 /* RoundBasalTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundBasalTests.swift; sourceTree = "<group>"; };
+		BD11A010000000000000A01A /* CGMManagerAlertOwnershipTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGMManagerAlertOwnershipTests.swift; sourceTree = "<group>"; };
 		BD11A012000000000000A011 /* BasalRoundingDriverParityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasalRoundingDriverParityTests.swift; sourceTree = "<group>"; };
 		BD11A014000000000000A011 /* PumpRateTables.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PumpRateTables.swift; sourceTree = "<group>"; };
 		BD11C000000000000000C001 /* CGMSensorDisplayState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGMSensorDisplayState.swift; sourceTree = "<group>"; };
@@ -1857,13 +1877,10 @@
 		BD8FC05A2D6618AF00B95AED /* DeterminationStorageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeterminationStorageTests.swift; sourceTree = "<group>"; };
 		BD8FC05D2D6618CE00B95AED /* BolusCalculatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BolusCalculatorTests.swift; sourceTree = "<group>"; };
 		BD8FC05F2D6619DB00B95AED /* CarbsStorageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarbsStorageTests.swift; sourceTree = "<group>"; };
-		A19B7FC1E8CD873546B563CB /* CarbEntryMutationServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarbEntryMutationServiceTests.swift; sourceTree = "<group>"; };
 		BD8FC0612D6619E600B95AED /* OverrideStorageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverrideStorageTests.swift; sourceTree = "<group>"; };
 		BD8FC0632D6619EF00B95AED /* TempTargetStorageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempTargetStorageTests.swift; sourceTree = "<group>"; };
 		BD8FC0652D661A0000B95AED /* GlucoseStorageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlucoseStorageTests.swift; sourceTree = "<group>"; };
 		BD8FC0702D661B0000B95AED /* TidepoolTherapySettingsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TidepoolTherapySettingsTests.swift; sourceTree = "<group>"; };
-		CD1235A000000000000000F1 /* TidepoolUploadSerializerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TidepoolUploadSerializerTests.swift; sourceTree = "<group>"; };
-		CE1425A000000000000000A1 /* CarbsEntryLoopKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarbsEntryLoopKitTests.swift; sourceTree = "<group>"; };
 		BDA25EE32D260CCF00035F34 /* AppleWatchManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleWatchManager.swift; sourceTree = "<group>"; };
 		BDA25EE52D260D5800035F34 /* WatchState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchState.swift; sourceTree = "<group>"; };
 		BDA25EFC2D261BF200035F34 /* WatchState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchState.swift; sourceTree = "<group>"; };
@@ -1889,6 +1906,7 @@
 		BDCAF2372C639F35002DC907 /* SettingItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingItems.swift; sourceTree = "<group>"; };
 		BDCD47AE2C1F3F1700F8BCD5 /* OverrideStored+helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OverrideStored+helper.swift"; sourceTree = "<group>"; };
 		BDDAF9EE2D00553E00B34E7A /* ChartSelectionRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartSelectionRow.swift; sourceTree = "<group>"; };
+		BDEE2DAC0EB57F07B229227D /* RescueCarbs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RescueCarbs.swift; sourceTree = "<group>"; };
 		BDF34EBD2C0A31D000D51995 /* CustomNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNotification.swift; sourceTree = "<group>"; };
 		BDF34F822C10C5B600D51995 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		BDF34F842C10C62E00D51995 /* GlucoseData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlucoseData.swift; sourceTree = "<group>"; };
@@ -1913,6 +1931,7 @@
 		C1A0DE000000000000000005 /* CarbsEntry+LoopKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CarbsEntry+LoopKit.swift"; sourceTree = "<group>"; };
 		C21FE1E62DA59C6B007D550B /* GlucoseDailyDistributionChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlucoseDailyDistributionChart.swift; sourceTree = "<group>"; };
 		C263D59E2E4267F400CBF08C /* NightscoutUploadGlucoseStepView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NightscoutUploadGlucoseStepView.swift; sourceTree = "<group>"; };
+		C26A9EE2018C7C0C31F7540D /* BackupManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackupManager.swift; sourceTree = "<group>"; };
 		C28DD7252DBA9A9E00EC02DD /* GlucosePercentileDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlucosePercentileDetailView.swift; sourceTree = "<group>"; };
 		C29835AF2E2AA3F30068C5BB /* NightscoutUploadStepView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NightscoutUploadStepView.swift; sourceTree = "<group>"; };
 		C29E26892DADFD2A00F87E75 /* GlucoseDailyPercentileChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlucoseDailyPercentileChart.swift; sourceTree = "<group>"; };
@@ -1936,6 +1955,9 @@
 		CA05000000000000000010C1 /* AlarmGramsSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmGramsSection.swift; sourceTree = "<group>"; };
 		CA06000000000000000010C1 /* GlucoseAlertsStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlucoseAlertsStoreTests.swift; sourceTree = "<group>"; };
 		CA07000000000000000010C1 /* TelemetrySendGateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TelemetrySendGateTests.swift; sourceTree = "<group>"; };
+		CA0924000000000000000001 /* GRICalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GRICalculator.swift; sourceTree = "<group>"; };
+		CA0924000000000000000003 /* GRIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GRIView.swift; sourceTree = "<group>"; };
+		CA0924000000000000000005 /* GRICalculatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GRICalculatorTests.swift; sourceTree = "<group>"; };
 		CAF100000000000000000000 /* Trio/Resources/Sounds/alarm.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/alarm.caf; sourceTree = SOURCE_ROOT; };
 		CAF100000000000000000001 /* Trio/Resources/Sounds/bloom.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/bloom.caf; sourceTree = SOURCE_ROOT; };
 		CAF100000000000000000002 /* Trio/Resources/Sounds/bloop.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/bloop.caf; sourceTree = SOURCE_ROOT; };
@@ -1955,16 +1977,95 @@
 		CAF100000000000000000010 /* Trio/Resources/Sounds/trill.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/trill.caf; sourceTree = SOURCE_ROOT; };
 		CAF100000000000000000011 /* Trio/Resources/Sounds/urgent_low.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/urgent_low.caf; sourceTree = SOURCE_ROOT; };
 		CAF300000000000000000001 /* CriticalAlertAlarmScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CriticalAlertAlarmScheduler.swift; sourceTree = "<group>"; };
+		CAF500000000000000000000 /* Trio/Resources/Sounds/acoustic_cr_harsh.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/acoustic_cr_harsh.caf; sourceTree = SOURCE_ROOT; };
+		CAF500000000000000000002 /* Trio/Resources/Sounds/acoustic_cr_medium.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/acoustic_cr_medium.caf; sourceTree = SOURCE_ROOT; };
+		CAF500000000000000000004 /* Trio/Resources/Sounds/acoustic_cr_mild.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/acoustic_cr_mild.caf; sourceTree = SOURCE_ROOT; };
+		CAF500000000000000000006 /* Trio/Resources/Sounds/acoustic_dcr_harsh.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/acoustic_dcr_harsh.caf; sourceTree = SOURCE_ROOT; };
+		CAF500000000000000000008 /* Trio/Resources/Sounds/acoustic_dcr_medium.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/acoustic_dcr_medium.caf; sourceTree = SOURCE_ROOT; };
+		CAF50000000000000000000A /* Trio/Resources/Sounds/acoustic_dcr_mild.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/acoustic_dcr_mild.caf; sourceTree = SOURCE_ROOT; };
+		CAF50000000000000000000C /* Trio/Resources/Sounds/acoustic_dts_harsh.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/acoustic_dts_harsh.caf; sourceTree = SOURCE_ROOT; };
+		CAF50000000000000000000E /* Trio/Resources/Sounds/acoustic_dts_medium.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/acoustic_dts_medium.caf; sourceTree = SOURCE_ROOT; };
+		CAF500000000000000000010 /* Trio/Resources/Sounds/acoustic_dts_mild.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/acoustic_dts_mild.caf; sourceTree = SOURCE_ROOT; };
+		CAF500000000000000000012 /* Trio/Resources/Sounds/acoustic_hg_harsh.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/acoustic_hg_harsh.caf; sourceTree = SOURCE_ROOT; };
+		CAF500000000000000000014 /* Trio/Resources/Sounds/acoustic_hg_medium.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/acoustic_hg_medium.caf; sourceTree = SOURCE_ROOT; };
+		CAF500000000000000000016 /* Trio/Resources/Sounds/acoustic_hg_mild.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/acoustic_hg_mild.caf; sourceTree = SOURCE_ROOT; };
+		CAF500000000000000000018 /* Trio/Resources/Sounds/acoustic_lg_harsh.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/acoustic_lg_harsh.caf; sourceTree = SOURCE_ROOT; };
+		CAF50000000000000000001A /* Trio/Resources/Sounds/acoustic_lg_medium.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/acoustic_lg_medium.caf; sourceTree = SOURCE_ROOT; };
+		CAF50000000000000000001C /* Trio/Resources/Sounds/acoustic_lg_mild.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/acoustic_lg_mild.caf; sourceTree = SOURCE_ROOT; };
+		CAF50000000000000000001E /* Trio/Resources/Sounds/acoustic_lgs_harsh.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/acoustic_lgs_harsh.caf; sourceTree = SOURCE_ROOT; };
+		CAF500000000000000000020 /* Trio/Resources/Sounds/acoustic_lgs_medium.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/acoustic_lgs_medium.caf; sourceTree = SOURCE_ROOT; };
+		CAF500000000000000000022 /* Trio/Resources/Sounds/acoustic_lgs_mild.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/acoustic_lgs_mild.caf; sourceTree = SOURCE_ROOT; };
+		CAF500000000000000000024 /* Trio/Resources/Sounds/acoustic_ulg_harsh.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/acoustic_ulg_harsh.caf; sourceTree = SOURCE_ROOT; };
+		CAF500000000000000000026 /* Trio/Resources/Sounds/acoustic_ulg_medium.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/acoustic_ulg_medium.caf; sourceTree = SOURCE_ROOT; };
+		CAF500000000000000000028 /* Trio/Resources/Sounds/acoustic_ulg_mild.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/acoustic_ulg_mild.caf; sourceTree = SOURCE_ROOT; };
+		CAF50000000000000000002A /* Trio/Resources/Sounds/electronic_cr_harsh.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/electronic_cr_harsh.caf; sourceTree = SOURCE_ROOT; };
+		CAF50000000000000000002C /* Trio/Resources/Sounds/electronic_cr_medium.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/electronic_cr_medium.caf; sourceTree = SOURCE_ROOT; };
+		CAF50000000000000000002E /* Trio/Resources/Sounds/electronic_cr_mild.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/electronic_cr_mild.caf; sourceTree = SOURCE_ROOT; };
+		CAF500000000000000000030 /* Trio/Resources/Sounds/electronic_dcr_harsh.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/electronic_dcr_harsh.caf; sourceTree = SOURCE_ROOT; };
+		CAF500000000000000000032 /* Trio/Resources/Sounds/electronic_dcr_medium.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/electronic_dcr_medium.caf; sourceTree = SOURCE_ROOT; };
+		CAF500000000000000000034 /* Trio/Resources/Sounds/electronic_dcr_mild.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/electronic_dcr_mild.caf; sourceTree = SOURCE_ROOT; };
+		CAF500000000000000000036 /* Trio/Resources/Sounds/electronic_dts_harsh.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/electronic_dts_harsh.caf; sourceTree = SOURCE_ROOT; };
+		CAF500000000000000000038 /* Trio/Resources/Sounds/electronic_dts_medium.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/electronic_dts_medium.caf; sourceTree = SOURCE_ROOT; };
+		CAF50000000000000000003A /* Trio/Resources/Sounds/electronic_dts_mild.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/electronic_dts_mild.caf; sourceTree = SOURCE_ROOT; };
+		CAF50000000000000000003C /* Trio/Resources/Sounds/electronic_hg_harsh.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/electronic_hg_harsh.caf; sourceTree = SOURCE_ROOT; };
+		CAF50000000000000000003E /* Trio/Resources/Sounds/electronic_hg_medium.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/electronic_hg_medium.caf; sourceTree = SOURCE_ROOT; };
+		CAF500000000000000000040 /* Trio/Resources/Sounds/electronic_hg_mild.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/electronic_hg_mild.caf; sourceTree = SOURCE_ROOT; };
+		CAF500000000000000000042 /* Trio/Resources/Sounds/electronic_lg_harsh.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/electronic_lg_harsh.caf; sourceTree = SOURCE_ROOT; };
+		CAF500000000000000000044 /* Trio/Resources/Sounds/electronic_lg_medium.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/electronic_lg_medium.caf; sourceTree = SOURCE_ROOT; };
+		CAF500000000000000000046 /* Trio/Resources/Sounds/electronic_lg_mild.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/electronic_lg_mild.caf; sourceTree = SOURCE_ROOT; };
+		CAF500000000000000000048 /* Trio/Resources/Sounds/electronic_lgs_harsh.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/electronic_lgs_harsh.caf; sourceTree = SOURCE_ROOT; };
+		CAF50000000000000000004A /* Trio/Resources/Sounds/electronic_lgs_medium.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/electronic_lgs_medium.caf; sourceTree = SOURCE_ROOT; };
+		CAF50000000000000000004C /* Trio/Resources/Sounds/electronic_lgs_mild.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/electronic_lgs_mild.caf; sourceTree = SOURCE_ROOT; };
+		CAF50000000000000000004E /* Trio/Resources/Sounds/electronic_ulg_harsh.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/electronic_ulg_harsh.caf; sourceTree = SOURCE_ROOT; };
+		CAF500000000000000000050 /* Trio/Resources/Sounds/electronic_ulg_medium.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/electronic_ulg_medium.caf; sourceTree = SOURCE_ROOT; };
+		CAF500000000000000000052 /* Trio/Resources/Sounds/electronic_ulg_mild.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/electronic_ulg_mild.caf; sourceTree = SOURCE_ROOT; };
+		CAF500000000000000000054 /* Trio/Resources/Sounds/glass_bell.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/glass_bell.caf; sourceTree = SOURCE_ROOT; };
+		CAF500000000000000000056 /* Trio/Resources/Sounds/hard_saw_wave.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/hard_saw_wave.caf; sourceTree = SOURCE_ROOT; };
+		CAF500000000000000000058 /* Trio/Resources/Sounds/harp.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/harp.caf; sourceTree = SOURCE_ROOT; };
+		CAF50000000000000000005A /* Trio/Resources/Sounds/meow.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/meow.caf; sourceTree = SOURCE_ROOT; };
+		CAF50000000000000000005C /* Trio/Resources/Sounds/open_can.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/open_can.caf; sourceTree = SOURCE_ROOT; };
+		CAF50000000000000000005E /* Trio/Resources/Sounds/open_wrapper.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/open_wrapper.caf; sourceTree = SOURCE_ROOT; };
+		CAF500000000000000000060 /* Trio/Resources/Sounds/saw_wave.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/saw_wave.caf; sourceTree = SOURCE_ROOT; };
+		CAF500000000000000000062 /* Trio/Resources/Sounds/sine_wave.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/sine_wave.caf; sourceTree = SOURCE_ROOT; };
+		CAF500000000000000000064 /* Trio/Resources/Sounds/voice_cr_amy.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/voice_cr_amy.caf; sourceTree = SOURCE_ROOT; };
+		CAF500000000000000000066 /* Trio/Resources/Sounds/voice_cr_bryce.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/voice_cr_bryce.caf; sourceTree = SOURCE_ROOT; };
+		CAF500000000000000000068 /* Trio/Resources/Sounds/voice_dcr_amy.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/voice_dcr_amy.caf; sourceTree = SOURCE_ROOT; };
+		CAF50000000000000000006A /* Trio/Resources/Sounds/voice_dcr_bryce.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/voice_dcr_bryce.caf; sourceTree = SOURCE_ROOT; };
+		CAF50000000000000000006C /* Trio/Resources/Sounds/voice_dts_amy.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/voice_dts_amy.caf; sourceTree = SOURCE_ROOT; };
+		CAF50000000000000000006E /* Trio/Resources/Sounds/voice_dts_bryce.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/voice_dts_bryce.caf; sourceTree = SOURCE_ROOT; };
+		CAF500000000000000000070 /* Trio/Resources/Sounds/voice_hg_amy.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/voice_hg_amy.caf; sourceTree = SOURCE_ROOT; };
+		CAF500000000000000000072 /* Trio/Resources/Sounds/voice_hg_bryce.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/voice_hg_bryce.caf; sourceTree = SOURCE_ROOT; };
+		CAF500000000000000000074 /* Trio/Resources/Sounds/voice_lg_amy.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/voice_lg_amy.caf; sourceTree = SOURCE_ROOT; };
+		CAF500000000000000000076 /* Trio/Resources/Sounds/voice_lg_bryce.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/voice_lg_bryce.caf; sourceTree = SOURCE_ROOT; };
+		CAF500000000000000000078 /* Trio/Resources/Sounds/voice_lgs_amy.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/voice_lgs_amy.caf; sourceTree = SOURCE_ROOT; };
+		CAF50000000000000000007A /* Trio/Resources/Sounds/voice_lgs_bryce.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/voice_lgs_bryce.caf; sourceTree = SOURCE_ROOT; };
+		CAF50000000000000000007C /* Trio/Resources/Sounds/voice_ulg_amy.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/voice_ulg_amy.caf; sourceTree = SOURCE_ROOT; };
+		CAF90000000000000000001A /* Trio/Resources/Sounds/voice_dts_thorsten.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/voice_dts_thorsten.caf; sourceTree = SOURCE_ROOT; };
+		CAF900000000000000000018 /* Trio/Resources/Sounds/voice_dts_eva.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/voice_dts_eva.caf; sourceTree = SOURCE_ROOT; };
+		CAF900000000000000000016 /* Trio/Resources/Sounds/voice_dcr_thorsten.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/voice_dcr_thorsten.caf; sourceTree = SOURCE_ROOT; };
+		CAF900000000000000000014 /* Trio/Resources/Sounds/voice_dcr_eva.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/voice_dcr_eva.caf; sourceTree = SOURCE_ROOT; };
+		CAF900000000000000000012 /* Trio/Resources/Sounds/voice_cr_thorsten.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/voice_cr_thorsten.caf; sourceTree = SOURCE_ROOT; };
+		CAF900000000000000000010 /* Trio/Resources/Sounds/voice_cr_eva.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/voice_cr_eva.caf; sourceTree = SOURCE_ROOT; };
+		CAF90000000000000000000E /* Trio/Resources/Sounds/voice_hg_thorsten.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/voice_hg_thorsten.caf; sourceTree = SOURCE_ROOT; };
+		CAF90000000000000000000C /* Trio/Resources/Sounds/voice_hg_eva.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/voice_hg_eva.caf; sourceTree = SOURCE_ROOT; };
+		CAF90000000000000000000A /* Trio/Resources/Sounds/voice_lgs_thorsten.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/voice_lgs_thorsten.caf; sourceTree = SOURCE_ROOT; };
+		CAF900000000000000000008 /* Trio/Resources/Sounds/voice_lgs_eva.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/voice_lgs_eva.caf; sourceTree = SOURCE_ROOT; };
+		CAF900000000000000000006 /* Trio/Resources/Sounds/voice_lg_thorsten.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/voice_lg_thorsten.caf; sourceTree = SOURCE_ROOT; };
+		CAF900000000000000000004 /* Trio/Resources/Sounds/voice_lg_eva.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/voice_lg_eva.caf; sourceTree = SOURCE_ROOT; };
+		CAF900000000000000000002 /* Trio/Resources/Sounds/voice_ulg_thorsten.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/voice_ulg_thorsten.caf; sourceTree = SOURCE_ROOT; };
+		CAF900000000000000000000 /* Trio/Resources/Sounds/voice_ulg_eva.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/voice_ulg_eva.caf; sourceTree = SOURCE_ROOT; };
+		CAF50000000000000000007E /* Trio/Resources/Sounds/voice_ulg_bryce.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trio/Resources/Sounds/voice_ulg_bryce.caf; sourceTree = SOURCE_ROOT; };
+		CAF600000000000000000001 /* AlarmSoundCatalogTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmSoundCatalogTests.swift; sourceTree = "<group>"; };
 		CC6C406D2ACDD69E009B8058 /* RawFetchedProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RawFetchedProfile.swift; sourceTree = "<group>"; };
 		CC76E9502BD4812E008BEB61 /* Forecast+helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Forecast+helper.swift"; sourceTree = "<group>"; };
 		CD1235A000000000000000F1 /* TidepoolUploadSerializerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TidepoolUploadSerializerTests.swift; sourceTree = "<group>"; };
 		CD1235C000000000000000F3 /* TidepoolUploadSerializer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TidepoolUploadSerializer.swift; sourceTree = "<group>"; };
+		CD6672C97F2AB74125F46DD5 /* LiveActivitySimpleWidgetConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveActivitySimpleWidgetConfiguration.swift; sourceTree = "<group>"; };
+		CDF0393C6836AC0147F2F18F /* WatchArcView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchArcView.swift; sourceTree = "<group>"; };
+		CE1425A000000000000000A1 /* CarbsEntryLoopKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarbsEntryLoopKitTests.swift; sourceTree = "<group>"; };
 		CE1856F42ADC4858007E39C7 /* AddCarbPresetIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCarbPresetIntent.swift; sourceTree = "<group>"; };
 		CE1856F62ADC4869007E39C7 /* CarbPresetIntentRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarbPresetIntentRequest.swift; sourceTree = "<group>"; };
 		CE1F6DD82BADF4620064EB8D /* PluginManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PluginManagerTests.swift; sourceTree = "<group>"; };
-		DC01A00D2E9F100000000004 /* DeviceCatalogTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceCatalogTests.swift; sourceTree = "<group>"; };
-		98546920BB7247B0AC73449A /* ContainerResolutionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerResolutionTests.swift; sourceTree = "<group>"; };
-		7AF74BBFE9F7B8CA9187C4DB /* RemoteMealMutationPayloadTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteMealMutationPayloadTests.swift; sourceTree = "<group>"; };
 		CE1F6DDA2BAE08B60064EB8D /* TidepoolManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TidepoolManager.swift; sourceTree = "<group>"; };
 		CE1F6DE62BAF1A180064EB8D /* BuildDetails.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = BuildDetails.plist; sourceTree = "<group>"; };
 		CE1F6DE82BAF37C90064EB8D /* TidepoolConfigView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TidepoolConfigView.swift; sourceTree = "<group>"; };
@@ -2015,7 +2116,10 @@
 		CEE9A65D2BBC9F6500EB5194 /* CalibrationsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalibrationsTests.swift; sourceTree = "<group>"; };
 		D0BDC6993C1087310EDFC428 /* CarbRatioEditorRootView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CarbRatioEditorRootView.swift; sourceTree = "<group>"; };
 		D543DE17E0054AF0821411BB /* QuickPickTreatmentsConfigDataFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickPickTreatmentsConfigDataFlow.swift; sourceTree = "<group>"; };
+		D58DA9D441FB78DA359171DA /* SettingsBackup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsBackup.swift; sourceTree = "<group>"; };
+		D7601C26A600BAC9EF56682B /* MealPhotoSettingsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealPhotoSettingsProvider.swift; sourceTree = "<group>"; };
 		D7C5E1F4A7B91E2F3C5D6E71 /* TimeInterval+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TimeInterval+Convenience.swift"; sourceTree = "<group>"; };
+		D959946BAE0CECB9D25C00EB /* ExtendedBolus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtendedBolus.swift; sourceTree = "<group>"; };
 		DB0BA0010000000000000002 /* DevelopmentBranchAlerter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevelopmentBranchAlerter.swift; sourceTree = "<group>"; };
 		DB0BB002000000000000000B /* ReleaseNotes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseNotes.swift; sourceTree = "<group>"; };
 		DB0BB002000000000000000D /* ReleaseNotesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseNotesService.swift; sourceTree = "<group>"; };
@@ -2087,7 +2191,6 @@
 		DD30BA192E08AB9F00DA677C /* CarbImpactParams.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarbImpactParams.swift; sourceTree = "<group>"; };
 		DD32CF972CC82460003686D6 /* TrioRemoteControl+Bolus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TrioRemoteControl+Bolus.swift"; sourceTree = "<group>"; };
 		DD32CF992CC8246F003686D6 /* TrioRemoteControl+Meal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TrioRemoteControl+Meal.swift"; sourceTree = "<group>"; };
-		0480CC863D1BBC71668F34B3 /* TrioRemoteControl+MealMutation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TrioRemoteControl+MealMutation.swift"; sourceTree = "<group>"; };
 		DD32CF9B2CC82495003686D6 /* TrioRemoteControl+TempTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TrioRemoteControl+TempTarget.swift"; sourceTree = "<group>"; };
 		DD32CF9D2CC824C2003686D6 /* TrioRemoteControl+Override.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TrioRemoteControl+Override.swift"; sourceTree = "<group>"; };
 		DD32CF9F2CC824D3003686D6 /* TrioRemoteControl+APNS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TrioRemoteControl+APNS.swift"; sourceTree = "<group>"; };
@@ -2252,11 +2355,18 @@
 		E06B9119275B5EEA003C04B6 /* Array+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
 		E0CC2C5B275B9DAE00A7BC71 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		E0D4F80427513ECF00BDF1FE /* HealthKitSample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitSample.swift; sourceTree = "<group>"; };
+		E3DE460633B74F2246E1FE4F /* MealPhotoSettingsRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealPhotoSettingsRootView.swift; sourceTree = "<group>"; };
+		E4FE95ECD2244F62E309D3F6 /* InsulinConcentration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsulinConcentration.swift; sourceTree = "<group>"; };
+		E56D6BE47176662AEEBB982A /* RescueCarbsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RescueCarbsManager.swift; sourceTree = "<group>"; };
 		E592A36F2CEEC01E009A472C /* ContactTrickEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactTrickEntry.swift; sourceTree = "<group>"; };
 		E592A3712CEEC038009A472C /* ContactImageRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactImageRootView.swift; sourceTree = "<group>"; };
 		E592A3732CEEC038009A472C /* ContactImageDataFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactImageDataFlow.swift; sourceTree = "<group>"; };
 		E592A3742CEEC038009A472C /* ContactImageProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactImageProvider.swift; sourceTree = "<group>"; };
 		E592A3752CEEC038009A472C /* ContactImageStateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactImageStateModel.swift; sourceTree = "<group>"; };
+		ED552E28CD556AB561F2A9D0 /* AIReportStateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIReportStateModel.swift; sourceTree = "<group>"; };
+		F1F8E31EDFF20DB49EDC5BDE /* InsulinConcentrationSettingsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsulinConcentrationSettingsProvider.swift; sourceTree = "<group>"; };
+		F3681A0000F1A566D6707A38 /* MealCarbTypeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealCarbTypeTests.swift; sourceTree = "<group>"; };
+		F695824D7A03E78B93373DBE /* WatchDialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchDialView.swift; sourceTree = "<group>"; };
 		F816825D28DB441200054060 /* HeartBeatManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeartBeatManager.swift; sourceTree = "<group>"; };
 		F816825F28DB441800054060 /* BluetoothTransmitter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BluetoothTransmitter.swift; sourceTree = "<group>"; };
 		F90692A9274B7AAE0037068D /* HealthKitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitManager.swift; sourceTree = "<group>"; };
@@ -2270,12 +2380,10 @@
 		FAB1E00000000000000000B4 /* ParityGoldenTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParityGoldenTests.swift; sourceTree = "<group>"; };
 		FAB1E00000000000000000B5 /* ParityPerformanceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParityPerformanceTests.swift; sourceTree = "<group>"; };
 		FBB3BAE7494CB771ABAC7B8B /* ISFEditorRootView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ISFEditorRootView.swift; sourceTree = "<group>"; };
+		FE1DB593AB8B080FB33C573A /* HomeLandscapeChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeLandscapeChartView.swift; sourceTree = "<group>"; };
 		FE41E4D529463EE20047FD55 /* NightscoutPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NightscoutPreferences.swift; sourceTree = "<group>"; };
 		FE66D16A291F74F8005D6F77 /* Bundle+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Extensions.swift"; sourceTree = "<group>"; };
 		FEFFA7A12929FE49007B8193 /* UIDevice+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+Extensions.swift"; sourceTree = "<group>"; };
-		CA0924000000000000000001 /* GRICalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GRICalculator.swift; sourceTree = "<group>"; };
-		CA0924000000000000000003 /* GRIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GRIView.swift; sourceTree = "<group>"; };
-		CA0924000000000000000005 /* GRICalculatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GRICalculatorTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -2377,6 +2485,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0338D5F9EBA098351ACC7262 /* DiaExpert */ = {
+			isa = PBXGroup;
+			children = (
+				B0583080667EFE80A8EB04F9 /* DiaExpertCGMManager+UI.swift */,
+				79E6DC81D741151E45409D36 /* DiaExpertCGMManager.swift */,
+				AA256E1E1EA27F6FF6214C48 /* DiaExpertCGMState.swift */,
+				961168CA0BF5B9CBA4215648 /* DiaExpertProtocol.swift */,
+			);
+			path = DiaExpert;
+			sourceTree = "<group>";
+		};
 		0610F7D6D2EC00E3BA1569F0 /* ConfigEditor */ = {
 			isa = PBXGroup;
 			children = (
@@ -2604,6 +2723,44 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		217675F824FC4058C91DAE24 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				252BA1DE298FC42DF5032069 /* InsulinConcentrationSettingsRootView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		28E8FC72F24374D7E1AB8B29 /* TherapyReport */ = {
+			isa = PBXGroup;
+			children = (
+				635945C53FBCDA516E3C6FCB /* TherapyReportDocument.swift */,
+				50CDC04C021A7BDEB19D2B64 /* AITextClient.swift */,
+				5D4A013744BCF2E62880468F /* TherapyReportDataSource.swift */,
+			);
+			path = TherapyReport;
+			sourceTree = "<group>";
+		};
+		31D51E8B0E74DD0EA284FB9E /* View */ = {
+			isa = PBXGroup;
+			children = (
+				353A37BA07C6A4FAC1BEC35B /* SensitivityReportView.swift */,
+				076718802ADC8373A5161F68 /* AIReportRootView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		3314992A29C571DC8A6515B0 /* BackupRestore */ = {
+			isa = PBXGroup;
+			children = (
+				2ED74A80CCB5E5146BACD215 /* BackupRestoreStateModel.swift */,
+				4C5F544FBB2BC5A1012E2A08 /* BackupRestoreProvider.swift */,
+				4ACA05C412EB6E3F04AB3607 /* BackupRestoreDataFlow.swift */,
+				4B08F100EE16B62BE0BA5AC7 /* View */,
+			);
+			path = BackupRestore;
+			sourceTree = "<group>";
+		};
 		34CA4DF169B53D67EF18ED8A /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -2615,6 +2772,10 @@
 		3811DE0325C9D31700A708ED /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				D6B9C759C971C6DCD47B6183 /* AIReport */,
+				EAC7F0206652E90B7BA9CCE0 /* MealPhotoSettings */,
+				3314992A29C571DC8A6515B0 /* BackupRestore */,
+				66F772846EDDAE812C1E17F5 /* InsulinConcentrationSettings */,
 				DDD163032C4C67B400CD525A /* Adjustments */,
 				DD1745382C55BF8B00211FAC /* AlgorithmAdvancedSettings */,
 				DDF690FE2DA2C9EE008BF16C /* AppDiagnostics */,
@@ -2725,6 +2886,7 @@
 		3811DE2725C9D49500A708ED /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				B41E617313F332A00E84EB9C /* HomeStateModel+HeaderWidget.swift */,
 				3811DE2A25C9D49500A708ED /* HomeDataFlow.swift */,
 				3811DE2925C9D49500A708ED /* HomeProvider.swift */,
 				3811DE2825C9D49500A708ED /* HomeStateModel.swift */,
@@ -2739,6 +2901,8 @@
 		3811DE2C25C9D49500A708ED /* View */ = {
 			isa = PBXGroup;
 			children = (
+				FE1DB593AB8B080FB33C573A /* HomeLandscapeChartView.swift */,
+				949BD611E40C94673DE56649 /* HomeRootView+Bento.swift */,
 				3811DE2E25C9D49500A708ED /* HomeRootView.swift */,
 				7A11AC0DE000000000000006 /* HomeRootView+Refresh.swift */,
 				7A11AC0DE000000000000011 /* HomeLayout.swift */,
@@ -2781,6 +2945,10 @@
 		3811DE9125C9D88200A708ED /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				28E8FC72F24374D7E1AB8B29 /* TherapyReport */,
+				AD03D9455BDB6F9225C9CF2B /* MealPhoto */,
+				645944DB91B924367BEE1B3C /* RescueCarbs */,
+				C7314781C45C024918373A46 /* Backup */,
 				B015AFF22E600000000D7351 /* Adjustments */,
 				BD1179262F4E22C100F90001 /* Alerts */,
 				3811DE9225C9D88200A708ED /* Appearance */,
@@ -2938,6 +3106,20 @@
 				CAF500000000000000000078 /* Trio/Resources/Sounds/voice_lgs_amy.caf */,
 				CAF50000000000000000007A /* Trio/Resources/Sounds/voice_lgs_bryce.caf */,
 				CAF50000000000000000007C /* Trio/Resources/Sounds/voice_ulg_amy.caf */,
+				CAF90000000000000000001A /* Trio/Resources/Sounds/voice_dts_thorsten.caf */,
+				CAF900000000000000000018 /* Trio/Resources/Sounds/voice_dts_eva.caf */,
+				CAF900000000000000000016 /* Trio/Resources/Sounds/voice_dcr_thorsten.caf */,
+				CAF900000000000000000014 /* Trio/Resources/Sounds/voice_dcr_eva.caf */,
+				CAF900000000000000000012 /* Trio/Resources/Sounds/voice_cr_thorsten.caf */,
+				CAF900000000000000000010 /* Trio/Resources/Sounds/voice_cr_eva.caf */,
+				CAF90000000000000000000E /* Trio/Resources/Sounds/voice_hg_thorsten.caf */,
+				CAF90000000000000000000C /* Trio/Resources/Sounds/voice_hg_eva.caf */,
+				CAF90000000000000000000A /* Trio/Resources/Sounds/voice_lgs_thorsten.caf */,
+				CAF900000000000000000008 /* Trio/Resources/Sounds/voice_lgs_eva.caf */,
+				CAF900000000000000000006 /* Trio/Resources/Sounds/voice_lg_thorsten.caf */,
+				CAF900000000000000000004 /* Trio/Resources/Sounds/voice_lg_eva.caf */,
+				CAF900000000000000000002 /* Trio/Resources/Sounds/voice_ulg_thorsten.caf */,
+				CAF900000000000000000000 /* Trio/Resources/Sounds/voice_ulg_eva.caf */,
 				CAF50000000000000000007E /* Trio/Resources/Sounds/voice_ulg_bryce.caf */,
 				CAF100000000000000000001 /* Trio/Resources/Sounds/bloom.caf */,
 				CAF100000000000000000002 /* Trio/Resources/Sounds/bloop.caf */,
@@ -3085,6 +3267,7 @@
 		3833B51F260264B6003021B3 /* Header */ = {
 			isa = PBXGroup;
 			children = (
+				3E5330881AFAF292B93EA1DE /* BentoHeaderView.swift */,
 				DD1E53582D273F20008F32A4 /* LoopStatusHelpView.swift */,
 				DDA6E2842D2361F800C2988C /* LoopStatusView.swift */,
 				383420D525FFE38C002D46C1 /* LoopView.swift */,
@@ -3098,6 +3281,7 @@
 		3856933F270B57A00002C50D /* CGM */ = {
 			isa = PBXGroup;
 			children = (
+				0338D5F9EBA098351ACC7262 /* DiaExpert */,
 				CEE9A65A2BBB41AD00EB5194 /* Calibrations */,
 				F816825F28DB441800054060 /* BluetoothTransmitter.swift */,
 				F816825D28DB441200054060 /* HeartBeatManager.swift */,
@@ -3200,6 +3384,14 @@
 		388E5A5925B6F0250019842D /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				E449FF7862B7DC79891C050E /* SensitivityReport.swift */,
+				82E334D03EBCA7485A69FD55 /* TherapyReport.swift */,
+				1C1BC7F51748AF01D8BB08D4 /* MealPhotoAnalysis.swift */,
+				BDEE2DAC0EB57F07B229227D /* RescueCarbs.swift */,
+				D58DA9D441FB78DA359171DA /* SettingsBackup.swift */,
+				48213B7A4332451C6D3F6995 /* MealCarbType.swift */,
+				D959946BAE0CECB9D25C00EB /* ExtendedBolus.swift */,
+				E4FE95ECD2244F62E309D3F6 /* InsulinConcentration.swift */,
 				BD11795B2F4E22C100F90001 /* GlucoseAlerts */,
 				49C782A62F73D9870062B0DD /* AlertEntry.swift */,
 				388E5A5F25B6F2310019842D /* Autosens.swift */,
@@ -3339,6 +3531,7 @@
 		38A504F625DDA0E200C5B9E8 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				8656D7A3AEE6D9D24B86B9D6 /* PumpManager+InsulinConcentration.swift */,
 				CE2FAD39297D93F0001A872C /* BloodGlucoseExtensions.swift */,
 				3BA8D1B22DDB870F0006191F /* DecimalExtensions.swift */,
 				3BC07D6E3017B830004F96AF /* DecimalExtensions+SwiftUI.swift */,
@@ -3454,6 +3647,18 @@
 		38FCF3EE25E9028E0078B0D1 /* TrioTests */ = {
 			isa = PBXGroup;
 			children = (
+				D4B92E941B0123A19FB3064C /* SensitivityReportTests.swift */,
+				8A42A5F232AA95699F55B57E /* DynamicISFBadgeTests.swift */,
+				BEE01A57C33ECE78F0877C1E /* HeaderWidgetSnapshotTests.swift */,
+				66802C0ADC54598CE35B49F5 /* LiveActivityColorsTests.swift */,
+				F63B2EAC72C4239113E11C95 /* DiaExpertCGMTests.swift */,
+				69D796B3656EA7D3C9A75DF6 /* TherapyReportTests.swift */,
+				6EA6B9B85DA8C46631DB06F6 /* MealPhotoAnalysisTests.swift */,
+				41F3A0D04F514207AAC0E4C1 /* RescueCarbsTests.swift */,
+				8CBC2A14508E3C394D6186B1 /* SettingsBackupTests.swift */,
+				F3681A0000F1A566D6707A38 /* MealCarbTypeTests.swift */,
+				B4D71E549C8665F5358AC813 /* ExtendedBolusTests.swift */,
+				1E19B6787AC306607F96871A /* InsulinConcentrationTests.swift */,
 				DDDD0FFD2F4E231600F9C645 /* Mocks */,
 				DDDD0FFA2F4E22C000F9C645 /* GlucoseSmoothingTests.swift */,
 				CA0924000000000000000005 /* GRICalculatorTests.swift */,
@@ -3474,7 +3679,6 @@
 				38FCF3F825E902C20078B0D1 /* FileStorageTests.swift */,
 				BD11A000000000000000A002 /* AlertMuterTests.swift */,
 				C7DA23B64976670AC36D9E84 /* QuickPickTreatmentsTests.swift */,
-				71A58E19DE23455CB842C50C /* CGMSensorStateLogTests.swift */,
 				BD11A000000000000000A013 /* TandemKitAlertEmissionTests.swift */,
 				BD11A000000000000000A014 /* AlertColdStartReplayTests.swift */,
 				BD11A000000000000000A012 /* RileyLinkKitAlertEmissionTests.swift */,
@@ -3509,7 +3713,6 @@
 				B3919BBB515547118D684CB2 /* DosingModeMigrationTests.swift */,
 				BD8FC0532D66186000B95AED /* TestError.swift */,
 				C39FF1EC12CF4B1EBB13BE26 /* NightscoutUploadSerializerTests.swift */,
-				6EFF860E684B4C9488D438DD /* NightscoutImportRoundTripTests.swift */,
 				BD8FC0702D661B0000B95AED /* TidepoolTherapySettingsTests.swift */,
 				CA03000000000000000010C1 /* AlertCatalogRegistryOmniFaultTests.swift */,
 				CD1235A000000000000000F1 /* TidepoolUploadSerializerTests.swift */,
@@ -3685,6 +3888,14 @@
 			path = JSONImporterData;
 			sourceTree = "<group>";
 		};
+		4B08F100EE16B62BE0BA5AC7 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				A6D0F74EC97200794FE25EB9 /* BackupRestoreRootView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		4E8C7B59F8065047ECE20965 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -3780,6 +3991,14 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		645944DB91B924367BEE1B3C /* RescueCarbs */ = {
+			isa = PBXGroup;
+			children = (
+				E56D6BE47176662AEEBB982A /* RescueCarbsManager.swift */,
+			);
+			path = RescueCarbs;
+			sourceTree = "<group>";
+		};
 		6517011F19F244F64E1FF14B /* TargetsEditor */ = {
 			isa = PBXGroup;
 			children = (
@@ -3791,9 +4010,21 @@
 			path = TargetsEditor;
 			sourceTree = "<group>";
 		};
+		66F772846EDDAE812C1E17F5 /* InsulinConcentrationSettings */ = {
+			isa = PBXGroup;
+			children = (
+				B84E903DE2565341107F409F /* InsulinConcentrationSettingsStateModel.swift */,
+				F1F8E31EDFF20DB49EDC5BDE /* InsulinConcentrationSettingsProvider.swift */,
+				0A88DA3970225F874AF632C6 /* InsulinConcentrationSettingsDataFlow.swift */,
+				217675F824FC4058C91DAE24 /* View */,
+			);
+			path = InsulinConcentrationSettings;
+			sourceTree = "<group>";
+		};
 		6B1A8D1C2B14D91600E76752 /* LiveActivity */ = {
 			isa = PBXGroup;
 			children = (
+				16125DCD1E114A831142EA2A /* LiveActivity.entitlements */,
 				DDCEBF412CC1B42500DF4C36 /* Views */,
 				6B1A8D1D2B14D91600E76752 /* LiveActivityBundle.swift */,
 				6B1A8D1F2B14D91600E76752 /* LiveActivity.swift */,
@@ -3807,6 +4038,7 @@
 		6B1A8D2C2B156EC100E76752 /* LiveActivity */ = {
 			isa = PBXGroup;
 			children = (
+				5D91AB4FDC7EEE5BFD7A3C93 /* HeaderWidgetSnapshot.swift */,
 				6B1A8D2D2B156EEF00E76752 /* LiveActivityManager.swift */,
 				6BCF84DC2B16843A003AD46E /* LiveActivityAttributes.swift */,
 				7E2CF3BABA4BF1C48CC96FD7 /* LiveActivityGlucoseStyle.swift */,
@@ -3841,6 +4073,14 @@
 			path = History;
 			sourceTree = "<group>";
 		};
+		A3FBD5CDB17D6374AD61F5DE /* View */ = {
+			isa = PBXGroup;
+			children = (
+				E3DE460633B74F2246E1FE4F /* MealPhotoSettingsRootView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		A42F1FEDFFD0DDE00AAD54D3 /* BasalProfileEditor */ = {
 			isa = PBXGroup;
 			children = (
@@ -3850,6 +4090,14 @@
 				18B49BC9587A59E3A347C1CD /* View */,
 			);
 			path = BasalProfileEditor;
+			sourceTree = "<group>";
+		};
+		AD03D9455BDB6F9225C9CF2B /* MealPhoto */ = {
+			isa = PBXGroup;
+			children = (
+				87CC2CA8F9D22249E63F3AED /* MealPhotoAnalyzer.swift */,
+			);
+			path = MealPhoto;
 			sourceTree = "<group>";
 		};
 		B015AFE22E500000000D7351 /* BolusSafety */ = {
@@ -3887,6 +4135,7 @@
 		B9488883C59C31550E0B4CEC /* View */ = {
 			isa = PBXGroup;
 			children = (
+				54E5F2C9AC8CD01E33E97E8D /* MealPhotoAnalysisSheet.swift */,
 				BDFD16592AE40438007F0DDA /* TreatmentsRootView.swift */,
 				58237D9D2BCF0A6B00A47A79 /* PopupView.swift */,
 				BDB899872C564509006F3298 /* ForecastChart.swift */,
@@ -4182,6 +4431,10 @@
 		BDA25F1A2D26BCE800035F34 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				F695824D7A03E78B93373DBE /* WatchDialView.swift */,
+				CDF0393C6836AC0147F2F18F /* WatchArcView.swift */,
+				517F3D56F29B544BA04A63AB /* WatchBentoView.swift */,
+				721B4821410612696C23EA21 /* WatchStatusListView.swift */,
 				DD09D5C82D29F3D0000D82C9 /* AcknowledgementPendingView.swift */,
 				BD04ECCD2D299522008C5FEB /* BolusProgressOverlay.swift */,
 				DD8262CA2D289297009F6F62 /* BolusConfirmationView.swift */,
@@ -4254,6 +4507,7 @@
 		BDFF7AA12D25FAC70016C40C /* Trio Watch App */ = {
 			isa = PBXGroup;
 			children = (
+				AAE2696C19B40241AC6EC9EB /* TrioWatchApp.entitlements */,
 				DD09D6162D2A2E4A000D82C9 /* Assets.xcassets */,
 				BDFF7A902D25F97D0016C40C /* Info.plist */,
 				BDFF7A912D25F97D0016C40C /* TrioWatchApp.swift */,
@@ -4290,6 +4544,14 @@
 				B9488883C59C31550E0B4CEC /* View */,
 			);
 			path = Treatments;
+			sourceTree = "<group>";
+		};
+		C7314781C45C024918373A46 /* Backup */ = {
+			isa = PBXGroup;
+			children = (
+				C26A9EE2018C7C0C31F7540D /* BackupManager.swift */,
+			);
+			path = Backup;
 			sourceTree = "<group>";
 		};
 		CE1856F32ADC4835007E39C7 /* Carbs */ = {
@@ -4406,6 +4668,17 @@
 			path = NightscoutConfig;
 			sourceTree = "<group>";
 		};
+		D6B9C759C971C6DCD47B6183 /* AIReport */ = {
+			isa = PBXGroup;
+			children = (
+				ED552E28CD556AB561F2A9D0 /* AIReportStateModel.swift */,
+				6DBD228DAD451184F992B7BA /* AIReportProvider.swift */,
+				9B6779B0A0D49D2F9EF6F6E2 /* AIReportDataFlow.swift */,
+				31D51E8B0E74DD0EA284FB9E /* View */,
+			);
+			path = AIReport;
+			sourceTree = "<group>";
+		};
 		D8F047E14D567F2B5DBEFD96 /* ISFEditor */ = {
 			isa = PBXGroup;
 			children = (
@@ -4473,6 +4746,8 @@
 		DD09D6492D2B6253000D82C9 /* Trio Watch Complication */ = {
 			isa = PBXGroup;
 			children = (
+				4A5821B70D8833574E792658 /* TrioWatchComplication.entitlements */,
+				36BD80A9B7D3FBEBF493E0F2 /* GlucoseComplication.swift */,
 				DD09D6412D2B553A000D82C9 /* Assets.xcassets */,
 				DD09D6422D2B553A000D82C9 /* Info.plist */,
 				DD09D6432D2B553A000D82C9 /* TrioWatchComplication.swift */,
@@ -4955,6 +5230,7 @@
 		DDF847E22C5C28830049BB3B /* View */ = {
 			isa = PBXGroup;
 			children = (
+				3AA9D5B36D9817BE6430E36F /* LiveActivityColorsView.swift */,
 				DDF847E32C5C288F0049BB3B /* LiveActivitySettingsRootView.swift */,
 				BD6EB2D52C7D049B0086BBB6 /* LiveActivityWidgetConfiguration.swift */,
 				CD6672C97F2AB74125F46DD5 /* LiveActivitySimpleWidgetConfiguration.swift */,
@@ -5017,6 +5293,17 @@
 				BDC531172D1062F200088832 /* ContactImageState.swift */,
 			);
 			path = ContactImage;
+			sourceTree = "<group>";
+		};
+		EAC7F0206652E90B7BA9CCE0 /* MealPhotoSettings */ = {
+			isa = PBXGroup;
+			children = (
+				790C6C2C5BF63B702D1C1B6F /* MealPhotoSettingsStateModel.swift */,
+				D7601C26A600BAC9EF56682B /* MealPhotoSettingsProvider.swift */,
+				96D45F36EEAE606DCA5E0781 /* MealPhotoSettingsDataFlow.swift */,
+				A3FBD5CDB17D6374AD61F5DE /* View */,
+			);
+			path = MealPhotoSettings;
 			sourceTree = "<group>";
 		};
 		EEC747824D6593B5CD87E195 /* View */ = {
@@ -5396,6 +5683,20 @@
 				CAF500000000000000000079 /* Trio/Resources/Sounds/voice_lgs_amy.caf in Resources */,
 				CAF50000000000000000007B /* Trio/Resources/Sounds/voice_lgs_bryce.caf in Resources */,
 				CAF50000000000000000007D /* Trio/Resources/Sounds/voice_ulg_amy.caf in Resources */,
+				CAF90000000000000000001B /* Trio/Resources/Sounds/voice_dts_thorsten.caf in Resources */,
+				CAF900000000000000000019 /* Trio/Resources/Sounds/voice_dts_eva.caf in Resources */,
+				CAF900000000000000000017 /* Trio/Resources/Sounds/voice_dcr_thorsten.caf in Resources */,
+				CAF900000000000000000015 /* Trio/Resources/Sounds/voice_dcr_eva.caf in Resources */,
+				CAF900000000000000000013 /* Trio/Resources/Sounds/voice_cr_thorsten.caf in Resources */,
+				CAF900000000000000000011 /* Trio/Resources/Sounds/voice_cr_eva.caf in Resources */,
+				CAF90000000000000000000F /* Trio/Resources/Sounds/voice_hg_thorsten.caf in Resources */,
+				CAF90000000000000000000D /* Trio/Resources/Sounds/voice_hg_eva.caf in Resources */,
+				CAF90000000000000000000B /* Trio/Resources/Sounds/voice_lgs_thorsten.caf in Resources */,
+				CAF900000000000000000009 /* Trio/Resources/Sounds/voice_lgs_eva.caf in Resources */,
+				CAF900000000000000000007 /* Trio/Resources/Sounds/voice_lg_thorsten.caf in Resources */,
+				CAF900000000000000000005 /* Trio/Resources/Sounds/voice_lg_eva.caf in Resources */,
+				CAF900000000000000000003 /* Trio/Resources/Sounds/voice_ulg_thorsten.caf in Resources */,
+				CAF900000000000000000001 /* Trio/Resources/Sounds/voice_ulg_eva.caf in Resources */,
 				CAF50000000000000000007F /* Trio/Resources/Sounds/voice_ulg_bryce.caf in Resources */,
 				CAF200000000000000000001 /* Trio/Resources/Sounds/bloom.caf in Resources */,
 				CAF200000000000000000002 /* Trio/Resources/Sounds/bloop.caf in Resources */,
@@ -5556,6 +5857,49 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				584DF0150F2E74F8166D5E7F /* SensitivityReport.swift in Sources */,
+				6DDF82CD19343784DE017ACA /* SensitivityReportView.swift in Sources */,
+				5D6502A4184A35441A8A049B /* HomeStateModel+HeaderWidget.swift in Sources */,
+				C9B1E3A44D0299ADEC3E596D /* HeaderWidgetSnapshot.swift in Sources */,
+				5B0BE0407393EE296E64DD93 /* LiveActivityColorsView.swift in Sources */,
+				1AB3BC3779CBD6B99F441E0B /* DiaExpertCGMManager+UI.swift in Sources */,
+				877CFA0F9FDF626751B9F40A /* DiaExpertCGMManager.swift in Sources */,
+				FCB0EDD234205730B65C2793 /* DiaExpertCGMState.swift in Sources */,
+				39F89DFB628E9CFFE0EAF3DE /* DiaExpertProtocol.swift in Sources */,
+				2E2EF59E50831EC9E59DBA49 /* TherapyReportDocument.swift in Sources */,
+				363B3C335AEC279F64EE98AF /* AIReportRootView.swift in Sources */,
+				DAD96D27D8FB9CD2887F0034 /* AIReportStateModel.swift in Sources */,
+				55C30C0C1C92FCF011B7ACC6 /* AIReportProvider.swift in Sources */,
+				121CB50A36E2CE29864DA4EB /* AIReportDataFlow.swift in Sources */,
+				D66C4D9E20EB615DAB16B9D5 /* AITextClient.swift in Sources */,
+				67B21AB2C813E38D120B0BE6 /* TherapyReportDataSource.swift in Sources */,
+				7ABEE8C794CD404A4E26A0FD /* TherapyReport.swift in Sources */,
+				BAABEECB426905D45B36D18F /* HomeLandscapeChartView.swift in Sources */,
+				6D45168F0BA0B773D7DF2149 /* HomeRootView+Bento.swift in Sources */,
+				808E90ADEA47DA1BF91DFE39 /* BentoHeaderView.swift in Sources */,
+				1A4E957A62C6F1FE569E49BE /* MealPhotoAnalysisSheet.swift in Sources */,
+				D3A2FB324887E4EAD7AE773F /* MealPhotoSettingsRootView.swift in Sources */,
+				688AA49E510CCFDDE0599173 /* MealPhotoSettingsStateModel.swift in Sources */,
+				32CA86074FA34D21138037A8 /* MealPhotoSettingsProvider.swift in Sources */,
+				805099B41A33B7C8E9EF7A43 /* MealPhotoSettingsDataFlow.swift in Sources */,
+				C6C6D4834E3BDD8B7FDAF067 /* MealPhotoAnalyzer.swift in Sources */,
+				3E7E28C723AD4F68EE0616C1 /* MealPhotoAnalysis.swift in Sources */,
+				16ED300B34DA8A793338F852 /* RescueCarbsManager.swift in Sources */,
+				A6E2A8AD32DB65B4CCB4AB8D /* RescueCarbs.swift in Sources */,
+				0905BC064131EF3A27E3A2C4 /* BackupRestoreRootView.swift in Sources */,
+				17D0569322A3B35964983D9F /* BackupRestoreStateModel.swift in Sources */,
+				5E750BBAD827130DC53D8162 /* BackupRestoreProvider.swift in Sources */,
+				1AEF0C192C384996501FFA16 /* BackupRestoreDataFlow.swift in Sources */,
+				6506D09E7C1B4155D9A9E41B /* BackupManager.swift in Sources */,
+				BAF2C6FEA93FA1DC5058C35D /* SettingsBackup.swift in Sources */,
+				3B5F2CCBCD27E95A478D8EC6 /* MealCarbType.swift in Sources */,
+				0B1033FA3AE60C417811B16D /* ExtendedBolus.swift in Sources */,
+				1F462045422C01C9CB3E6FBF /* InsulinConcentrationSettingsRootView.swift in Sources */,
+				E6942F65FB687D57C26210DF /* InsulinConcentrationSettingsStateModel.swift in Sources */,
+				F4D8225F05DA6E11B713F9F1 /* InsulinConcentrationSettingsProvider.swift in Sources */,
+				6DFB6231C997FAF941F2A4E8 /* InsulinConcentrationSettingsDataFlow.swift in Sources */,
+				FB004D9CDB7CF894E9CDC941 /* PumpManager+InsulinConcentration.swift in Sources */,
+				6277F416B0ADF2A34C3F73EA /* InsulinConcentration.swift in Sources */,
 				DD5DC9F12CF3D97C00AB8703 /* AdjustmentsStateModel+Overrides.swift in Sources */,
 				3811DE2325C9D48300A708ED /* MainDataFlow.swift in Sources */,
 				C2A0A42F2CE03131003B98E8 /* ConstantValues.swift in Sources */,
@@ -6308,6 +6652,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A839C337A0954A98B6DE1103 /* SensitivityReportTests.swift in Sources */,
+				02C884F869321104B6EF1D91 /* DynamicISFBadgeTests.swift in Sources */,
+				E19159CB59CE83109BE4B1BE /* HeaderWidgetSnapshotTests.swift in Sources */,
+				46678803675DBDEFAD9B367A /* LiveActivityColorsTests.swift in Sources */,
+				98A823E70390F165F0EC5EDE /* DiaExpertCGMTests.swift in Sources */,
+				3173BD49F93B4C46E65FFFA2 /* TherapyReportTests.swift in Sources */,
+				AA61693A1105A494230369CB /* MealPhotoAnalysisTests.swift in Sources */,
+				99045C718E2906323DE16E07 /* RescueCarbsTests.swift in Sources */,
+				95054A87410E3F8EC670E2A7 /* SettingsBackupTests.swift in Sources */,
+				9F677A2FA4401E6834DD982F /* MealCarbTypeTests.swift in Sources */,
+				0F98DB6217F538B479F12A5D /* ExtendedBolusTests.swift in Sources */,
+				2F1D316B4EE4CBBDAB560589 /* InsulinConcentrationTests.swift in Sources */,
 				3B5CD2C92D4AECD500CE213C /* ProfileCarbsTests.swift in Sources */,
 				3BEDC9932EEB27B600AC6492 /* IobConsecutiveEventsTests.swift in Sources */,
 				3B1DB90F2E63C14C00BD814B /* DetermineBasalLowEventualGlucoseTests.swift in Sources */,
@@ -6334,7 +6690,7 @@
 				3BBC22632DF5B94100169236 /* AutosensTests.swift in Sources */,
 				BD8FC0542D66186000B95AED /* TestError.swift in Sources */,
 				FB9012AE66284A92A6531037 /* NightscoutUploadSerializerTests.swift in Sources */,
-				782BE9AEFDD94938A6F3EFE9 /* NightscoutImportRoundTripTests.swift in Sources */,
+				782BE9AEFDD94938A6F3EFE9 /* (null) in Sources */,
 				DDDD0FFB2F4E22C000F9C645 /* GlucoseSmoothingTests.swift in Sources */,
 				CA0924000000000000000006 /* GRICalculatorTests.swift in Sources */,
 				DDDD0FFD2F4E22C000F9C645 /* GlucoseNativeConversionTests.swift in Sources */,
@@ -6373,8 +6729,7 @@
 				3B1C5C482D68E269004E9273 /* IobHistoryTests.swift in Sources */,
 				38FCF3F925E902C20078B0D1 /* FileStorageTests.swift in Sources */,
 				BD11A001000000000000A002 /* AlertMuterTests.swift in Sources */,
-				6D58D168F03780DA23CB2E52 /* QuickPickTreatmentsTests.swift in Sources */,
-				4A3C7DA31A04D14F83DC2957 /* CGMSensorStateLogTests.swift in Sources */,
+				4A3C7DA31A04D14F83DC2957 /* (null) in Sources */,
 				BD11A001000000000000A013 /* TandemKitAlertEmissionTests.swift in Sources */,
 				BD11A001000000000000A014 /* AlertColdStartReplayTests.swift in Sources */,
 				BD11A001000000000000A012 /* RileyLinkKitAlertEmissionTests.swift in Sources */,
@@ -6420,6 +6775,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BDD252286A4B78A81865778C /* HeaderWidgetSnapshot.swift in Sources */,
 				6BCF84DE2B16843A003AD46E /* LiveActivityAttributes.swift in Sources */,
 				39714DB1CF5B2C1F8D990CED /* LiveActivityGlucoseStyle.swift in Sources */,
 				DDCEBF5B2CC1B76400DF4C36 /* LiveActivity+Helper.swift in Sources */,
@@ -6432,6 +6788,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				72B30B74EB28A35185B95793 /* GlucoseComplication.swift in Sources */,
 				DD09D6462D2B553A000D82C9 /* TrioWatchComplication.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -6440,6 +6797,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B0CD946F5C13EC281F97C64B /* WatchDialView.swift in Sources */,
+				D7A9BDE0A1CFCF3812023077 /* WatchArcView.swift in Sources */,
+				6C866EFFC9C0C81CE8AB2CAB /* WatchBentoView.swift in Sources */,
+				EA8C7CC958065CC43DD4ACFB /* WatchStatusListView.swift in Sources */,
 				BDA25F222D26D62800035F34 /* BolusInputView.swift in Sources */,
 				BDFF7A882D25F97D0016C40C /* TrioMainWatchView.swift in Sources */,
 				BDA25F202D26D5FE00035F34 /* CarbsInputView.swift in Sources */,
@@ -6783,6 +7144,7 @@
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
+				CODE_SIGN_ENTITLEMENTS = LiveActivity/LiveActivity.entitlements;
 				INFOPLIST_FILE = LiveActivity/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = LiveActivity;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
@@ -6817,6 +7179,7 @@
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
+				CODE_SIGN_ENTITLEMENTS = LiveActivity/LiveActivity.entitlements;
 				INFOPLIST_FILE = LiveActivity/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = LiveActivity;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
@@ -6840,6 +7203,7 @@
 		BD8207D02D2B42E80023339D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "Trio Watch Complication/TrioWatchComplication.entitlements";
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
@@ -6852,7 +7216,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Trio Watch Complication/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "$(APP_DISPLAY_NAME)";
+				INFOPLIST_KEY_CFBundleDisplayName = OpenTrio;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -6877,6 +7241,7 @@
 		BD8207D12D2B42E80023339D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "Trio Watch Complication/TrioWatchComplication.entitlements";
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
@@ -6889,7 +7254,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Trio Watch Complication/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "$(APP_DISPLAY_NAME)";
+				INFOPLIST_KEY_CFBundleDisplayName = OpenTrio;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -6913,6 +7278,7 @@
 		BDFF79A12D25AA890016C40C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "Trio Watch App/TrioWatchApp.entitlements";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -6926,7 +7292,7 @@
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = "$(APP_DISPLAY_NAME)";
+				INFOPLIST_KEY_CFBundleDisplayName = OpenTrio;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = "$(BUNDLE_IDENTIFIER)";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -6950,6 +7316,7 @@
 		BDFF79A22D25AA890016C40C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "Trio Watch App/TrioWatchApp.entitlements";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -6963,7 +7330,7 @@
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = "$(APP_DISPLAY_NAME)";
+				INFOPLIST_KEY_CFBundleDisplayName = OpenTrio;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = "$(BUNDLE_IDENTIFIER)";
 				LD_RUNPATH_SEARCH_PATHS = (
