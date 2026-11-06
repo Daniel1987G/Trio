@@ -1,0 +1,110 @@
+oref0 branch: dev - git version: 8282ce7
+
+Last commits:
+8282ce7 Merge pull request #49 from nightscout/remove-400-guard-trio-oref
+2319a16 feat(algo): Remove short and long delta condition to avoid early exit breaking loop; set 30min neutral temp like original openaps/oref0 does
+3aeba68 feat(algo): Remove 400 / shouldProtectDueToHIGH guard #hackdiabetes2025
+37896e5 Merge pull request #48 from nightscout/fix-bundle-naming
+f21a187 Rename output library to trio_[name]
+c0b46d3 Merge pull request #47 from nightscout/fix-400-guard
+1591b14 Remove leftover != 400 condition
+4204b12 Remove autoISF adjustments from glucose-get-last
+2596f3f Refactor 400 glucose guard: - Remove old 400 guard - Replace with check that only disables SMBs and keeps TBR at neutral == current basal rate, if shouldProtectDueToHIGH is not null/undefined and true - Remove all other 400 guards
+2ca5e20 Change folder name to Trio from iAPS
+6ad27e9 Merge pull request #46 from nightscout/tcd
+d98e4fc Merge pull request #45 from nightscout/tcd-fixes
+af8f79c Fix typo; remove enableDynamicCR setting from profile/index.js
+ffb9374 Always add minPredBG to rT object
+814b629 Remove dynamicCR
+4b62fe2 Lower min carb ratio to 1 g/U (down from 3)
+33d6b02 Merge pull request #39 from mountrcg/removeTDDCalc
+a4e46fc Merge pull request #42 from kingst/fix-date-undefined
+9a39c57 var -> let in tests
+ad3b5bb Fixes an incorrect undefined check
+ae14e0d Merge pull request #38 from kingst/profile-carbs-fix
+9df2270 Merge pull request #40 from mountrcg/maxAbsorptionTime
+a542ed3 use guarded maxAbsorptionTime
+4c77757 Revert "reduce dynISF logging"
+1567c76 use variable name maxMealAbsorptionTime
+bdcdf69 also remove insulin distribution and fix sonarcloud issue
+61b4f85 reduce dynISF logging
+0fe81c1 introduce maxAbsorptionTime to orefmaxAbsorptionTime
+5c6ce4b remove TDD calculation
+c8e7b32 Always check for bad carb ratios in profile
+ade267d Merge pull request #37 from mountrcg/tdd-pumpdataCheck
+46deecb remove dynisf check on pumpdata calc
+2f258b2 Merge pull request #36 from mountrcg/fixTDDcheck
+4998a09 fix condition  to use weightedAverage as TDD
+ff54c14 Merge pull request #35 from mountrcg/skipNTfix
+bbdf258 Merge pull request #34 from mountrcg/TToref-reset
+6e4c8ce Merge pull request #31 from simonp22/calc_tdd
+c5f9a6a Use weightedAverage as tdd if weightPercentage > 1
+7153b43 skip_NetralTemps only if SMB's somehow disabled
+e0caaa0 revert to standard HBT calculation
+06ca64b Always calculate TDD
+363fd11 Merge pull request #28 from bjornoleh/harmonise_defaults
+2d695e1 index.js: set enableUAM to false, and remove whitespace in L11
+8f5f820 Harmonise profile defaults with openaps/oref0
+d1dfb70 Merge pull request #26 from MikePlante1/typo
+d9f1662 fix `threshold_setting` typo
+b454837 Merge pull request #24 from nightscout/Trio_renames
+5319e39 update Discord url
+5b7affa Github issue templates and config.yml: rename from Open-iAPS to Trio
+e023125 Replace Open-iAPS with Trio (#23)
+fa373c9 Merge pull request #22 from nightscout/tmhastings-tddAdjBasal
+fc0ae69 tddAdjBasal pop-up correction
+487bcbb Merge pull request #21 from MikePlante1/separate_adjustment_factors
+5774155 Merge pull request #20 from MikePlante1/disable_smb_schedule
+e3a8d73 Merge pull request #17 from MikePlante1/console_error_refactor
+a29d9ce rename smbIsAlwaysOff to smbIsScheduledOff
+b777c77 Separate Adjustment Factors for Logarithmic and Sigmoid
+d898eb1 fix threshold console.error
+b89a39b Merge pull request #16 from bjornoleh/webpack-update
+b8aaf93 Merge pull request #15 from avouspierre/dev
+4aba4e0 webpack-cp.sh: git log --since=2024-01-01
+3c321e3 Remove old copy of minimised files previously committed
+deefc58 Simplify cp in webpack-cp.sh to use with copy-rename-webpack-plugin
+4438013 Merge pull request #11 from nightscout/issue-template
+d76ed48 Update config.yml
+4edc26c Merge remote-tracking branch 'upstream/dev' into dev
+f3faea6 allows to create Bundle directory for oiaps
+8d4f4ff Merge pull request #14 from nightscout/revert_actualDate
+a42e58f Revert "actualDate" changes to lib/meal/history.js
+444903e fix meal inputs with actualDate
+f10ef66 Edit  issue templates
+1990e37 Merge pull request #9 from nightscout/smb_ratio_log
+4b7676c determine-basal.js smb_ratio log: if (smb_ratio != 0.5)
+f932754 Merge pull request #4 from nightscout/duplicate_SMBratio
+975245b Add missing max limit = 1 for smb_ratio
+8a6051c Merge pull request #5 from nightscout/half_basal_target
+acf203c Merge pull request #6 from nightscout/webpack-cp_patch-1
+1fda0fa webpack-cp.sh: Set apsDIR=../Open-iAPS, fix path for source files
+47d2485 Merge pull request #3 from nightscout/webpack-cp_patch-1
+4f6de7c Update webpack-cp.sh     - echo "copying /lib/ source files to Open-iAPS/open-iaps-oref"     - append last 30 commits to oref0_source_version.txt     - copy source files to open-iaps-oref directory     - add informational .txt about open-iaps-oref source files when copying files     - update comments with the correct filename (webpack-cp.sh)
+159b800 index.js: use correct value (160) in comment for half_basal_exercise_target
+3add4a1 duplication of SMB ratio for tags
+97b012a Merge pull request #9 from JeremyStorring/time-issues
+b2cf75b move currentTime check up
+5cdd17d Merge branch 'iaps' into time-issues
+c496240 Merge pull request #5 from JeremyStorring/enableSmbBug
+f80c32a Added comment for profile logic
+41c42c5 Bug fix for profile overrides not canceling SMBs
+e0714c5 fix for time calcs
+1230e23 Merge remote-tracking branch 'remake/iaps' into time-issues
+559f96f Merge pull request #8 from JeremyStorring/revert-7-time-issues
+cf1bc34 Revert "fix for time calcs"
+f295a47 fix from Deniz
+8d739f5 Merge pull request #7 from JeremyStorring/time-issues
+1f2b45f fix for time calcs
+b8f5997 Merge pull request #6 from JeremyStorring/min_bg_threshold
+256662c Adjusted min threshold, as min_bg for target of 80 is 60 (80 - (0.5*(80-40))
+838038a Merge pull request #4 from JeremyStorring/minify_fixes
+fc0e748 Address review comments from Robert
+30549a0 Merge pull request #3 from bjornoleh/webpack
+1276c59 Merge pull request #2 from bjornoleh/revert_1370
+3ff4e0a Rename script to webpack-cp.sh, commit webpack.config.js
+6cf69ec Revert "Tzachi shared node phase2 (#1370)"
+05a1a2e Updated oref2 files based on findings in minimised files in iAPS v3.0.3
+a9bdbb1 Missing Override variable
+02fa14d Set ceiling of threshold to 120 mg/dL
+5d17562 Update mods to oref2. Some older fixes not pushed to repo (Looping when high and override SMB settings time end bug etc.) Only run the TDD computation when not needed (dynISF enabled and when not any missing data).
