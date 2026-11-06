@@ -222,11 +222,12 @@ import UIKit
                 DeviceCatalog.pumps.filter { $0.icon == .none }.map(\.name)
         )
         // Libre 1/2/2+: LibreTransmitterUI ships no asset catalog. Libre 3: LibreLoopUI ships only onboarding
-        // steps. G5: CGMBLEKitUI ships only "g6". xDrip4iOS never had artwork.
+        // steps. G5: CGMBLEKitUI ships only "g6". DiaExpert 2 is built into Trio without artwork. xDrip4iOS never had artwork.
         #expect(gapNames == [
             "FreeStyle Libre 1 / 2 / 2+",
             "FreeStyle Libre 3 / 3+ (Beta)",
             "Dexcom G5",
+            "DiaExpert 2 (Beta)",
             "xDrip4iOS"
         ])
     }

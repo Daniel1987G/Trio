@@ -41,6 +41,7 @@ enum DeviceCatalog {}
 enum DeviceManufacturer: CaseIterable {
     case abbott
     case dexcom
+    case diaExpert
     case insulet
     case medtronic
     case medtrum
@@ -56,6 +57,7 @@ enum DeviceManufacturer: CaseIterable {
         switch self {
         case .abbott: return "Abbott"
         case .dexcom: return "Dexcom"
+        case .diaExpert: return "DiaExpert"
         case .insulet: return "Insulet"
         case .medtronic: return "Medtronic"
         case .medtrum: return "Medtrum"
@@ -376,6 +378,14 @@ extension DeviceCatalog {
             manufacturer: .dexcom,
             name: "Dexcom G7 / ONE+ / Stelo",
             icon: .uiBundle(identifier: "org.loopkit.G7SensorKitUI", asset: "g7")
+        ),
+
+        // "(Beta)" in the bold line, like Libre 3: the driver reads the standard Bluetooth CGM profile and only
+        // feeds the loop after the user released it (see DiaExpertCGMManager).
+        CGMCatalogEntry(
+            .managed(DiaExpertCGMManager.self),
+            manufacturer: .diaExpert,
+            name: DiaExpertCGMManager.localizedTitle
         ),
 
         CGMCatalogEntry(
