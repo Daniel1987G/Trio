@@ -25,6 +25,8 @@ extension Home.StateModel {
     @MainActor func updateInsulinFromController() {
         guard let objects = insulinController.fetchedObjects else { return }
         insulinFromPersistence = objects
+        extendedBolusPortions = fileStorage
+            .retrieve(OpenAPS.Monitor.extendedBolusPortions, as: [ExtendedBolusPortion].self) ?? []
 
         manualTempBasal = apsManager.isManualTempBasal
         tempBasals = objects.filter { $0.tempBasal != nil }

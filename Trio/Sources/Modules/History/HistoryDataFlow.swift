@@ -10,6 +10,7 @@ enum History {
         case bolus = "Bolus"
         case externalBolus = "External Bolus"
         case smb = "SMB"
+        case extendedBolus = "Extended Bolus"
         case tempBasal = "Temp Basal"
         case suspend = "Suspend"
         case other = "Other"
@@ -22,6 +23,8 @@ enum History {
                 return String(localized: "External Bolus")
             case .smb:
                 return String(localized: "SMB")
+            case .extendedBolus:
+                return String(localized: "Extended Bolus")
             case .tempBasal:
                 return String(localized: "Temp Basal")
             case .suspend:

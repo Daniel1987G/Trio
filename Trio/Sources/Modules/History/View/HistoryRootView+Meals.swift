@@ -25,7 +25,15 @@ extension History.RootView {
     @ViewBuilder func mealView(_ meal: CarbEntryStored) -> some View {
         VStack {
             HStack {
-                if meal.isFPU {
+                if meal.isFPU, let fpuID = meal.fpuID, state.extendedCarbPlanIDs.contains(fpuID) {
+                    Image(systemName: "circle.fill").foregroundColor(Color.orange)
+                        .accessibilityHidden(true)
+                    Text("Extended Bolus").foregroundStyle(Color.orange)
+                    Text(
+                        (Formatter.decimalFormatterWithTwoFractionDigits.string(for: meal.carbs) ?? "0") +
+                            String(localized: " g", comment: "gram of carbs")
+                    )
+                } else if meal.isFPU {
                     Image(systemName: "circle.fill").foregroundColor(Color.orange.opacity(0.5))
                         .accessibilityHidden(true)
                     Text("Fat / Protein")

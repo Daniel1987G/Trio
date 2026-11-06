@@ -11,6 +11,8 @@ protocol CarbsObserver {
 protocol CarbsStorage {
     var updatePublisher: AnyPublisher<Void, Never> { get }
     func storeCarbs(_ carbs: [CarbsEntry], areFetchedFromRemote: Bool) async throws
+    /// Stores ready-made carb equivalents (`isFPU`, one shared `fpuID`), e.g. the extended part of a bolus.
+    func storeCarbEquivalents(_ entries: [CarbsEntry]) async
     /// Builds a single, real, locally-entered carb entry ready to pass to `storeCarbs`.
     func makeCarbEntry(carbs: Decimal, date: Date) -> CarbsEntry
     /// Swaps a stored meal in one Core Data transaction.
@@ -82,6 +84,11 @@ final class BaseCarbsStorage: CarbsStorage, Injectable {
 
         await saveCarbsToCoreData(entries: entriesToStore, areFetchedFromRemote: areFetchedFromRemote)
         await saveCarbEquivalents(entries: entriesToStore, areFetchedFromRemote: areFetchedFromRemote)
+    }
+
+    func storeCarbEquivalents(_ entries: [CarbsEntry]) async {
+        guard !entries.isEmpty else { return }
+        await saveFPUToCoreDataAsBatchInsert(entries: entries, areFetchedFromRemote: false)
     }
 
     private func filterRemoteEntries(entries: [CarbsEntry]) async throws -> [CarbsEntry] {

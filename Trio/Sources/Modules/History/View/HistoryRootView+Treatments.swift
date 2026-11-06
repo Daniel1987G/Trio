@@ -31,7 +31,9 @@ extension History.RootView {
 
             // Then filter by treatment type
             if let bolus = item.bolus {
-                if bolus.isSMB {
+                if state.isExtendedBolusPortion(bolus, at: item.timestamp) {
+                    return selectedTreatmentTypes.contains(.extendedBolus)
+                } else if bolus.isSMB {
                     return selectedTreatmentTypes.contains(.smb)
                 } else if bolus.isExternal {
                     return selectedTreatmentTypes.contains(.externalBolus)
@@ -51,9 +53,14 @@ extension History.RootView {
     @ViewBuilder func treatmentView(_ item: PumpEventStored) -> some View {
         HStack {
             if let bolus = item.bolus, let amount = bolus.amount {
-                Image(systemName: "circle.fill").foregroundColor(Color.insulin)
+                let isExtendedPortion = state.isExtendedBolusPortion(bolus, at: item.timestamp)
+                Image(systemName: "circle.fill").foregroundColor(isExtendedPortion ? Color.orange : Color.insulin)
                     .accessibilityHidden(true)
-                Text(bolus.isSMB ? "SMB" : item.type ?? "Bolus")
+                if isExtendedPortion {
+                    Text("Extended Bolus").foregroundColor(.orange)
+                } else {
+                    Text(bolus.isSMB ? "SMB" : item.type ?? "Bolus")
+                }
                 Text(
                     (Formatter.decimalFormatterWithThreeFractionDigits.string(from: amount) ?? "0") +
                         String(localized: " U", comment: "Insulin unit")

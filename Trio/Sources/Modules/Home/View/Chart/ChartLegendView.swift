@@ -156,6 +156,15 @@ struct ChartLegendView: View {
                             )
 
                             DefinitionRow(
+                                term: String(localized: "Extended Bolus"),
+                                definition: Text(
+                                    "A portion of an extended bolus. Trio delivers the extended part as small boluses about every 5 minutes."
+                                ),
+                                color: Color.orange,
+                                iconString: "arrowtriangle.down.fill"
+                            )
+
+                            DefinitionRow(
                                 term: String(localized: "Carb Entry"),
                                 definition: Text("Tracks the carbohydrates you eat, entered to guide insulin dosing."),
                                 color: Color.orange,

@@ -873,6 +873,12 @@ struct MainChartCanvas: View {
         }
     }
 
+    /// Extended carb plans whose entries still exist (deleting them in history removes the bar).
+    var visibleExtendedCarbPlans: [ExtendedCarbPlan] {
+        let storedIDs = Set(state.fpusFromPersistence.compactMap(\.fpuID))
+        return state.extendedCarbPlans.filter { storedIDs.contains($0.fpuID) }
+    }
+
     var windowedDeterminations: [OrefDetermination] {
         state.enactedAndNonEnactedDeterminations.filter { entry in
             guard let date = entry.deliverAt else { return false }
@@ -947,7 +953,8 @@ extension MainChartCanvas {
                 glucoseData: glucose,
                 insulinData: insulin,
                 units: state.units,
-                bolusDisplayThreshold: state.bolusDisplayThreshold
+                bolusDisplayThreshold: state.bolusDisplayThreshold,
+                extendedPortions: state.extendedBolusPortions
             )
 
             CarbView(
@@ -956,7 +963,9 @@ extension MainChartCanvas {
                 carbData: carbs,
                 fpuData: fpus,
                 minValue: units == .mgdL ? state.minYAxisValue : state.minYAxisValue
-                    .asMmolL
+                    .asMmolL,
+                extendedPlans: visibleExtendedCarbPlans,
+                now: state.timerDate
             )
 
             ForecastView(

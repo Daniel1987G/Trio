@@ -44,5 +44,7 @@ extension Home.StateModel {
     @MainActor func updateFPUsFromController() {
         guard let objects = fpuController.fetchedObjects else { return }
         fpusFromPersistence = objects
+        extendedCarbPlans = fileStorage
+            .retrieve(OpenAPS.Monitor.extendedCarbPlans, as: [ExtendedCarbPlan].self) ?? []
     }
 }

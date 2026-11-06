@@ -24,14 +24,32 @@ extension History {
         var carbEntryDeleted: Bool = false
 
         var units: GlucoseUnits = .mgdL
+        /// Delivered extended bolus portions; they are automatic boluses but no SMBs.
+        var extendedBolusPortions: [ExtendedBolusPortion] = []
+        /// `fpuID`s of carb equivalents that are the extended part of a bolus.
+        var extendedCarbPlanIDs: Set<UUID> = []
 
         var carbEntryToEdit: CarbEntryStored?
         var showCarbEntryEditor = false
 
         override func subscribe() {
             units = settingsManager.settings.units
+            reloadExtendedBolusPortions()
             broadcaster.register(DeterminationObserver.self, observer: self)
             broadcaster.register(SettingsObserver.self, observer: self)
+        }
+
+        func reloadExtendedBolusPortions() {
+            extendedBolusPortions = storage.retrieve(OpenAPS.Monitor.extendedBolusPortions, as: [ExtendedBolusPortion].self) ?? []
+            extendedCarbPlanIDs = Set(
+                (storage.retrieve(OpenAPS.Monitor.extendedCarbPlans, as: [ExtendedCarbPlan].self) ?? []).map(\.fpuID)
+            )
+        }
+
+        /// Whether `bolus` is a portion of an extended bolus (stored by the pump as an automatic bolus).
+        func isExtendedBolusPortion(_ bolus: BolusStored, at date: Date?) -> Bool {
+            guard bolus.isSMB, let date, let amount = bolus.amount else { return false }
+            return ExtendedBolusPortions.isPortion(date: date, amount: amount as Decimal, in: extendedBolusPortions)
         }
 
         /// Checks if the glucose data is fresh based on the given date
@@ -55,6 +73,8 @@ extension History.StateModel: DeterminationObserver, SettingsObserver {
     func determinationDidUpdate(_: Determination) {
         DispatchQueue.main.async {
             self.waitForSuggestion = false
+            // a new portion may have been delivered this cycle
+            self.reloadExtendedBolusPortions()
         }
     }
 

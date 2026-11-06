@@ -7,6 +7,13 @@ struct InsulinView: ChartContent {
     let insulinData: [PumpEventStored]
     let units: GlucoseUnits
     let bolusDisplayThreshold: BolusDisplayThreshold
+    /// Delivered extended bolus portions; matching automatic boluses are drawn orange instead of as SMBs.
+    var extendedPortions: [ExtendedBolusPortion] = []
+
+    private func isExtendedPortion(_ insulin: PumpEventStored, amount: Decimal, date: Date) -> Bool {
+        guard insulin.bolus?.isSMB == true, !extendedPortions.isEmpty else { return false }
+        return ExtendedBolusPortions.isPortion(date: date, amount: amount, in: extendedPortions)
+    }
 
     var body: some ChartContent {
         drawBoluses()
@@ -30,7 +37,10 @@ struct InsulinView: ChartContent {
                     y: .value("Value", yPosition)
                 )
                 .symbol {
-                    Image(systemName: "arrowtriangle.down.fill").font(.system(size: size)).foregroundStyle(Color.insulin)
+                    Image(systemName: "arrowtriangle.down.fill").font(.system(size: size))
+                        .foregroundStyle(
+                            isExtendedPortion(insulin, amount: amount as Decimal, date: bolusDate) ? Color.orange : Color.insulin
+                        )
                 }
 
                 PointMark(
