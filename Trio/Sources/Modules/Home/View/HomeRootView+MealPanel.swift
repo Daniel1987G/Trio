@@ -17,8 +17,15 @@ extension Home.RootView {
     /// animatable value, so both directions animate.
     @ViewBuilder func mealPanel() -> some View {
         ZStack {
-            liveMealPanel
-                .opacity(isChartReadoutVisible ? 0 : 1)
+            Group {
+                if headerStyle == .bento {
+                    bentoBottomRow
+                } else {
+                    liveMealPanel
+                }
+            }
+            .opacity(isChartReadoutVisible ? 0 : 1)
+            .allowsHitTesting(!isChartReadoutVisible)
 
             // Renders from the last resolved selection, which is deliberately not cleared on
             // decay: the row has to keep its values to fade out with, and it is invisible
