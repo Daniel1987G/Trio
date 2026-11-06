@@ -50,3 +50,22 @@ Trio's spoken alert sounds were generated with
 - Licence: **Public domain.** Credited here as a courtesy; no attribution is
   required.
 - Changes made by Trio: looped to a minimum duration of five seconds, as above.
+
+### Thorsten (`voice_*_thorsten.caf`)
+
+German voice, generated with Piper using the `de-thorsten-low` voice from the
+Piper v0.0.2 release.
+
+- Source dataset: <https://github.com/thorstenMueller/Thorsten-Voice>
+- Licence: **CC0** (public domain). Credited here as a courtesy.
+- Changes made by OpenTrio: looped to a minimum duration of five seconds, as above.
+
+### Eva (`voice_*_eva.caf`)
+
+German voice, generated with Piper using the `de-eva_k-x-low` voice from the
+Piper v0.0.2 release.
+
+- Source dataset: the M-AILABS Speech Dataset (speaker Eva K.),
+  <https://www.caito.de/2019/01/03/the-m-ailabs-speech-dataset/>, released under
+  a BSD-style licence: Copyright (c) 2017-2019 by Imdat Solak / M-AILABS.
+- Changes made by OpenTrio: looped to a minimum duration of five seconds, as above.

@@ -23,6 +23,8 @@ enum AlarmUrgencyLevel: String, CaseIterable, Identifiable, Codable {
 enum AlarmVoice: String, CaseIterable, Identifiable {
     case amy
     case bryce
+    case eva
+    case thorsten
 
     var id: String { rawValue }
 
@@ -30,7 +32,17 @@ enum AlarmVoice: String, CaseIterable, Identifiable {
         switch self {
         case .amy: return String(localized: "Amy")
         case .bryce: return String(localized: "Bryce")
+        case .eva: return String(localized: "Eva (German)")
+        case .thorsten: return String(localized: "Thorsten (German)")
         }
+    }
+
+    var isGerman: Bool { self == .eva || self == .thorsten }
+
+    /// Voices in the device language first, so a new voice alarm speaks that language by default.
+    static var preferredOrder: [AlarmVoice] {
+        let german = Locale.current.language.languageCode == .german
+        return allCases.filter { $0.isGerman == german } + allCases.filter { $0.isGerman != german }
     }
 }
 
@@ -125,7 +137,7 @@ enum AlarmSoundCatalog {
             displayName: String(localized: "Voice"),
             scopes: scopes,
             selector: .voice,
-            options: AlarmVoice.allCases.map {
+            options: AlarmVoice.preferredOrder.map {
                 Option(id: $0.rawValue, displayName: $0.displayName, filename: "voice_\(slug)_\($0.rawValue).caf")
             }
         )
