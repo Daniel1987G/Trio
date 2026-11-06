@@ -41,6 +41,8 @@ enum WatchMessageKeys {
     static let glucoseValues = "glucoseValues"
     static let minYAxisValue = "minYAxisValue"
     static let maxYAxisValue = "maxYAxisValue"
+    static let lowGlucose = "lowGlucose"
+    static let highGlucose = "highGlucose"
     static let overridePresets = "overridePresets"
     static let tempTargetPresets = "tempTargetPresets"
 

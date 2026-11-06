@@ -80,7 +80,14 @@ struct TrioAccessoryCircularView: View {
 
 // MARK: - Widget Configuration
 
-@main struct TrioWatchComplication: Widget {
+@main struct TrioWatchComplicationBundle: WidgetBundle {
+    var body: some Widget {
+        GlucoseComplication()
+        TrioWatchComplication()
+    }
+}
+
+struct TrioWatchComplication: Widget {
     let kind: String = "TrioWatchComplication"
 
     var body: some WidgetConfiguration {

@@ -1,6 +1,7 @@
 import Foundation
 import SwiftUI
 import WatchConnectivity
+import WidgetKit
 
 /// WatchState manages the communication between the Watch app and the iPhone app using WatchConnectivity.
 /// It handles glucose data synchronization and sending treatment requests (bolus, carbs) to the phone.
@@ -22,6 +23,10 @@ import WatchConnectivity
     var glucoseValues: [(date: Date, glucose: Double, color: Color)] = []
     var minYAxisValue: Decimal = 39
     var maxYAxisValue: Decimal = 200
+    /// Target range limits and unit from the phone; used by the target range arc.
+    var lowGlucose: Decimal = 70
+    var highGlucose: Decimal = 180
+    var isMmolL: Bool = false
     var cob: String? = "--"
     var iob: String? = "--"
     var lastLoopTime: String? = "--"
@@ -513,6 +518,18 @@ import WatchConnectivity
             }
         }
 
+        if let low = (message[WatchMessageKeys.lowGlucose] as? NSNumber)?.decimalValue {
+            lowGlucose = low
+        }
+
+        if let high = (message[WatchMessageKeys.highGlucose] as? NSNumber)?.decimalValue {
+            highGlucose = high
+        }
+
+        if let units = message[WatchMessageKeys.units] as? String {
+            isMmolL = units.lowercased().contains("mmol")
+        }
+
         if let overrideData = message[WatchMessageKeys.overridePresets] as? [[String: Any]] {
             overridePresets = overrideData.compactMap { data in
                 guard let name = data["name"] as? String,
@@ -584,5 +601,38 @@ import WatchConnectivity
             forecastConeMax = forecastPayload[WatchMessageKeys.forecastConeMax] as? [Double] ?? []
             forecastLines = forecastPayload[WatchMessageKeys.forecastLines] as? [String: [Double]] ?? [:]
         }
+
+        saveComplicationSnapshot()
+    }
+}
+
+// MARK: - Glucose complication
+
+extension WatchState {
+    /// Shared with the complication extension (App Group); same keys in `GlucoseComplication.swift`.
+    static var complicationDefaults: UserDefaults? {
+        // org.nightscout.<TEAM>.trio.watchkitapp → group.com.<TEAM>.loopkit.LoopGroup (same group as the phone)
+        let parts = (Bundle.main.bundleIdentifier ?? "").split(separator: ".")
+        guard parts.count >= 3 else { return nil }
+        return UserDefaults(suiteName: "group.com.\(parts[2]).loopkit.LoopGroup")
+    }
+
+    /// Writes what the complication shows and asks WidgetKit to redraw it when something changed.
+    func saveComplicationSnapshot() {
+        guard let defaults = Self.complicationDefaults else { return }
+        let snapshot: [String: Any] = [
+            "glucose": currentGlucose,
+            "colorHex": currentGlucoseColorString,
+            "trend": trend ?? "",
+            "delta": delta ?? "",
+            "iob": iob ?? "",
+            "cob": cob ?? "",
+            "glucoseDate": glucoseValues.map(\.date).max()?.timeIntervalSince1970 ?? 0,
+            "isMmol": isMmolL
+        ]
+        let previous = defaults.dictionary(forKey: "openTrio.complication") ?? [:]
+        guard !NSDictionary(dictionary: previous).isEqual(to: snapshot) else { return }
+        defaults.set(snapshot, forKey: "openTrio.complication")
+        WidgetCenter.shared.reloadTimelines(ofKind: "OpenTrioGlucoseComplication")
     }
 }

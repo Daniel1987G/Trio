@@ -11,6 +11,9 @@ struct WatchState: Hashable, Equatable, Sendable, Encodable, Decodable {
     var minYAxisValue: Decimal = 39.0
     var maxYAxisValue: Decimal = 200.0
     var units: GlucoseUnits = .mgdL
+    /// Target range limits in `units` (for the target range arc on the watch).
+    var lowGlucose: Decimal = 70.0
+    var highGlucose: Decimal = 180.0
     var iob: String?
     var cob: String?
     var lastLoopTime: String?
@@ -47,6 +50,8 @@ struct WatchState: Hashable, Equatable, Sendable, Encodable, Decodable {
             lhs.minYAxisValue == rhs.minYAxisValue &&
             lhs.maxYAxisValue == rhs.maxYAxisValue &&
             lhs.units == rhs.units &&
+            lhs.lowGlucose == rhs.lowGlucose &&
+            lhs.highGlucose == rhs.highGlucose &&
             lhs.iob == rhs.iob &&
             lhs.cob == rhs.cob &&
             lhs.lastLoopTime == rhs.lastLoopTime &&
@@ -79,6 +84,8 @@ struct WatchState: Hashable, Equatable, Sendable, Encodable, Decodable {
         hasher.combine(minYAxisValue)
         hasher.combine(maxYAxisValue)
         hasher.combine(units)
+        hasher.combine(lowGlucose)
+        hasher.combine(highGlucose)
         hasher.combine(iob)
         hasher.combine(cob)
         hasher.combine(lastLoopTime)
