@@ -151,7 +151,8 @@ extension LiveActivityAttributes.ContentState {
             useDetailedViewWatchOS: settings.smartStackView == .detailed,
             simpleViewStyle: LiveActivityAttributes.SimpleViewStyle(settings: settings),
             detailedViewState: detailedState,
-            isInitialState: false
+            isInitialState: false,
+            colors: settings.liveActivityColors.isDefault ? nil : settings.liveActivityColors
         )
     }
 }

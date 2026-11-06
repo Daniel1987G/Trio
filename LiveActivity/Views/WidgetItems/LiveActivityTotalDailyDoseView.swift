@@ -19,17 +19,17 @@ struct LiveActivityTotalDailyDoseView: View {
                 Text(bolusFormatter.string(from: additionalState.tdd as NSNumber) ?? "--")
                     .fontWeight(.bold)
                     .font(.title3)
-                    .foregroundStyle(context.isStale ? .secondary : .primary)
+                    .foregroundStyle(context.isStale ? .secondary : context.state.elementColor(.tdd))
                     .strikethrough(context.isStale, pattern: .solid, color: .red.opacity(0.6))
 
                 Text(String(localized: "U", comment: "Insulin unit"))
                     .font(.headline).fontWeight(.bold)
-                    .foregroundStyle(context.isStale ? .secondary : .primary)
+                    .foregroundStyle(context.isStale ? .secondary : context.state.elementColor(.tdd))
                     .strikethrough(context.isStale, pattern: .solid, color: .red.opacity(0.6))
             }
             Text("TDD")
                 .font(.subheadline)
-                .foregroundStyle(.primary)
+                .foregroundStyle(context.state.elementColor(.labels))
         }
     }
 }

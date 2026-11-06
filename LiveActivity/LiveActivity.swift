@@ -21,7 +21,7 @@ struct LiveActivity: Widget {
                 DynamicIslandExpandedRegion(.trailing) {
                     LiveActivityExpandedTrailingView(
                         context: context,
-                        glucoseColor: hasStaticColorScheme ? .primary : glucoseColor
+                        glucoseColor: context.state.glucoseTextColor(fallback: hasStaticColorScheme ? .primary : glucoseColor)
                     )
                 }
                 DynamicIslandExpandedRegion(.bottom) {
@@ -38,7 +38,7 @@ struct LiveActivity: Widget {
             } compactTrailing: {
                 LiveActivityCompactTrailingView(
                     context: context,
-                    glucoseColor: hasStaticColorScheme ? .primary : glucoseColor
+                    glucoseColor: context.state.glucoseTextColor(fallback: hasStaticColorScheme ? .primary : glucoseColor)
                 )
             } minimal: {
                 LiveActivityMinimalView(

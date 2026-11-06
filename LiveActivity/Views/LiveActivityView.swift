@@ -98,6 +98,7 @@ struct LiveActivityView: View {
                                         )
                                         if !context.isStale, let direction = context.state.direction {
                                             Text(direction).font(.headline)
+                                                .foregroundStyle(context.state.trendColor(fallback: .primary))
                                         }
                                     }
                                 }
@@ -125,7 +126,8 @@ struct LiveActivityView: View {
                                             glucoseColor: glucoseColor
                                         )
                                         if !context.isStale, let direction = context.state.direction {
-                                            Text(direction).font(.headline).foregroundStyle(glucoseColor)
+                                            Text(direction).font(.headline)
+                                                .foregroundStyle(context.state.trendColor(fallback: glucoseColor))
                                         }
                                     }
                                 }
@@ -183,7 +185,7 @@ struct LiveActivityView: View {
                     }
                 }
             }
-            .addLiveActivityModifiers(isWatchOS: false)
+            .addLiveActivityModifiers(isWatchOS: false, background: context.state.colorSet.color(.background))
         } else {
             let simpleViewStyle = context.state.simpleViewStyle
 
@@ -209,7 +211,11 @@ struct LiveActivityView: View {
                     }
                 }
             }
-            .addLiveActivityModifiers(isWatchOS: false, verticalPadding: simpleViewStyle.fontSize.verticalPadding)
+            .addLiveActivityModifiers(
+                isWatchOS: false,
+                verticalPadding: simpleViewStyle.fontSize.verticalPadding,
+                background: context.state.colorSet.color(.background)
+            )
         }
     }
 }

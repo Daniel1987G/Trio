@@ -23,6 +23,7 @@ extension Home.StateModel {
         latestTwoGlucoseValues = Array(objects.suffix(2))
         updateGlucoseChartYAxis(glucoseValues: objects)
         refreshExtendedStatsPanel()
+        scheduleHeaderWidgetUpdate()
     }
 
     /// Called from `MainChartView` on `.onChange(of: units)` to recompute the glucose-derived chart state.

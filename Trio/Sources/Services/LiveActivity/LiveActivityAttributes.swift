@@ -44,6 +44,8 @@ struct LiveActivityAttributes: ActivityAttributes {
 
         /// true for the first state that is set on the activity
         let isInitialState: Bool
+        /// User-chosen element colours; nil (e.g. previews) keeps the built-in look.
+        var colors: LiveActivityColors? = nil
     }
 
     struct ContentAdditionalState: Codable, Hashable {

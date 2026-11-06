@@ -15,12 +15,15 @@ struct LiveActivityBGLabelLargeView: View {
             Text(context.state.bg)
                 .fontWeight(.bold)
                 .font(glucoseFont ?? (!isWatchOS ? .title : .title3))
-                .foregroundStyle(context.isStale ? .secondary : glucoseColor)
+                .foregroundStyle(context.isStale ? .secondary : context.state.glucoseTextColor(fallback: glucoseColor))
                 .strikethrough(context.isStale, pattern: .solid, color: .red.opacity(0.6))
 
             if let trendArrow = context.state.direction {
                 Text(trendArrow)
-                    .foregroundStyle(context.isStale ? .secondary : glucoseColor)
+                    .foregroundStyle(
+                        context.isStale ? .secondary : context.state
+                            .trendColor(fallback: context.state.glucoseTextColor(fallback: glucoseColor))
+                    )
                     .fontWeight(.bold)
                     .font(arrowFont ?? (!isWatchOS ? .headline : .subheadline))
                     .padding(.leading, !isWatchOS ? 0 : -5)

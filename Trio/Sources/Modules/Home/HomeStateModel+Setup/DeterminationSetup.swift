@@ -63,6 +63,7 @@ extension Home.StateModel {
         yAxisChartDataCobChart(determinations: objects)
         yAxisChartDataIobChart(determinations: objects)
         updateCobProjection()
+        scheduleHeaderWidgetUpdate()
     }
 
     /// Refreshed here rather than off an IOB signal so the projection and the anchor it

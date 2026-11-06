@@ -12,17 +12,17 @@ struct LiveActivityCOBLabelView: View {
                 Text("\(additionalState.cob)" as String)
                     .fontWeight(.bold)
                     .font(.title3)
-                    .foregroundStyle(context.isStale ? .secondary : .primary)
+                    .foregroundStyle(context.isStale ? .secondary : context.state.elementColor(.cob))
                     .strikethrough(context.isStale, pattern: .solid, color: .red.opacity(0.6))
 
                 Text(String(localized: "g", comment: "gram of carbs"))
                     .font(.headline).fontWeight(.bold)
-                    .foregroundStyle(context.isStale ? .secondary : .primary)
+                    .foregroundStyle(context.isStale ? .secondary : context.state.elementColor(.cob))
                     .strikethrough(context.isStale, pattern: .solid, color: .red.opacity(0.6))
             }
             Text("COB")
                 .font(.subheadline)
-                .foregroundStyle(.primary)
+                .foregroundStyle(context.state.elementColor(.labels))
         }
     }
 }
