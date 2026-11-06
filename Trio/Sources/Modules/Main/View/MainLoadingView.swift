@@ -19,7 +19,7 @@ extension Main {
                 VStack {
                     Spacer().frame(maxHeight: 92)
 
-                    Image(.trioCircledNoBackground)
+                    Image(.insulinLoopLogo)
                         .resizable()
                         .scaledToFit()
                         .frame(width: 92, height: 92)

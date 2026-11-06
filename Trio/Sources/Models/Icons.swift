@@ -3,7 +3,9 @@ import Foundation
 import UIKit
 
 enum Icon_: String, CaseIterable, Identifiable {
-    case primary = "trioBlack"
+    /// Default icon (APP_ICON in Config.xcconfig): insulin drop inside a closed-loop arrow.
+    case primary = "insulinLoop"
+    case trioBlack
     case trioWhiteShadow
     case trioColorBG
     case trioWhite
