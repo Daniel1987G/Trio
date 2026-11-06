@@ -92,7 +92,10 @@ extension AutotuneConfig {
                 let syncValues = basals.map {
                     RepeatingScheduleValue(startTime: TimeInterval($0.minutes * 60), value: Double($0.rate))
                 }
-                pump.syncBasalRateSchedule(items: syncValues) { result in
+                pump.syncBasalRateSchedule(
+                    actualItems: syncValues,
+                    concentration: settingsManager.settings.pumpInsulinConcentration
+                ) { result in
                     switch result {
                     case .success:
                         self.storage.save(basals, as: OpenAPS.Settings.basalProfile)

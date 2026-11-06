@@ -450,7 +450,10 @@ final class BaseHealthKitManager: HealthKitManager, Injectable {
                         // pump-reported delivery wins; rate x duration is the fallback
                         let value = event.deliveredUnits ?? (Decimal(duration) / 60.0) * amount
                         let valueRounded = self.deviceDataManager?.pumpManager?
-                            .roundToSupportedBolusVolume(units: Double(value)) ?? Double(value)
+                            .roundToSupportedBolusVolume(
+                                actualUnits: Double(value),
+                                concentration: self.settingsManager.settings.pumpInsulinConcentration
+                            ) ?? Double(value)
 
                         // Use binary search for efficient lookup of matching entry
                         if let matchingIndex = self.binarySearch(entries: existingTempBasalEntries, timestamp: event.timestamp) {
@@ -606,7 +609,10 @@ final class BaseHealthKitManager: HealthKitManager, Injectable {
             let adjustedDeliveredUnits = predecessorEntry.tempBasal?.deliveredUnits?.doubleValue
                 ?? adjustedDurationHours * predecessorEntryRate
             let adjustedDeliveredUnitsRounded = deviceDataManager?.pumpManager?
-                .roundToSupportedBolusVolume(units: adjustedDeliveredUnits) ?? adjustedDeliveredUnits
+                .roundToSupportedBolusVolume(
+                    actualUnits: adjustedDeliveredUnits,
+                    concentration: settingsManager.settings.pumpInsulinConcentration
+                ) ?? adjustedDeliveredUnits
 
             // Create the HealthKit quantity sample with the appropriate metadata
             // Intentionally do it here manually and do not use `createSample()` to handle utmost precise `end`.

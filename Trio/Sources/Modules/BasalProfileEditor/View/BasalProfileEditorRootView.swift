@@ -173,6 +173,18 @@ extension BasalProfileEditor {
                                         .padding()
                                 }
 
+                                if state.adjustedRateCount > 0 {
+                                    Text(
+                                        "\(state.adjustedRateCount) basal rates cannot be delivered exactly by your pump with the current insulin concentration. They are shown rounded down to the nearest possible rate. Check them and tap Save."
+                                    )
+                                    .bold()
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                    .padding()
+                                    .background(Color.orange.opacity(0.25))
+                                    .clipShape(RoundedRectangle(cornerRadius: 10))
+                                    .padding()
+                                }
+
                                 // Chart visualization
                                 if !state.items.isEmpty {
                                     basalProfileChart

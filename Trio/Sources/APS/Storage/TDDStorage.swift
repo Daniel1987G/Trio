@@ -7,7 +7,8 @@ protocol TDDStorage {
     func calculateTDD(
         pumpManager: any PumpManagerUI,
         pumpHistory: [PumpHistoryEvent],
-        basalProfile: [BasalProfileEntry]
+        basalProfile: [BasalProfileEntry],
+        concentration: InsulinConcentration
     ) async throws
         -> TDDResult
     func storeTDD(_ tddResult: TDDResult) async
@@ -40,11 +41,13 @@ final class BaseTDDStorage: TDDStorage, Injectable {
     ///   - pumpManager: Representation of paired pump's PumpManagerUI
     ///   - pumpHistory: Array of pump history events
     ///   - basalProfile: Schedule used to infer delivery for uncovered gaps
+    ///   - concentration: Insulin concentration; history is in actual units, the pump's rounding table in pump units
     /// - Returns: TDDResult containing all calculated values
     func calculateTDD(
         pumpManager: any PumpManagerUI,
         pumpHistory: [PumpHistoryEvent],
-        basalProfile: [BasalProfileEntry]
+        basalProfile: [BasalProfileEntry],
+        concentration: InsulinConcentration
     ) async throws -> TDDResult {
         debug(.apsManager, "Starting TDD calculation with \(pumpHistory.count) pump events")
 
@@ -86,17 +89,22 @@ final class BaseTDDStorage: TDDStorage, Injectable {
             now: now
         )
 
+        // Pump history is stored in actual units; round against the pump's table in its own units.
+        let roundToSupportedBasalRate: (Double) -> Double = { amount in
+            pumpManager.roundToSupportedBasalRate(actualUnitsPerHour: amount, concentration: concentration)
+        }
+
         // Calculate all components concurrently
         async let pumpDataHours = calculatePumpDataHours(pumpHistory)
         async let bolusInsulin = calculateBolusInsulin(bolusEvents)
         async let scheduledBasalInsulin = calculateScheduledBasalInsulin(
             scheduledBasalSegments,
-            roundToSupportedBasalRate: pumpManager.roundToSupportedBasalRate
+            roundToSupportedBasalRate: roundToSupportedBasalRate
         )
         async let tempBasalInsulin = calculateTempBasalInsulin(
             tempBasalEvents, suspensions: suspensions,
             now: now,
-            roundToSupportedBasalRate: pumpManager.roundToSupportedBasalRate
+            roundToSupportedBasalRate: roundToSupportedBasalRate
         )
         async let weightedAverage = calculateWeightedAverage()
 

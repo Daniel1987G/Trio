@@ -144,6 +144,11 @@ extension SettingsExport {
                     name: String(localized: "Dosing Mode"),
                     value: trioSettings.dosingMode.displayName
                 )
+                addSetting(
+                    category: exportCategory,
+                    name: String(localized: "Insulin Concentration"),
+                    value: trioSettings.pumpInsulinConcentration.displayName
+                )
                 addSetting(category: exportCategory, name: String(localized: "App Version"), value: versionNumber)
                 addSetting(category: exportCategory, name: String(localized: "Build Number"), value: buildNumber)
                 addSetting(category: exportCategory, name: String(localized: "Branch"), value: branch)
