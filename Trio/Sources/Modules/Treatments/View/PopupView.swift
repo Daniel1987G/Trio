@@ -297,8 +297,8 @@ struct PopupView: View {
                 Text("=").operatorStyle()
                     .frame(idealWidth: 10, maxWidth: .infinity, alignment: .trailing)
                     .layoutPriority(-15)
-                Text(insulinFormatter(-1 * state.iob, .plain)) // Use .plain rounding to match inverted value.
-                    .solutionStyle(-1 * state.iob)
+                Text(insulinFormatter(state.iobInsulinReduction, .plain)) // 0 when positive IOB is not subtracted
+                    .solutionStyle(state.iobInsulinReduction)
             }
 
             // Row 3: Units
@@ -312,6 +312,15 @@ struct PopupView: View {
                 Text("U")
             }
             .unitStyle()
+
+            if state.ignorePositiveIOB, state.iob > 0 {
+                GridRow {
+                    Text("Positive IOB is not subtracted for this bolus.")
+                        .font(.caption)
+                        .foregroundStyle(.orange)
+                        .gridCellColumns(5)
+                }
+            }
         }
         .multilineTextAlignment(.center)
     }
@@ -520,7 +529,7 @@ struct PopupView: View {
                     Text("+")
                         .operatorStyle()
                         .frame(maxWidth: .infinity)
-                    Text(wrapNegative(-1 * state.iob, .plain))
+                    Text(wrapNegative(state.iobInsulinReduction, .plain))
                         .valueStyle()
                     Text("+")
                         .operatorStyle()
