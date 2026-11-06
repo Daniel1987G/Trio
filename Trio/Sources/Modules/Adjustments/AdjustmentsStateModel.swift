@@ -189,6 +189,14 @@ extension Adjustments.StateModel {
             object: nil
         )
 
+        // Presets restored from a backup: reload both lists right away (no app restart needed)
+        Foundation.NotificationCenter.default.publisher(for: .didRestoreAdjustmentPresets)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.reloadPresetsAfterRestore()
+            }
+            .store(in: &cancellables)
+
         // Creates a publisher that updates the Override View when the Custom notification was sent (via shortcut)
         Foundation.NotificationCenter.default.publisher(for: .willUpdateOverrideConfiguration)
             .sink { [weak self] _ in
@@ -204,6 +212,19 @@ extension Adjustments.StateModel {
                 self.updateLatestTempTargetConfiguration()
             }
             .store(in: &cancellables)
+    }
+
+    /// The view context does not merge background saves, so presets updated by the restore are refreshed
+    /// (keeping unsaved edits) before both lists are fetched again; new presets come with the fetch.
+    func reloadPresetsAfterRestore() {
+        for preset in overridePresets {
+            viewContext.refresh(preset, mergeChanges: true)
+        }
+        for preset in tempTargetPresets {
+            viewContext.refresh(preset, mergeChanges: true)
+        }
+        setupOverridePresetsArray()
+        setupTempTargetPresetsArray()
     }
 
     /// Handles Override configuration updates.
