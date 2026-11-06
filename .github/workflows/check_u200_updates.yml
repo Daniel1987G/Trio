@@ -2,112 +2,15 @@ name: 5. Check Trio U200 Updates
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '15 7 * * *'
-
-permissions:
-  contents: write
-  pull-requests: write
 
 jobs:
-  check:
-    name: Check Donni2020
+  select-u200:
+    name: Bitte trio-u200 auswählen
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.GH_PAT }}
-          fetch-depth: 0
-
-      - name: Check and prepare update
-        env:
-          GH_TOKEN: ${{ secrets.GH_PAT }}
-        shell: bash
+      - name: Branch-Auswahl erklären
         run: |
-          set -euo pipefail
-
-          echo "## Trio U200 – Update-Status" >> "$GITHUB_STEP_SUMMARY"
-
-          git config user.name "github-actions[bot]"
-          git config user.email \
-            "41898282+github-actions[bot]@users.noreply.github.com"
-
-          git fetch origin \
-            +refs/heads/trio-u200:refs/remotes/origin/trio-u200
-
-          git fetch --no-tags \
-            https://github.com/Donni2020/Trio-U200.git \
-            main:refs/remotes/donni/main
-
-          SOURCE=$(git rev-parse donni/main)
-          TARGET=$(git rev-parse origin/trio-u200)
-
-          echo "" >> "$GITHUB_STEP_SUMMARY"
-          echo "- Donni: \`${SOURCE:0:12}\`" >> "$GITHUB_STEP_SUMMARY"
-          echo "- Dein U200: \`${TARGET:0:12}\`" >> "$GITHUB_STEP_SUMMARY"
-
-          if git merge-base --is-ancestor "$SOURCE" "$TARGET"; then
-            echo "### ✅ Aktuell – kein Update verfügbar" \
-              >> "$GITHUB_STEP_SUMMARY"
-            exit 0
-          fi
-
-          echo "### 📦 Update verfügbar" >> "$GITHUB_STEP_SUMMARY"
-
-          echo "" >> "$GITHUB_STEP_SUMMARY"
-          echo "### Neue Commits" >> "$GITHUB_STEP_SUMMARY"
-          echo '```text' >> "$GITHUB_STEP_SUMMARY"
-          git log --oneline \
-            origin/trio-u200..donni/main \
-            | head -30 >> "$GITHUB_STEP_SUMMARY"
-          echo '```' >> "$GITHUB_STEP_SUMMARY"
-
-          BRANCH="automation/u200-${SOURCE:0:12}"
-
-          EXISTING=$(gh pr list \
-            --base trio-u200 \
-            --head "$BRANCH" \
-            --state open \
-            --json url \
-            --jq '.[0].url // empty')
-
-          if [ -n "$EXISTING" ]; then
-            echo "### Pull Request bereits vorhanden" \
-              >> "$GITHUB_STEP_SUMMARY"
-            echo "$EXISTING" >> "$GITHUB_STEP_SUMMARY"
-            exit 0
-          fi
-
-          if git ls-remote --exit-code origin \
-              "refs/heads/$BRANCH" >/dev/null 2>&1; then
-            echo "### ⚠️ Update-Branch existiert bereits" \
-              >> "$GITHUB_STEP_SUMMARY"
-            echo "Bitte vorhandenen Update-Branch prüfen." \
-              >> "$GITHUB_STEP_SUMMARY"
-            exit 0
-          fi
-
-          git switch -c "$BRANCH" origin/trio-u200
-
-          if ! git merge --no-ff --no-edit donni/main; then
-            git merge --abort || true
-            echo "### ⚠️ Merge-Konflikt" \
-              >> "$GITHUB_STEP_SUMMARY"
-            echo "Manuelle Prüfung erforderlich." \
-              >> "$GITHUB_STEP_SUMMARY"
-            exit 0
-          fi
-
-          git push origin "HEAD:refs/heads/$BRANCH"
-
-          URL=$(gh pr create \
-            --base trio-u200 \
-            --head "$BRANCH" \
-            --title "Update Trio U200 von Donni2020" \
-            --body "Neue Änderungen von Donni2020/Trio-U200. Vor Übernahme bitte insbesondere Insulindosierung, CGM und Projektkonfiguration prüfen.")
-
-          echo "### ✅ Pull Request erstellt" \
-            >> "$GITHUB_STEP_SUMMARY"
-          echo "$URL" >> "$GITHUB_STEP_SUMMARY"
+          echo '### Bitte Branch `trio-u200` auswählen' >> "$GITHUB_STEP_SUMMARY"
+          echo 'Dieser Branch enthält die eigentliche Update-Prüfung.' >> "$GITHUB_STEP_SUMMARY"
+          exit 1
