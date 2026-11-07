@@ -18,10 +18,10 @@ struct GlucoseComplicationData {
     static let freshness: TimeInterval = 12 * 60
 
     static var defaults: UserDefaults? {
-        // org.nightscout.<TEAM>.trio.watchkitapp.TrioWatchComplication → group.com.<TEAM>.loopkit.LoopGroup
+        // org.nightscout.<TEAM>.trio.watchkitapp.TrioWatchComplication → group.org.nightscout.<TEAM>.trio.trio-app-group
         let parts = (Bundle.main.bundleIdentifier ?? "").split(separator: ".")
         guard parts.count >= 3 else { return nil }
-        return UserDefaults(suiteName: "group.com.\(parts[2]).loopkit.LoopGroup")
+        return UserDefaults(suiteName: "group.org.nightscout.\(parts[2]).trio.trio-app-group")
     }
 
     static func load() -> GlucoseComplicationData? {

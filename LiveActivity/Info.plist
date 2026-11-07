@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>OpenTrioWidgetAppGroup</key>
-	<string>group.com.$(DEVELOPMENT_TEAM).loopkit.LoopGroup</string>
+	<string>$(APP_GROUP_ID)</string>
 	<key>NSExtension</key>
 	<dict>
 		<key>NSExtensionPointIdentifier</key>

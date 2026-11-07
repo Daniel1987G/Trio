@@ -7,7 +7,7 @@
 	<key>AppGroupID</key>
 	<string>$(APP_GROUP_ID)</string>
 	<key>OpenTrioWidgetAppGroup</key>
-	<string>group.com.$(DEVELOPMENT_TEAM).loopkit.LoopGroup</string>
+	<string>$(APP_GROUP_ID)</string>
 	<key>BGTaskSchedulerPermittedIdentifiers</key>
 	<array>
 		<string>$(PRODUCT_BUNDLE_IDENTIFIER).background-task.critical-event-log</string>

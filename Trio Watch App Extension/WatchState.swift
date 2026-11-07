@@ -611,10 +611,10 @@ import WidgetKit
 extension WatchState {
     /// Shared with the complication extension (App Group); same keys in `GlucoseComplication.swift`.
     static var complicationDefaults: UserDefaults? {
-        // org.nightscout.<TEAM>.trio.watchkitapp → group.com.<TEAM>.loopkit.LoopGroup (same group as the phone)
+        // org.nightscout.<TEAM>.trio.watchkitapp → group.org.nightscout.<TEAM>.trio.trio-app-group (same group as the phone)
         let parts = (Bundle.main.bundleIdentifier ?? "").split(separator: ".")
         guard parts.count >= 3 else { return nil }
-        return UserDefaults(suiteName: "group.com.\(parts[2]).loopkit.LoopGroup")
+        return UserDefaults(suiteName: "group.org.nightscout.\(parts[2]).trio.trio-app-group")
     }
 
     /// Writes what the complication shows and asks WidgetKit to redraw it when something changed.
