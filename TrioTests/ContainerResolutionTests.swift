@@ -39,6 +39,8 @@ import Testing
         #expect(resolver.resolve(CarbEntryMutationService.self) != nil)
         #expect(resolver.resolve(GlucoseAlertCoordinator.self) != nil)
         #expect(resolver.resolve(NotLoopingMonitor.self) != nil)
+        #expect(resolver.resolve(BackupManager.self) != nil)
+        #expect(resolver.resolve(RescueCarbsManager.self) != nil)
         #expect(resolver.resolve(TrioAlertManager.self) != nil)
         if #available(iOS 16.2, *) {
             #expect(resolver.resolve(LiveActivityManager.self) != nil)

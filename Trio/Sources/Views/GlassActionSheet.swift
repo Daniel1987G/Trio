@@ -34,14 +34,16 @@ extension View {
         message: Text? = nil,
         isPresented: Binding<Bool>,
         actions: [GlassSheetAction],
-        onCancel: (() -> Void)? = nil
+        onCancel: (() -> Void)? = nil,
+        tint: Color? = nil
     ) -> some View {
         modifier(GlassActionSheetModifier(
             isPresented: isPresented,
             title: title.map { Text($0) },
             message: message,
             actions: actions,
-            onCancel: onCancel
+            onCancel: onCancel,
+            tint: tint
         ))
     }
 
@@ -51,14 +53,16 @@ extension View {
         message: Text? = nil,
         isPresented: Binding<Bool>,
         actions: [GlassSheetAction],
-        onCancel: (() -> Void)? = nil
+        onCancel: (() -> Void)? = nil,
+        tint: Color? = nil
     ) -> some View {
         modifier(GlassActionSheetModifier(
             isPresented: isPresented,
             title: title,
             message: message,
             actions: actions,
-            onCancel: onCancel
+            onCancel: onCancel,
+            tint: tint
         ))
     }
 }
@@ -69,6 +73,7 @@ private struct GlassActionSheetModifier: ViewModifier {
     let message: Text?
     let actions: [GlassSheetAction]
     let onCancel: (() -> Void)?
+    let tint: Color?
 
     // Shadow state so the cover is always presented/dismissed without its own
     // slide animation; the sheet animates internally.
@@ -95,6 +100,7 @@ private struct GlassActionSheetModifier: ViewModifier {
                     message: message,
                     actions: actions,
                     onCancel: onCancel,
+                    tint: tint,
                     isPresented: $isPresented
                 )
                 .presentationBackground(.clear)
@@ -107,6 +113,8 @@ private struct GlassActionSheetView: View {
     let message: Text?
     let actions: [GlassSheetAction]
     let onCancel: (() -> Void)?
+    /// Fills the title/actions panel (e.g. red for a warning); text turns white for contrast.
+    let tint: Color?
     @Binding var isPresented: Bool
 
     @State private var visible = false
@@ -145,7 +153,7 @@ private struct GlassActionSheetView: View {
                     if let title { title.font(.footnote).fontWeight(.semibold) }
                     if let message { message.font(.footnote) }
                 }
-                .foregroundStyle(.secondary)
+                .foregroundStyle(tint == nil ? AnyShapeStyle(.secondary) : AnyShapeStyle(Color.white))
                 .multilineTextAlignment(.center)
                 .frame(maxWidth: .infinity)
                 .padding(.horizontal, 16)
@@ -161,14 +169,18 @@ private struct GlassActionSheetView: View {
                 } label: {
                     action.label
                         .font(.title3)
-                        .foregroundStyle(action.role == .destructive ? Color.red : Color.accentColor)
+                        .foregroundStyle(
+                            tint != nil ? Color.white : action.role == .destructive ? Color.red : Color.accentColor
+                        )
                         .frame(maxWidth: .infinity, minHeight: 57)
                         .contentShape(Rectangle())
                 }
                 .buttonStyle(.plain)
             }
         }
-        .background(panelBackground)
+        .background {
+            if let tint { panelShape.fill(tint) } else { panelBackground }
+        }
         .clipShape(panelShape)
     }
 

@@ -933,4 +933,49 @@ extension BolusCalculatorTests {
                 sensitivities: []
             )
     }
+
+    @Test("Positive IOB can be left out, negative IOB still counts") func testIgnorePositiveIOB() async throws {
+        func input(iob: Decimal, ignore: Bool) -> CalculationInput {
+            CalculationInput(
+                carbs: 40,
+                currentBG: 100,
+                deltaBG: 0,
+                target: 100,
+                isf: 40,
+                carbRatio: 10,
+                iob: iob,
+                cob: 0,
+                useFattyMealCorrectionFactor: false,
+                fattyMealFactor: 0.8,
+                useSuperBolus: false,
+                sweetMealFactor: 2,
+                basal: 1,
+                fraction: 1,
+                maxBolus: 10,
+                maxIOB: 15,
+                maxCOB: 120,
+                minPredBG: 100,
+                lastLoopDate: Date(),
+                ignorePositiveIOB: ignore
+            )
+        }
+
+        let subtracted = await calculator.calculateInsulin(input: input(iob: 2, ignore: false))
+        #expect(subtracted.iobInsulinReduction == -2)
+        #expect(subtracted.wholeCalc == 2)
+
+        let ignored = await calculator.calculateInsulin(input: input(iob: 2, ignore: true))
+        #expect(ignored.iobInsulinReduction == 0)
+        #expect(ignored.wholeCalc == 4)
+        #expect(ignored.insulinCalculated == apsManager.roundBolus(amount: 4))
+
+        // negative IOB still increases the bolus
+        let negative = await calculator.calculateInsulin(input: input(iob: -1, ignore: true))
+        #expect(negative.iobInsulinReduction == 1)
+        #expect(negative.wholeCalc == 5)
+
+        // Max IOB still limits with the real IOB: 15 - 13 = 2 U at most
+        let capped = await calculator.calculateInsulin(input: input(iob: 13, ignore: true))
+        #expect(capped.insulinCalculated == apsManager.roundBolus(amount: 2))
+    }
 }

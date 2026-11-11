@@ -4,6 +4,22 @@ import Swinject
 
 protocol BolusCalculationManager {
     func calculateInsulin(input: CalculationInput) async -> CalculationResult
+    /// `ignorePositiveIOB`: positive insulin on board is not subtracted (negative IOB still adds);
+    /// Max IOB still limits the recommendation with the real IOB.
+    func handleBolusCalculation(
+        carbs: Decimal,
+        useFattyMealCorrection: Bool,
+        useSuperBolus: Bool,
+        lastLoopDate: Date,
+        minPredBG: Decimal?,
+        simulatedCOB: Int16?,
+        isBackdated: Bool,
+        ignorePositiveIOB: Bool
+    ) async -> CalculationResult
+}
+
+extension BolusCalculationManager {
+    /// Callers that do not offer the option (watch, Nightscout) keep subtracting IOB.
     func handleBolusCalculation(
         carbs: Decimal,
         useFattyMealCorrection: Bool,
@@ -12,7 +28,18 @@ protocol BolusCalculationManager {
         minPredBG: Decimal?,
         simulatedCOB: Int16?,
         isBackdated: Bool
-    ) async -> CalculationResult
+    ) async -> CalculationResult {
+        await handleBolusCalculation(
+            carbs: carbs,
+            useFattyMealCorrection: useFattyMealCorrection,
+            useSuperBolus: useSuperBolus,
+            lastLoopDate: lastLoopDate,
+            minPredBG: minPredBG,
+            simulatedCOB: simulatedCOB,
+            isBackdated: isBackdated,
+            ignorePositiveIOB: false
+        )
+    }
 }
 
 final class BaseBolusCalculationManager: BolusCalculationManager, Injectable {
@@ -287,7 +314,8 @@ final class BaseBolusCalculationManager: BolusCalculationManager, Injectable {
         lastLoopDate: Date,
         minPredBG: Decimal?,
         simulatedCOB: Int16?,
-        isBackdated: Bool
+        isBackdated: Bool,
+        ignorePositiveIOB: Bool
     ) async throws -> CalculationInput {
         do {
             // Get settings
@@ -363,7 +391,8 @@ final class BaseBolusCalculationManager: BolusCalculationManager, Injectable {
                 maxIOB: maxIOB,
                 maxCOB: maxCOB,
                 minPredBG: minPredBG ?? bolusVars.minPredBG,
-                lastLoopDate: lastLoopDate
+                lastLoopDate: lastLoopDate,
+                ignorePositiveIOB: ignorePositiveIOB
             )
         } catch {
             debug(
@@ -397,7 +426,9 @@ final class BaseBolusCalculationManager: BolusCalculationManager, Injectable {
         debug(.default, "Whole COB: \(wholeCob), COB insulin: \(wholeCobInsulin)")
 
         // determine how much the calculator reduces/ increases the bolus because of IOB
-        let iobInsulinReduction = (-1) * input.iob
+        // (on request positive IOB is not subtracted; negative IOB still increases the bolus)
+        let countedIOB = input.ignorePositiveIOB ? min(input.iob, 0) : input.iob
+        let iobInsulinReduction = (-1) * countedIOB
         debug(.default, "IOB reduction: \(iobInsulinReduction)")
 
         // adding everything together
@@ -499,7 +530,8 @@ final class BaseBolusCalculationManager: BolusCalculationManager, Injectable {
         lastLoopDate: Date,
         minPredBG: Decimal? = nil,
         simulatedCOB: Int16? = nil,
-        isBackdated: Bool = false
+        isBackdated: Bool = false,
+        ignorePositiveIOB: Bool = false
     ) async -> CalculationResult {
         do {
             let input = try await prepareCalculationInput(
@@ -509,7 +541,8 @@ final class BaseBolusCalculationManager: BolusCalculationManager, Injectable {
                 lastLoopDate: lastLoopDate,
                 minPredBG: minPredBG,
                 simulatedCOB: simulatedCOB,
-                isBackdated: isBackdated
+                isBackdated: isBackdated,
+                ignorePositiveIOB: ignorePositiveIOB
             )
             let result = await calculateInsulin(input: input)
             return result
@@ -556,6 +589,7 @@ struct CalculationInput: Sendable {
     let maxCOB: Decimal // Maximum allowed COB to be used for rec. bolus calculation
     let minPredBG: Decimal // Minimum Predicted Glucose determined by Oref
     let lastLoopDate: Date // Date at which loop last completed successfully
+    var ignorePositiveIOB: Bool = false // Do not subtract positive IOB (Max IOB still applies with the real IOB)
 }
 
 /// Results of the bolus calculation
