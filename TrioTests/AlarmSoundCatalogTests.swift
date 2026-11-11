@@ -102,6 +102,15 @@ import Testing
     @Test("Display names name the variant for themed sets only") func displayNames() {
         #expect(AlarmSoundCatalog.displayName(for: "acoustic_ulg_medium.caf") == "Acoustic · Medium")
         #expect(AlarmSoundCatalog.displayName(for: "voice_ulg_amy.caf") == "Voice · Amy")
+        #expect(AlarmSoundCatalog.displayName(for: "voice_lgs_thorsten.caf") == "Voice · Thorsten (German)")
         #expect(AlarmSoundCatalog.displayName(for: "high_chimes.caf") == "High Chimes")
+    }
+
+    @Test("German voices exist for every voice set") func germanVoices() {
+        for entry in AlarmSoundCatalog.entries where entry.selector == .voice {
+            for voice in [AlarmVoice.eva, .thorsten] {
+                #expect(entry.options.contains { $0.id == voice.rawValue }, "\(entry.id) has no \(voice)")
+            }
+        }
     }
 }
