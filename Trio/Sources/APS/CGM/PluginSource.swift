@@ -307,6 +307,10 @@ extension PluginSource: CGMManagerDelegate {
                 sensorActivatedAt = cgmTransmitterManager.state.activatedAt
                 sensorStartDate = cgmTransmitterManager.state.activatedAt
                 sensorTransmitterID = cgmTransmitterManager.state.bleNameString
+            } else if let cgmTransmitterManager = cgmManager as? DiaExpertCGMManager {
+                sensorActivatedAt = cgmTransmitterManager.sensorStartDate
+                sensorStartDate = cgmTransmitterManager.sensorStartDate
+                sensorTransmitterID = cgmTransmitterManager.state.serialNumber
             } else if let cgmTransmitterManager = cgmManager as? SyaiCGMManager {
                 sensorActivatedAt = cgmTransmitterManager.state.activatedAt
                 sensorStartDate = cgmTransmitterManager.state.activatedAt
