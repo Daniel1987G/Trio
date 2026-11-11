@@ -24,10 +24,18 @@ extension DynamicSettings {
                     useNewFormula = false
                     sigmoid = false
                 }
+                // autoISF and Dynamic ISF exclude each other
+                if dynamicSensitivityType != .disabled, settingsManager?.preferences.autoisf == true {
+                    settingsManager.preferences.autoisf = false
+                    settingsManager.preferences.enableB30 = false
+                }
+                if dynamicSensitivityType != .disabled { autoISFActive = false }
             }
         }
 
         @Published var hasValidTDD: Bool = false
+        /// autoISF is on; choosing a Dynamic ISF formula turns it off.
+        @Published var autoISFActive: Bool = false
         @Published var useNewFormula: Bool = false
         @Published var sigmoid: Bool = false
         @Published var adjustmentFactor: Decimal = 0.8
@@ -41,6 +49,7 @@ extension DynamicSettings {
 
         override func subscribe() {
             units = settingsManager.settings.units
+            autoISFActive = settingsManager.preferences.autoisf
 
             /// DynamicISF handling
             /// Initially, load once from storage and infer `dynamicSensitivityType` based on values of `useNewFormula` (log) and/or `sigmoid`

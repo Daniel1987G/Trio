@@ -21,12 +21,16 @@ enum DeterminationGenerator {
         autosensData: Autosens,
         reservoirData: Decimal,
         glucose: [BloodGlucose],
+        pumpHistory: [PumpHistoryEvent] = [],
         microBolusAllowed: Bool,
         trioCustomOrefVariables: TrioCustomOrefVariables,
         currentTime: Date
     ) throws -> Determination? {
         let glucoseStatus = try Self.getGlucoseStatus(glucoseReadings: glucose)
         guard let glucoseStatus = glucoseStatus else { throw DeterminationError.missingInputs }
+        // autoISF needs the readings themselves (parabola fit, time above target)
+        let autoISFStatus = profile.autoisf && !preferences.useNewFormula ?
+            glucoseStatus.getAutoISFGlucoseStatus(glucoseReadings: glucose, profile) : nil
         return try determineBasal(
             profile: profile,
             preferences: preferences,
@@ -36,7 +40,9 @@ enum DeterminationGenerator {
             autosensData: autosensData,
             reservoirData: reservoirData,
             glucoseStatus: glucoseStatus,
+            pumpHistory: pumpHistory,
             microBolusAllowed: microBolusAllowed,
+            autoISFStatus: autoISFStatus,
             trioCustomOrefVariables: trioCustomOrefVariables,
             currentTime: currentTime
         )
@@ -54,7 +60,9 @@ enum DeterminationGenerator {
         autosensData: Autosens,
         reservoirData _: Decimal,
         glucoseStatus: GlucoseStatus,
+        pumpHistory: [PumpHistoryEvent] = [],
         microBolusAllowed: Bool,
+        autoISFStatus: AutoISFGlucoseStatus? = nil,
         trioCustomOrefVariables: TrioCustomOrefVariables,
         currentTime: Date
     ) throws -> Determination? {
@@ -171,7 +179,7 @@ enum DeterminationGenerator {
         }
 
         // this is the `sens` variable in JS, it's the adjusted sensitivity
-        let adjustedSensitivity = computeAdjustedSensitivity(
+        var adjustedSensitivity = computeAdjustedSensitivity(
             sensitivity: profile.sens ?? profile.sensitivityFor(time: currentTime),
             sensitivityRatio: sensitivityRatio,
             trioCustomOrefVariables: trioCustomOrefVariables
@@ -187,6 +195,35 @@ enum DeterminationGenerator {
             maxGlucose: profile.maxBg ?? 180,
             noise: 1
         )
+
+        // MARK: - autoISF (off: nothing below changes)
+
+        let originalSensitivity = profile.profileSensitivity(at: currentTime, trioCustomOrefVaribales: trioCustomOrefVariables)
+        var autoISF: AutoISFLoopContext?
+        // never together with Dynamic ISF, whatever the stored settings say
+        if profile.autoisf, !preferences.useNewFormula {
+            autoISF = try AutoISFLoopContext.evaluate(
+                profile: profile,
+                mealData: mealData,
+                pumpHistory: pumpHistory,
+                currentTime: currentTime,
+                currentGlucose: currentGlucose,
+                glucoseStatus: glucoseStatus,
+                basal: basal,
+                targetGlucose: adjustedGlucoseTargets.targetGlucose,
+                dynamicIsfActive: dynamicIsfResult != nil,
+                adjustedSensitivity: adjustedSensitivity,
+                profileSensitivity: originalSensitivity,
+                sensitivityRatio: sensitivityRatio,
+                microBolusAllowed: microBolusAllowed,
+                iob: iobData.first?.iob ?? 0,
+                trioCustomOrefVariables: trioCustomOrefVariables,
+                autoISFStatus: autoISFStatus
+            )
+            if let adjusted = autoISF?.engine.adjustedSensitivity {
+                adjustedSensitivity = adjusted
+            }
+        }
 
         let glucoseImpactSeries = buildGlucoseImpactSeries(iobDataSeries: iobData, sensitivity: adjustedSensitivity)
         let glucoseImpactSeriesWithZeroTemp = buildGlucoseImpactSeries(
@@ -272,10 +309,17 @@ enum DeterminationGenerator {
             glucoseImpact: currentGlucoseImpact
         )
 
-        // Build isfReason: "Autosens ratio: X, ISF: Y→Z"
-        let originalSensitivity = profile.profileSensitivity(at: currentTime, trioCustomOrefVaribales: trioCustomOrefVariables)
-        let isfReason =
+        // Build isfReason: "Autosens ratio: X, ISF: Y→Z" (+ the autoISF tags when it is on)
+        var isfReason =
             "Autosens ratio: \(sensitivityRatio.jsRounded(scale: 2)), ISF: \(originalSensitivity.jsRounded())→\(adjustedSensitivity.jsRounded())"
+        if let autoISF {
+            isfReason += ", " + AutoISFReason.smbDeliveryRatioTag(autoISF.engine.smbRatio)
+            if !autoISF.engine.isfReason.isEmpty {
+                isfReason += autoISF.engine.isfReason
+            } else {
+                isfReason.removeLast(2) // the tag's trailing ", "
+            }
+        }
 
         // Build targetLog: "X" or "X→Y" or "X→Y→Z" if target was adjusted
         let profileTarget = profile.profileTarget(trioCustomOrefVariables: trioCustomOrefVariables) ?? 100
@@ -313,7 +357,7 @@ enum DeterminationGenerator {
             }
         }
         // SMB Ratio is added if not default (0.5)
-        if profile.smbDeliveryRatio != 0.5 {
+        if autoISF == nil, profile.smbDeliveryRatio != 0.5 {
             tddReason += ", SMB Ratio: \(min(profile.smbDeliveryRatio, 1))"
         }
 
@@ -345,7 +389,12 @@ enum DeterminationGenerator {
             clock: currentTime
         )
 
-        let smbIsEnabled = smbDecision.isEnabled
+        var smbIsEnabled = smbDecision.isEnabled
+        // autoISF may only take SMBs away (odd target, iobTH exceeded, B30 running), never
+        // grant them: the SMB settings and the minGuardBG/maxDelta checks stay in charge.
+        if autoISF?.engine.smbEnabled == false {
+            smbIsEnabled = false
+        }
         var reason = dosingInputs.reason
         if let smbReason = smbDecision.reason {
             reason += smbReason
@@ -415,6 +464,54 @@ enum DeterminationGenerator {
         // basal testing acts only on the low handled above; every stage below moves the curve
         if profile.suspendOnly {
             return DosingEngine.recommendNoChange(determination: determination)
+        }
+
+        // autoISF B30 boost basal. Unlike Tai it runs only after the low glucose suspend above,
+        // so a low or a predicted low still stops insulin.
+        if let autoISF {
+            let dispatch = try AutoISF.dispatchB30(
+                b30Result: autoISF.b30,
+                determination: determination,
+                safetyInputs: B30SafetyInputs(
+                    currentGlucose: currentGlucose,
+                    minGuardGlucose: forecastResult.minGuardGlucose,
+                    iob: currentIob,
+                    minDelta: minDelta,
+                    expectedDelta: expectedDelta,
+                    threshold: threshold,
+                    overrideFactor: trioCustomOrefVariables.overrideFactor(),
+                    adjustedSensitivity: adjustedSensitivity,
+                    targetGlucose: adjustedGlucoseTargets.targetGlucose,
+                    eventualGlucose: forecastResult.eventualGlucose,
+                    minGlucose: adjustedGlucoseTargets.minGlucose,
+                    maxGlucose: adjustedGlucoseTargets.maxGlucose,
+                    carbsRequired: dosingInputs.rawCarbsRequired,
+                    naiveEventualGlucose: naiveEventualGlucose,
+                    glucoseStatus: glucoseStatus,
+                    basal: basal,
+                    smbIsEnabled: smbIsEnabled,
+                    minForecastGlucose: forecastResult.minForecastedGlucose,
+                    maxIob: profile.maxIob,
+                    currentTemp: currentTemp,
+                    profile: profile
+                ),
+                profile: profile,
+                targetBG: adjustedGlucoseTargets.targetGlucose,
+                units: autoISF.units,
+                currentGlucose: currentGlucose,
+                microBolusAllowed: microBolusAllowed,
+                iob: currentIob,
+                sensitivityRatio: sensitivityRatio,
+                overrideSmbIsOff: autoISF.overrideDisablesSmb,
+                orefSmbEnabled: autoISF.profileSmbEnabled
+            )
+            switch dispatch {
+            case .notActive:
+                break
+            case let .blocked(blocked),
+                 let .delivered(blocked):
+                return blocked
+            }
         }
 
         let (shouldSetTempBasalForSkipNeutralTemp, skipNeutralTempDetermination) = try DosingEngine.skipNeutralTempBasal(
@@ -540,6 +637,8 @@ enum DeterminationGenerator {
             adjustedSensitivity: adjustedSensitivity,
             adjustedCarbRatio: forecastResult.adjustedCarbRatio,
             basal: basal,
+            autoISFSmbRatio: autoISF.flatMap { $0.engine.smbResult != nil ? $0.engine.smbRatio : nil },
+            autoISFSmbResult: autoISF?.engine.smbResult,
             determination: determination
         )
         determination = smbDetermination

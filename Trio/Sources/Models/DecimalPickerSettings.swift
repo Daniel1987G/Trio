@@ -141,6 +141,141 @@ struct DecimalPickerSettings {
         max: 30,
         type: PickerSetting.PickerSettingType.insulinUnitPerHour
     )
+
+    // autoISF (ranges as in Tai, a little narrower where it doses more)
+    var autoISFmax = PickerSetting(
+        value: Decimal(string: "1.5")!,
+        step: Decimal(string: "0.1")!,
+        min: Decimal(string: "1")!,
+        max: Decimal(string: "3")!,
+        type: PickerSetting.PickerSettingType.factorRaw
+    )
+    var autoISFmin = PickerSetting(
+        value: Decimal(string: "0.7")!,
+        step: Decimal(string: "0.1")!,
+        min: Decimal(string: "0.3")!,
+        max: Decimal(string: "1")!,
+        type: PickerSetting.PickerSettingType.factorRaw
+    )
+    var smbMaxRangeExtension = PickerSetting(
+        value: Decimal(string: "1")!,
+        step: Decimal(string: "0.25")!,
+        min: Decimal(string: "1")!,
+        max: Decimal(string: "3")!,
+        type: PickerSetting.PickerSettingType.factorRaw
+    )
+    var smbDeliveryRatioBGrange = PickerSetting(
+        value: Decimal(string: "0")!,
+        step: Decimal(string: "10")!,
+        min: Decimal(string: "0")!,
+        max: Decimal(string: "120")!,
+        type: PickerSetting.PickerSettingType.glucose
+    )
+    var smbDeliveryRatioMin = PickerSetting(
+        value: Decimal(string: "0.5")!,
+        step: Decimal(string: "0.05")!,
+        min: Decimal(string: "0.3")!,
+        max: Decimal(string: "1")!,
+        type: PickerSetting.PickerSettingType.factor
+    )
+    var smbDeliveryRatioMax = PickerSetting(
+        value: Decimal(string: "0.8")!,
+        step: Decimal(string: "0.05")!,
+        min: Decimal(string: "0.3")!,
+        max: Decimal(string: "1")!,
+        type: PickerSetting.PickerSettingType.factor
+    )
+    var autoISFhourlyChange = PickerSetting(
+        value: Decimal(string: "0.6")!,
+        step: Decimal(string: "0.05")!,
+        min: Decimal(string: "0")!,
+        max: Decimal(string: "3")!,
+        type: PickerSetting.PickerSettingType.factorRaw
+    )
+    var higherISFrangeWeight = PickerSetting(
+        value: Decimal(string: "0.3")!,
+        step: Decimal(string: "0.05")!,
+        min: Decimal(string: "0")!,
+        max: Decimal(string: "2")!,
+        type: PickerSetting.PickerSettingType.factorRaw
+    )
+    var lowerISFrangeWeight = PickerSetting(
+        value: Decimal(string: "0.7")!,
+        step: Decimal(string: "0.05")!,
+        min: Decimal(string: "0")!,
+        max: Decimal(string: "2")!,
+        type: PickerSetting.PickerSettingType.factorRaw
+    )
+    var postMealISFweight = PickerSetting(
+        value: Decimal(string: "0.02")!,
+        step: Decimal(string: "0.005")!,
+        min: Decimal(string: "0")!,
+        max: Decimal(string: "0.15")!,
+        type: PickerSetting.PickerSettingType.factorRaw
+    )
+    var bgAccelISFweight = PickerSetting(
+        value: Decimal(string: "0.15")!,
+        step: Decimal(string: "0.01")!,
+        min: Decimal(string: "0")!,
+        max: Decimal(string: "1")!,
+        type: PickerSetting.PickerSettingType.factorRaw
+    )
+    var bgBrakeISFweight = PickerSetting(
+        value: Decimal(string: "0.15")!,
+        step: Decimal(string: "0.01")!,
+        min: Decimal(string: "0")!,
+        max: Decimal(string: "1")!,
+        type: PickerSetting.PickerSettingType.factorRaw
+    )
+    var iobThresholdPercent = PickerSetting(
+        value: Decimal(string: "1")!,
+        step: Decimal(string: "0.05")!,
+        min: Decimal(string: "0.3")!,
+        max: Decimal(string: "1")!,
+        type: PickerSetting.PickerSettingType.factor
+    )
+    var B30iTimeStartBolus = PickerSetting(
+        value: Decimal(string: "1")!,
+        step: Decimal(string: "0.5")!,
+        min: Decimal(string: "0.5")!,
+        max: Decimal(string: "10")!,
+        type: PickerSetting.PickerSettingType.insulinUnit
+    )
+    var B30iTime = PickerSetting(
+        value: Decimal(string: "30")!,
+        step: Decimal(string: "5")!,
+        min: Decimal(string: "15")!,
+        max: Decimal(string: "60")!,
+        type: PickerSetting.PickerSettingType.minute
+    )
+    var B30iTimeTarget = PickerSetting(
+        value: Decimal(string: "90")!,
+        step: Decimal(string: "1")!,
+        min: Decimal(string: "80")!,
+        max: Decimal(string: "120")!,
+        type: PickerSetting.PickerSettingType.glucose
+    )
+    var B30upperLimit = PickerSetting(
+        value: Decimal(string: "130")!,
+        step: Decimal(string: "5")!,
+        min: Decimal(string: "100")!,
+        max: Decimal(string: "180")!,
+        type: PickerSetting.PickerSettingType.glucose
+    )
+    var B30upperDelta = PickerSetting(
+        value: Decimal(string: "8")!,
+        step: Decimal(string: "1")!,
+        min: Decimal(string: "3")!,
+        max: Decimal(string: "15")!,
+        type: PickerSetting.PickerSettingType.glucose
+    )
+    var B30basalFactor = PickerSetting(
+        value: Decimal(string: "5")!,
+        step: Decimal(string: "0.5")!,
+        min: Decimal(string: "1.5")!,
+        max: Decimal(string: "10")!,
+        type: PickerSetting.PickerSettingType.factorRaw
+    )
 }
 
 struct PickerSetting {
@@ -153,6 +288,8 @@ struct PickerSetting {
     enum PickerSettingType {
         case glucose
         case factor
+        /// a plain number (ratio or weight), shown without "%"
+        case factorRaw
         case gram
         case insulinUnit
         case insulinUnitPerHour

@@ -15,7 +15,7 @@ enum DosingEngine {
     }
 
     /// checks to see if SMB are enabled via the profile
-    private static func isProfileSmbEnabled(
+    static func isProfileSmbEnabled(
         currentGlucose: Decimal,
         adjustedTargetGlucose: Decimal,
         profile: Profile,
@@ -59,7 +59,7 @@ enum DosingEngine {
     }
 
     /// helper function to check if SMB is scheduled off given the current timezone
-    private static func isSmbScheduledOff(trioCustomOrefVariables: TrioCustomOrefVariables, clock: Date) throws -> Bool {
+    static func isSmbScheduledOff(trioCustomOrefVariables: TrioCustomOrefVariables, clock: Date) throws -> Bool {
         guard trioCustomOrefVariables.smbIsScheduledOff else {
             return false
         }
@@ -533,6 +533,10 @@ enum DosingEngine {
         guard minDelta < expectedDelta else {
             return (shouldSetTempBasal: false, determination: determination)
         }
+        // with B30 on, glucose has to actually fall, not just rise slower than expected (pre-meal IOB)
+        guard AimiB30.glucoseActuallyFalling(profile: profile, minDelta: minDelta) else {
+            return (shouldSetTempBasal: false, determination: determination)
+        }
 
         var newDetermination = determination
 
@@ -717,16 +721,19 @@ enum DosingEngine {
             uamMinutesSetting = trioCustomOrefVariables.uamMinutes
         }
 
+        let maxBolus: Decimal
         if currentIob > mealInsulinRequired, currentIob > 0 {
             if uamMinutesSetting > 0 {
-                return (currentBasal * overrideFactor * uamMinutesSetting / 60).jsRounded(scale: 1)
+                maxBolus = (currentBasal * overrideFactor * uamMinutesSetting / 60).jsRounded(scale: 1)
             } else {
                 // Note: It should be impossible to have uamMinutesSetting of 0 so this shouldn't execute
-                return (currentBasal * overrideFactor * 30 / 60).jsRounded(scale: 1)
+                maxBolus = (currentBasal * overrideFactor * 30 / 60).jsRounded(scale: 1)
             }
         } else {
-            return (currentBasal * overrideFactor * smbMinutesSetting / 60).jsRounded(scale: 1)
+            maxBolus = (currentBasal * overrideFactor * smbMinutesSetting / 60).jsRounded(scale: 1)
         }
+        // autoISF SMB range extension; returns maxBolus unchanged without autoISF
+        return AutoISFsmb.applySmbMaxRange(profile: profile, maxBolus: maxBolus)
     }
 
     /// Determines if a Super Micro Bolus (SMB) should be delivered and calculates its size and associated temp basal.
@@ -751,6 +758,8 @@ enum DosingEngine {
         adjustedSensitivity: Decimal,
         adjustedCarbRatio: Decimal,
         basal: Decimal,
+        autoISFSmbRatio: Decimal? = nil,
+        autoISFSmbResult: AutoISFsmbResult? = nil,
         determination: Determination
     ) throws -> (shouldSetTempBasal: Bool, determination: Determination) {
         var newDetermination = determination
@@ -776,9 +785,21 @@ enum DosingEngine {
             trioCustomOrefVariables: trioCustomOrefVariables
         )
 
-        let smbDeliveryRatio = min(profile.smbDeliveryRatio, 1)
+        // autoISF's ramped ratio replaces the fixed one (nil without autoISF)
+        let smbDeliveryRatio = autoISFSmbRatio ?? min(profile.smbDeliveryRatio, 1)
         let roundSmbTo = 1 / profile.bolusIncrement
-        let microBolusWithoutRounding = min(insulinRequired * smbDeliveryRatio, maxBolus)
+        var microBolusWithoutRounding = min(insulinRequired * smbDeliveryRatio, maxBolus)
+
+        // autoISF iobTH cap: an SMB may take IOB at most to 130 % of the threshold (no-op without autoISF)
+        let capped = AutoISFsmb.applyIobTHcap(
+            profile: profile,
+            currentIob: currentIob,
+            microBolus: microBolusWithoutRounding,
+            smbResult: autoISFSmbResult,
+            reason: newDetermination.reason
+        )
+        microBolusWithoutRounding = max(0, capped.microBolus)
+        newDetermination.reason = capped.reason
         let microBolus = (microBolusWithoutRounding * roundSmbTo).floor() / roundSmbTo
 
         let worstCaseInsulinRequired = (targetGlucose - (naiveEventualGlucose + minIOBForecastedGlucose) / 2) /
@@ -843,7 +864,7 @@ enum DosingEngine {
             if lastBolusAge > smbInterval {
                 if microBolus > 0 {
                     newDetermination.units = microBolus
-                    newDetermination.reason += "Microbolusing \(microBolus)U. "
+                    newDetermination.reason += "Microbolusing \(microBolus)U\(capped.reasonTail). "
                 }
             } else {
                 newDetermination.reason += "Waiting \(nextBolusMinutes)m \(nextBolusSeconds)s to microbolus again. "

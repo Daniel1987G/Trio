@@ -74,6 +74,34 @@ struct Profile: JSON {
     // rates the paired pump can deliver; injected per determination, never persisted; empty means no paired pump
     var supportedBasalRates: [Decimal] = []
 
+    // autoISF and B30: injected per determination from the preferences (`applyAutoISF(from:)`),
+    // never persisted, so profile.json and the JS parity goldens keep their shape. The defaults
+    // leave everything off.
+    var autoisf: Bool = false
+    var autoISFmax: Decimal = 1.2
+    var autoISFmin: Decimal = 0.7
+    var smbMaxRangeExtension: Decimal = 1
+    var smbDeliveryRatioBGrange: Decimal = 0
+    var smbDeliveryRatioMin: Decimal = 0.5
+    var smbDeliveryRatioMax: Decimal = 0.5
+    var autoISFhourlyChange: Decimal = 0
+    var higherISFrangeWeight: Decimal = 0
+    var lowerISFrangeWeight: Decimal = 0
+    var postMealISFweight: Decimal = 0
+    var enableBGacceleration: Bool = false
+    var bgAccelISFweight: Decimal = 0
+    var bgBrakeISFweight: Decimal = 0
+    var iobThresholdPercent: Decimal = 1
+    var enableSMBEvenOnOddOffAlways: Bool = false
+    var autoISFoffSport: Bool = false
+    var enableB30: Bool = false
+    var B30iTimeStartBolus: Decimal = 1
+    var B30iTime: Decimal = 30
+    var B30iTimeTarget: Decimal = 90
+    var B30upperLimit: Decimal = 130
+    var B30upperDelta: Decimal = 8
+    var B30basalFactor: Decimal = 5
+
     private enum CodingKeys: String, CodingKey {
         case dia
         case min5mCarbImpact = "min_5m_carbimpact"

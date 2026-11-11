@@ -53,6 +53,31 @@ struct Preferences: JSON, Equatable {
     var enableSMB_high_bg_target: Decimal = 110
     var threshold_setting: Decimal = 60
     var updateInterval: Decimal = 20
+    // autoISF (from Tai); off by default, see AutoISFSettings
+    var autoisf: Bool = false
+    var autoISFmax: Decimal = 1.5
+    var autoISFmin: Decimal = 0.7
+    var smbMaxRangeExtension: Decimal = 1
+    var smbDeliveryRatioBGrange: Decimal = 0
+    var smbDeliveryRatioMin: Decimal = 0.5
+    var smbDeliveryRatioMax: Decimal = 0.8
+    var autoISFhourlyChange: Decimal = 0.6
+    var higherISFrangeWeight: Decimal = 0.3
+    var lowerISFrangeWeight: Decimal = 0.7
+    var postMealISFweight: Decimal = 0.02
+    var enableBGacceleration: Bool = true
+    var bgAccelISFweight: Decimal = 0.15
+    var bgBrakeISFweight: Decimal = 0.15
+    var iobThresholdPercent: Decimal = 1
+    var enableSMBEvenOnOddOffAlways: Bool = false
+    var autoISFoffSport: Bool = false
+    var enableB30: Bool = false
+    var B30iTimeStartBolus: Decimal = 1
+    var B30iTime: Decimal = 30
+    var B30iTimeTarget: Decimal = 90
+    var B30upperLimit: Decimal = 130
+    var B30upperDelta: Decimal = 8
+    var B30basalFactor: Decimal = 5
 }
 
 extension Preferences {
@@ -108,6 +133,31 @@ extension Preferences {
         case enableSMB_high_bg_target
         case threshold_setting
         case updateInterval
+        // autoISF
+        case autoisf = "use_autoisf"
+        case autoISFmax = "autoISF_max"
+        case autoISFmin = "autoISF_min"
+        case smbMaxRangeExtension = "smb_max_range_extension"
+        case smbDeliveryRatioBGrange = "smb_delivery_ratio_bg_range"
+        case smbDeliveryRatioMin = "smb_delivery_ratio_min"
+        case smbDeliveryRatioMax = "smb_delivery_ratio_max"
+        case autoISFhourlyChange = "dura_ISF_weight"
+        case higherISFrangeWeight = "higher_ISFrange_weight"
+        case lowerISFrangeWeight = "lower_ISFrange_weight"
+        case postMealISFweight = "pp_ISF_weight"
+        case enableBGacceleration = "enable_BG_acceleration"
+        case bgAccelISFweight = "bgAccel_ISF_weight"
+        case bgBrakeISFweight = "bgBrake_ISF_weight"
+        case iobThresholdPercent = "iob_threshold_percent"
+        case enableSMBEvenOnOddOffAlways = "enableSMB_EvenOn_OddOff_always"
+        case autoISFoffSport = "autoISF_off_Sport"
+        case enableB30 = "use_B30"
+        case B30iTimeStartBolus = "iTime_Start_Bolus"
+        case B30iTime = "b30_duration"
+        case B30iTimeTarget = "iTime_target"
+        case B30upperLimit = "b30_upperBG"
+        case B30upperDelta = "b30_upperdelta"
+        case B30basalFactor = "b30_factor"
     }
 }
 
@@ -328,6 +378,91 @@ extension Preferences: Decodable {
             preferences.updateInterval = updateInterval
         }
 
+        // autoISF
+        if let autoisf = try? container.decode(Bool.self, forKey: .autoisf) {
+            preferences.autoisf = autoisf
+        }
+        if let autoISFmax = try? container.decode(Decimal.self, forKey: .autoISFmax) {
+            preferences.autoISFmax = autoISFmax
+        }
+        if let autoISFmin = try? container.decode(Decimal.self, forKey: .autoISFmin) {
+            preferences.autoISFmin = autoISFmin
+        }
+        if let smbMaxRangeExtension = try? container.decode(Decimal.self, forKey: .smbMaxRangeExtension) {
+            preferences.smbMaxRangeExtension = smbMaxRangeExtension
+        }
+        if let smbDeliveryRatioBGrange = try? container.decode(Decimal.self, forKey: .smbDeliveryRatioBGrange) {
+            preferences.smbDeliveryRatioBGrange = smbDeliveryRatioBGrange
+        }
+        if let smbDeliveryRatioMin = try? container.decode(Decimal.self, forKey: .smbDeliveryRatioMin) {
+            preferences.smbDeliveryRatioMin = smbDeliveryRatioMin
+        }
+        if let smbDeliveryRatioMax = try? container.decode(Decimal.self, forKey: .smbDeliveryRatioMax) {
+            preferences.smbDeliveryRatioMax = smbDeliveryRatioMax
+        }
+        if let autoISFhourlyChange = try? container.decode(Decimal.self, forKey: .autoISFhourlyChange) {
+            preferences.autoISFhourlyChange = autoISFhourlyChange
+        }
+        if let higherISFrangeWeight = try? container.decode(Decimal.self, forKey: .higherISFrangeWeight) {
+            preferences.higherISFrangeWeight = higherISFrangeWeight
+        }
+        if let lowerISFrangeWeight = try? container.decode(Decimal.self, forKey: .lowerISFrangeWeight) {
+            preferences.lowerISFrangeWeight = lowerISFrangeWeight
+        }
+        if let postMealISFweight = try? container.decode(Decimal.self, forKey: .postMealISFweight) {
+            preferences.postMealISFweight = postMealISFweight
+        }
+        if let enableBGacceleration = try? container.decode(Bool.self, forKey: .enableBGacceleration) {
+            preferences.enableBGacceleration = enableBGacceleration
+        }
+        if let bgAccelISFweight = try? container.decode(Decimal.self, forKey: .bgAccelISFweight) {
+            preferences.bgAccelISFweight = bgAccelISFweight
+        }
+        if let bgBrakeISFweight = try? container.decode(Decimal.self, forKey: .bgBrakeISFweight) {
+            preferences.bgBrakeISFweight = bgBrakeISFweight
+        }
+        if let iobThresholdPercent = try? container.decode(Decimal.self, forKey: .iobThresholdPercent) {
+            preferences.iobThresholdPercent = iobThresholdPercent
+        }
+        if let enableSMBEvenOnOddOffAlways = try? container.decode(Bool.self, forKey: .enableSMBEvenOnOddOffAlways) {
+            preferences.enableSMBEvenOnOddOffAlways = enableSMBEvenOnOddOffAlways
+        }
+        if let autoISFoffSport = try? container.decode(Bool.self, forKey: .autoISFoffSport) {
+            preferences.autoISFoffSport = autoISFoffSport
+        }
+        if let enableB30 = try? container.decode(Bool.self, forKey: .enableB30) {
+            preferences.enableB30 = enableB30
+        }
+        if let B30iTimeStartBolus = try? container.decode(Decimal.self, forKey: .B30iTimeStartBolus) {
+            preferences.B30iTimeStartBolus = B30iTimeStartBolus
+        }
+        if let B30iTime = try? container.decode(Decimal.self, forKey: .B30iTime) {
+            preferences.B30iTime = B30iTime
+        }
+        if let B30iTimeTarget = try? container.decode(Decimal.self, forKey: .B30iTimeTarget) {
+            preferences.B30iTimeTarget = B30iTimeTarget
+        }
+        if let B30upperLimit = try? container.decode(Decimal.self, forKey: .B30upperLimit) {
+            preferences.B30upperLimit = B30upperLimit
+        }
+        if let B30upperDelta = try? container.decode(Decimal.self, forKey: .B30upperDelta) {
+            preferences.B30upperDelta = B30upperDelta
+        }
+        if let B30basalFactor = try? container.decode(Decimal.self, forKey: .B30basalFactor) {
+            preferences.B30basalFactor = B30basalFactor
+        }
+
+        preferences.resolveISFModeConflict()
         self = preferences
+    }
+}
+
+extension Preferences {
+    /// autoISF and Dynamic ISF must never run together. Dynamic ISF is the established setting,
+    /// so when both are on (an older backup, a hand-edited file) autoISF and B30 are switched off.
+    mutating func resolveISFModeConflict() {
+        guard useNewFormula, autoisf || enableB30 else { return }
+        autoisf = false
+        enableB30 = false
     }
 }
