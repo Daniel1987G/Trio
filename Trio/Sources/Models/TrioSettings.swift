@@ -18,6 +18,11 @@ enum BolusShortcutLimit: String, JSON, CaseIterable, Identifiable {
 struct TrioSettings: JSON, Equatable, Encodable {
     var units: GlucoseUnits = .mgdL
     var dosingMode: DosingMode = .open
+    /// Concentration of the insulin in the pump. Everything in Trio stays in actual (U100-equivalent)
+    /// units; only pump commands and pump reports are converted. See `InsulinConcentration`.
+    var pumpInsulinConcentration: InsulinConcentration = .u100
+    /// True while the pump still holds a basal schedule / delivery limits written for a previous concentration.
+    var pumpInsulinConcentrationSyncPending: Bool = false
     var isUploadEnabled: Bool = false
     var isDownloadEnabled: Bool = false
     var useLocalGlucoseSource: Bool = false
@@ -69,6 +74,7 @@ struct TrioSettings: JSON, Equatable, Encodable {
     var lockScreenView: LockScreenView = .simple
     var smartStackView: LockScreenView = .simple
     var liveActivitySimpleFontSize: LiveActivityFontSize = .large
+    var liveActivityColors: LiveActivityColors = .default
     var displayGlucoseForecasts: Bool = false
     var bolusShortcut: BolusShortcutLimit = .notAllowed
     var timeInRangeType: TimeInRangeType = .timeInTightRange
@@ -142,6 +148,14 @@ extension TrioSettings: Decodable {
         } else if let legacyClosedLoop = decodeLegacyBool(from: decoder, legacyKey: "closedLoop") {
             // Migrate the pre-enum "closedLoop" key so existing users keep looping as before.
             settings.dosingMode = legacyClosedLoop ? .closed : .open
+        }
+
+        if let concentration = try? container.decode(InsulinConcentration.self, forKey: .pumpInsulinConcentration) {
+            settings.pumpInsulinConcentration = concentration
+        }
+
+        if let pending = try? container.decode(Bool.self, forKey: .pumpInsulinConcentrationSyncPending) {
+            settings.pumpInsulinConcentrationSyncPending = pending
         }
 
         if let isUploadEnabled = try? container.decode(Bool.self, forKey: .isUploadEnabled) {
@@ -351,6 +365,10 @@ extension TrioSettings: Decodable {
             .decode(LiveActivityFontSize.self, forKey: .liveActivitySimpleFontSize)
         {
             settings.liveActivitySimpleFontSize = liveActivitySimpleFontSize
+        }
+
+        if let liveActivityColors = try? container.decode(LiveActivityColors.self, forKey: .liveActivityColors) {
+            settings.liveActivityColors = liveActivityColors
         }
 
         if let displayGlucoseForecasts = try? container.decode(Bool.self, forKey: .displayGlucoseForecasts) {

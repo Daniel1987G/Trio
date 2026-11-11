@@ -16,9 +16,11 @@ extension Treatments {
         @ObservationIgnored @Injected() var settings: SettingsManager!
         @ObservationIgnored @Injected() var nsManager: NightscoutManager!
         @ObservationIgnored @Injected() var carbsStorage: CarbsStorage!
+        @ObservationIgnored @Injected() var fileStorage: FileStorage!
         @ObservationIgnored @Injected() var glucoseStorage: GlucoseStorage!
         @ObservationIgnored @Injected() var determinationStorage: DeterminationStorage!
         @ObservationIgnored @Injected() var bolusCalculationManager: BolusCalculationManager!
+        @ObservationIgnored @Injected() var keychain: Keychain!
 
         var lowGlucose: Decimal = 70
         var highGlucose: Decimal = 180
@@ -89,6 +91,8 @@ extension Treatments {
         var sweetMeals: Bool = false
         var sweetMealFactor: Decimal = 0
         var useSuperBolus: Bool = false
+        /// For this bolus only: positive IOB is not subtracted in the recommendation.
+        var ignorePositiveIOB: Bool = false
         var superBolusInsulin: Decimal = 0
 
         var meal: [CarbsEntry]?
@@ -113,6 +117,142 @@ extension Treatments {
         var summary: String = ""
 
         var externalInsulin: Bool = false
+
+        // Meal photo analysis
+        /// Photos of the current meal; several photos add up to one entry.
+        var mealPhotoParts: [MealPhotoPart] = []
+        /// Set in `subscribe()`: the view renders before `keychain` is injected.
+        var isMealPhotoConfigured: Bool = false
+        @ObservationIgnored private var mealPhotoTasks: [UUID: Task<Void, Never>] = [:]
+
+        // Extended bolus: part now, the rest spread over `extendedDurationMinutes`
+        var useExtendedBolus: Bool = false
+        var extendedImmediatePercent: Int = 50
+        var extendedDurationMinutes: Int = 120
+        /// Time between the immediate bolus and the first extended portion; preset from Meal Settings.
+        var extendedDelayMinutes: Int = MealCarbTypeSettings.extendedDelayMinutes
+
+        /// True while another extended bolus is still delivering; only one can run at a time.
+        var isExtendedBolusRunning: Bool {
+            apsManager?.extendedBolus.value?.isActive == true
+        }
+
+        /// Meal type: pre-selects the bolus strategy (normal, dual by percent, or carbs now + FPU extended).
+        var mealCarbType: MealCarbType = .standard
+        /// Fat-protein units covered by the extended part (fat-protein meal types only).
+        var extendedFPU: Decimal = 0
+        /// Share of the full FPU insulin, from Meal Settings (default 50 %).
+        var fpuInsulinPercent: Int = MealCarbTypeSettings.fpuInsulinPercent
+
+        /// Carb ratio (g/U) for the FPU insulin: the one the algorithm uses now, else the scheduled one.
+        var effectiveCarbRatio: Decimal {
+            carbRatio > 0 ? carbRatio : currentCarbRatio
+        }
+
+        /// Full FPU insulin and the share that is given, both in actual units before pump rounding.
+        var fpuInsulin: (full: Decimal, given: Decimal) {
+            (
+                MealCarbType.fpuInsulin(fpu: extendedFPU, carbRatio: effectiveCarbRatio, percent: 100),
+                MealCarbType.fpuInsulin(fpu: extendedFPU, carbRatio: effectiveCarbRatio, percent: fpuInsulinPercent)
+            )
+        }
+
+        /// True when the extended part is the FPU insulin rather than a share of the bolus.
+        var extendedCoversFPU: Bool {
+            useExtendedBolus && mealCarbType.coversFPU
+        }
+
+        /// The bolus split into the immediate and the extended part (actual units).
+        /// - Fat-protein types: the bolus field (carbs, correction) now, the FPU insulin extended.
+        /// - Otherwise: the bolus field split by `extendedImmediatePercent`.
+        var extendedBolusSplit: (immediate: Decimal, extended: Decimal) {
+            guard let apsManager else { return (0, 0) }
+            if extendedCoversFPU {
+                let immediate = amount > 0 ? apsManager.roundBolus(amount: min(amount, maxBolus)) : 0
+                let extended = apsManager.roundBolus(amount: min(fpuInsulin.given, maxBolus))
+                return (immediate, extended)
+            }
+            let total = min(amount, maxBolus)
+            guard total > 0 else { return (0, 0) }
+            let immediate = apsManager.roundBolus(amount: total * Decimal(extendedImmediatePercent) / 100)
+            return (immediate, max(0, total - immediate))
+        }
+
+        /// The extended part as carb equivalents (whole grams, at most Max Carbs).
+        var extendedCarbGrams: Int {
+            let grams = ExtendedCarbEquivalents.grams(units: extendedBolusSplit.extended, carbRatio: effectiveCarbRatio)
+            return min(grams, NSDecimalNumber(decimal: maxCarbs).intValue)
+        }
+
+        /// Carbs still to come from extended boluses entered earlier (their future entries), so an
+        /// overlap with a new one is visible before it is started.
+        var pendingExtendedCarbGrams: Int = 0
+
+        /// Sums the future entries of running extended carb plans; deleted entries no longer count.
+        func refreshPendingExtendedCarbs() {
+            let now = Date()
+            let planIDs = (fileStorage.retrieve(OpenAPS.Monitor.extendedCarbPlans, as: [ExtendedCarbPlan].self) ?? [])
+                .filter { $0.end > now }
+                .map(\.fpuID)
+            guard !planIDs.isEmpty else {
+                pendingExtendedCarbGrams = 0
+                return
+            }
+            let request = NSFetchRequest<CarbEntryStored>(entityName: "CarbEntryStored")
+            request.predicate = NSPredicate(
+                format: "isFPU == YES AND date > %@ AND fpuID IN %@",
+                now as NSDate,
+                planIDs as NSArray
+            )
+            let stored = (try? viewContext.fetch(request)) ?? []
+            pendingExtendedCarbGrams = Int(stored.reduce(0.0) { $0 + $1.carbs }.rounded())
+        }
+
+        /// COB now, the carbs still to come and this meal together are more than Max COB. The loop
+        /// caps COB at Max COB and then doses less than planned (an upper bound: carbs absorb meanwhile).
+        var extendedCarbsMayExceedMaxCOB: Bool {
+            guard useExtendedBolus, maxCOB > 0 else { return false }
+            let grams = Decimal(extendedCarbGrams)
+            let mealNow = extendedCoversFPU ? carbs : max(0, carbs - grams)
+            return Decimal(Int(cob)) + Decimal(pendingExtendedCarbGrams) + mealNow + grams > maxCOB
+        }
+
+        /// The carb equivalent entries the extended part becomes, starting after the delay.
+        func extendedCarbSchedule(from date: Date) -> [(date: Date, grams: Int)] {
+            ExtendedCarbEquivalents.schedule(
+                grams: extendedCarbGrams,
+                start: date.addingTimeInterval(TimeInterval(extendedDelayMinutes * 60)),
+                duration: TimeInterval(extendedDurationMinutes * 60)
+            )
+        }
+
+        /// Pre-selects the strategy for a meal type; every value stays editable.
+        func selectMealCarbType(_ type: MealCarbType) {
+            mealCarbType = type
+            fpuInsulinPercent = MealCarbTypeSettings.fpuInsulinPercent
+            switch type {
+            case .fast,
+                 .medium,
+                 .standard:
+                useExtendedBolus = false
+            case .slow:
+                useExtendedBolus = true
+                extendedImmediatePercent = MealCarbType.slowImmediatePercent
+                extendedDurationMinutes = MealCarbType.slowDurationMinutes
+            case .fatProteinOnly,
+                 .fatProteinRich:
+                useExtendedBolus = true
+                if extendedFPU <= 0 { extendedFPU = MealCarbType.fpu(fat: fat, protein: protein).roundedToHalf }
+                updateExtendedDurationForFPU()
+            }
+        }
+
+        /// FPU table: 1 → 3 h, 2 → 4 h, 3 → 5 h, ≥ 4 → 7.5 h.
+        func updateExtendedDurationForFPU() {
+            guard mealCarbType.coversFPU, extendedFPU > 0 else { return }
+            extendedDurationMinutes = MealCarbType.extendedMinutes(forFPU: extendedFPU)
+        }
+
         var showInfo: Bool = false
         var glucoseFromPersistence: [GlucoseStored] = []
         /// Most recent reading. This model fetches glucose sorted `ascending: false`, so the
@@ -214,6 +354,8 @@ extension Treatments {
             }
 
             debug(.bolusState, "subscribe fired")
+            isMealPhotoConfigured = MealPhotoSettingsStore(keychain: keychain).isConfigured
+            refreshPendingExtendedCarbs()
             setupBolusStateConcurrently()
             subscribeToBolusProgress()
         }
@@ -243,6 +385,7 @@ extension Treatments {
 
             // Cancel in-flight work — the setup task awaits a full oref simulation.
             setupTask?.cancel()
+            mealPhotoTasks.values.forEach { $0.cancel() }
             determinationUpdateTask?.cancel()
 
             broadcaster?.unregister(DeterminationObserver.self, observer: self)
@@ -469,7 +612,8 @@ extension Treatments {
                 lastLoopDate: apsManager.lastLoopDate,
                 minPredBG: localMinPredBG,
                 simulatedCOB: simulatedCOB,
-                isBackdated: isBackdated
+                isBackdated: isBackdated,
+                ignorePositiveIOB: ignorePositiveIOB
             )
 
             // A superseded run must not overwrite the breakdown a newer run published.
@@ -499,7 +643,8 @@ extension Treatments {
                 await MainActor.run {
                     self.addButtonPressed = true
                 }
-                let isInsulinGiven = amount > 0
+                // a fat/protein-only meal may have no immediate bolus, only the extended FPU part
+                let isInsulinGiven = amount > 0 || (extendedCoversFPU && !externalInsulin && extendedBolusSplit.extended > 0)
                 let isCarbsPresent = carbs > 0
                 let isFatPresent = fat > 0
                 let isProteinPresent = protein > 0
@@ -630,7 +775,7 @@ extension Treatments {
         }
 
         func addPumpInsulin() async {
-            guard amount > 0 else {
+            guard amount > 0 || (extendedCoversFPU && extendedBolusSplit.extended > 0) else {
                 showModal(for: nil)
                 return
             }
@@ -644,7 +789,11 @@ extension Treatments {
                     await MainActor.run {
                         self.isAwaitingDeterminationResult = true
                     }
-                    await apsManager.enactBolus(amount: maxAmount, isSMB: false, callback: nil)
+                    if useExtendedBolus {
+                        await enactExtendedBolus()
+                    } else {
+                        await apsManager.enactBolus(amount: maxAmount, isSMB: false, callback: nil)
+                    }
                 }
             } catch {
                 debug(.bolusState, "Authentication error for pump bolus: \(error)")
@@ -655,6 +804,156 @@ extension Treatments {
                     self.determinationFailureMessage = parseAuthenticationError(from: error)
                 }
             }
+        }
+
+        /// Gives the immediate part as a bolus, then enters the extended part as carb equivalents that
+        /// start after the delay. The loop doses for each entry when it becomes due. If the immediate
+        /// bolus fails, no carb equivalents are entered, so repeating the treatment cannot double them.
+        private func enactExtendedBolus() async {
+            let split = extendedBolusSplit
+            let schedule = extendedCarbSchedule(from: Date())
+            guard split.extended <= 0 || !schedule.isEmpty else {
+                await MainActor.run {
+                    self.isAwaitingDeterminationResult = false
+                    self.showDeterminationFailureAlert = true
+                    self.determinationFailureMessage = String(
+                        localized: "The extended part cannot be entered as carbs without a carb ratio."
+                    )
+                }
+                return
+            }
+
+            if split.immediate > 0 {
+                let result = BolusResult()
+                await apsManager.enactBolus(amount: split.immediate.nearestDouble, isSMB: false) { success, _ in
+                    result.succeeded = success
+                }
+                guard result.succeeded else {
+                    debug(.bolusState, "Immediate part failed; extended part not entered as carbs")
+                    return
+                }
+            }
+
+            let fpuUUID = UUID()
+            let fpuID = fpuUUID.uuidString
+            let now = Date()
+            // remembered first, so the chart already knows the entries when they arrive
+            if let plan = ExtendedCarbPlans.plan(fpuID: fpuUUID, createdAt: now, schedule: schedule) {
+                let log = fileStorage.retrieve(OpenAPS.Monitor.extendedCarbPlans, as: [ExtendedCarbPlan].self) ?? []
+                fileStorage.save(ExtendedCarbPlans.appending(plan, to: log), as: OpenAPS.Monitor.extendedCarbPlans)
+            }
+            let entries = schedule.map { item in
+                CarbsEntry(
+                    id: UUID().uuidString,
+                    createdAt: now,
+                    actualDate: item.date,
+                    carbs: Decimal(item.grams),
+                    fat: 0,
+                    protein: 0,
+                    note: nil,
+                    enteredBy: CarbsEntry.local,
+                    isFPU: true,
+                    fpuID: fpuID
+                )
+            }
+            await carbsStorage.storeCarbEquivalents(entries)
+            debug(
+                .bolusState,
+                "Extended part \(split.extended) U entered as \(entries.count) carb equivalents, \(extendedCarbGrams) g from \(entries.first?.actualDate?.description ?? "-")"
+            )
+
+            if split.immediate <= 0 {
+                // no bolus triggered a determination, so run one for the new entries
+                try? await apsManager.determineBasalSync()
+            }
+        }
+
+        // MARK: - MEAL PHOTO
+
+        /// Sum of all analysed photos of the meal; photos still running or failed are not part of it.
+        var combinedMealPhotoAnalysis: MealPhotoAnalysis? {
+            MealPhotoAnalysis.combined(mealPhotoParts.compactMap(\.analysis))
+        }
+
+        /// Adds a photo to the meal and sends it to the configured AI provider; the result is only shown,
+        /// never applied.
+        func analyzeMealPhoto(_ image: UIImage) {
+            let part = MealPhotoPart(image: image, status: .analyzing)
+            mealPhotoParts.append(part)
+            runMealPhotoAnalysis(part.id)
+        }
+
+        func retryMealPhoto(_ id: UUID) {
+            runMealPhotoAnalysis(id)
+        }
+
+        func removeMealPhoto(_ id: UUID) {
+            mealPhotoTasks.removeValue(forKey: id)?.cancel()
+            mealPhotoParts.removeAll { $0.id == id }
+        }
+
+        /// Drops all photos of the meal, e.g. when the sheet is closed without taking over the values.
+        func discardMealPhotos() {
+            mealPhotoTasks.values.forEach { $0.cancel() }
+            mealPhotoTasks = [:]
+            mealPhotoParts = []
+        }
+
+        private func runMealPhotoAnalysis(_ id: UUID) {
+            guard let index = mealPhotoParts.firstIndex(where: { $0.id == id }) else { return }
+            let image = mealPhotoParts[index].image
+            let store = MealPhotoSettingsStore(keychain: keychain)
+            let provider = store.provider
+            guard let apiKey = store.apiKey(for: provider) else {
+                mealPhotoParts[index].status = .failed(MealPhotoAnalysisError.missingAPIKey.localizedDescription)
+                return
+            }
+            let model = store.model(for: provider)
+            mealPhotoParts[index].status = .analyzing
+            mealPhotoTasks[id]?.cancel()
+            mealPhotoTasks[id] = Task { [weak self] in
+                let status: MealPhotoPart.Status
+                do {
+                    let analysis = try await MealPhotoAnalyzer().analyze(
+                        image: image,
+                        provider: provider,
+                        model: model,
+                        apiKey: apiKey
+                    )
+                    status = .done(analysis)
+                } catch is CancellationError {
+                    return
+                } catch {
+                    status = .failed(error.localizedDescription)
+                }
+                guard !Task.isCancelled else { return }
+                await MainActor.run {
+                    guard let self, let index = self.mealPhotoParts.firstIndex(where: { $0.id == id }) else { return }
+                    self.mealPhotoParts[index].status = status
+                    self.mealPhotoTasks[id] = nil
+                }
+            }
+        }
+
+        /// Takes the estimate over into the entry fields; the user still confirms the treatment.
+        func applyMealPhoto(_ analysis: MealPhotoAnalysis) {
+            carbs = analysis.carbs
+            if useFPUconversion {
+                fat = analysis.fat
+                protein = analysis.protein
+            }
+            // offer the FPU for the extended bolus; a fat-protein meal type is pre-selected, never enacted
+            extendedFPU = analysis.fpu.roundedToHalf
+            if analysis.fpu >= 1 {
+                selectMealCarbType(analysis.carbs < 10 ? .fatProteinOnly : .fatProteinRich)
+            }
+            if note.isEmpty {
+                let names = analysis.items.map(\.name).joined(separator: ", ")
+                note = String(names.prefix(25))
+            }
+            discardMealPhotos()
+            Task { await updateForecasts() }
+            Task { insulinCalculated = await calculateInsulin() }
         }
 
         // MARK: - EXTERNAL INSULIN
@@ -704,17 +1003,28 @@ extension Treatments {
                     self.id_ = UUID().uuidString
                 }
 
+                // When an extended bolus covers the fat-protein units, fat and protein must not also become
+                // delayed carb equivalents, or the loop would dose for them a second time.
+                let fpuByExtendedBolus = extendedCoversFPU && !externalInsulin
+                let storedFat: Decimal = fpuByExtendedBolus ? 0 : fat
+                let storedProtein: Decimal = fpuByExtendedBolus ? 0 : protein
+                // When the extended part is a share of the meal bolus, its carbs are entered later as
+                // carb equivalents; entering them now too would make the loop dose for them twice.
+                let carbsByExtendedBolus = useExtendedBolus && !externalInsulin && !mealCarbType.coversFPU
+                let storedCarbs: Decimal = carbsByExtendedBolus ? max(0, carbs - Decimal(extendedCarbGrams)) : carbs
+                guard storedCarbs > 0 || storedFat > 0 || storedProtein > 0 else { return }
+
                 let carbsToStore = [CarbsEntry(
                     id: id_,
                     createdAt: now,
                     actualDate: date,
-                    carbs: carbs,
-                    fat: fat,
-                    protein: protein,
+                    carbs: storedCarbs,
+                    fat: storedFat,
+                    protein: storedProtein,
                     note: note,
                     enteredBy: CarbsEntry.local,
                     isFPU: false,
-                    fpuID: fat > 0 || protein > 0 ? UUID().uuidString : nil
+                    fpuID: storedFat > 0 || storedProtein > 0 ? UUID().uuidString : nil
                 )]
                 try await carbsStorage.storeCarbs(carbsToStore, areFetchedFromRemote: false)
 
@@ -1053,4 +1363,19 @@ private extension Set where Element == Forecast {
             .map { Int($0.value) }
         return (values?.isEmpty ?? true) ? nil : values
     }
+}
+
+extension Decimal {
+    /// Rounded to the nearest 0.5 (FPU are entered in half steps).
+    var roundedToHalf: Decimal {
+        var doubled = self * 2
+        var result = Decimal()
+        NSDecimalRound(&result, &doubled, 0, .plain)
+        return result / 2
+    }
+}
+
+/// Carries the result of `enactBolus`, whose callback runs before it returns.
+private final class BolusResult {
+    var succeeded = false
 }

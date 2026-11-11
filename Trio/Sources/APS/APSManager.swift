@@ -42,6 +42,13 @@ protocol APSManager {
     var lastError: CurrentValueSubject<Error?, Never> { get }
     func cancelBolus(_ callback: ((Bool, String) -> Void)?) async
     var iobFileDidUpdate: PassthroughSubject<Void, Never> { get }
+    /// The running extended bolus, or the last one that ended (`isActive == false`).
+    var extendedBolus: CurrentValueSubject<ExtendedBolus?, Never> { get }
+    /// Starts spreading `units` (actual units) over `duration`. `immediateUnits` is the normal bolus the
+    /// caller gives right after this; it is only recorded. Throws if one is already running or the
+    /// request is outside the limits.
+    func startExtendedBolus(units: Decimal, immediateUnits: Decimal, duration: TimeInterval, delay: TimeInterval) throws
+    func cancelExtendedBolus()
 }
 
 /// Notified after a bolus-related failure so observing UI (e.g. the
@@ -172,6 +179,11 @@ final class BaseAPSManager: APSManager, Injectable {
     let iobFileDidUpdate = PassthroughSubject<Void, Never>()
 
     let bolusProgress = CurrentValueSubject<Decimal?, Never>(nil)
+    let extendedBolus = CurrentValueSubject<ExtendedBolus?, Never>(nil)
+    /// Serializes read-modify-write of the extended bolus plan between the loop and the UI.
+    private let extendedBolusLock = NSLock()
+    /// Glucose and lowest prediction of the latest determination, for the extended bolus safety checks.
+    private var latestDeterminationGlucose: (bg: Decimal?, minPredBG: Decimal?, date: Date)?
 
     var pumpDisplayState: CurrentValueSubject<PumpDisplayState?, Never> {
         deviceDataManager.pumpDisplayState
@@ -197,6 +209,7 @@ final class BaseAPSManager: APSManager, Injectable {
     init(resolver: Resolver) {
         injectServices(resolver)
         openAPS = OpenAPS(storage: storage, tddStorage: tddStorage, glucoseStorage: glucoseStorage, carbsStorage: carbsStorage)
+        extendedBolus.send(storage.retrieve(OpenAPS.Monitor.extendedBolus, as: ExtendedBolus.self))
         lastDosingMode = settingsManager.settings.dosingMode
         broadcaster.register(SettingsObserver.self, observer: self)
         subscribe()
@@ -383,6 +396,9 @@ final class BaseAPSManager: APSManager, Injectable {
             try await enactDetermination()
         }
 
+        // Only after a successful determination: fresh glucose and predictions are known.
+        await deliverExtendedBolusPortionIfDue()
+
         let endDate = Date()
         loopStatRecord.end = endDate
         loopStatRecord.duration = roundDouble((endDate - loopStatRecord.start).timeInterval / 60, 2)
@@ -483,7 +499,8 @@ final class BaseAPSManager: APSManager, Injectable {
         let tddResult = try await tddStorage.calculateTDD(
             pumpManager: pumpManager,
             pumpHistory: pumpHistoryStorage.getPumpHistory(),
-            basalProfile: basalProfile
+            basalProfile: basalProfile,
+            concentration: insulinConcentration
         )
 
         // Store TDD in Core Data
@@ -540,12 +557,13 @@ final class BaseAPSManager: APSManager, Injectable {
             let now = Date()
 
             // put profile creation up front since autosens needs it
-            try await openAPS.createProfiles(for: settingsManager.settings.dosingMode)
+            let dosingMode = algorithmDosingMode
+            try await openAPS.createProfiles(for: dosingMode)
             let currentTemp = try await fetchCurrentTempBasal(date: now)
             _ = try await autosense()
 
             let determination = try await openAPS.determineBasal(
-                for: settingsManager.settings.dosingMode,
+                for: dosingMode,
                 currentTemp: currentTemp,
                 supportedBasalRates: supportedBasalRates,
                 shouldSmoothGlucose: settingsManager.settings.smoothGlucose,
@@ -558,6 +576,9 @@ final class BaseAPSManager: APSManager, Injectable {
             }
 
             if let determination = determination {
+                extendedBolusLock.withLock {
+                    latestDeterminationGlucose = (determination.bg, determination.minPredBG, now)
+                }
                 // Capture weak self in closure
                 await MainActor.run { [weak self] in
                     guard let self else { return }
@@ -604,7 +625,7 @@ final class BaseAPSManager: APSManager, Injectable {
         do {
             let temp = try await fetchCurrentTempBasal(date: Date.now)
             return try await openAPS.determineBasal(
-                for: settingsManager.settings.dosingMode,
+                for: algorithmDosingMode,
                 currentTemp: temp,
                 supportedBasalRates: supportedBasalRates,
                 shouldSmoothGlucose: settingsManager.settings.smoothGlucose,
@@ -622,17 +643,26 @@ final class BaseAPSManager: APSManager, Injectable {
         }
     }
 
-    /// The paired pump's deliverable basal rates, for the algorithm to round against.
+    /// Concentration of the insulin in the pump; every pump command below is converted with it.
+    private var insulinConcentration: InsulinConcentration {
+        settingsManager.settings.pumpInsulinConcentration
+    }
+
+    /// The paired pump's deliverable basal rates in actual U/h, for the algorithm to round against.
     /// Rounded to 3 dp because the kits build their tables as `Double(n) / 20` and similar, and the
     /// resulting binary error would push an entry just above the clean rate it is meant to match.
     private var supportedBasalRates: [Decimal] {
-        (pumpManager?.supportedBasalRates ?? []).map { Decimal($0).rounded(scale: 3) }
+        (pumpManager?.supportedBasalRates(concentration: insulinConcentration) ?? []).map { Decimal($0).rounded(scale: 3) }
     }
 
     func roundBolus(amount: Decimal) -> Decimal {
         guard let pump = pumpManager else { return amount }
-        let rounded = Decimal(pump.roundToSupportedBolusVolume(units: Double(amount)))
-        let maxBolus = Decimal(pump.roundToSupportedBolusVolume(units: Double(settingsManager.pumpSettings.maxBolus)))
+        let concentration = insulinConcentration
+        let rounded = Decimal(pump.roundToSupportedBolusVolume(actualUnits: Double(amount), concentration: concentration))
+        let maxBolus = Decimal(pump.roundToSupportedBolusVolume(
+            actualUnits: Double(settingsManager.pumpSettings.maxBolus),
+            concentration: concentration
+        ))
         return min(rounded, maxBolus)
     }
 
@@ -659,12 +689,13 @@ final class BaseAPSManager: APSManager, Injectable {
             return
         }
 
-        let roundedAmount = pump.roundToSupportedBolusVolume(units: amount)
+        let concentration = insulinConcentration
+        let roundedAmount = pump.roundToSupportedBolusVolume(actualUnits: amount, concentration: concentration)
 
         debug(.apsManager, "Enact bolus \(roundedAmount), manual \(!isSMB)")
 
         do {
-            try await pump.enactBolus(units: roundedAmount, automatic: isSMB)
+            try await pump.enactBolus(actualUnits: roundedAmount, automatic: isSMB, concentration: concentration)
             debug(.apsManager, "Bolus succeeded")
             bolusProgress.send(0)
             callback?(true, String(localized: "Bolus enacted successfully.", comment: "Success message for enacting a bolus"))
@@ -762,7 +793,8 @@ final class BaseAPSManager: APSManager, Injectable {
         case .active:
             return TempBasal(duration: 0, rate: 0, temp: .absolute, timestamp: date)
         case let .tempBasal(dose):
-            let rate = Decimal(dose.unitsPerHour)
+            // the pump reports its running temp in pump units
+            let rate = Decimal(insulinConcentration.fromPump(dose.unitsPerHour))
             let durationMin = max(0, Int((dose.endDate.timeIntervalSince1970 - date.timeIntervalSince1970) / 60))
             return TempBasal(duration: durationMin, rate: rate, temp: .absolute, timestamp: date)
         default:
@@ -827,14 +859,19 @@ final class BaseAPSManager: APSManager, Injectable {
         // the algorithm already floored this against the pump's own table, so don't floor it
         // again here: the Decimal -> Double hop can land a hair low and cost a whole increment
         let unitsPerHour = rate.decimalValue.nearestDouble
-        if pump.roundToSupportedBasalRate(unitsPerHour: unitsPerHour) != unitsPerHour {
+        let concentration = insulinConcentration
+        if pump.roundToSupportedBasalRate(actualUnitsPerHour: unitsPerHour, concentration: concentration) != unitsPerHour {
             debug(.apsManager, "Temp basal \(unitsPerHour) U/hr is not on the pump's rate table")
         }
-        try await pump.enactTempBasal(unitsPerHour: unitsPerHour, for: duration)
+        try await pump.enactTempBasal(actualUnitsPerHour: unitsPerHour, for: duration, concentration: concentration)
     }
 
     private func performBolus(pump: PumpManager, smbToDeliver: NSDecimalNumber) async throws {
-        try await pump.enactBolus(units: smbToDeliver.decimalValue.nearestDouble, automatic: true)
+        try await pump.enactBolus(
+            actualUnits: smbToDeliver.decimalValue.nearestDouble,
+            automatic: true,
+            concentration: insulinConcentration
+        )
         bolusProgress.send(0)
     }
 
@@ -1431,9 +1468,14 @@ final class BaseAPSManager: APSManager, Injectable {
 }
 
 private extension PumpManager {
-    func enactTempBasal(unitsPerHour: Double, for duration: TimeInterval) async throws {
+    /// `actualUnitsPerHour` is in actual insulin units; it is converted to pump units for `concentration`.
+    func enactTempBasal(
+        actualUnitsPerHour unitsPerHour: Double,
+        for duration: TimeInterval,
+        concentration: InsulinConcentration
+    ) async throws {
         try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
-            self.enactTempBasal(unitsPerHour: unitsPerHour, for: duration) { error in
+            self.enactTempBasal(actualUnitsPerHour: unitsPerHour, for: duration, concentration: concentration) { error in
                 if let error = error {
                     debug(.apsManager, "Temp basal failed: \(unitsPerHour) for: \(duration)")
                     continuation.resume(throwing: error)
@@ -1445,11 +1487,16 @@ private extension PumpManager {
         }
     }
 
-    func enactBolus(units: Double, automatic: Bool) async throws {
+    /// `actualUnits` is in actual insulin units; it is converted to pump units for `concentration`.
+    func enactBolus(actualUnits units: Double, automatic: Bool, concentration: InsulinConcentration) async throws {
         try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
             let automaticValue = automatic ? BolusActivationType.automatic : BolusActivationType.manualRecommendationAccepted
 
-            self.enactBolus(units: units, activationType: automaticValue) { error in
+            self.enactBolus(
+                actualUnits: units,
+                activationType: automaticValue,
+                concentration: concentration
+            ) { error in
                 if let error = error {
                     debug(.apsManager, "Bolus failed: \(units)")
                     continuation.resume(throwing: error)
@@ -1522,7 +1569,7 @@ extension BaseAPSManager: SettingsObserver {
         guard case let .tempBasal(dose) = pump.status.basalDeliveryState, dose.automatic ?? true else { return }
 
         do {
-            try await pump.enactTempBasal(unitsPerHour: 0, for: 0)
+            try await pump.enactTempBasal(actualUnitsPerHour: 0, for: 0, concentration: insulinConcentration)
             debug(.apsManager, "Cancelled temp basal for basal testing")
         } catch {
             debug(.apsManager, "Failed to cancel temp basal for basal testing: \(error)")
@@ -1587,5 +1634,153 @@ extension PumpManagerStatus {
         let suspended = basalDeliveryState?.isSuspended ?? true
         let type = suspended ? StatusType.suspended : (bolusing ? .bolusing : .normal)
         return PumpStatus(status: type, bolusing: bolusing, suspended: suspended, timestamp: Date())
+    }
+}
+
+// MARK: - Extended bolus
+
+extension BaseAPSManager {
+    /// The mode the algorithm runs in. While an extended bolus is delivering, closed loop is limited to
+    /// reductions (Max IOB 0: no SMB, no high temp, low temps and suspends still work), so the loop
+    /// does not dose a second time for the meal the extended bolus already covers.
+    private var algorithmDosingMode: DosingMode {
+        let mode = settingsManager.settings.dosingMode
+        guard mode == .closed, extendedBolus.value?.isActive == true else { return mode }
+        return .lowGlucoseSuspend
+    }
+
+    func startExtendedBolus(units: Decimal, immediateUnits: Decimal, duration: TimeInterval, delay: TimeInterval) throws {
+        guard pumpManager != nil else {
+            throw APSError.invalidPumpState(message: String(localized: "Pump not set"))
+        }
+        guard units > 0 else {
+            throw APSError.apsError(message: String(localized: "The extended part must be more than 0 U."))
+        }
+        guard units <= settingsManager.pumpSettings.maxBolus,
+              immediateUnits <= settingsManager.pumpSettings.maxBolus
+        else {
+            throw APSError.apsError(message: String(localized: "The extended bolus exceeds Max Bolus."))
+        }
+        guard duration >= ExtendedBolus.minimumDuration, duration <= ExtendedBolus.maximumDuration else {
+            throw APSError.apsError(message: String(localized: "The duration must be between 30 minutes and 8 hours."))
+        }
+        guard delay >= 0, delay <= ExtendedBolus.maximumDelay else {
+            throw APSError.apsError(message: String(localized: "The delay before the extended part must be at most 2 hours."))
+        }
+
+        try extendedBolusLock.withLock {
+            if extendedBolus.value?.isActive == true {
+                throw APSError.apsError(message: String(localized: "An extended bolus is already running."))
+            }
+            let plan = ExtendedBolus(
+                id: UUID(),
+                startDate: Date(),
+                duration: duration,
+                totalUnits: units,
+                immediateUnits: immediateUnits,
+                delay: delay
+            )
+            storeExtendedBolus(plan)
+            debug(
+                .apsManager,
+                "Extended bolus started: \(units) U over \(Int(duration / 60)) min after \(Int(delay / 60)) min (immediate \(immediateUnits) U)"
+            )
+        }
+    }
+
+    func cancelExtendedBolus() {
+        extendedBolusLock.withLock {
+            guard let plan = extendedBolus.value, plan.isActive else { return }
+            storeExtendedBolus(plan.ending(.cancelledByUser, at: Date()))
+            debug(.apsManager, "Extended bolus cancelled by user after \(plan.deliveredUnits) of \(plan.totalUnits) U")
+        }
+        // re-run the algorithm without the reductions-only limit
+        Task { try? await self.determineBasalSync() }
+    }
+
+    /// Must be called with `extendedBolusLock` held.
+    private func storeExtendedBolus(_ plan: ExtendedBolus) {
+        storage.save(plan, as: OpenAPS.Monitor.extendedBolus)
+        extendedBolus.send(plan)
+    }
+
+    /// Called once per loop cycle after a successful determination.
+    private func deliverExtendedBolusPortionIfDue() async {
+        guard let plan = extendedBolusLock.withLock({ extendedBolus.value }), plan.isActive else { return }
+
+        let now = Date()
+        let latest = extendedBolusLock.withLock { latestDeterminationGlucose }
+        // only trust a determination from this cycle
+        let isFresh = latest.map { now.timeIntervalSince($0.date) < 3 * 60 } ?? false
+        let step = plan.nextStep(
+            at: now,
+            roundDown: { self.roundBolus(amount: $0) },
+            glucose: isFresh ? latest?.bg : nil,
+            minPredictedGlucose: isFresh ? latest?.minPredBG : nil,
+            threshold: settingsManager.preferences.threshold_setting
+        )
+
+        switch step {
+        case .wait:
+            return
+        case let .hold(reason):
+            debug(.apsManager, "Extended bolus on hold: \(reason)")
+            return
+        case let .finish(reason):
+            extendedBolusLock.withLock {
+                guard let current = extendedBolus.value, current.id == plan.id else { return }
+                storeExtendedBolus(current.ending(reason, at: now))
+            }
+            debug(.apsManager, "Extended bolus ended (\(reason.rawValue)) after \(plan.deliveredUnits) of \(plan.totalUnits) U")
+            // the reductions-only limit no longer applies
+            Task { try? await self.determineBasalSync() }
+            return
+        case let .deliver(amount):
+            await deliverExtendedBolusPortion(amount, planID: plan.id, at: now)
+        }
+    }
+
+    private func deliverExtendedBolusPortion(_ amount: Decimal, planID: UUID, at date: Date) async {
+        if let error = verifyStatus() {
+            debug(.apsManager, "Extended bolus portion skipped: \(error.localizedDescription)")
+            return
+        }
+        guard let pump = pumpManager else { return }
+        // re-check: the user may have cancelled while this cycle was running
+        guard extendedBolusLock.withLock({ extendedBolus.value?.id == planID && extendedBolus.value?.isActive == true })
+        else { return }
+
+        // Logged before the command, so the pump event never shows up before its log entry: chart and history
+        // tell this automatic bolus apart from an SMB by it. An entry without a delivered bolus matches nothing.
+        let portions = storage.retrieve(OpenAPS.Monitor.extendedBolusPortions, as: [ExtendedBolusPortion].self) ?? []
+        storage.save(
+            ExtendedBolusPortions.appending(ExtendedBolusPortion(date: date, units: amount, planID: planID), to: portions),
+            as: OpenAPS.Monitor.extendedBolusPortions
+        )
+
+        var delivered = false
+        do {
+            try await pump.enactBolus(
+                actualUnits: amount.nearestDouble,
+                automatic: true,
+                concentration: insulinConcentration
+            )
+            bolusProgress.send(0)
+            delivered = true
+        } catch PumpManagerError.uncertainDelivery {
+            // the pump may have delivered it; never risk giving it twice
+            delivered = true
+            warning(.apsManager, "Extended bolus portion of \(amount) U: uncertain delivery, counted as delivered")
+        } catch {
+            debug(.apsManager, "Extended bolus portion of \(amount) U failed: \(error)")
+        }
+
+        guard delivered else { return }
+        extendedBolusLock.withLock {
+            // counted even if cancelled meanwhile: the insulin is in
+            guard let current = extendedBolus.value, current.id == planID else { return }
+            storeExtendedBolus(current.recordingDelivery(of: amount, at: date))
+        }
+        debug(.apsManager, "Extended bolus portion delivered: \(amount) U")
     }
 }

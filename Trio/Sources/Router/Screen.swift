@@ -31,6 +31,7 @@ enum Screen: Identifiable, Hashable {
     case bolusCalculatorConfig
     case quickPickTreatmentsConfig
     case dynamicISF
+    case autoISF
     case calibrations
     case shortcutsConfig
     case devices
@@ -49,8 +50,12 @@ enum Screen: Identifiable, Hashable {
     case targetBehavior
     case algorithmAdvancedSettings
     case unitsAndLimits
+    case insulinConcentration
+    case mealPhotoSettings
     case appDiagnostics
     case settingsExport
+    case backupRestore
+    case aiReport
     case treatmentsSettings
 
     var id: Int { String(reflecting: self).hashValue }
@@ -129,6 +134,8 @@ extension Screen {
             QuickPickTreatmentsConfig.RootView(resolver: resolver)
         case .dynamicISF:
             DynamicSettings.RootView(resolver: resolver)
+        case .autoISF:
+            AutoISFSettings.RootView(resolver: resolver)
         case .calibrations:
             Calibrations.RootView(resolver: resolver)
         case .shortcutsConfig:
@@ -165,10 +172,18 @@ extension Screen {
             AlgorithmAdvancedSettings.RootView(resolver: resolver)
         case .unitsAndLimits:
             UnitsLimitsSettings.RootView(resolver: resolver)
+        case .insulinConcentration:
+            InsulinConcentrationSettings.RootView(resolver: resolver)
+        case .mealPhotoSettings:
+            MealPhotoSettings.RootView(resolver: resolver)
         case .appDiagnostics:
             AppDiagnostics.RootView(resolver: resolver)
         case .settingsExport:
             SettingsExport.RootView(resolver: resolver)
+        case .backupRestore:
+            BackupRestore.RootView(resolver: resolver)
+        case .aiReport:
+            AIReport.RootView(resolver: resolver)
         case .treatmentsSettings:
             TreatmentsSettingsView(resolver: resolver, state: Settings.StateModel())
         }

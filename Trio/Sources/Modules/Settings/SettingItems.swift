@@ -108,6 +108,12 @@ enum SettingItems {
             ],
             path: ["Therapy Settings", "Units and Limits"]
         ),
+        SettingItem(
+            title: "Insulin Concentration",
+            view: .insulinConcentration,
+            searchContents: ["U100", "U200", "Concentrated Insulin"],
+            path: ["Therapy Settings"]
+        ),
         SettingItem(title: "Basal Rates", view: .basalProfileEditor, path: ["Therapy Settings"]),
         SettingItem(title: "Insulin Sensitivities", view: .isfEditor, path: ["Therapy Settings"]),
         SettingItem(title: "ISF", view: .isfEditor, path: ["Therapy Settings"]),
@@ -160,6 +166,27 @@ enum SettingItems {
                 "Adjust Basal"
             ],
             path: ["Algorithm", "Dynamic Sensitivity"]
+        ),
+        SettingItem(
+            title: "autoISF",
+            view: .autoISF,
+            searchContents: [
+                "Activate autoISF",
+                "autoISF Max",
+                "autoISF Min",
+                "Weight Above Target",
+                "Weight Below Target",
+                "Post-Meal Weight",
+                "Duration Weight",
+                "Use Glucose Acceleration",
+                "autoISF Off With Exercise",
+                "SMB: Even On, Odd Off",
+                "IOB Threshold (iobTH)",
+                "SMB Ratio Glucose Range",
+                "SMB Size Extension",
+                "Activate B30"
+            ],
+            path: ["Algorithm", "autoISF"]
         ),
         SettingItem(
             title: "Target Behavior",
@@ -243,7 +270,8 @@ enum SettingItems {
                 "Fat and Protein Delay",
                 "Spread Interval",
                 "Fat and Protein Percentage",
-                "FPU"
+                "FPU",
+                "Rescue Carbs"
             ],
             scrollTargetLabels: [
                 "Max Fat": "Enable Fat and Protein Entries",
@@ -253,6 +281,12 @@ enum SettingItems {
                 "Fat and Protein Percentage": "Enable Fat and Protein Entries",
                 "FPU": "Enable Fat and Protein Entries"
             ],
+            path: ["Features", "Treatments", "Meal Settings"]
+        ),
+        SettingItem(
+            title: "Meal Photo Analysis",
+            view: .mealPhotoSettings,
+            searchContents: ["Photo", "Camera", "AI", "Claude", "OpenAI", "Gemini", "API Key"],
             path: ["Features", "Treatments", "Meal Settings"]
         ),
         SettingItem(
@@ -271,6 +305,7 @@ enum SettingItems {
             title: "User Interface",
             view: .userInterfaceSettings,
             searchContents: [
+                "Header Above the Chart",
                 "Show X-Axis Grid Lines",
                 "Show Y-Axis Grid Lines",
                 "Show Low and High Thresholds",
@@ -434,8 +469,27 @@ enum SettingItems {
         SettingItem(title: "Apple Health", view: .healthkit, path: ["Services"])
     ]
 
+    static let backupItems = [
+        SettingItem(
+            title: "Backup & Restore",
+            view: .backupRestore,
+            searchContents: ["Backup", "Restore", "Automatic Backup", "iCloud"],
+            path: ["Trio Backup"]
+        )
+    ]
+
+    static let analysisItems = [
+        SettingItem(
+            title: "AI Therapy Report",
+            view: .aiReport,
+            searchContents: ["AI", "Analysis", "Report", "Basal", "Hypoglycemia", "Claude", "OpenAI", "Gemini"],
+            path: ["Analysis"]
+        )
+    ]
+
     static var allItems: [SettingItem] {
-        trioConfig + devicesItems + therapyItems + algorithmItems + trioFeaturesItems + notificationItems + serviceItems
+        trioConfig + devicesItems + therapyItems + algorithmItems + trioFeaturesItems + notificationItems + serviceItems +
+            backupItems + analysisItems
     }
 
     static func filteredItems(searchText: String) -> [FilteredSettingItem] {

@@ -32,6 +32,10 @@ protocol DeviceDataManager {
     func updatePumpBLEHeartbeat(lastCGMReadingDate: Date?, expectedCGMReadingInterval: TimeInterval?)
     func updateCGMHeartbeatCapability(providesBLEHeartbeat: Bool)
     func createBolusProgressReporter() -> DoseProgressReporter?
+    /// Saved state of the paired pump, for the settings backup (nil without a pump).
+    var pumpManagerRawState: PumpManager.RawValue? { get }
+    /// Sets up the pump from a saved state when none is set up; false when that is not possible.
+    func restorePumpManager(rawValue: PumpManager.RawValue) -> Bool
     var alertHistoryStorage: AlertHistoryStorage! { get }
 }
 
@@ -96,8 +100,9 @@ final class BaseDeviceDataManager: DeviceDataManager, Injectable {
                 pumpName.send(pumpManager.localizedTitle)
 
                 var modifiedPreferences = settingsManager.preferences
+                let concentration = settingsManager.settings.pumpInsulinConcentration
                 let bolusIncrement = Decimal(
-                    pumpManager.supportedBolusVolumes.first ??
+                    pumpManager.supportedBolusVolumes(concentration: concentration).first ??
                         Double(
                             settingsManager.preferences
                                 .bolusIncrement
@@ -119,7 +124,7 @@ final class BaseDeviceDataManager: DeviceDataManager, Injectable {
                 )
 
                 processQueue.async {
-                    pumpManager.syncDeliveryLimits(limits: deliveryLimits) { result in
+                    pumpManager.syncDeliveryLimits(actualLimits: deliveryLimits, concentration: concentration) { result in
                         if case let .failure(error) = result {
                             debug(.deviceManager, "syncDeliveryLimits on pump manager init failed: \(error)")
                         }
@@ -153,10 +158,14 @@ final class BaseDeviceDataManager: DeviceDataManager, Injectable {
                 if let simulatorPump = pumpManager as? MockPumpManager {
                     pumpDisplayState.value = PumpDisplayState(name: simulatorPump.localizedTitle, image: simulatorPump.smallImage)
                     pumpName.send(simulatorPump.localizedTitle)
-                    storage.save(Decimal(simulatorPump.pumpReservoirCapacity), as: OpenAPS.Monitor.reservoir)
+                    storage.save(
+                        concentration.fromPump(Decimal(simulatorPump.pumpReservoirCapacity)),
+                        as: OpenAPS.Monitor.reservoir
+                    )
+                    let reservoir = concentration.fromPump(Decimal(simulatorPump.state.reservoirUnitsRemaining))
                     DispatchQueue.main.async {
                         self.broadcaster.notify(PumpReservoirObserver.self, on: .main) {
-                            $0.pumpReservoirDidChange(Decimal(simulatorPump.state.reservoirUnitsRemaining))
+                            $0.pumpReservoirDidChange(reservoir)
                         }
                     }
                     // Seed the battery row so the simulator shows one before its first status
@@ -239,6 +248,17 @@ final class BaseDeviceDataManager: DeviceDataManager, Injectable {
         } else {
             pumpManager = nil
         }
+    }
+
+    var pumpManagerRawState: PumpManager.RawValue? {
+        pumpManager == nil ? nil : rawPumpManager
+    }
+
+    func restorePumpManager(rawValue: PumpManager.RawValue) -> Bool {
+        guard pumpManager == nil, let restored = pumpManagerFromRawValue(rawValue) else { return false }
+        // the setter wires the delegate, persists the state and syncs the delivery limits
+        pumpManager = restored
+        return true
     }
 
     func createBolusProgressReporter() -> DoseProgressReporter? {
@@ -471,10 +491,13 @@ extension BaseDeviceDataManager: PumpManagerDelegate {
         }
         manualTempBasal.send(manualTempBasalActive)
 
+        let concentration = settingsManager.settings.pumpInsulinConcentration
+
         if let medtrumPump = pumpManager as? MedtrumPumpManager {
-            storage.save(Decimal(medtrumPump.state.reservoir), as: OpenAPS.Monitor.reservoir)
+            let reservoir = concentration.fromPump(Decimal(medtrumPump.state.reservoir))
+            storage.save(reservoir, as: OpenAPS.Monitor.reservoir)
             broadcaster.notify(PumpReservoirObserver.self, on: processQueue) {
-                $0.pumpReservoirDidChange(Decimal(medtrumPump.state.reservoir))
+                $0.pumpReservoirDidChange(reservoir)
             }
 
             // Medtrum's state.patchExpiresAt is actually lifespan + grace
@@ -497,11 +520,12 @@ extension BaseDeviceDataManager: PumpManagerDelegate {
         if let omni = pumpManager as? OmniPumpManager {
             let reservoirVal = omni.state.podState?.lastInsulinMeasurements?.reservoirLevel ?? 0xDEAD_BEEF
             // TODO: find the value Pod.maximumReservoirReading
-            let reservoir = Decimal(reservoirVal) > 50.0 ? 0xDEAD_BEEF : reservoirVal
+            // the 50 U "unknown" threshold is a pod (pump-unit) reading, so check before converting
+            let reservoir = Decimal(reservoirVal) > 50.0 ? Decimal(0xDEAD_BEEF) : concentration.fromPump(Decimal(reservoirVal))
 
-            storage.save(Decimal(reservoir), as: OpenAPS.Monitor.reservoir)
+            storage.save(reservoir, as: OpenAPS.Monitor.reservoir)
             broadcaster.notify(PumpReservoirObserver.self, on: processQueue) {
-                $0.pumpReservoirDidChange(Decimal(reservoir))
+                $0.pumpReservoirDidChange(reservoir)
             }
 
             guard let endTime = omni.state.podState?.expiresAt else {
@@ -516,8 +540,9 @@ extension BaseDeviceDataManager: PumpManagerDelegate {
         }
 
         if let simulatorPump = pumpManager as? MockPumpManager {
+            let reservoir = concentration.fromPump(Decimal(simulatorPump.state.reservoirUnitsRemaining))
             broadcaster.notify(PumpReservoirObserver.self, on: processQueue) {
-                $0.pumpReservoirDidChange(Decimal(simulatorPump.state.reservoirUnitsRemaining))
+                $0.pumpReservoirDidChange(reservoir)
             }
         }
     }
@@ -550,8 +575,11 @@ extension BaseDeviceDataManager: PumpManagerDelegate {
         pumpEventsTask = Task { [previousBatch = pumpEventsTask] in
             await previousBatch?.value
             do {
+                // The pump reports doses in pump units; from here on everything is in actual insulin units.
+                let concentration = settingsManager.settings.pumpInsulinConcentration
+                let convertedEvents = events.map { $0.convertedFromPump(concentration: concentration) }
                 // filter buggy TBRs > maxBasal from MDT
-                let events = events.filter {
+                let events = convertedEvents.filter {
                     // type is optional...
                     guard let type = $0.type, type == .tempBasal else { return true }
                     return $0.dose?.unitsPerHour ?? 0 <= Double(settingsManager.pumpSettings.maxBasal)
@@ -589,10 +617,11 @@ extension BaseDeviceDataManager: PumpManagerDelegate {
         >) -> Void
     ) {
         dispatchPrecondition(condition: .onQueue(processQueue))
-        debug(.deviceManager, "Reservoir Value \(units), at: \(date)")
-        storage.save(Decimal(units), as: OpenAPS.Monitor.reservoir)
+        let reservoir = settingsManager.settings.pumpInsulinConcentration.fromPump(Decimal(units))
+        debug(.deviceManager, "Reservoir Value \(units) pump U = \(reservoir) U, at: \(date)")
+        storage.save(reservoir, as: OpenAPS.Monitor.reservoir)
         broadcaster.notify(PumpReservoirObserver.self, on: processQueue) {
-            $0.pumpReservoirDidChange(Decimal(units))
+            $0.pumpReservoirDidChange(reservoir)
         }
 
         completion(.success((

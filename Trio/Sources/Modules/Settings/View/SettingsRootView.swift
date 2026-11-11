@@ -51,7 +51,6 @@ extension Settings {
         )
         @State private var dosingModeDisabled = true
         @State private var showCopiedToast = false
-        @ObservedObject private var releaseNotesService = ReleaseNotesService.shared
 
         @Environment(\.colorScheme) var colorScheme
         @EnvironmentObject var appIcons: Icons
@@ -281,7 +280,7 @@ extension Settings {
                     .listRowBackground(Color.chart)
 
                     Section(
-                        header: Text("Support & Community"),
+                        header: Text("Support"),
                         content: {
                             Button {
                                 showShareSheet.toggle()
@@ -296,96 +295,16 @@ extension Settings {
                                 }
                             }
                             .frame(maxWidth: .infinity, alignment: .leading)
-
-                            Button {
-                                if let url = URL(string: "https://github.com/nightscout/Trio/issues/new/choose") {
-                                    UIApplication.shared.open(url)
-                                }
-                            } label: {
-                                HStack {
-                                    Text("Submit Ticket on GitHub")
-                                        .foregroundColor(.primary)
-                                    Spacer()
-                                    Image(systemName: "chevron.right")
-                                        .foregroundColor(.secondary)
-                                        .font(.footnote)
-                                }
-                            }
-                            .frame(maxWidth: .infinity, alignment: .leading)
-
-                            Button {
-                                if let url = URL(string: "https://discord.triodocs.org") {
-                                    UIApplication.shared.open(url)
-                                }
-                            } label: {
-                                HStack {
-                                    Text("Trio Discord")
-                                        .foregroundColor(.primary)
-                                    Spacer()
-                                    Image(systemName: "chevron.right")
-                                        .foregroundColor(.secondary)
-                                        .font(.footnote)
-                                }
-                            }
-                            .frame(maxWidth: .infinity, alignment: .leading)
-
-                            Button {
-                                if let url = URL(string: "https://facebook.triodocs.org") {
-                                    UIApplication.shared.open(url)
-                                }
-                            } label: {
-                                HStack {
-                                    Text("Trio Facebook")
-                                        .foregroundColor(.primary)
-                                    Spacer()
-                                    Image(systemName: "chevron.right")
-                                        .foregroundColor(.secondary)
-                                        .font(.footnote)
-                                }
-                            }
-                            .frame(maxWidth: .infinity, alignment: .leading)
                         }
                     ).listRowBackground(Color.chart)
 
-                    if !releaseNotesService.releases.isEmpty {
-                        Section(
-                            header: Text("Release Notes"),
-                            content: {
-                                if let current = releaseNotesService.notes {
-                                    NavigationLink(destination: ReleaseNotesDetailView(notes: current)) {
-                                        HStack {
-                                            VStack(alignment: .leading, spacing: 2) {
-                                                Text(current.name)
-                                                    .foregroundColor(.primary)
-
-                                                Text(
-                                                    "Current release",
-                                                    comment: "Marks the release notes entry matching the running build"
-                                                )
-                                                .font(.caption)
-                                                .foregroundColor(.secondary)
-                                            }
-
-                                            Spacer()
-
-                                            Text(current.publishedDateString)
-                                                .font(.caption)
-                                                .foregroundColor(.secondary)
-                                        }
-                                    }
-                                }
-
-                                if !releaseNotesService.previousReleases.isEmpty {
-                                    NavigationLink(
-                                        destination: ReleaseNotesListView(releases: releaseNotesService.previousReleases)
-                                    ) {
-                                        Text("Release Notes")
-                                            .foregroundColor(.primary)
-                                    }
-                                }
-                            }
-                        ).listRowBackground(Color.chart)
-                    }
+                    Section(
+                        header: Text("Analysis"),
+                        content: {
+                            Text("AI Therapy Report")
+                                .navigationLink(to: .aiReport, from: self)
+                        }
+                    ).listRowBackground(Color.chart)
 
                     Section(
                         header: Text("Trio Backup"),
@@ -395,6 +314,8 @@ extension Settings {
                                 comment: "Export Settings menu item in Trio Settings Root View"
                             ))
                                 .navigationLink(to: .settingsExport, from: self)
+                            Text("Backup & Restore")
+                                .navigationLink(to: .backupRestore, from: self)
                         }
                     ).listRowBackground(Color.chart)
 
@@ -455,9 +376,6 @@ extension Settings {
                 ShareSheet(activityItems: state.logItems())
             }
             .onAppear(perform: configureView)
-            .task {
-                await releaseNotesService.load()
-            }
             .navigationTitle("Settings")
             .navigationBarTitleDisplayMode(.automatic)
             .toolbar {
