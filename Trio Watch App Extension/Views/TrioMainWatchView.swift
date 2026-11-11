@@ -62,30 +62,13 @@ struct TrioMainWatchView: View {
     var body: some View {
         NavigationStack(path: $navigationPath) {
             TabView(selection: $currentPage) {
-                // Page 1: Current glucose trend in "BG bobble"
-                ZStack {
-                    GlucoseTrendView(
-                        state: state,
-                        rotationDegrees: rotationDegrees,
-                        isWatchStateDated: isWatchStateDated || isSessionUnreachable
-                    )
-
-                    if state.showSyncingAnimation {
-                        Image(systemName: "iphone.radiowaves.left.and.right")
-                            .symbolRenderingMode(.palette)
-                            .foregroundStyle(Color.primary, Color.tabBar, Color.clear)
-                            .symbolEffect(
-                                .variableColor.iterative,
-                                options: .repeating,
-                                value: state.showSyncingAnimation
-                            )
-                            .position(
-                                x: 20,
-                                y: (WKInterfaceDevice.current().screenBounds.height / 4) -
-                                    7 // Font .body == 14, so half of default size for the SF Symbol image
-                            )
-                    }
-                }.tag(0)
+                // Page 1: watch face with corner gauges (glucose, COB, loop; IOB in the toolbar)
+                WatchDialView(
+                    state: state,
+                    rotationDegrees: rotationDegrees,
+                    isWatchStateDated: isWatchStateDated || isSessionUnreachable
+                )
+                .tag(0)
 
                 // Page 2: Glucose chart
                 GlucoseChartView(
@@ -110,27 +93,7 @@ struct TrioMainWatchView: View {
             }
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
-                    VStack {
-                        Image(systemName: "syringe.fill")
-                            .foregroundStyle(Color.insulin)
-
-                        Text(isWatchStateDated || isSessionUnreachable ? "--" : state.iob ?? "--")
-                            .foregroundStyle(isWatchStateDated ? Color.secondary : Color.white)
-                            .frame(alignment: .leading)
-                            .minimumScaleFactor(0.5)
-                    }.font(.caption2)
-                }
-
-                ToolbarItem(placement: .topBarTrailing) {
-                    VStack {
-                        Image(systemName: "fork.knife")
-                            .foregroundStyle(Color.orange)
-
-                        Text(isWatchStateDated || isSessionUnreachable ? "--" : state.cob ?? "--")
-                            .foregroundStyle(isWatchStateDated || isSessionUnreachable ? Color.secondary : Color.white)
-                            .frame(alignment: .trailing)
-                            .minimumScaleFactor(0.5)
-                    }.font(.caption2)
+                    WatchIOBGauge(state: state, isWatchStateDated: isWatchStateDated || isSessionUnreachable)
                 }
 
                 ToolbarItemGroup(placement: .bottomBar) {

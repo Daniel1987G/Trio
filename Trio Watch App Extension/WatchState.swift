@@ -22,6 +22,10 @@ import WatchConnectivity
     var glucoseValues: [(date: Date, glucose: Double, color: Color)] = []
     var minYAxisValue: Decimal = 39
     var maxYAxisValue: Decimal = 200
+    /// Target range limits and unit from the phone; used by the target range arc.
+    var lowGlucose: Decimal = 70
+    var highGlucose: Decimal = 180
+    var isMmolL: Bool = false
     var cob: String? = "--"
     var iob: String? = "--"
     var lastLoopTime: String? = "--"
@@ -511,6 +515,18 @@ import WatchConnectivity
             if let decimalValue = (maxYAxisValue as? NSNumber)?.decimalValue {
                 self.maxYAxisValue = decimalValue
             }
+        }
+
+        if let low = (message[WatchMessageKeys.lowGlucose] as? NSNumber)?.decimalValue {
+            lowGlucose = low
+        }
+
+        if let high = (message[WatchMessageKeys.highGlucose] as? NSNumber)?.decimalValue {
+            highGlucose = high
+        }
+
+        if let units = message[WatchMessageKeys.units] as? String {
+            isMmolL = units.lowercased().contains("mmol")
         }
 
         if let overrideData = message[WatchMessageKeys.overridePresets] as? [[String: Any]] {

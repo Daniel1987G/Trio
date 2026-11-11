@@ -347,6 +347,8 @@ final class BaseWatchManager: NSObject, WCSessionDelegate, Injectable, WatchMana
 
                 // Set units
                 watchState.units = self.units
+                watchState.lowGlucose = self.units == .mmolL ? self.lowGlucose.asMmolL : self.lowGlucose
+                watchState.highGlucose = self.units == .mmolL ? self.highGlucose.asMmolL : self.highGlucose
 
                 // Add limits and pump specific dosing increment settings values
                 watchState.maxBolus = self.settingsManager.pumpSettings.maxBolus
@@ -526,6 +528,8 @@ final class BaseWatchManager: NSObject, WCSessionDelegate, Injectable, WatchMana
             },
             WatchMessageKeys.minYAxisValue: state.minYAxisValue,
             WatchMessageKeys.maxYAxisValue: state.maxYAxisValue,
+            WatchMessageKeys.lowGlucose: state.lowGlucose,
+            WatchMessageKeys.highGlucose: state.highGlucose,
             WatchMessageKeys.overridePresets: state.overridePresets.map { preset in
                 [
                     "name": preset.name,
