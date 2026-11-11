@@ -7,6 +7,9 @@ enum HomeLayout {
     static let headerHeight: CGFloat = 172
     /// meal panel slot (IOB / COB / delivery rate)
     static let mealSlotHeight: CGFloat = 44
+    /// space between the header (meal slot) and the chart, in both header styles; the chart
+    /// gives up exactly this much height, so nothing below it moves
+    static let chartTopGap: CGFloat = 12
     /// shared slot for adjustment panel and bolus progress (was 8% of screen height)
     static let bottomPanelHeight: CGFloat = 60
     /// stats banner slot below the adjustment panel (multi-use panel later)

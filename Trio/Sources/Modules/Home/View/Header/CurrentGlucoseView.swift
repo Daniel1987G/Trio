@@ -377,6 +377,23 @@ struct CurrentGlucoseView: View {
     }
 
     private func glucoseColor(for glucoseValue: Int16) -> Color {
+        Self.glucoseColor(
+            for: glucoseValue,
+            lowGlucose: lowGlucose,
+            highGlucose: highGlucose,
+            targetGlucose: currentGlucoseTarget,
+            scheme: glucoseColorScheme
+        )
+    }
+
+    /// Shared with the bento header.
+    static func glucoseColor(
+        for glucoseValue: Int16,
+        lowGlucose: Decimal,
+        highGlucose: Decimal,
+        targetGlucose: Decimal,
+        scheme glucoseColorScheme: GlucoseColorScheme
+    ) -> Color {
         // TODO: workaround for now: set low value to 55, to have dynamic color shades between 55 and user-set low (approx. 70); same for high glucose
         let hardCodedLow = Decimal(55)
         let hardCodedHigh = Decimal(220)
@@ -388,7 +405,7 @@ struct CurrentGlucoseView: View {
             glucoseValue: Decimal(glucoseValue),
             highGlucoseColorValue: isDynamicColorScheme ? hardCodedHigh : highGlucose,
             lowGlucoseColorValue: isDynamicColorScheme ? hardCodedLow : lowGlucose,
-            targetGlucose: currentGlucoseTarget,
+            targetGlucose: targetGlucose,
             glucoseColorScheme: glucoseColorScheme
         )
     }

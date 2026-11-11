@@ -17,6 +17,7 @@ extension UserInterfaceSettings {
         @State private var displayPickerHighThreshold: Bool = false
 
         @AppStorage("colorSchemePreference") private var colorSchemePreference: ColorSchemeOption = .systemDefault
+        @AppStorage(HomeHeaderStyle.storageKey) private var headerStyle: HomeHeaderStyle = .bento
 
         @Environment(\.colorScheme) var colorScheme
         @Environment(AppState.self) var appState
@@ -170,6 +171,20 @@ extension UserInterfaceSettings {
                 Section(
                     header: Text("Home View Settings"),
                     content: {
+                        VStack(alignment: .leading) {
+                            Picker("Header Above the Chart", selection: $headerStyle) {
+                                ForEach(HomeHeaderStyle.allCases) { style in
+                                    Text(style.displayName).tag(style)
+                                }
+                            }
+                            Text(
+                                "Tiles: glucose, loop, IOB and COB as tiles, pump and forecast in the row below. Classic: the original layout."
+                            )
+                            .font(.footnote)
+                            .foregroundColor(.secondary)
+                            .fixedSize(horizontal: false, vertical: true)
+                        }.padding(.vertical)
+
                         VStack {
                             Toggle("Show X-Axis Grid Lines", isOn: $state.xGridLines)
                             Toggle("Show Y-Axis Grid Lines", isOn: $state.yGridLines).padding(.top)
