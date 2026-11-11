@@ -116,7 +116,9 @@ extension Home.RootView {
             activatedAtDate: state.pumpActivatedAtDate,
             timerDate: state.timerDate,
             pumpStatusHighlightMessage: state.pumpStatusHighlightMessage,
-            battery: state.batteryFromPersistence
+            battery: state.batteryFromPersistence,
+            insulinConcentration: state.pumpInsulinConcentration,
+            insulinConcentrationSyncPending: state.pumpInsulinConcentrationSyncPending
         )
         .onTapGesture {
             if state.pumpDisplayState == nil {

@@ -8,6 +8,7 @@ extension NightscoutConfig {
     final class Provider: BaseProvider, NightscoutConfigProvider {
         private let processQueue = DispatchQueue(label: "NightscoutConfigProvider.processQueue")
         @Injected() private var broadcaster: Broadcaster!
+        @Injected() private var settingsManager: SettingsManager!
 
         func checkConnection(url: URL, secret: String?) -> AnyPublisher<Void, Error> {
             NightscoutAPI(url: url, secret: secret).checkConnection()
@@ -39,7 +40,11 @@ extension NightscoutConfig {
             )
             return Future { promise in
                 self.processQueue.async {
-                    pump.syncDeliveryLimits(limits: limits) { result in
+                    // limits are in actual units; the pump gets (and reports back) pump units
+                    pump.syncDeliveryLimits(
+                        actualLimits: limits,
+                        concentration: self.settingsManager.settings.pumpInsulinConcentration
+                    ) { result in
                         switch result {
                         case let .success(actual):
                             // Store the limits from the pumpManager to ensure the correct values

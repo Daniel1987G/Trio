@@ -97,6 +97,7 @@ extension PumpConfig {
                     PumpSetupView(
                         pumpEntry: pumpEntry,
                         pumpInitialSettings: state.initialSettings,
+                        insulinConcentration: state.settingsManager.settings.pumpInsulinConcentration,
                         bluetoothManager: state.provider.apsManager.bluetoothManager!,
                         completionDelegate: state,
                         setupDelegate: state

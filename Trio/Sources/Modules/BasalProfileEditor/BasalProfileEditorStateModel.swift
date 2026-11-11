@@ -18,6 +18,9 @@ extension BasalProfileEditor {
         let timeValues = stride(from: 0.0, to: 1.days.timeInterval, by: 30.minutes.timeInterval).map { $0 }
 
         private(set) var rateValues: [Decimal] = []
+        /// Stored rates that the pump cannot deliver (e.g. 0.05 U/h steps with U200 insulin) and that were
+        /// shown rounded down to the nearest deliverable rate. Saving writes the rounded values.
+        var adjustedRateCount: Int = 0
 
         var canAdd: Bool {
             guard let lastItem = items.last else { return true }
@@ -50,15 +53,27 @@ extension BasalProfileEditor {
         override func subscribe() {
             rateValues = provider.supportedBasalRates ?? stride(from: 5.0, to: 1001.0, by: 5.0)
                 .map { ($0.decimal ?? .zero) / 100 }
+            var adjusted = 0
             items = provider.profile.map { value in
                 let timeIndex = timeValues.firstIndex(of: Double(value.minutes * 60)) ?? 0
-                let rateIndex = rateValues.firstIndex(of: value.rate) ?? 0
+                let rateIndex = rateIndex(for: value.rate)
+                if rateValues.indices.contains(rateIndex), rateValues[rateIndex] != value.rate { adjusted += 1 }
                 return Item(rateIndex: rateIndex, timeIndex: timeIndex)
             }
+            adjustedRateCount = adjusted
 
-            initialItems = items.map { Item(rateIndex: $0.rateIndex, timeIndex: $0.timeIndex) }
+            // With adjusted rates the editor differs from what is stored, so offer saving right away.
+            initialItems = adjusted > 0 ? [] : items.map { Item(rateIndex: $0.rateIndex, timeIndex: $0.timeIndex) }
 
             calcTotal()
+        }
+
+        /// Index of `rate` in `rateValues`; a rate that is not in the table maps to the largest smaller one
+        /// (never more insulin than stored), or to the smallest non-zero rate. Previously it fell back to index 0.
+        private func rateIndex(for rate: Decimal) -> Int {
+            if let exact = rateValues.firstIndex(of: rate) { return exact }
+            if let lower = rateValues.lastIndex(where: { $0 > 0 && $0 <= rate }) { return lower }
+            return rateValues.firstIndex(where: { $0 > 0 }) ?? 0
         }
 
         func calcTotal() {

@@ -12,6 +12,7 @@ extension UnitsLimitsSettings {
     final class Provider: BaseProvider, UnitsLimitsSettingsProvider {
         private let processQueue = DispatchQueue(label: "UnitsLimitsSettingsProvider.processQueue")
         @Injected() private var broadcaster: Broadcaster!
+        @Injected() private var settingsManager: SettingsManager!
 
         func settings() -> PumpSettings {
             storage.retrieve(OpenAPS.Settings.settings, as: PumpSettings.self)
@@ -39,7 +40,11 @@ extension UnitsLimitsSettings {
             )
             return Future { promise in
                 self.processQueue.async {
-                    pump.syncDeliveryLimits(limits: limits) { result in
+                    // limits are in actual units; the pump gets (and reports back) pump units
+                    pump.syncDeliveryLimits(
+                        actualLimits: limits,
+                        concentration: self.settingsManager.settings.pumpInsulinConcentration
+                    ) { result in
                         switch result {
                         case let .success(actual):
                             // Store the limits from the pumpManager to ensure the correct values
