@@ -14,7 +14,7 @@ struct PulsingLogoAnimation: View {
     @Environment(\.accessibilityReduceMotion) var reduceMotion
 
     var body: some View {
-        Image("trioCircledNoBackground")
+        Image("insulinLoopLogo")
             .resizable()
             .scaledToFit()
             .frame(height: 100)
