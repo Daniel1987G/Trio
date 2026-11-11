@@ -11,7 +11,7 @@ struct LiveActivityBGLabelView: View {
         Text(context.state.bg)
             .fontWeight(.bold)
             .font(.title3)
-            .foregroundStyle(context.isStale ? .secondary : glucoseColor)
+            .foregroundStyle(context.isStale ? .secondary : context.state.glucoseTextColor(fallback: glucoseColor))
             .strikethrough(context.isStale, pattern: .solid, color: .red.opacity(0.6))
     }
 }

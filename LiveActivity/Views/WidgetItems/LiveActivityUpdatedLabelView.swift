@@ -22,7 +22,7 @@ struct LiveActivityUpdatedLabelView: View {
             dateText
                 .font(.subheadline)
                 .bold()
-                .foregroundStyle(context.isStale ? .red.opacity(0.6) : .secondary)
+                .foregroundStyle(context.isStale ? .red.opacity(0.6) : context.state.elementColor(.updated, fallback: .secondary))
                 .strikethrough(context.isStale, pattern: .solid, color: .red.opacity(0.6))
 
         } else if isDetailedLayout {
@@ -30,23 +30,26 @@ struct LiveActivityUpdatedLabelView: View {
                 dateText
                     .font(.title3)
                     .bold()
-                    .foregroundStyle(context.isStale ? .red.opacity(0.6) : .primary)
+                    .foregroundStyle(context.isStale ? .red.opacity(0.6) : context.state.elementColor(.updated))
                     .strikethrough(context.isStale, pattern: .solid, color: .red.opacity(0.6))
 
                 Text("Updated")
                     .font(.subheadline)
-                    .foregroundStyle(.primary)
+                    .foregroundStyle(context.state.elementColor(.labels))
             }
         } else {
             HStack {
                 Text("Updated:")
                     .font(.subheadline)
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(context.state.elementColor(.labels, fallback: .secondary))
 
                 dateText
                     .font(.subheadline)
                     .bold()
-                    .foregroundStyle(context.isStale ? .red.opacity(0.6) : .secondary)
+                    .foregroundStyle(context.isStale ? .red.opacity(0.6) : context.state.elementColor(
+                        .updated,
+                        fallback: .secondary
+                    ))
                     .strikethrough(context.isStale, pattern: .solid, color: .red.opacity(0.6))
             }
         }

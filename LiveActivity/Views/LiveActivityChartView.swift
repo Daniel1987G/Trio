@@ -272,7 +272,7 @@ struct LiveActivityChartView: View {
             .symbolSize(16)
             .shadow(color: Color.black.opacity(0.25), radius: 2, x: 0, y: 0)
 
-            pointMark.foregroundStyle(pointMarkColor)
+            pointMark.foregroundStyle(context.state.colorSet.color(.chartPoints) ?? pointMarkColor)
         }
     }
 }

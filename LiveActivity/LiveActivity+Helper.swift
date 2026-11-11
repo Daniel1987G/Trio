@@ -70,8 +70,33 @@ extension NumberFormatter {
 }
 
 extension LiveActivityAttributes.ContentState {
+    /// User-chosen element colours (empty when none were chosen).
+    var colorSet: LiveActivityColors { colors ?? .default }
+
+    /// Glucose reading where the layout shows it plain (static scheme or "uncolored" items):
+    /// the user's colour if chosen, otherwise `fallback`.
+    func glucoseTextColor(fallback: Color) -> Color {
+        colorSet.color(.glucose) ?? fallback
+    }
+
+    /// Glucose reading in the places that are always coloured.
+    var glucoseTextColor: Color {
+        glucoseTextColor(fallback: glucoseColorScheme == "staticColor" ? .primary : glucoseColor)
+    }
+
+    /// Trend arrow and change: the user's colour if chosen, otherwise `fallback`.
+    func trendColor(fallback: Color) -> Color {
+        colorSet.color(.trend) ?? fallback
+    }
+
+    /// IOB, COB, TDD, time of reading and captions: the user's colour if chosen, otherwise `fallback`.
+    func elementColor(_ element: LiveActivityColors.Element, fallback: Color = .primary) -> Color {
+        colorSet.color(element) ?? fallback
+    }
+
     /// Color for the current glucose reading; reading, thresholds and target are all compared in mg/dL.
     var glucoseColor: Color {
+        if let custom = colorSet.color(.glucose) { return custom }
         let hasStaticColorScheme = glucoseColorScheme == "staticColor"
 
         // TODO: workaround for now: set low value to 55, to have dynamic color shades between 55 and user-set low (approx. 70); same for high glucose
@@ -193,25 +218,30 @@ func bgAndTrend(
     case .expanded: spacing = 3
     }
 
+    let readingColor = context.state.glucoseTextColor(fallback: hasStaticColorScheme ? .primary : glucoseColor)
+    let arrowColor = context.state.trendColor(fallback: readingColor)
+
     let stack = HStack(spacing: spacing) {
         Text(bgText)
-            .foregroundStyle(hasStaticColorScheme ? .primary : glucoseColor)
+            .foregroundStyle(readingColor)
             .strikethrough(context.isStale, pattern: .solid, color: .red.opacity(0.6))
         if let direction = directionText {
             let text = Text(direction)
             switch size {
             case .minimal:
                 let scaledText = text.scaleEffect(x: 0.7, y: 0.7, anchor: .leading)
-                scaledText.foregroundStyle(hasStaticColorScheme ? .primary : glucoseColor)
+                scaledText.foregroundStyle(arrowColor)
 
             case .compact:
                 text.scaleEffect(x: 0.8, y: 0.8, anchor: .leading).padding(.trailing, -3)
+                    .foregroundStyle(arrowColor)
 
             case .expanded:
                 text.scaleEffect(x: 0.7, y: 0.7, anchor: .leading).padding(.trailing, -5)
+                    .foregroundStyle(arrowColor)
             }
         }
-    }.foregroundStyle(hasStaticColorScheme ? .primary : glucoseColor)
+    }.foregroundStyle(readingColor)
         .strikethrough(context.isStale, pattern: .solid, color: .red.opacity(0.6))
 
     return (stack, characters)
@@ -246,14 +276,20 @@ extension View {
         }
     }
 
-    @ViewBuilder func addLiveActivityModifiers(isWatchOS: Bool, verticalPadding: CGFloat? = nil) -> some View {
-        modifier(LiveActivityModifiers(isWatchOS: isWatchOS, verticalPadding: verticalPadding))
+    @ViewBuilder func addLiveActivityModifiers(
+        isWatchOS: Bool,
+        verticalPadding: CGFloat? = nil,
+        background: Color? = nil
+    ) -> some View {
+        modifier(LiveActivityModifiers(isWatchOS: isWatchOS, verticalPadding: verticalPadding, background: background))
     }
 }
 
 struct LiveActivityModifiers: ViewModifier {
     let isWatchOS: Bool
     var verticalPadding: CGFloat? = nil
+    /// User-chosen banner background (lock screen only; the watch keeps black).
+    var background: Color? = nil
 
     func body(content: Content) -> some View {
         let defaultPadding: CGFloat = isWatchOS ? 10 : 14
@@ -268,7 +304,13 @@ struct LiveActivityModifiers: ViewModifier {
             // the interface style)
             // The colorScheme environment variable does work here, but BackgroundStyle gives us this functionality for free
             .foregroundStyle(Color.primary)
-            .background(BackgroundStyle.background.opacity(isWatchOS ? 1 : 0.4))
-            .activityBackgroundTint(isWatchOS ? .black : Color.clear)
+            .background {
+                if let background, !isWatchOS {
+                    background
+                } else {
+                    Rectangle().fill(BackgroundStyle.background.opacity(isWatchOS ? 1 : 0.4))
+                }
+            }
+            .activityBackgroundTint(isWatchOS ? .black : (background ?? Color.clear))
     }
 }

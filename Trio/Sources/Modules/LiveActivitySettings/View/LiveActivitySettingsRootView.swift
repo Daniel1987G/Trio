@@ -190,6 +190,18 @@ extension LiveActivitySettings {
                                     ).foregroundStyle(Color.accentColor)
                                 }
                             }
+
+                            NavigationLink(
+                                destination: LiveActivityColorsView(resolver: resolver, state: state)
+                            ) {
+                                HStack {
+                                    Text("Colours")
+                                    Spacer()
+                                    if !state.colors.isDefault {
+                                        Text("Customised").foregroundStyle(.secondary)
+                                    }
+                                }
+                            }.foregroundStyle(Color.accentColor)
                         }.listRowBackground(Color.chart)
 
                         Section {
