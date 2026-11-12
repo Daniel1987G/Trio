@@ -68,6 +68,23 @@ struct MealPhotoAnalysis: Codable, Equatable {
     static func fpu(fat: Decimal, protein: Decimal) -> Decimal {
         MealCarbType.fpu(fat: fat, protein: protein)
     }
+
+    /// Several photos of one meal (main dish, side, dessert): items and totals add up, the confidence is
+    /// the lowest one and the notes are kept. nil without any analysis.
+    static func combined(_ parts: [MealPhotoAnalysis]) -> MealPhotoAnalysis? {
+        guard let first = parts.first else { return nil }
+        guard parts.count > 1 else { return first }
+        let rank: [Confidence: Int] = [.low: 0, .medium: 1, .high: 2]
+        let notes = parts.compactMap(\.notes)
+        return MealPhotoAnalysis(
+            items: parts.flatMap(\.items),
+            carbs: parts.reduce(0) { $0 + $1.carbs },
+            fat: parts.reduce(0) { $0 + $1.fat },
+            protein: parts.reduce(0) { $0 + $1.protein },
+            confidence: parts.map(\.confidence).min { rank[$0, default: 0] < rank[$1, default: 0] } ?? .low,
+            notes: notes.isEmpty ? nil : notes.joined(separator: "\n")
+        )
+    }
 }
 
 // MARK: - Prompt and parsing

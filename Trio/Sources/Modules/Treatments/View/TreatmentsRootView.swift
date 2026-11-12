@@ -31,7 +31,7 @@ extension Treatments {
         @State private var showPhotoSourceDialog = false
         @State private var showCamera = false
         @State private var showPhotoLibrary = false
-        @State private var photoPickerItem: PhotosPickerItem?
+        @State private var photoPickerItems: [PhotosPickerItem] = []
         @State private var showMealPhotoSheet = false
         @State private var showMealPhotoSetupAlert = false
         /// Camera result, analyzed once the camera cover has gone (two modals cannot overlap).
@@ -762,27 +762,36 @@ extension Treatments {
                 }
                 .ignoresSafeArea()
             }
-            .photosPicker(isPresented: $showPhotoLibrary, selection: $photoPickerItem, matching: .images)
-            .onChange(of: photoPickerItem) {
-                guard let item = photoPickerItem else { return }
-                photoPickerItem = nil
-                Task {
-                    if let data = try? await item.loadTransferable(type: Data.self), let image = UIImage(data: data) {
-                        startMealPhotoAnalysis(image)
+            .photosPicker(
+                isPresented: $showPhotoLibrary,
+                selection: $photoPickerItems,
+                maxSelectionCount: MealPhotoAnalysisSheet.maxPhotos,
+                matching: .images
+            )
+            .onChange(of: photoPickerItems) {
+                let items = photoPickerItems
+                guard !items.isEmpty else { return }
+                photoPickerItems = []
+                Task { @MainActor in
+                    for item in items {
+                        if let data = try? await item.loadTransferable(type: Data.self), let image = UIImage(data: data) {
+                            startMealPhotoAnalysis(image)
+                        }
                     }
                 }
             }
             .sheet(isPresented: $showMealPhotoSheet, onDismiss: {
-                // closing the sheet without taking over the values discards the analysis
-                if case .result = state.mealPhotoState { state.mealPhotoState = .idle }
+                // closing the sheet without taking over the values discards the photos
+                state.discardMealPhotos()
             }) {
                 MealPhotoAnalysisSheet(
-                    photoState: state.mealPhotoState,
+                    parts: state.mealPhotoParts,
+                    combined: state.combinedMealPhotoAnalysis,
                     fatProteinEnabled: state.useFPUconversion,
                     onApply: { analysis in state.applyMealPhoto(analysis) },
-                    onRetry: {
-                        if let image = state.mealPhotoState.image { state.analyzeMealPhoto(image) }
-                    }
+                    onRetry: { id in state.retryMealPhoto(id) },
+                    onRemove: { id in state.removeMealPhoto(id) },
+                    onAddImage: { image in state.analyzeMealPhoto(image) }
                 )
             }
             .alert(String(localized: "Meal Photo Analysis"), isPresented: $showMealPhotoSetupAlert) {

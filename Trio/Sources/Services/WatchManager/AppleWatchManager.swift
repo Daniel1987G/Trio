@@ -34,8 +34,6 @@ final class BaseWatchManager: NSObject, WCSessionDelegate, Injectable, WatchMana
     private var highGlucose: Decimal = 180.0
     private var currentGlucoseTarget: Decimal = 100.0
     private var activeBolusAmount: Double = 0.0
-    /// Last background transfer that used the complication budget.
-    private var lastComplicationTransfer: Date?
 
     // Queue for handling Core Data change notifications
     private let queue = DispatchQueue(label: "BaseWatchManagerManager.queue", qos: .utility)
@@ -172,8 +170,7 @@ final class BaseWatchManager: NSObject, WCSessionDelegate, Injectable, WatchMana
     }
 
     /// Prepares the current state data to be sent to the Watch
-    /// - Returns: WatchState containing current glucose readings and trends and determination infos for displaying cob and iob in
-    /// the view
+    /// - Returns: WatchState containing current glucose readings and trends and determination infos for displaying cob and iob in the view
     func setupWatchState() async -> WatchState {
         // Check if a watch is paired and reachable before doing expensive calculations
         guard let session = session, session.isPaired, session.isReachable, session.isWatchAppInstalled else {
@@ -607,31 +604,11 @@ final class BaseWatchManager: NSObject, WCSessionDelegate, Injectable, WatchMana
             session.sendMessage([WatchMessageKeys.watchState: message], replyHandler: nil) { error in
                 debug(.watchManager, "❌ Error sending watch state: \(error)")
             }
-        } else if shouldUseComplicationTransfer(session) {
-            // A watch face shows our complication: this transfer wakes the watch app in the background so
-            // the complication updates; it has a daily budget (about 50), spread over the rest of the day.
-            session.transferCurrentComplicationUserInfo([WatchMessageKeys.watchState: message])
-            lastComplicationTransfer = Date()
-            debug(
-                .watchManager,
-                "📤 Transferred WatchState for the complication (\(session.remainingComplicationUserInfoTransfers) left today)"
-            )
         } else {
             session.transferUserInfo([WatchMessageKeys.watchState: message])
             debug(.watchManager, "📤 Transferred new WatchState snapshot via userInfo")
         }
         WatchStateSnapshot.saveLatestDateToDisk(state.date)
-    }
-
-    /// Spreads the complication budget evenly over the rest of the day (at least 5 minutes apart).
-    private func shouldUseComplicationTransfer(_ session: WCSession) -> Bool {
-        guard session.isComplicationEnabled else { return false }
-        let remaining = session.remainingComplicationUserInfoTransfers
-        guard remaining > 0 else { return false }
-        guard let last = lastComplicationTransfer else { return true }
-        let endOfDay = Calendar.current.startOfDay(for: Date()).addingTimeInterval(24 * 3600)
-        let spacing = max(5 * 60, endOfDay.timeIntervalSinceNow / Double(remaining))
-        return Date().timeIntervalSince(last) >= spacing
     }
 
     func sendAcknowledgment(toWatch success: Bool, message: String = "", ackCode: AcknowledgmentCode) {
@@ -1110,7 +1087,7 @@ extension BaseWatchManager: SettingsObserver, PumpSettingsObserver {
     // to update maxBolus
     func pumpSettingsDidChange(_: PumpSettings) {
         // Skip if no watch is paired or app not installed
-        guard let session = session, session.isPaired, session.isReachable, session.isWatchAppInstalled else { return }
+        guard let session = self.session, session.isPaired, session.isReachable, session.isWatchAppInstalled else { return }
         Task {
             let state = await self.setupWatchState()
             await self.sendDataToWatch(state)
@@ -1125,7 +1102,7 @@ extension BaseWatchManager: SettingsObserver, PumpSettingsObserver {
         highGlucose = settingsManager.settings.high
 
         // Skip if no watch is paired or app not installed
-        guard let session = session, session.isPaired, session.isReachable, session.isWatchAppInstalled else { return }
+        guard let session = self.session, session.isPaired, session.isReachable, session.isWatchAppInstalled else { return }
 
         Task {
             let state = await self.setupWatchState()

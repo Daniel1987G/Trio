@@ -7,7 +7,24 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		72B30B74EB28A35185B95793 /* GlucoseComplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36BD80A9B7D3FBEBF493E0F2 /* GlucoseComplication.swift */; };
+		99992A07F5827CEBFDD1D001 /* AutoISFIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ACAF8C9AC2E217A50BD990D /* AutoISFIntegrationTests.swift */; };
+		9B496D8E005ECA4079D8F520 /* AutoISFsmbTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CAE822B704823C22616F41 /* AutoISFsmbTests.swift */; };
+		CEFA5B6769AA3F2B3C834720 /* AutoISFTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37885C4D9B6EBF2DAFC4B08E /* AutoISFTests.swift */; };
+		7AE946A2815ED2D856154890 /* AutoISFAdjustTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8200A252E88232F22F3A89 /* AutoISFAdjustTests.swift */; };
+		2E55B5FE29F560A5F523742D /* AutoISFSettingsRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7F7495A4F97516627C48EB /* AutoISFSettingsRootView.swift */; };
+		94E41B3876D3D4521597F17F /* AutoISFSettingsStateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B171BD4CB53850C3F7CB3A7 /* AutoISFSettingsStateModel.swift */; };
+		F574CC123272163C1A89BCB8 /* AutoISFSettingsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B26774793BEF3BDFECFD5528 /* AutoISFSettingsProvider.swift */; };
+		EBC0F08C14333C0F9E89AD91 /* AutoISFSettingsDataFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9A871C104A15D1918D545D /* AutoISFSettingsDataFlow.swift */; };
+		2C9ABC9DE95B59CB8EB28856 /* OrefSubTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96648410A9D02848E3CB4287 /* OrefSubTimer.swift */; };
+		A91BC062360CE7B1FA9E6458 /* Profile+AutoISF.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56EEB5A351BD18BE480131A /* Profile+AutoISF.swift */; };
+		1172C11C2F90DFA51682CE5E /* AutoISFGlucoseStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26AD59A3008A6D39D5F0E29C /* AutoISFGlucoseStatus.swift */; };
+		5672ED675B5E88E5812C6891 /* AutoISFLoopContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43C75AA8ADC4734ABD364E7F /* AutoISFLoopContext.swift */; };
+		809701C3623631D683DC1D5F /* AimiB30.swift in Sources */ = {isa = PBXBuildFile; fileRef = DABE05F8D16C766C04C1E596 /* AimiB30.swift */; };
+		B85E37CC0E98764825C7DC57 /* AutoISFsmb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 214B8BB53A9A399439EA16B9 /* AutoISFsmb.swift */; };
+		E3DA1E55FF6002F6638D473A /* AutoISFReason.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B3BF20F3014B6256F8B4BC8 /* AutoISFReason.swift */; };
+		7F1DACDB8297C695FDBAD54E /* AutoISFGlucose+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BFBEFEAB7D56EB71DB14E55 /* AutoISFGlucose+Helpers.swift */; };
+		13FF910C0A01FB7D0F054648 /* AutoISFAdjust.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0EC0B0B5E12CC39A81854D /* AutoISFAdjust.swift */; };
+		CB63A5A693C838AA1DC9CD00 /* AutoISF.swift in Sources */ = {isa = PBXBuildFile; fileRef = F92A7DC27CDAFA75CA77667F /* AutoISF.swift */; };
 		A839C337A0954A98B6DE1103 /* SensitivityReportTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B92E941B0123A19FB3064C /* SensitivityReportTests.swift */; };
 		584DF0150F2E74F8166D5E7F /* SensitivityReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = E449FF7862B7DC79891C050E /* SensitivityReport.swift */; };
 		6DDF82CD19343784DE017ACA /* SensitivityReportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353A37BA07C6A4FAC1BEC35B /* SensitivityReportView.swift */; };
@@ -1263,9 +1280,24 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		4A5821B70D8833574E792658 /* TrioWatchComplication.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TrioWatchComplication.entitlements; sourceTree = "<group>"; };
-		AAE2696C19B40241AC6EC9EB /* TrioWatchApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TrioWatchApp.entitlements; sourceTree = "<group>"; };
-		36BD80A9B7D3FBEBF493E0F2 /* GlucoseComplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GlucoseComplication.swift"; sourceTree = "<group>"; };
+		6ACAF8C9AC2E217A50BD990D /* AutoISFIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AutoISFIntegrationTests.swift"; sourceTree = "<group>"; };
+		93CAE822B704823C22616F41 /* AutoISFsmbTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AutoISFsmbTests.swift"; sourceTree = "<group>"; };
+		37885C4D9B6EBF2DAFC4B08E /* AutoISFTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AutoISFTests.swift"; sourceTree = "<group>"; };
+		4E8200A252E88232F22F3A89 /* AutoISFAdjustTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AutoISFAdjustTests.swift"; sourceTree = "<group>"; };
+		4B7F7495A4F97516627C48EB /* AutoISFSettingsRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AutoISFSettingsRootView.swift"; sourceTree = "<group>"; };
+		7B171BD4CB53850C3F7CB3A7 /* AutoISFSettingsStateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AutoISFSettingsStateModel.swift"; sourceTree = "<group>"; };
+		B26774793BEF3BDFECFD5528 /* AutoISFSettingsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AutoISFSettingsProvider.swift"; sourceTree = "<group>"; };
+		3D9A871C104A15D1918D545D /* AutoISFSettingsDataFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AutoISFSettingsDataFlow.swift"; sourceTree = "<group>"; };
+		96648410A9D02848E3CB4287 /* OrefSubTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OrefSubTimer.swift"; sourceTree = "<group>"; };
+		F56EEB5A351BD18BE480131A /* Profile+AutoISF.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Profile+AutoISF.swift"; sourceTree = "<group>"; };
+		26AD59A3008A6D39D5F0E29C /* AutoISFGlucoseStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AutoISFGlucoseStatus.swift"; sourceTree = "<group>"; };
+		43C75AA8ADC4734ABD364E7F /* AutoISFLoopContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AutoISFLoopContext.swift"; sourceTree = "<group>"; };
+		DABE05F8D16C766C04C1E596 /* AimiB30.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AimiB30.swift"; sourceTree = "<group>"; };
+		214B8BB53A9A399439EA16B9 /* AutoISFsmb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AutoISFsmb.swift"; sourceTree = "<group>"; };
+		0B3BF20F3014B6256F8B4BC8 /* AutoISFReason.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AutoISFReason.swift"; sourceTree = "<group>"; };
+		0BFBEFEAB7D56EB71DB14E55 /* AutoISFGlucose+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AutoISFGlucose+Helpers.swift"; sourceTree = "<group>"; };
+		ED0EC0B0B5E12CC39A81854D /* AutoISFAdjust.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AutoISFAdjust.swift"; sourceTree = "<group>"; };
+		F92A7DC27CDAFA75CA77667F /* AutoISF.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AutoISF.swift"; sourceTree = "<group>"; };
 		D4B92E941B0123A19FB3064C /* SensitivityReportTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SensitivityReportTests.swift"; sourceTree = "<group>"; };
 		E449FF7862B7DC79891C050E /* SensitivityReport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SensitivityReport.swift"; sourceTree = "<group>"; };
 		353A37BA07C6A4FAC1BEC35B /* SensitivityReportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SensitivityReportView.swift"; sourceTree = "<group>"; };
@@ -2485,6 +2517,33 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D6417DA346CAFBDBE15CB1B5 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				4B7F7495A4F97516627C48EB /* AutoISFSettingsRootView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		7CDDBC4FD2BA75DB6CA6A46C /* AutoISFSettings */ = {
+			isa = PBXGroup;
+			children = (
+				D6417DA346CAFBDBE15CB1B5 /* View */,
+				7B171BD4CB53850C3F7CB3A7 /* AutoISFSettingsStateModel.swift */,
+				B26774793BEF3BDFECFD5528 /* AutoISFSettingsProvider.swift */,
+				3D9A871C104A15D1918D545D /* AutoISFSettingsDataFlow.swift */,
+			);
+			path = AutoISFSettings;
+			sourceTree = "<group>";
+		};
+		06821353AFE29C931B06C39C /* Logging */ = {
+			isa = PBXGroup;
+			children = (
+				96648410A9D02848E3CB4287 /* OrefSubTimer.swift */,
+			);
+			path = Logging;
+			sourceTree = "<group>";
+		};
 		0338D5F9EBA098351ACC7262 /* DiaExpert */ = {
 			isa = PBXGroup;
 			children = (
@@ -2772,6 +2831,7 @@
 		3811DE0325C9D31700A708ED /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				7CDDBC4FD2BA75DB6CA6A46C /* AutoISFSettings */,
 				D6B9C759C971C6DCD47B6183 /* AIReport */,
 				EAC7F0206652E90B7BA9CCE0 /* MealPhotoSettings */,
 				3314992A29C571DC8A6515B0 /* BackupRestore */,
@@ -3768,6 +3828,7 @@
 		3B5CD1EB2D4912A600CE213C /* OpenAPSSwift */ = {
 			isa = PBXGroup;
 			children = (
+				06821353AFE29C931B06C39C /* Logging */,
 				DD30B9C82E06295700DA677C /* Forecasts */,
 				DD30B9C52E0624C600DA677C /* DetermineBasal */,
 				3B139EF12DF06CD100D40797 /* Autosens */,
@@ -3785,6 +3846,7 @@
 		3B5CD2972D4AEA3C00CE213C /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				F56EEB5A351BD18BE480131A /* Profile+AutoISF.swift */,
 				3B5CD2912D4AEA3C00CE213C /* Basal.swift */,
 				3B5CD2922D4AEA3C00CE213C /* Carbs.swift */,
 				3B5CD2932D4AEA3C00CE213C /* Isf.swift */,
@@ -3823,6 +3885,7 @@
 		3B5CD2B22D4AEA6600CE213C /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				26AD59A3008A6D39D5F0E29C /* AutoISFGlucoseStatus.swift */,
 				DD30BA152E0780A500DA677C /* AdjustedGlucoseTargets.swift */,
 				DD30BA012E074F0F00DA677C /* GlucoseStatus.swift */,
 				DD30B9CB2E062A7000DA677C /* ForecastResult.swift */,
@@ -3838,6 +3901,10 @@
 		3B5CD2C72D4AECD500CE213C /* OpenAPSSwiftTests */ = {
 			isa = PBXGroup;
 			children = (
+				6ACAF8C9AC2E217A50BD990D /* AutoISFIntegrationTests.swift */,
+				93CAE822B704823C22616F41 /* AutoISFsmbTests.swift */,
+				37885C4D9B6EBF2DAFC4B08E /* AutoISFTests.swift */,
+				4E8200A252E88232F22F3A89 /* AutoISFAdjustTests.swift */,
 				3B1C5C3C2D68E269004E9273 /* json */,
 				FAB1E00000000000000000A0 /* Parity */,
 				3B1C5C3F2D68E269004E9273 /* utils */,
@@ -4507,7 +4574,6 @@
 		BDFF7AA12D25FAC70016C40C /* Trio Watch App */ = {
 			isa = PBXGroup;
 			children = (
-				AAE2696C19B40241AC6EC9EB /* TrioWatchApp.entitlements */,
 				DD09D6162D2A2E4A000D82C9 /* Assets.xcassets */,
 				BDFF7A902D25F97D0016C40C /* Info.plist */,
 				BDFF7A912D25F97D0016C40C /* TrioWatchApp.swift */,
@@ -4746,8 +4812,6 @@
 		DD09D6492D2B6253000D82C9 /* Trio Watch Complication */ = {
 			isa = PBXGroup;
 			children = (
-				4A5821B70D8833574E792658 /* TrioWatchComplication.entitlements */,
-				36BD80A9B7D3FBEBF493E0F2 /* GlucoseComplication.swift */,
 				DD09D6412D2B553A000D82C9 /* Assets.xcassets */,
 				DD09D6422D2B553A000D82C9 /* Info.plist */,
 				DD09D6432D2B553A000D82C9 /* TrioWatchComplication.swift */,
@@ -4869,6 +4933,13 @@
 		DD30B9C52E0624C600DA677C /* DetermineBasal */ = {
 			isa = PBXGroup;
 			children = (
+				43C75AA8ADC4734ABD364E7F /* AutoISFLoopContext.swift */,
+				DABE05F8D16C766C04C1E596 /* AimiB30.swift */,
+				214B8BB53A9A399439EA16B9 /* AutoISFsmb.swift */,
+				0B3BF20F3014B6256F8B4BC8 /* AutoISFReason.swift */,
+				0BFBEFEAB7D56EB71DB14E55 /* AutoISFGlucose+Helpers.swift */,
+				ED0EC0B0B5E12CC39A81854D /* AutoISFAdjust.swift */,
+				F92A7DC27CDAFA75CA77667F /* AutoISF.swift */,
 				DD30BA072E076CAA00DA677C /* DeterminationError.swift */,
 				DD30BA052E07667000DA677C /* DetermineBasal+Helpers.swift */,
 				DD30B9C62E06257300DA677C /* DetermineBasalGenerator.swift */,
@@ -5857,6 +5928,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2E55B5FE29F560A5F523742D /* AutoISFSettingsRootView.swift in Sources */,
+				94E41B3876D3D4521597F17F /* AutoISFSettingsStateModel.swift in Sources */,
+				F574CC123272163C1A89BCB8 /* AutoISFSettingsProvider.swift in Sources */,
+				EBC0F08C14333C0F9E89AD91 /* AutoISFSettingsDataFlow.swift in Sources */,
+				2C9ABC9DE95B59CB8EB28856 /* OrefSubTimer.swift in Sources */,
+				A91BC062360CE7B1FA9E6458 /* Profile+AutoISF.swift in Sources */,
+				1172C11C2F90DFA51682CE5E /* AutoISFGlucoseStatus.swift in Sources */,
+				5672ED675B5E88E5812C6891 /* AutoISFLoopContext.swift in Sources */,
+				809701C3623631D683DC1D5F /* AimiB30.swift in Sources */,
+				B85E37CC0E98764825C7DC57 /* AutoISFsmb.swift in Sources */,
+				E3DA1E55FF6002F6638D473A /* AutoISFReason.swift in Sources */,
+				7F1DACDB8297C695FDBAD54E /* AutoISFGlucose+Helpers.swift in Sources */,
+				13FF910C0A01FB7D0F054648 /* AutoISFAdjust.swift in Sources */,
+				CB63A5A693C838AA1DC9CD00 /* AutoISF.swift in Sources */,
 				584DF0150F2E74F8166D5E7F /* SensitivityReport.swift in Sources */,
 				6DDF82CD19343784DE017ACA /* SensitivityReportView.swift in Sources */,
 				5D6502A4184A35441A8A049B /* HomeStateModel+HeaderWidget.swift in Sources */,
@@ -6652,6 +6737,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				99992A07F5827CEBFDD1D001 /* AutoISFIntegrationTests.swift in Sources */,
+				9B496D8E005ECA4079D8F520 /* AutoISFsmbTests.swift in Sources */,
+				CEFA5B6769AA3F2B3C834720 /* AutoISFTests.swift in Sources */,
+				7AE946A2815ED2D856154890 /* AutoISFAdjustTests.swift in Sources */,
 				A839C337A0954A98B6DE1103 /* SensitivityReportTests.swift in Sources */,
 				02C884F869321104B6EF1D91 /* DynamicISFBadgeTests.swift in Sources */,
 				E19159CB59CE83109BE4B1BE /* HeaderWidgetSnapshotTests.swift in Sources */,
@@ -6788,7 +6877,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				72B30B74EB28A35185B95793 /* GlucoseComplication.swift in Sources */,
 				DD09D6462D2B553A000D82C9 /* TrioWatchComplication.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -7203,7 +7291,6 @@
 		BD8207D02D2B42E80023339D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = "Trio Watch Complication/TrioWatchComplication.entitlements";
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
@@ -7226,6 +7313,7 @@
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MARKETING_VERSION = 1.0;
+				CODE_SIGN_ENTITLEMENTS = "Trio Watch Complication/TrioWatchComplication.entitlements";
 				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_IDENTIFIER).watchkitapp.TrioWatchComplication";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
@@ -7241,7 +7329,6 @@
 		BD8207D12D2B42E80023339D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = "Trio Watch Complication/TrioWatchComplication.entitlements";
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
@@ -7264,6 +7351,7 @@
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MARKETING_VERSION = 1.0;
+				CODE_SIGN_ENTITLEMENTS = "Trio Watch Complication/TrioWatchComplication.entitlements";
 				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_IDENTIFIER).watchkitapp.TrioWatchComplication";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
@@ -7278,7 +7366,6 @@
 		BDFF79A12D25AA890016C40C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = "Trio Watch App/TrioWatchApp.entitlements";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -7301,6 +7388,7 @@
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MARKETING_VERSION = 1.0;
+				CODE_SIGN_ENTITLEMENTS = "Trio Watch App/TrioWatchApp.entitlements";
 				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_IDENTIFIER).watchkitapp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
@@ -7316,7 +7404,6 @@
 		BDFF79A22D25AA890016C40C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = "Trio Watch App/TrioWatchApp.entitlements";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -7339,6 +7426,7 @@
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MARKETING_VERSION = 1.0;
+				CODE_SIGN_ENTITLEMENTS = "Trio Watch App/TrioWatchApp.entitlements";
 				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_IDENTIFIER).watchkitapp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;

@@ -357896,52 +357896,1043 @@
         }
       }
     },
-    "OpenTrio Glucose" : {
+    "Photo" : {
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "OpenTrio Glukose"
+            "value" : "Foto"
           }
         }
       }
     },
-    "Glucose, trend and change; IOB and COB in the large version." : {
+    "Photos of the Meal" : {
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Glukose, Trend und Änderung; in der großen Variante auch IOB und COB."
+            "value" : "Fotos der Mahlzeit"
           }
         }
       }
     },
-    "Glucose with IOB and COB" : {
+    "Add Another Photo" : {
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Glukose mit IOB und COB"
+            "value" : "Weiteres Foto hinzufügen"
           }
         }
       }
     },
-    "Glucose only (large)" : {
+    "Remove Photo" : {
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Nur Glukose (groß)"
+            "value" : "Foto entfernen"
           }
         }
       }
     },
-    "Choose what the large complication shows." : {
+    "Photo %lld" : {
+      "comment" : "Meal photo number",
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Wähle, was die große Komplikation zeigt."
+            "value" : "Foto %lld"
+          }
+        }
+      }
+    },
+    "Several photos of one meal (e.g. main dish, side and dessert) are added up to one entry." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mehrere Fotos einer Mahlzeit (z. B. Hauptgericht, Beilage und Nachtisch) werden zu einem Eintrag addiert."
+          }
+        }
+      }
+    },
+    "Estimate (Sum of %lld Photos)" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Schätzung (Summe aus %lld Fotos)"
+          }
+        }
+      }
+    },
+    "Wait until all photos are analyzed." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Warte, bis alle Fotos analysiert sind."
+          }
+        }
+      }
+    },
+    "Photos that could not be analyzed are not counted. Try again or remove them." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fotos, die nicht analysiert werden konnten, werden nicht mitgezählt. Versuche es erneut oder entferne sie."
+          }
+        }
+      }
+    },
+    "Activate autoISF" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "autoISF aktivieren"
+          }
+        }
+      }
+    },
+    "Dynamic ISF is on. Turning on autoISF turns Dynamic ISF off." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dynamischer ISF ist an. Wenn du autoISF einschaltest, wird der dynamische ISF ausgeschaltet."
+          }
+        }
+      }
+    },
+    "Adapt the ISF to how high glucose is, how fast it rises and how long it stays high." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Passt den ISF daran an, wie hoch der Zucker ist, wie schnell er steigt und wie lange er hoch bleibt."
+          }
+        }
+      }
+    },
+    "Default: Off" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Standard: Aus"
+          }
+        }
+      }
+    },
+    "autoISF strengthens your ISF when glucose is above target and keeps rising or stays high, and weakens it below target. The factors below decide how much; the strongest one wins and is kept within autoISF Min and autoISF Max." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "autoISF verstärkt deinen ISF, wenn der Zucker über dem Ziel liegt und weiter steigt oder hoch bleibt, und schwächt ihn unter dem Ziel ab. Wie stark, bestimmen die Faktoren unten; der stärkste gewinnt und bleibt innerhalb von autoISF Min und autoISF Max."
+          }
+        }
+      }
+    },
+    "It also controls SMBs (iobTH, even/odd target) and offers the B30 boost basal after a meal bolus." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Außerdem steuert es die SMBs (iobTH, gerades/ungerades Ziel) und bietet nach einem Mahlzeitenbolus die B30-Boost-Basal."
+          }
+        }
+      }
+    },
+    "autoISF and Dynamic ISF exclude each other. Autosens keeps working alongside autoISF." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "autoISF und dynamischer ISF schließen sich gegenseitig aus. Autosens arbeitet neben autoISF weiter."
+          }
+        }
+      }
+    },
+    "Warning: autoISF changes your insulin dosing directly. Start with small weights, watch the reason in the loop status and change one setting at a time." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Warnung: autoISF verändert deine Insulindosierung direkt. Beginne mit kleinen Gewichten, beobachte die Begründung im Loop-Status und ändere jeweils nur eine Einstellung."
+          }
+        }
+      }
+    },
+    "autoISF Max" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "autoISF Max"
+          }
+        }
+      }
+    },
+    "Upper limit for the autoISF factor." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Obergrenze für den autoISF-Faktor."
+          }
+        }
+      }
+    },
+    "ISF Adaptation" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ISF-Anpassung"
+          }
+        }
+      }
+    },
+    "Default: 1.5" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Standard: 1,5"
+          }
+        }
+      }
+    },
+    "The ISF is divided by the autoISF factor: 1.5 turns an ISF of 45 into 30. This limits how much stronger the ISF can get." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Der ISF wird durch den autoISF-Faktor geteilt: 1,5 macht aus einem ISF von 45 einen von 30. Das begrenzt, wie viel stärker der ISF werden kann."
+          }
+        }
+      }
+    },
+    "autoISF Min" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "autoISF Min"
+          }
+        }
+      }
+    },
+    "Lower limit for the autoISF factor." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Untergrenze für den autoISF-Faktor."
+          }
+        }
+      }
+    },
+    "Default: 0.7" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Standard: 0,7"
+          }
+        }
+      }
+    },
+    "Limits how much weaker the ISF can get below target. 0.7 turns an ISF of 45 into 64 at most." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Begrenzt, wie viel schwächer der ISF unter dem Ziel werden kann. 0,7 macht aus einem ISF von 45 höchstens 64."
+          }
+        }
+      }
+    },
+    "Weight Above Target" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gewicht über dem Ziel"
+          }
+        }
+      }
+    },
+    "How strongly glucose above target strengthens the ISF." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wie stark Zucker über dem Ziel den ISF verstärkt."
+          }
+        }
+      }
+    },
+    "Default: 0.3" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Standard: 0,3"
+          }
+        }
+      }
+    },
+    "bg-ISF: from 20 mg/dL (1.1 mmol/L) above target a curve rises with glucose and reaches 0.7 at 90 mg/dL (5 mmol/L) above target. This weight scales the curve: 0.3 gives a factor of 1.21 there. 0 turns it off." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "bg-ISF: ab 20 mg/dl (1,1 mmol/l) über dem Ziel steigt eine Kurve mit dem Zucker an und erreicht bei 90 mg/dl (5 mmol/l) über dem Ziel 0,7. Dieses Gewicht skaliert die Kurve: 0,3 ergibt dort einen Faktor von 1,21. 0 schaltet es aus."
+          }
+        }
+      }
+    },
+    "Weight Below Target" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gewicht unter dem Ziel"
+          }
+        }
+      }
+    },
+    "How strongly glucose below target weakens the ISF." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wie stark Zucker unter dem Ziel den ISF abschwächt."
+          }
+        }
+      }
+    },
+    "Up to 10 mg/dL (0.6 mmol/L) above target the curve turns negative: −0.2 at target, −0.5 from 30 mg/dL (1.7 mmol/L) below. This weight scales it: 0.7 gives 0.86 at target and 0.65 further below, so less insulin. autoISF Min still applies. 0 turns it off." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bis 10 mg/dl (0,6 mmol/l) über dem Ziel wird die Kurve negativ: −0,2 am Ziel, −0,5 ab 30 mg/dl (1,7 mmol/l) darunter. Dieses Gewicht skaliert sie: 0,7 ergibt 0,86 am Ziel und 0,65 weiter darunter, also weniger Insulin. autoISF Min gilt weiterhin. 0 schaltet es aus."
+          }
+        }
+      }
+    },
+    "Post-Meal Weight" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gewicht nach dem Essen"
+          }
+        }
+      }
+    },
+    "Strengthens the ISF while glucose rises above target." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verstärkt den ISF, solange der Zucker über dem Ziel steigt."
+          }
+        }
+      }
+    },
+    "Default: 0.02" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Standard: 0,02"
+          }
+        }
+      }
+    },
+    "pp-ISF: factor = 1 + delta × weight, only above target + 10 mg/dL and while glucose rises. With 0.02, a rise of 10 mg/dL in 5 minutes gives 1.2." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "pp-ISF: Faktor = 1 + Delta × Gewicht, nur über Ziel + 10 mg/dl und solange der Zucker steigt. Mit 0,02 ergibt ein Anstieg von 10 mg/dl in 5 Minuten 1,2."
+          }
+        }
+      }
+    },
+    "Duration Weight" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gewicht der Dauer"
+          }
+        }
+      }
+    },
+    "Strengthens the ISF the longer glucose stays high." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verstärkt den ISF, je länger der Zucker hoch bleibt."
+          }
+        }
+      }
+    },
+    "Default: 0.6" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Standard: 0,6"
+          }
+        }
+      }
+    },
+    "dura-ISF: when glucose stays within 5 % of its average for at least 10 minutes above target, the factor grows with time and with the distance to target." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "dura-ISF: bleibt der Zucker mindestens 10 Minuten über dem Ziel innerhalb von 5 % seines Durchschnitts, wächst der Faktor mit der Zeit und mit dem Abstand zum Ziel."
+          }
+        }
+      }
+    },
+    "Use Glucose Acceleration" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zuckerbeschleunigung nutzen"
+          }
+        }
+      }
+    },
+    "Use a curve fit of the last 15 to 45 minutes." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nutzt eine Kurvenanpassung über die letzten 15 bis 45 Minuten."
+          }
+        }
+      }
+    },
+    "Default: On" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Standard: An"
+          }
+        }
+      }
+    },
+    "acce-ISF: a parabola is fitted to the recent glucose values. Only a good fit (R² ≥ 0.9) counts: speeding up strengthens the ISF, slowing down weakens it." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "acce-ISF: an die letzten Zuckerwerte wird eine Parabel angepasst. Nur eine gute Anpassung (R² ≥ 0,9) zählt: Beschleunigung verstärkt den ISF, Abbremsen schwächt ihn ab."
+          }
+        }
+      }
+    },
+    "Acceleration Weight" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gewicht der Beschleunigung"
+          }
+        }
+      }
+    },
+    "Effect of glucose speeding up away from target." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wirkung, wenn der Zucker sich beschleunigt vom Ziel entfernt."
+          }
+        }
+      }
+    },
+    "Default: 0.15" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Standard: 0,15"
+          }
+        }
+      }
+    },
+    "Higher values strengthen the ISF more while glucose speeds up away from target." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Höhere Werte verstärken den ISF mehr, solange sich der Zucker beschleunigt vom Ziel entfernt."
+          }
+        }
+      }
+    },
+    "Brake Weight" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gewicht des Abbremsens"
+          }
+        }
+      }
+    },
+    "Effect of glucose slowing down or turning." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wirkung, wenn der Zucker abbremst oder dreht."
+          }
+        }
+      }
+    },
+    "Higher values weaken the ISF more while glucose slows down, and when the curve predicts glucose below target within 30 minutes." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Höhere Werte schwächen den ISF mehr ab, solange der Zucker abbremst, und wenn die Kurve innerhalb von 30 Minuten Zucker unter dem Ziel vorhersagt."
+          }
+        }
+      }
+    },
+    "autoISF Off With Exercise" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "autoISF aus bei Sport"
+          }
+        }
+      }
+    },
+    "No ISF adaptation while a high temp target raises sensitivity." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Keine ISF-Anpassung, solange ein hohes temporäres Ziel die Empfindlichkeit erhöht."
+          }
+        }
+      }
+    },
+    "With a high temporary target and \"High Temptarget Raises Sensitivity\" on, autoISF leaves the ISF alone." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mit einem hohen temporären Ziel und eingeschaltetem „Hohes temporäres Ziel erhöht die Empfindlichkeit“ lässt autoISF den ISF unverändert."
+          }
+        }
+      }
+    },
+    "SMB: Even On, Odd Off" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "SMB: gerade an, ungerade aus"
+          }
+        }
+      }
+    },
+    "Even target allows SMBs, odd target blocks them." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ein gerades Ziel erlaubt SMBs, ein ungerades sperrt sie."
+          }
+        }
+      }
+    },
+    "autoISF SMB" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "autoISF SMB"
+          }
+        }
+      }
+    },
+    "With this on, an odd target (e.g. 99 mg/dL or 5.5 mmol/L) switches SMBs off. An even target allows them, but only if your SMB settings allow them too." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ist das an, schaltet ein ungerades Ziel (z. B. 99 mg/dl oder 5,5 mmol/l) die SMBs aus. Ein gerades Ziel erlaubt sie, aber nur, wenn deine SMB-Einstellungen sie auch erlauben."
+          }
+        }
+      }
+    },
+    "An even temporary target below 100 mg/dL allows SMBs at full delivery ratio." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ein gerades temporäres Ziel unter 100 mg/dl erlaubt SMBs mit vollem Abgabeanteil."
+          }
+        }
+      }
+    },
+    "IOB Threshold (iobTH)" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "IOB-Schwelle (iobTH)"
+          }
+        }
+      }
+    },
+    "SMBs stop above %@ U IOB." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "SMBs stoppen über %@ IE IOB."
+          }
+        }
+      }
+    },
+    "100 % turns the threshold off." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "100 % schaltet die Schwelle aus."
+          }
+        }
+      }
+    },
+    "Default: 100 % (off)" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Standard: 100 % (aus)"
+          }
+        }
+      }
+    },
+    "Share of Max IOB above which SMBs stop. A single SMB may take IOB to at most 130 % of this threshold. With a high temp target that raises sensitivity, the threshold drops with it." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Anteil von Max IOB, über dem SMBs stoppen. Ein einzelner SMB darf das IOB höchstens auf 130 % dieser Schwelle bringen. Mit einem hohen temporären Ziel, das die Empfindlichkeit erhöht, sinkt die Schwelle mit."
+          }
+        }
+      }
+    },
+    "SMB Ratio Glucose Range" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zuckerbereich für SMB-Anteil"
+          }
+        }
+      }
+    },
+    "0 keeps the fixed SMB delivery ratio." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "0 behält den festen SMB-Abgabeanteil."
+          }
+        }
+      }
+    },
+    "Default: 0 (off)" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Standard: 0 (aus)"
+          }
+        }
+      }
+    },
+    "Above 0 the SMB delivery ratio rises from SMB Ratio Min at target to SMB Ratio Max at target + this range." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Über 0 steigt der SMB-Abgabeanteil von SMB-Anteil Min am Ziel bis SMB-Anteil Max bei Ziel + diesem Bereich."
+          }
+        }
+      }
+    },
+    "SMB Ratio Min" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "SMB-Anteil Min"
+          }
+        }
+      }
+    },
+    "SMB delivery ratio at target." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "SMB-Abgabeanteil am Ziel."
+          }
+        }
+      }
+    },
+    "Default: 50 %" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Standard: 50 %"
+          }
+        }
+      }
+    },
+    "SMB Ratio Max" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "SMB-Anteil Max"
+          }
+        }
+      }
+    },
+    "SMB delivery ratio at the top of the range." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "SMB-Abgabeanteil am oberen Ende des Bereichs."
+          }
+        }
+      }
+    },
+    "Default: 80 %" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Standard: 80 %"
+          }
+        }
+      }
+    },
+    "SMB Size Extension" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "SMB-Größenerweiterung"
+          }
+        }
+      }
+    },
+    "Multiplies the largest possible SMB." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vervielfacht den größtmöglichen SMB."
+          }
+        }
+      }
+    },
+    "Default: 1 (off)" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Standard: 1 (aus)"
+          }
+        }
+      }
+    },
+    "The largest SMB (from Max SMB/UAM Basal Minutes) is multiplied by this value. Max Bolus and Max IOB still apply." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Der größte SMB (aus Max SMB/UAM Basal-Minuten) wird mit diesem Wert multipliziert. Max Bolus und Max IOB gelten weiterhin."
+          }
+        }
+      }
+    },
+    "Activate B30" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "B30 aktivieren"
+          }
+        }
+      }
+    },
+    "Boost basal after a meal bolus with an eating soon target." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Boost-Basal nach einem Mahlzeitenbolus mit Bald-essen-Ziel."
+          }
+        }
+      }
+    },
+    "B30 (from AIMI) raises the basal for a while after a manual bolus, to fill the insulin depot before the meal. It starts only when all of this is true:" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "B30 (aus AIMI) erhöht nach einem manuellen Bolus eine Zeit lang die Basal, um das Insulindepot vor der Mahlzeit zu füllen. Es startet nur, wenn alles davon zutrifft:"
+          }
+        }
+      }
+    },
+    "• a manual bolus of at least the minimum bolus\n• a temporary target equal to the B30 target\n• glucose below the upper limit and its rise below the upper delta" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "• ein manueller Bolus von mindestens dem Mindestbolus\n• ein temporäres Ziel gleich dem B30-Ziel\n• Zucker unter der Obergrenze und Anstieg unter dem oberen Delta"
+          }
+        }
+      }
+    },
+    "While B30 runs, SMBs are off. The max safe basal and the low glucose suspend still apply." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Solange B30 läuft, sind SMBs aus. Die maximale sichere Basal und die Abschaltung bei niedrigem Zucker gelten weiterhin."
+          }
+        }
+      }
+    },
+    "Warning: B30 skips most of oref's other checks while it runs." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Warnung: Solange B30 läuft, übergeht es die meisten anderen Prüfungen von oref."
+          }
+        }
+      }
+    },
+    "B30 Minimum Bolus" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "B30 Mindestbolus"
+          }
+        }
+      }
+    },
+    "Smallest manual bolus that starts B30." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kleinster manueller Bolus, der B30 startet."
+          }
+        }
+      }
+    },
+    "Default: 1 U" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Standard: 1 IE"
+          }
+        }
+      }
+    },
+    "B30 Duration" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "B30 Dauer"
+          }
+        }
+      }
+    },
+    "Minutes after the bolus during which B30 runs." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Minuten nach dem Bolus, in denen B30 läuft."
+          }
+        }
+      }
+    },
+    "Default: 30 min" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Standard: 30 min"
+          }
+        }
+      }
+    },
+    "B30 Target" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "B30 Ziel"
+          }
+        }
+      }
+    },
+    "Set exactly this temporary target to start B30." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Setze genau dieses temporäre Ziel, um B30 zu starten."
+          }
+        }
+      }
+    },
+    "Default: 90 mg/dL (5.0 mmol/L)" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Standard: 90 mg/dl (5,0 mmol/l)"
+          }
+        }
+      }
+    },
+    "B30 Upper Glucose Limit" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "B30 Zucker-Obergrenze"
+          }
+        }
+      }
+    },
+    "B30 stops at or above this glucose." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "B30 stoppt ab diesem Zuckerwert."
+          }
+        }
+      }
+    },
+    "Default: 130 mg/dL (7.2 mmol/L)" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Standard: 130 mg/dl (7,2 mmol/l)"
+          }
+        }
+      }
+    },
+    "B30 Upper Delta" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "B30 oberes Delta"
+          }
+        }
+      }
+    },
+    "B30 stops when glucose rises faster per 5 minutes." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "B30 stoppt, wenn der Zucker pro 5 Minuten schneller steigt."
+          }
+        }
+      }
+    },
+    "Default: 8 mg/dL (0.4 mmol/L)" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Standard: 8 mg/dl (0,4 mmol/l)"
+          }
+        }
+      }
+    },
+    "B30 Basal Factor" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "B30 Basalfaktor"
+          }
+        }
+      }
+    },
+    "Current basal × this factor, at most the max safe basal." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aktuelle Basal × diesem Faktor, höchstens die maximale sichere Basal."
+          }
+        }
+      }
+    },
+    "Default: 5" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Standard: 5"
+          }
+        }
+      }
+    },
+    "autoISF is on. Choosing a Dynamic ISF formula turns autoISF off." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "autoISF ist an. Wenn du eine Formel für den dynamischen ISF wählst, wird autoISF ausgeschaltet."
           }
         }
       }

@@ -69,3 +69,17 @@ Piper v0.0.2 release.
   <https://www.caito.de/2019/01/03/the-m-ailabs-speech-dataset/>, released under
   a BSD-style licence: Copyright (c) 2017-2019 by Imdat Solak / M-AILABS.
 - Changes made by OpenTrio: looped to a minimum duration of five seconds, as above.
+
+## autoISF
+
+The autoISF engine (`Trio/Sources/APS/OpenAPSSwift/DetermineBasal/AutoISF*.swift`,
+`AimiB30.swift`, `Models/AutoISFGlucoseStatus.swift`) and its tests are taken from
+Tai, <https://github.com/mountrcg/Tai>, a Trio variant by mountrcg. Tai ports
+autoISF 3.01 (by ga-zelle, an extension of oref0) and the B30 boost basal from
+AIMI to Swift.
+
+- Licence: MIT, as stated in Tai's `LICENSE.txt`.
+- Changes made by OpenTrio: settings injected per determination instead of
+  profile.json, B30 placed after the low glucose suspend and routed through the
+  max safe basal, KetoProtect and per-override autoISF values left out, reason
+  texts adapted to the loop status view.

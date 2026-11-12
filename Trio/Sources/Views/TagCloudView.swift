@@ -74,6 +74,18 @@ struct TagCloudView: View {
                 return .zt
             case textTag where textTag.contains("Middleware:"):
                 return .red
+            // autoISF tags
+            case textTag where textTag.contains("AIMI B30"),
+                 textTag where textTag.contains("SMB disabled"):
+                return .orange
+            case textTag where textTag.hasPrefix("autoISF"),
+                 textTag where textTag.contains("-ISF Ratio"),
+                 textTag where textTag.contains("final Ratio"),
+                 textTag where textTag.contains("eff.iobTH"),
+                 textTag where textTag.contains("SMB Del.Ratio"),
+                 textTag where textTag.contains("Parabolic Fit"),
+                 textTag where textTag.contains("Ratio from TT"):
+                return .uam
             case textTag where textTag.contains("SMB Ratio"):
                 return .orange
             case textTag where textTag.contains("Smoothing: On"):
@@ -121,7 +133,10 @@ struct TagCloudView: View {
             "Dev:\\s*-?\\d+\\.?\\d*",
             "BGI:\\s*-?\\d+\\.?\\d*",
             "Target:\\s*-?\\d+\\.?\\d*",
-            "(?:minPredBG|minGuardBG|IOBpredBG|COBpredBG|UAMpredBG)\\s*-?\\d+\\.?\\d*"
+            "(?:minPredBG|minGuardBG|IOBpredBG|COBpredBG|UAMpredBG)\\s*-?\\d+\\.?\\d*",
+            // autoISF: average glucose of the duration window, parabola extremum
+            "Avg:\\s*-?\\d+\\.?\\d*",
+            "(?:Max|Min) of\\s*-?\\d+\\.?\\d*"
         ]
         let pattern = patterns.joined(separator: "|")
         let regex = try! NSRegularExpression(pattern: pattern)
@@ -169,6 +184,16 @@ struct TagCloudView: View {
                 let formattedValue = convertToMmolL(value)
                 let formattedString = "BGI: \(formattedValue)"
                 updatedTag.replaceSubrange(range, with: formattedString)
+
+            } else if glucoseValueString.starts(with: "Avg:") ||
+                glucoseValueString.starts(with: "Max of") ||
+                glucoseValueString.starts(with: "Min of")
+            {
+                // -- autoISF glucose values: keep the label, convert the number
+                let parts = glucoseValueString.components(separatedBy: .whitespaces).filter { !$0.isEmpty }
+                guard let value = parts.last else { continue }
+                let label = parts.dropLast().joined(separator: " ")
+                updatedTag.replaceSubrange(range, with: "\(label) \(convertToMmolL(value))")
 
             } else if glucoseValueString.starts(with: "Target:") {
                 // -- Handle Target

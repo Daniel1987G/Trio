@@ -168,6 +168,27 @@ enum SettingItems {
             path: ["Algorithm", "Dynamic Sensitivity"]
         ),
         SettingItem(
+            title: "autoISF",
+            view: .autoISF,
+            searchContents: [
+                "Activate autoISF",
+                "autoISF Max",
+                "autoISF Min",
+                "Weight Above Target",
+                "Weight Below Target",
+                "Post-Meal Weight",
+                "Duration Weight",
+                "Use Glucose Acceleration",
+                "autoISF Off With Exercise",
+                "SMB: Even On, Odd Off",
+                "IOB Threshold (iobTH)",
+                "SMB Ratio Glucose Range",
+                "SMB Size Extension",
+                "Activate B30"
+            ],
+            path: ["Algorithm", "autoISF"]
+        ),
+        SettingItem(
             title: "Target Behavior",
             view: .targetBehavior,
             searchContents: [

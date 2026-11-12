@@ -299,6 +299,8 @@ final class OpenAPS {
         profile.supportedBasalRates = supportedBasalRates
         // derived here, not baked into profile.json, which the JS parity goldens compare
         profile.suspendOnly = dosingMode.automation == .hypoSuspendOnly
+        // autoISF settings come from the (dosing-mode clamped) preferences, not profile.json
+        profile.applyAutoISF(from: preferences)
         let basalProfile = try JSONBridge.basalProfile(from: rawBasalProfile)
         let autosens = try JSONBridge.autosens(from: rawAutosens.isEmpty ? .null : rawAutosens)
         let reservoir = Decimal(string: rawReservoir) ?? 100
@@ -343,6 +345,7 @@ final class OpenAPS {
             meal: meal,
             microBolusAllowed: true,
             reservoir: reservoir,
+            pumpHistory: pumpHistory,
             preferences: preferences,
             trioCustomOrefVariables: trioCustomOrefVariables
         )
@@ -695,6 +698,7 @@ final class OpenAPS {
         meal: ComputedCarbs?,
         microBolusAllowed: Bool,
         reservoir: Decimal,
+        pumpHistory: [PumpHistoryEvent],
         preferences: Preferences,
         trioCustomOrefVariables: TrioCustomOrefVariables
     ) throws -> Determination? {
@@ -713,6 +717,7 @@ final class OpenAPS {
             autosensData: autosens,
             reservoirData: reservoir,
             glucose: glucose,
+            pumpHistory: pumpHistory,
             microBolusAllowed: microBolusAllowed,
             trioCustomOrefVariables: trioCustomOrefVariables,
             currentTime: clock

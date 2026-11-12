@@ -119,10 +119,11 @@ extension Treatments {
         var externalInsulin: Bool = false
 
         // Meal photo analysis
-        var mealPhotoState: MealPhotoState = .idle
+        /// Photos of the current meal; several photos add up to one entry.
+        var mealPhotoParts: [MealPhotoPart] = []
         /// Set in `subscribe()`: the view renders before `keychain` is injected.
         var isMealPhotoConfigured: Bool = false
-        @ObservationIgnored private var mealPhotoTask: Task<Void, Never>?
+        @ObservationIgnored private var mealPhotoTasks: [UUID: Task<Void, Never>] = [:]
 
         // Extended bolus: part now, the rest spread over `extendedDurationMinutes`
         var useExtendedBolus: Bool = false
@@ -384,7 +385,7 @@ extension Treatments {
 
             // Cancel in-flight work — the setup task awaits a full oref simulation.
             setupTask?.cancel()
-            mealPhotoTask?.cancel()
+            mealPhotoTasks.values.forEach { $0.cancel() }
             determinationUpdateTask?.cancel()
 
             broadcaster?.unregister(DeterminationObserver.self, observer: self)
@@ -869,19 +870,49 @@ extension Treatments {
 
         // MARK: - MEAL PHOTO
 
-        /// Sends the photo to the configured AI provider; the result is only shown, never applied.
+        /// Sum of all analysed photos of the meal; photos still running or failed are not part of it.
+        var combinedMealPhotoAnalysis: MealPhotoAnalysis? {
+            MealPhotoAnalysis.combined(mealPhotoParts.compactMap(\.analysis))
+        }
+
+        /// Adds a photo to the meal and sends it to the configured AI provider; the result is only shown,
+        /// never applied.
         func analyzeMealPhoto(_ image: UIImage) {
+            let part = MealPhotoPart(image: image, status: .analyzing)
+            mealPhotoParts.append(part)
+            runMealPhotoAnalysis(part.id)
+        }
+
+        func retryMealPhoto(_ id: UUID) {
+            runMealPhotoAnalysis(id)
+        }
+
+        func removeMealPhoto(_ id: UUID) {
+            mealPhotoTasks.removeValue(forKey: id)?.cancel()
+            mealPhotoParts.removeAll { $0.id == id }
+        }
+
+        /// Drops all photos of the meal, e.g. when the sheet is closed without taking over the values.
+        func discardMealPhotos() {
+            mealPhotoTasks.values.forEach { $0.cancel() }
+            mealPhotoTasks = [:]
+            mealPhotoParts = []
+        }
+
+        private func runMealPhotoAnalysis(_ id: UUID) {
+            guard let index = mealPhotoParts.firstIndex(where: { $0.id == id }) else { return }
+            let image = mealPhotoParts[index].image
             let store = MealPhotoSettingsStore(keychain: keychain)
             let provider = store.provider
             guard let apiKey = store.apiKey(for: provider) else {
-                mealPhotoState = .failed(image, MealPhotoAnalysisError.missingAPIKey.localizedDescription)
+                mealPhotoParts[index].status = .failed(MealPhotoAnalysisError.missingAPIKey.localizedDescription)
                 return
             }
             let model = store.model(for: provider)
-            mealPhotoState = .analyzing(image)
-            mealPhotoTask?.cancel()
-            mealPhotoTask = Task { [weak self] in
-                let state: MealPhotoState
+            mealPhotoParts[index].status = .analyzing
+            mealPhotoTasks[id]?.cancel()
+            mealPhotoTasks[id] = Task { [weak self] in
+                let status: MealPhotoPart.Status
                 do {
                     let analysis = try await MealPhotoAnalyzer().analyze(
                         image: image,
@@ -889,14 +920,18 @@ extension Treatments {
                         model: model,
                         apiKey: apiKey
                     )
-                    state = .result(image, analysis)
+                    status = .done(analysis)
                 } catch is CancellationError {
                     return
                 } catch {
-                    state = .failed(image, error.localizedDescription)
+                    status = .failed(error.localizedDescription)
                 }
                 guard !Task.isCancelled else { return }
-                await MainActor.run { self?.mealPhotoState = state }
+                await MainActor.run {
+                    guard let self, let index = self.mealPhotoParts.firstIndex(where: { $0.id == id }) else { return }
+                    self.mealPhotoParts[index].status = status
+                    self.mealPhotoTasks[id] = nil
+                }
             }
         }
 
@@ -916,7 +951,7 @@ extension Treatments {
                 let names = analysis.items.map(\.name).joined(separator: ", ")
                 note = String(names.prefix(25))
             }
-            mealPhotoState = .idle
+            discardMealPhotos()
             Task { await updateForecasts() }
             Task { insulinCalculated = await calculateInsulin() }
         }

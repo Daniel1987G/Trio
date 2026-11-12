@@ -31,6 +31,7 @@ enum Screen: Identifiable, Hashable {
     case bolusCalculatorConfig
     case quickPickTreatmentsConfig
     case dynamicISF
+    case autoISF
     case calibrations
     case shortcutsConfig
     case devices
@@ -133,6 +134,8 @@ extension Screen {
             QuickPickTreatmentsConfig.RootView(resolver: resolver)
         case .dynamicISF:
             DynamicSettings.RootView(resolver: resolver)
+        case .autoISF:
+            AutoISFSettings.RootView(resolver: resolver)
         case .calibrations:
             Calibrations.RootView(resolver: resolver)
         case .shortcutsConfig:

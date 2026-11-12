@@ -1,20 +1,33 @@
+import PhotosUI
 import SwiftUI
 import UIKit
 
-/// Progress of a meal photo analysis in the treatment screen.
-enum MealPhotoState {
-    case idle
-    case analyzing(UIImage)
-    case result(UIImage, MealPhotoAnalysis)
-    case failed(UIImage?, String)
+/// One photo of a meal and its analysis. A meal can consist of several photos (main dish, side,
+/// dessert); their estimates add up to one entry.
+struct MealPhotoPart: Identifiable {
+    enum Status {
+        case analyzing
+        case done(MealPhotoAnalysis)
+        case failed(String)
+    }
 
-    var image: UIImage? {
-        switch self {
-        case .idle: return nil
-        case let .analyzing(image),
-             let .result(image, _): return image
-        case let .failed(image, _): return image
-        }
+    let id = UUID()
+    let image: UIImage
+    var status: Status
+
+    var analysis: MealPhotoAnalysis? {
+        if case let .done(analysis) = status { return analysis }
+        return nil
+    }
+
+    var isAnalyzing: Bool {
+        if case .analyzing = status { return true }
+        return false
+    }
+
+    var isFailed: Bool {
+        if case .failed = status { return true }
+        return false
     }
 }
 
@@ -54,14 +67,29 @@ struct CameraImagePicker: UIViewControllerRepresentable {
     }
 }
 
-/// Shows the analysis and lets the user take over the estimate into the treatment fields.
+/// Shows the analysis of one or more photos of a meal and lets the user take over the sum into the
+/// treatment fields.
 struct MealPhotoAnalysisSheet: View {
-    let photoState: MealPhotoState
+    let parts: [MealPhotoPart]
+    let combined: MealPhotoAnalysis?
     /// Fat and protein can only be entered when the FPU conversion is enabled.
     let fatProteinEnabled: Bool
     let onApply: (MealPhotoAnalysis) -> Void
-    let onRetry: () -> Void
+    let onRetry: (UUID) -> Void
+    let onRemove: (UUID) -> Void
+    let onAddImage: (UIImage) -> Void
     @Environment(\.dismiss) private var dismiss
+
+    /// Upper limit of photos per meal, also per selection in the library.
+    static let maxPhotos = 6
+
+    @State private var showSourceDialog = false
+    @State private var showCamera = false
+    @State private var showLibrary = false
+    @State private var capturedImage: UIImage?
+    @State private var libraryItems: [PhotosPickerItem] = []
+
+    private var isAnalyzing: Bool { parts.contains(where: \.isAnalyzing) }
 
     private var gramsFormatter: NumberFormatter {
         let formatter = NumberFormatter()
@@ -85,38 +113,17 @@ struct MealPhotoAnalysisSheet: View {
     var body: some View {
         NavigationStack {
             List {
-                if let image = photoState.image {
-                    Section {
-                        Image(uiImage: image)
-                            .resizable()
-                            .scaledToFit()
-                            .frame(maxHeight: 220)
-                            .frame(maxWidth: .infinity)
-                            .clipShape(RoundedRectangle(cornerRadius: 10))
-                    }
-                }
+                photoSection
 
-                switch photoState {
-                case .idle:
-                    EmptyView()
-
-                case .analyzing:
+                if let combined {
+                    resultSections(combined)
+                } else if isAnalyzing {
                     Section {
                         HStack(spacing: 12) {
                             ProgressView()
                             Text("Analyzing meal…")
                         }
                     }
-
-                case let .failed(_, message):
-                    Section {
-                        Label(message, systemImage: "exclamationmark.triangle.fill")
-                            .foregroundStyle(.orange)
-                        Button("Try Again", action: onRetry)
-                    }
-
-                case let .result(_, analysis):
-                    resultSections(analysis)
                 }
             }
             .navigationTitle("Meal Photo")
@@ -126,11 +133,125 @@ struct MealPhotoAnalysisSheet: View {
                     Button("Cancel") { dismiss() }
                 }
             }
+            .confirmationDialog(
+                String(localized: "Add Another Photo"),
+                isPresented: $showSourceDialog,
+                titleVisibility: .visible
+            ) {
+                if UIImagePickerController.isSourceTypeAvailable(.camera) {
+                    Button(String(localized: "Take Photo")) { showCamera = true }
+                }
+                Button(String(localized: "Choose from Library")) { showLibrary = true }
+                Button(String(localized: "Cancel"), role: .cancel) {}
+            }
+            .fullScreenCover(isPresented: $showCamera, onDismiss: {
+                if let image = capturedImage {
+                    capturedImage = nil
+                    onAddImage(image)
+                }
+            }) {
+                CameraImagePicker { image in capturedImage = image }
+                    .ignoresSafeArea()
+            }
+            .photosPicker(
+                isPresented: $showLibrary,
+                selection: $libraryItems,
+                maxSelectionCount: max(1, Self.maxPhotos - parts.count),
+                matching: .images
+            )
+            .onChange(of: libraryItems) {
+                let items = libraryItems
+                guard !items.isEmpty else { return }
+                libraryItems = []
+                Task { @MainActor in
+                    for item in items {
+                        if let data = try? await item.loadTransferable(type: Data.self), let image = UIImage(data: data) {
+                            onAddImage(image)
+                        }
+                    }
+                }
+            }
         }
     }
 
+    /// The photos of the meal, each with its own state, and the button for one more.
+    @ViewBuilder private var photoSection: some View {
+        Section(
+            header: parts.count > 1 ? Text("Photos of the Meal") : Text("Photo"),
+            footer: Text(
+                "Several photos of one meal (e.g. main dish, side and dessert) are added up to one entry."
+            )
+        ) {
+            ForEach(Array(parts.enumerated()), id: \.element.id) { offset, part in
+                photoRow(part, number: offset + 1)
+            }
+            if parts.count < Self.maxPhotos {
+                Button {
+                    showSourceDialog = true
+                } label: {
+                    Label("Add Another Photo", systemImage: "plus.viewfinder")
+                }
+            }
+        }
+    }
+
+    private func photoRow(_ part: MealPhotoPart, number: Int) -> some View {
+        HStack(alignment: .center, spacing: 12) {
+            Image(uiImage: part.image)
+                .resizable()
+                .scaledToFill()
+                .frame(width: parts.count > 1 ? 64 : 96, height: parts.count > 1 ? 64 : 96)
+                .clipShape(RoundedRectangle(cornerRadius: 8))
+
+            VStack(alignment: .leading, spacing: 3) {
+                if parts.count > 1 {
+                    Text(String(localized: "Photo \(number)", comment: "Meal photo number")).fontWeight(.semibold)
+                }
+                switch part.status {
+                case .analyzing:
+                    HStack(spacing: 6) {
+                        ProgressView().controlSize(.small)
+                        Text("Analyzing meal…").foregroundStyle(.secondary)
+                    }
+                    .font(.footnote)
+                case let .done(analysis):
+                    Text(
+                        "Carbs \(grams(analysis.carbs)) · Fat \(grams(analysis.fat)) · Protein \(grams(analysis.protein))"
+                    )
+                    .font(.footnote)
+                    if !analysis.items.isEmpty {
+                        Text(analysis.items.map(\.name).joined(separator: ", "))
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                            .lineLimit(2)
+                    }
+                case let .failed(message):
+                    Label(message, systemImage: "exclamationmark.triangle.fill")
+                        .font(.footnote)
+                        .foregroundStyle(.orange)
+                    Button("Try Again") { onRetry(part.id) }
+                        .font(.footnote)
+                        .buttonStyle(.borderless)
+                }
+            }
+
+            Spacer(minLength: 0)
+
+            Button(role: .destructive) {
+                onRemove(part.id)
+            } label: {
+                Image(systemName: "minus.circle.fill")
+                    .foregroundStyle(.red)
+                    .imageScale(.large)
+            }
+            .buttonStyle(.borderless)
+            .accessibilityLabel(Text("Remove Photo"))
+        }
+        .padding(.vertical, 2)
+    }
+
     @ViewBuilder private func resultSections(_ analysis: MealPhotoAnalysis) -> some View {
-        Section(header: Text("Estimate")) {
+        Section(header: analyzedCount > 1 ? Text("Estimate (Sum of \(analyzedCount) Photos)") : Text("Estimate")) {
             totalsRow(String(localized: "Carbs"), grams(analysis.carbs), bold: true)
             totalsRow(String(localized: "Fat"), grams(analysis.fat))
             totalsRow(String(localized: "Protein"), grams(analysis.protein))
@@ -174,6 +295,19 @@ struct MealPhotoAnalysisSheet: View {
         }
 
         Section {
+            if isAnalyzing {
+                Label("Wait until all photos are analyzed.", systemImage: "hourglass")
+                    .font(.footnote)
+                    .foregroundStyle(.secondary)
+            }
+            if parts.contains(where: \.isFailed) {
+                Label(
+                    "Photos that could not be analyzed are not counted. Try again or remove them.",
+                    systemImage: "exclamationmark.triangle.fill"
+                )
+                .foregroundStyle(.orange)
+                .font(.footnote)
+            }
             if analysis.confidence == .low {
                 Label(
                     "Low confidence: weigh the meal or check the values carefully before you bolus.",
@@ -200,8 +334,11 @@ struct MealPhotoAnalysisSheet: View {
                 Text("Use These Values").frame(maxWidth: .infinity)
             }
             .buttonStyle(.borderedProminent)
+            .disabled(isAnalyzing)
         }
     }
+
+    private var analyzedCount: Int { parts.filter { $0.analysis != nil }.count }
 
     private func totalsRow(_ title: String, _ value: String, bold: Bool = false) -> some View {
         HStack {

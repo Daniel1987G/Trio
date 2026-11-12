@@ -141,4 +141,26 @@ import Testing
         let data = Data(#"{"error": {"message": "invalid x-api-key", "type": "authentication_error"}}"#.utf8)
         #expect(MealPhotoAnalyzer.errorMessage(from: data) == "invalid x-api-key")
     }
+
+    @Test("Several photos of one meal add up") func combined() throws {
+        let main = try MealPhotoAnalysis.parse(sample)
+        let dessert = MealPhotoAnalysis(
+            items: [.init(name: "Tiramisu", grams: 120, carbs: 38, fat: 18, protein: 6)],
+            carbs: 38,
+            fat: 18,
+            protein: 6,
+            confidence: .low,
+            notes: "Portion geschätzt"
+        )
+        let sum = try #require(MealPhotoAnalysis.combined([main, dessert]))
+        #expect(sum.items.count == 3)
+        #expect(sum.carbs == 137)
+        #expect(sum.fat == 55)
+        #expect(sum.protein == 38)
+        #expect(sum.confidence == .low)
+        #expect(sum.notes == "Ölmenge geschätzt\nPortion geschätzt")
+
+        #expect(MealPhotoAnalysis.combined([main]) == main)
+        #expect(MealPhotoAnalysis.combined([]) == nil)
+    }
 }

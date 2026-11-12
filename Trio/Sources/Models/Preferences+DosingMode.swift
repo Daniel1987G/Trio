@@ -14,6 +14,9 @@ extension Preferences {
         case .lowGlucoseSuspend:
             // Max IOB 0 leaves oref's reduction stages intact and neuters correction and SMB.
             clamped.maxIOB = 0
+            // autoISF's B30 boost basal does not go through the max IOB checks
+            clamped.autoisf = false
+            clamped.enableB30 = false
 
         case .basalTesting:
             clamped.maxIOB = 0
@@ -22,6 +25,8 @@ extension Preferences {
             clamped.autosensMax = 1
             clamped.useNewFormula = false
             clamped.sigmoid = false
+            clamped.autoisf = false
+            clamped.enableB30 = false
             // Only step in for a genuine low; the picker allows 60...120.
             clamped.threshold_setting = max(threshold_setting, Self.basalTestingThreshold)
         }

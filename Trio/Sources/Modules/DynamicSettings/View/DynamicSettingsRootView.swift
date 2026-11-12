@@ -86,6 +86,14 @@ extension DynamicSettings {
                             .disabled(!state.hasValidTDD)
                             .padding(.top)
 
+                            if state.autoISFActive {
+                                Text("autoISF is on. Choosing a Dynamic ISF formula turns autoISF off.")
+                                    .font(.footnote)
+                                    .foregroundColor(colorScheme == .dark ? .orange : .accentColor)
+                                    .fixedSize(horizontal: false, vertical: true)
+                                    .padding(.top, 4)
+                            }
+
                             HStack(alignment: .center) {
                                 let miniHintText = state.hasValidTDD ?
                                     String(

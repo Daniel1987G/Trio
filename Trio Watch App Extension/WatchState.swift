@@ -1,7 +1,6 @@
 import Foundation
 import SwiftUI
 import WatchConnectivity
-import WidgetKit
 
 /// WatchState manages the communication between the Watch app and the iPhone app using WatchConnectivity.
 /// It handles glucose data synchronization and sending treatment requests (bolus, carbs) to the phone.
@@ -601,38 +600,5 @@ import WidgetKit
             forecastConeMax = forecastPayload[WatchMessageKeys.forecastConeMax] as? [Double] ?? []
             forecastLines = forecastPayload[WatchMessageKeys.forecastLines] as? [String: [Double]] ?? [:]
         }
-
-        saveComplicationSnapshot()
-    }
-}
-
-// MARK: - Glucose complication
-
-extension WatchState {
-    /// Shared with the complication extension (App Group); same keys in `GlucoseComplication.swift`.
-    static var complicationDefaults: UserDefaults? {
-        // org.nightscout.<TEAM>.trio.watchkitapp → group.org.nightscout.<TEAM>.trio.trio-app-group (same group as the phone)
-        let parts = (Bundle.main.bundleIdentifier ?? "").split(separator: ".")
-        guard parts.count >= 3 else { return nil }
-        return UserDefaults(suiteName: "group.org.nightscout.\(parts[2]).trio.trio-app-group")
-    }
-
-    /// Writes what the complication shows and asks WidgetKit to redraw it when something changed.
-    func saveComplicationSnapshot() {
-        guard let defaults = Self.complicationDefaults else { return }
-        let snapshot: [String: Any] = [
-            "glucose": currentGlucose,
-            "colorHex": currentGlucoseColorString,
-            "trend": trend ?? "",
-            "delta": delta ?? "",
-            "iob": iob ?? "",
-            "cob": cob ?? "",
-            "glucoseDate": glucoseValues.map(\.date).max()?.timeIntervalSince1970 ?? 0,
-            "isMmol": isMmolL
-        ]
-        let previous = defaults.dictionary(forKey: "openTrio.complication") ?? [:]
-        guard !NSDictionary(dictionary: previous).isEqual(to: snapshot) else { return }
-        defaults.set(snapshot, forKey: "openTrio.complication")
-        WidgetCenter.shared.reloadTimelines(ofKind: "OpenTrioGlucoseComplication")
     }
 }
