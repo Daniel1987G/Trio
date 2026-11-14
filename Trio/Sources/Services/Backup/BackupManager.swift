@@ -47,6 +47,19 @@ protocol BackupManager: AnyObject {
     /// every automatic and manual backup.
     func setExternalFolder(_ url: URL?) throws
     func performAutomaticBackupIfDue()
+
+    // MARK: Profiles (basal rates, ISF, carb ratios)
+
+    /// Saved profiles, newest first.
+    func profileSnapshots() -> [ProfileSnapshot]
+    /// The profile in use, as an unsaved snapshot; nil when a part is missing.
+    func currentProfile() -> ProfileSnapshot?
+    @discardableResult func saveCurrentProfile(name: String) throws -> ProfileSnapshot
+    func renameProfileSnapshot(id: UUID, to name: String) throws
+    func deleteProfileSnapshot(id: UUID)
+    /// Restores basal rates (sent to the pump first), ISF and carb ratios. The profile in use is saved as
+    /// "Before Restore" first, unless an identical one is already saved.
+    func restoreProfile(id: UUID) async throws -> BackupRestoreReport
 }
 
 /// Settings backup and restore. Backups are JSON files in `Documents/Backups` (visible in the Files app under
@@ -770,6 +783,101 @@ final class BaseBackupManager: BackupManager, Injectable {
         }
         storage.save(stored, as: OpenAPS.Settings.settings)
         notify(PumpSettingsObserver.self) { $0.pumpSettingsDidChange(stored) }
+    }
+
+    // MARK: - Profiles
+
+    func profileSnapshots() -> [ProfileSnapshot] {
+        (storage.retrieve(OpenAPS.Settings.profileSnapshots, as: [ProfileSnapshot].self) ?? [])
+            .sorted { $0.created > $1.created }
+    }
+
+    func currentProfile() -> ProfileSnapshot? {
+        guard let basal = storage.retrieve(OpenAPS.Settings.basalProfile, as: [BasalProfileEntry].self), !basal.isEmpty,
+              let isf = storage.retrieve(OpenAPS.Settings.insulinSensitivities, as: InsulinSensitivities.self),
+              !isf.sensitivities.isEmpty,
+              let carbRatios = storage.retrieve(OpenAPS.Settings.carbRatios, as: CarbRatios.self),
+              !carbRatios.schedule.isEmpty
+        else { return nil }
+        return ProfileSnapshot(
+            id: UUID(),
+            name: "",
+            created: Date(),
+            origin: .manual,
+            basalProfile: basal,
+            insulinSensitivities: isf,
+            carbRatios: carbRatios
+        )
+    }
+
+    @discardableResult func saveCurrentProfile(name: String) throws -> ProfileSnapshot {
+        try saveCurrentProfile(name: name, origin: .manual)
+    }
+
+    @discardableResult private func saveCurrentProfile(name: String, origin: ProfileSnapshot.Origin) throws -> ProfileSnapshot {
+        guard var snapshot = currentProfile() else { throw ProfileSnapshotError.incompleteProfile }
+        let trimmed = name.trimmingCharacters(in: .whitespacesAndNewlines)
+        snapshot.name = trimmed.isEmpty ? Date().formatted(date: .abbreviated, time: .shortened) : trimmed
+        snapshot.origin = origin
+        var all = profileSnapshots()
+        all.insert(snapshot, at: 0)
+        // automatic "Before Restore" copies: keep the latest 5
+        let automatic = all.filter { $0.origin == .beforeRestore }
+        if automatic.count > 5 {
+            let drop = Set(automatic.dropFirst(5).map(\.id))
+            all.removeAll { drop.contains($0.id) }
+        }
+        storage.save(all, as: OpenAPS.Settings.profileSnapshots)
+        debug(.service, "Profile saved: \(snapshot.name) (\(origin.rawValue))")
+        return snapshot
+    }
+
+    func renameProfileSnapshot(id: UUID, to name: String) throws {
+        var all = profileSnapshots()
+        guard let index = all.firstIndex(where: { $0.id == id }) else { throw ProfileSnapshotError.notFound }
+        let trimmed = name.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmed.isEmpty else { return }
+        all[index].name = trimmed
+        storage.save(all, as: OpenAPS.Settings.profileSnapshots)
+    }
+
+    func deleteProfileSnapshot(id: UUID) {
+        var all = profileSnapshots()
+        all.removeAll { $0.id == id }
+        storage.save(all, as: OpenAPS.Settings.profileSnapshots)
+    }
+
+    func restoreProfile(id: UUID) async throws -> BackupRestoreReport {
+        guard let snapshot = profileSnapshots().first(where: { $0.id == id }) else { throw ProfileSnapshotError.notFound }
+
+        // keep the profile in use, unless the same values are already saved
+        if let current = currentProfile(), !profileSnapshots().contains(where: { $0.hasSameValues(as: current) }) {
+            try saveCurrentProfile(
+                name: String(localized: "Before Restore", comment: "Name of the profile saved before restoring another") + " " +
+                    Date().formatted(date: .abbreviated, time: .shortened),
+                origin: .beforeRestore
+            )
+        }
+
+        // the settings restore does the checks (bolus running, rates the pump cannot deliver, max basal),
+        // sends the basal rates to the pump first and makes a full "Before Restore" backup
+        let backup = SettingsBackup(
+            created: snapshot.created,
+            kind: .manual,
+            appVersion: Bundle.main.appDevVersion ?? Bundle.main.releaseVersionNumber ?? "",
+            build: BuildDetails.shared.branchAndSha,
+            pumpInsulinConcentration: settingsManager.settings.pumpInsulinConcentration,
+            settings: nil,
+            preferences: nil,
+            pumpSettings: nil,
+            basalProfile: snapshot.basalProfile,
+            insulinSensitivities: snapshot.insulinSensitivities,
+            carbRatios: snapshot.carbRatios,
+            bgTargets: nil,
+            extras: nil
+        )
+        debug(.service, "Restoring profile \(snapshot.name) from \(snapshot.created)")
+        return try await restore(backup, sections: [.therapy])
     }
 
     /// Broadcaster.notify must run on the queue it notifies on.

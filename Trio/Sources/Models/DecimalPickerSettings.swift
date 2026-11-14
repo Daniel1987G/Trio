@@ -142,7 +142,7 @@ struct DecimalPickerSettings {
         type: PickerSetting.PickerSettingType.insulinUnitPerHour
     )
 
-    // autoISF (ranges as in Tai, a little narrower where it doses more)
+    // autoISF (ranges as in Tai, a little narrower where it doses more; weights start as in the FCL e-book)
     var autoISFmax = PickerSetting(
         value: Decimal(string: "1.5")!,
         step: Decimal(string: "0.1")!,
@@ -186,43 +186,43 @@ struct DecimalPickerSettings {
         type: PickerSetting.PickerSettingType.factor
     )
     var autoISFhourlyChange = PickerSetting(
-        value: Decimal(string: "0.6")!,
+        value: Decimal(string: "0.2")!,
         step: Decimal(string: "0.05")!,
         min: Decimal(string: "0")!,
         max: Decimal(string: "3")!,
         type: PickerSetting.PickerSettingType.factorRaw
     )
     var higherISFrangeWeight = PickerSetting(
-        value: Decimal(string: "0.3")!,
+        value: Decimal(string: "0")!,
         step: Decimal(string: "0.05")!,
         min: Decimal(string: "0")!,
         max: Decimal(string: "2")!,
         type: PickerSetting.PickerSettingType.factorRaw
     )
     var lowerISFrangeWeight = PickerSetting(
-        value: Decimal(string: "0.7")!,
+        value: Decimal(string: "0")!,
         step: Decimal(string: "0.05")!,
         min: Decimal(string: "0")!,
         max: Decimal(string: "2")!,
         type: PickerSetting.PickerSettingType.factorRaw
     )
     var postMealISFweight = PickerSetting(
-        value: Decimal(string: "0.02")!,
+        value: Decimal(string: "0.005")!,
         step: Decimal(string: "0.005")!,
         min: Decimal(string: "0")!,
         max: Decimal(string: "0.15")!,
         type: PickerSetting.PickerSettingType.factorRaw
     )
     var bgAccelISFweight = PickerSetting(
-        value: Decimal(string: "0.15")!,
-        step: Decimal(string: "0.01")!,
+        value: Decimal(string: "0.05")!,
+        step: Decimal(string: "0.005")!,
         min: Decimal(string: "0")!,
         max: Decimal(string: "1")!,
         type: PickerSetting.PickerSettingType.factorRaw
     )
     var bgBrakeISFweight = PickerSetting(
-        value: Decimal(string: "0.15")!,
-        step: Decimal(string: "0.01")!,
+        value: Decimal(string: "0.025")!,
+        step: Decimal(string: "0.005")!,
         min: Decimal(string: "0")!,
         max: Decimal(string: "1")!,
         type: PickerSetting.PickerSettingType.factorRaw

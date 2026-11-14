@@ -175,6 +175,26 @@ import Testing
         #expect(!determination.reason.contains(":, "))
     }
 
+    @Test("The autoISF factor can be read back from the stored reason") func factorFromReason() throws {
+        var inputs = baseInputs(glucose: 190)
+        inputs.profile.autoisf = true
+        inputs.profile.higherISFrangeWeight = 1
+        inputs.profile.autoISFmax = Decimal(string: "1.5")!
+        inputs.autoISFStatus = flatStatus(inputs.glucoseStatus)
+        let adjusted = try #require(try run(inputs))
+        #expect(AutoISFReason.finalRatio(fromReason: adjusted.reason) == Decimal(string: "1.5")!)
+
+        // no weights: autoISF on, ISF left alone
+        var neutral = baseInputs(glucose: 120)
+        neutral.profile.autoisf = true
+        neutral.autoISFStatus = flatStatus(neutral.glucoseStatus)
+        let unchanged = try #require(try run(neutral))
+        #expect(AutoISFReason.finalRatio(fromReason: unchanged.reason) == 1)
+
+        let off = try #require(try run(baseInputs()))
+        #expect(AutoISFReason.finalRatio(fromReason: off.reason) == nil)
+    }
+
     @Test("autoISF max limits the lift") func liftIsLimited() throws {
         var inputs = baseInputs(glucose: 300)
         inputs.profile.autoisf = true
@@ -312,5 +332,124 @@ import Testing
         let json = try String(data: JSONEncoder().encode(profile), encoding: .utf8) ?? ""
         #expect(!json.contains("autoisf"))
         #expect(!json.contains("autoISF"))
+    }
+
+    @Test("FCL starting values moderate and aggressive") func fclPresets() throws {
+        var preferences = Preferences()
+        preferences.useNewFormula = true
+        preferences.maxIOB = 9
+        preferences.enableB30 = false
+        AutoISFStartPreset.moderate.apply(to: &preferences)
+        #expect(preferences.autoisf)
+        #expect(!preferences.useNewFormula)
+        #expect(preferences.autoISFmax == 2)
+        #expect(preferences.autoISFmin == Decimal(string: "0.3")!)
+        #expect(preferences.bgAccelISFweight == Decimal(string: "0.05")!)
+        #expect(preferences.bgBrakeISFweight == Decimal(string: "0.025")!)
+        #expect(preferences.postMealISFweight == Decimal(string: "0.005")!)
+        #expect(preferences.autoISFhourlyChange == Decimal(string: "0.2")!)
+        #expect(preferences.higherISFrangeWeight == 0)
+        #expect(preferences.lowerISFrangeWeight == 0)
+        #expect(preferences.smbDeliveryRatio == Decimal(string: "0.6")!)
+        #expect(preferences.iobThresholdPercent == Decimal(string: "0.5")!)
+        #expect(preferences.smbMaxRangeExtension == 2)
+        #expect(preferences.enableSMBEvenOnOddOffAlways)
+        #expect(preferences.maxSMBBasalMinutes == 120)
+        #expect(preferences.autosensMax == 1 && preferences.autosensMin == 1)
+        // left alone
+        #expect(preferences.maxIOB == 9)
+        #expect(!preferences.enableB30)
+
+        AutoISFStartPreset.aggressive.apply(to: &preferences)
+        #expect(preferences.bgAccelISFweight == Decimal(string: "0.2")!)
+        #expect(preferences.bgBrakeISFweight == Decimal(string: "0.1")!)
+        #expect(preferences.postMealISFweight == Decimal(string: "0.02")!)
+        #expect(preferences.smbDeliveryRatio == Decimal(string: "0.7")!)
+        #expect(preferences.iobThresholdPercent == Decimal(string: "0.6")!)
+        #expect(preferences.smbMaxRangeExtension == Decimal(string: "2.5")!)
+    }
+
+    @Test("autoISF Standard brings back the values of a fresh install") func standardPreset() {
+        var preferences = Preferences()
+        preferences.maxIOB = 9
+        preferences.currentBasalSafetyMultiplier = 5
+        AutoISFStartPreset.aggressive.apply(to: &preferences)
+        preferences.enableB30 = true
+        preferences.B30basalFactor = 8
+        AutoISFStartPreset.standard.apply(to: &preferences)
+
+        let fresh = Preferences()
+        #expect(preferences.autoisf)
+        #expect(!preferences.useNewFormula)
+        #expect(preferences.autoISFmax == fresh.autoISFmax)
+        #expect(preferences.autoISFmin == fresh.autoISFmin)
+        #expect(preferences.bgAccelISFweight == fresh.bgAccelISFweight)
+        #expect(preferences.bgBrakeISFweight == fresh.bgBrakeISFweight)
+        #expect(preferences.postMealISFweight == fresh.postMealISFweight)
+        #expect(preferences.iobThresholdPercent == fresh.iobThresholdPercent)
+        #expect(preferences.smbMaxRangeExtension == fresh.smbMaxRangeExtension)
+        #expect(preferences.enableSMBEvenOnOddOffAlways == fresh.enableSMBEvenOnOddOffAlways)
+        #expect(preferences.enableB30 == fresh.enableB30)
+        #expect(preferences.B30basalFactor == fresh.B30basalFactor)
+        #expect(preferences.smbDeliveryRatio == fresh.smbDeliveryRatio)
+        #expect(preferences.enableSMBAlways == fresh.enableSMBAlways)
+        #expect(preferences.enableUAM == fresh.enableUAM)
+        #expect(preferences.maxSMBBasalMinutes == fresh.maxSMBBasalMinutes)
+        #expect(preferences.autosensMax == fresh.autosensMax)
+        #expect(preferences.autosensMin == fresh.autosensMin)
+        #expect(preferences.highTemptargetRaisesSensitivity == fresh.highTemptargetRaisesSensitivity)
+        // left alone
+        #expect(preferences.maxIOB == 9)
+        #expect(preferences.currentBasalSafetyMultiplier == 5)
+    }
+
+    @Test("The loop tile knows which FCL set is in use and whether it was tuned") func activeFCLSet() {
+        var preferences = Preferences()
+        #expect(AutoISFStartPreset.activeFCL(in: preferences) == nil)
+
+        AutoISFStartPreset.moderate.apply(to: &preferences)
+        #expect(AutoISFStartPreset.activeFCL(in: preferences) == .moderate)
+        #expect(!AutoISFStartPreset.moderate.isAdjusted(in: preferences))
+
+        // tuning, as the e-book asks for
+        preferences.bgAccelISFweight = Decimal(string: "0.07")!
+        #expect(AutoISFStartPreset.activeFCL(in: preferences) == .moderate)
+        #expect(AutoISFStartPreset.moderate.isAdjusted(in: preferences))
+        // other settings do not count as tuning the set
+        preferences.bgAccelISFweight = Decimal(string: "0.05")!
+        preferences.maxIOB = 12
+        #expect(!AutoISFStartPreset.moderate.isAdjusted(in: preferences))
+
+        AutoISFStartPreset.aggressive.apply(to: &preferences)
+        #expect(AutoISFStartPreset.activeFCL(in: preferences) == .aggressive)
+
+        // autoISF off or Dynamic ISF on: no FCL running
+        preferences.autoisf = false
+        #expect(AutoISFStartPreset.activeFCL(in: preferences) == nil)
+        preferences.autoisf = true
+        preferences.useNewFormula = true
+        #expect(AutoISFStartPreset.activeFCL(in: preferences) == nil)
+
+        // back to Standard
+        preferences.useNewFormula = false
+        AutoISFStartPreset.standard.apply(to: &preferences)
+        #expect(AutoISFStartPreset.activeFCL(in: preferences) == nil)
+
+        // the marker survives saving
+        AutoISFStartPreset.aggressive.apply(to: &preferences)
+        let stored = try? JSONDecoder().decode(Preferences.self, from: JSONEncoder().encode(preferences))
+        #expect(stored?.autoISFValueSet == "aggressive")
+    }
+
+    @Test("Starting values stay within the settings pickers") func presetsWithinPickers() {
+        // ranges as in DecimalPickerSettings (autoISF part) and the existing SMB pickers
+        for preset in AutoISFStartPreset.allCases {
+            var p = Preferences()
+            preset.apply(to: &p)
+            #expect(p.smbDeliveryRatio >= Decimal(string: "0.3")! && p.smbDeliveryRatio <= Decimal(string: "0.7")!)
+            #expect(p.smbMaxRangeExtension >= 1 && p.smbMaxRangeExtension <= 3)
+            #expect(p.autoISFmin >= Decimal(string: "0.3")! && p.autoISFmax <= 3)
+            #expect(p.maxSMBBasalMinutes <= 180)
+        }
     }
 }

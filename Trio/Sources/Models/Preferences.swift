@@ -61,13 +61,13 @@ struct Preferences: JSON, Equatable {
     var smbDeliveryRatioBGrange: Decimal = 0
     var smbDeliveryRatioMin: Decimal = 0.5
     var smbDeliveryRatioMax: Decimal = 0.8
-    var autoISFhourlyChange: Decimal = 0.6
-    var higherISFrangeWeight: Decimal = 0.3
-    var lowerISFrangeWeight: Decimal = 0.7
-    var postMealISFweight: Decimal = 0.02
+    var autoISFhourlyChange: Decimal = 0.2
+    var higherISFrangeWeight: Decimal = 0
+    var lowerISFrangeWeight: Decimal = 0
+    var postMealISFweight: Decimal = 0.005
     var enableBGacceleration: Bool = true
-    var bgAccelISFweight: Decimal = 0.15
-    var bgBrakeISFweight: Decimal = 0.15
+    var bgAccelISFweight: Decimal = 0.05
+    var bgBrakeISFweight: Decimal = 0.025
     var iobThresholdPercent: Decimal = 1
     var enableSMBEvenOnOddOffAlways: Bool = false
     var autoISFoffSport: Bool = false
@@ -78,6 +78,8 @@ struct Preferences: JSON, Equatable {
     var B30upperLimit: Decimal = 130
     var B30upperDelta: Decimal = 8
     var B30basalFactor: Decimal = 5
+    /// The autoISF value set last applied (AutoISFStartPreset raw value), "" if none.
+    var autoISFValueSet: String = ""
 }
 
 extension Preferences {
@@ -158,6 +160,7 @@ extension Preferences {
         case B30upperLimit = "b30_upperBG"
         case B30upperDelta = "b30_upperdelta"
         case B30basalFactor = "b30_factor"
+        case autoISFValueSet = "autoisf_value_set"
     }
 }
 
@@ -451,6 +454,9 @@ extension Preferences: Decodable {
         if let B30basalFactor = try? container.decode(Decimal.self, forKey: .B30basalFactor) {
             preferences.B30basalFactor = B30basalFactor
         }
+        if let autoISFValueSet = try? container.decode(String.self, forKey: .autoISFValueSet) {
+            preferences.autoISFValueSet = autoISFValueSet
+        }
 
         preferences.resolveISFModeConflict()
         self = preferences
@@ -464,5 +470,131 @@ extension Preferences {
         guard useNewFormula, autoisf || enableB30 else { return }
         autoisf = false
         enableB30 = false
+    }
+}
+
+/// Value sets for autoISF: the OpenTrio defaults, and two starting points for a Full Closed Loop
+/// from the FCL e-book by BerNie (sections 2 "General Settings" V.4.3 and 4 "Meals: Setting
+/// ISF_weights" V.5.8.1). Max IOB and the safety multipliers stay as the user set them.
+enum AutoISFStartPreset: String, CaseIterable, Identifiable {
+    /// The values a fresh OpenTrio installation has, for everything the FCL sets change
+    /// (autoISF stays on, Dynamic ISF stays off).
+    case standard
+    /// The e-book's starting values for the weights (bgAccel 0.05, pp 0.005, dura 0.2).
+    case moderate
+    /// The values the e-book cites from experienced users and its own examples
+    /// (bgAccel about 0.2, pp 0.02, delivery ratio 0.7, iobTH 60 %, range extension 2.5).
+    case aggressive
+
+    var id: String { rawValue }
+
+    private static func dec(_ text: String) -> Decimal { Decimal(string: text)! }
+
+    func apply(to preferences: inout Preferences) {
+        preferences.autoISFValueSet = rawValue
+        if self == .standard {
+            applyDefaults(to: &preferences)
+            return
+        }
+
+        // section 2
+        preferences.autoisf = true
+        preferences.useNewFormula = false
+        preferences.sigmoid = false
+        preferences.autoISFmax = 2
+        preferences.autoISFmin = Self.dec("0.3")
+        preferences.smbDeliveryRatioBGrange = 0
+        preferences.enableSMBEvenOnOddOffAlways = true
+        preferences.enableSMBAlways = true
+        preferences.allowSMBWithHighTemptarget = true
+        preferences.enableUAM = true
+        preferences.maxSMBBasalMinutes = 120
+        preferences.maxUAMSMBBasalMinutes = 120
+        preferences.smbInterval = 3
+        preferences.autosensMax = 1
+        preferences.autosensMin = 1
+        preferences.highTemptargetRaisesSensitivity = true
+
+        // section 4: bg_ISF off in FCL, brake about half of accel
+        preferences.enableBGacceleration = true
+        preferences.higherISFrangeWeight = 0
+        preferences.lowerISFrangeWeight = 0
+        preferences.autoISFhourlyChange = Self.dec("0.2")
+
+        switch self {
+        case .standard:
+            break // handled above
+        case .moderate:
+            preferences.smbMaxRangeExtension = 2
+            preferences.smbDeliveryRatio = Self.dec("0.6")
+            preferences.iobThresholdPercent = Self.dec("0.5")
+            preferences.bgAccelISFweight = Self.dec("0.05")
+            preferences.bgBrakeISFweight = Self.dec("0.025")
+            preferences.postMealISFweight = Self.dec("0.005")
+        case .aggressive:
+            preferences.smbMaxRangeExtension = Self.dec("2.5")
+            preferences.smbDeliveryRatio = Self.dec("0.7")
+            preferences.iobThresholdPercent = Self.dec("0.6")
+            preferences.bgAccelISFweight = Self.dec("0.2")
+            preferences.bgBrakeISFweight = Self.dec("0.1")
+            preferences.postMealISFweight = Self.dec("0.02")
+        }
+    }
+
+    /// Every value the FCL sets touch, plus the rest of autoISF and B30, back to a fresh install.
+    private func applyDefaults(to preferences: inout Preferences) {
+        let defaults = Preferences()
+        preferences.autoisf = true
+        preferences.useNewFormula = false
+        preferences.sigmoid = false
+        preferences.autoISFmax = defaults.autoISFmax
+        preferences.autoISFmin = defaults.autoISFmin
+        preferences.smbMaxRangeExtension = defaults.smbMaxRangeExtension
+        preferences.smbDeliveryRatioBGrange = defaults.smbDeliveryRatioBGrange
+        preferences.smbDeliveryRatioMin = defaults.smbDeliveryRatioMin
+        preferences.smbDeliveryRatioMax = defaults.smbDeliveryRatioMax
+        preferences.autoISFhourlyChange = defaults.autoISFhourlyChange
+        preferences.higherISFrangeWeight = defaults.higherISFrangeWeight
+        preferences.lowerISFrangeWeight = defaults.lowerISFrangeWeight
+        preferences.postMealISFweight = defaults.postMealISFweight
+        preferences.enableBGacceleration = defaults.enableBGacceleration
+        preferences.bgAccelISFweight = defaults.bgAccelISFweight
+        preferences.bgBrakeISFweight = defaults.bgBrakeISFweight
+        preferences.iobThresholdPercent = defaults.iobThresholdPercent
+        preferences.enableSMBEvenOnOddOffAlways = defaults.enableSMBEvenOnOddOffAlways
+        preferences.autoISFoffSport = defaults.autoISFoffSport
+        preferences.enableB30 = defaults.enableB30
+        preferences.B30iTimeStartBolus = defaults.B30iTimeStartBolus
+        preferences.B30iTime = defaults.B30iTime
+        preferences.B30iTimeTarget = defaults.B30iTimeTarget
+        preferences.B30upperLimit = defaults.B30upperLimit
+        preferences.B30upperDelta = defaults.B30upperDelta
+        preferences.B30basalFactor = defaults.B30basalFactor
+        preferences.smbDeliveryRatio = defaults.smbDeliveryRatio
+        preferences.enableSMBAlways = defaults.enableSMBAlways
+        preferences.allowSMBWithHighTemptarget = defaults.allowSMBWithHighTemptarget
+        preferences.enableUAM = defaults.enableUAM
+        preferences.maxSMBBasalMinutes = defaults.maxSMBBasalMinutes
+        preferences.maxUAMSMBBasalMinutes = defaults.maxUAMSMBBasalMinutes
+        preferences.smbInterval = defaults.smbInterval
+        preferences.autosensMax = defaults.autosensMax
+        preferences.autosensMin = defaults.autosensMin
+        preferences.highTemptargetRaisesSensitivity = defaults.highTemptargetRaisesSensitivity
+    }
+
+    /// The FCL set the loop runs with: the one last applied, while autoISF is on and Dynamic ISF off.
+    static func activeFCL(in preferences: Preferences) -> AutoISFStartPreset? {
+        guard preferences.autoisf, !preferences.useNewFormula,
+              let preset = AutoISFStartPreset(rawValue: preferences.autoISFValueSet),
+              preset != .standard
+        else { return nil }
+        return preset
+    }
+
+    /// Whether settings were changed after the set was applied (tuning, as the e-book asks for).
+    func isAdjusted(in preferences: Preferences) -> Bool {
+        var pristine = preferences
+        apply(to: &pristine)
+        return pristine != preferences
     }
 }

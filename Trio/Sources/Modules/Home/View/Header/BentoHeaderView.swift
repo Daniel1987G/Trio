@@ -341,7 +341,12 @@ struct BentoPumpTile: View {
 /// Shows whether dynamic ISF currently raises or lowers the ISF. oref divides the profile ISF by
 /// the ratio: above 1 the ISF is lowered (more insulin per mg/dL), below 1 it is raised.
 struct DynamicISFBadge: View {
+    /// Which adaptation the ratio comes from; only label and VoiceOver text differ.
+    enum Source { case dynamicISF, autoISF }
+
+    /// ISF = profile ISF / ratio (oref sensitivity ratio, or the autoISF factor).
     let ratio: Decimal
+    var source: Source = .dynamicISF
 
     /// Change of the ISF against the profile in percent (positive = raised).
     var changePercent: Int {
@@ -375,7 +380,7 @@ struct DynamicISFBadge: View {
 
     var body: some View {
         HStack(spacing: 2) {
-            Text("ISF")
+            Text(source == .autoISF ? "aISF" : "ISF")
                 .font(.system(size: 11, weight: .bold, design: .rounded))
             Image(systemName: symbol)
                 .font(.system(size: 10, weight: .heavy))
@@ -396,6 +401,22 @@ struct DynamicISFBadge: View {
     }
 
     private var accessibilityText: String {
+        if source == .autoISF {
+            switch direction {
+            case .raised:
+                return String(
+                    format: String(localized: "autoISF raises the ISF by %d percent", comment: "Accessibility: autoISF"),
+                    abs(changePercent)
+                )
+            case .lowered:
+                return String(
+                    format: String(localized: "autoISF lowers the ISF by %d percent", comment: "Accessibility: autoISF"),
+                    abs(changePercent)
+                )
+            case .unchanged:
+                return String(localized: "autoISF leaves the ISF unchanged", comment: "Accessibility: autoISF")
+            }
+        }
         switch direction {
         case .raised:
             return String(
@@ -410,5 +431,44 @@ struct DynamicISFBadge: View {
         case .unchanged:
             return String(localized: "Dynamic ISF leaves the ISF unchanged", comment: "Accessibility: dynamic ISF")
         }
+    }
+}
+
+/// Shows in the loop tile that an FCL value set of autoISF is in use: "FCL M" (moderate) or
+/// "FCL A" (aggressive), with "*" once its values were tuned.
+struct FCLBadge: View {
+    let preset: AutoISFStartPreset
+    var isAdjusted: Bool = false
+
+    /// Not translated: "FCL M" / "FCL A" stay the same in every language.
+    var shortText: String {
+        "FCL " + (preset == .aggressive ? "A" : "M") + (isAdjusted ? "*" : "")
+    }
+
+    private var color: Color { preset == .aggressive ? .red : .purple }
+
+    var body: some View {
+        Text(shortText)
+            .font(.system(size: 11, weight: .bold, design: .rounded))
+            .foregroundStyle(color)
+            .lineLimit(1)
+            .fixedSize()
+            .padding(.horizontal, 6)
+            .padding(.vertical, 3)
+            .background(Capsule().fill(color.opacity(0.14)))
+            .accessibilityElement(children: .ignore)
+            .accessibilityLabel(Text(accessibilityText))
+    }
+
+    private var accessibilityText: String {
+        let name = preset == .aggressive ?
+            String(localized: "FCL Starting Values Aggressive") :
+            String(localized: "FCL Starting Values Moderate")
+        return isAdjusted ?
+            String(
+                format: String(localized: "%@ active, adjusted", comment: "Accessibility: FCL badge"),
+                name
+            ) :
+            String(format: String(localized: "%@ active", comment: "Accessibility: FCL badge"), name)
     }
 }

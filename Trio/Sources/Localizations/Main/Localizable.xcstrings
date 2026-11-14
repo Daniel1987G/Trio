@@ -358178,6 +358178,7 @@
       }
     },
     "Default: 0.3" : {
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -358248,6 +358249,7 @@
       }
     },
     "Default: 0.02" : {
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -358288,6 +358290,7 @@
       }
     },
     "Default: 0.6" : {
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -358368,6 +358371,7 @@
       }
     },
     "Default: 0.15" : {
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -358933,6 +358937,547 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "autoISF ist an. Wenn du eine Formel für den dynamischen ISF wählst, wird autoISF ausgeschaltet."
+          }
+        }
+      }
+    },
+    "autoISF raises the ISF by %d percent" : {
+      "comment" : "Accessibility: autoISF",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "autoISF hebt den ISF um %d Prozent an"
+          }
+        }
+      }
+    },
+    "autoISF lowers the ISF by %d percent" : {
+      "comment" : "Accessibility: autoISF",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "autoISF senkt den ISF um %d Prozent ab"
+          }
+        }
+      }
+    },
+    "autoISF leaves the ISF unchanged" : {
+      "comment" : "Accessibility: autoISF",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "autoISF lässt den ISF unverändert"
+          }
+        }
+      }
+    },
+    "autoISF" : {
+
+    },
+    "Set Values" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Werte setzen"
+          }
+        }
+      }
+    },
+    "FCL Starting Values Moderate" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "FCL-Startwerte Moderat"
+          }
+        }
+      }
+    },
+    "FCL Starting Values Aggressive" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "FCL-Startwerte Aggressiv"
+          }
+        }
+      }
+    },
+    "Acceleration 0.05 · Brake 0.025 · Post-meal 0.005 · SMB ratio 60 % · iobTH 50 % · SMB size × 2" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Beschleunigung 0,05 · Abbremsen 0,025 · Nach dem Essen 0,005 · SMB-Anteil 60 % · iobTH 50 % · SMB-Größe × 2"
+          }
+        }
+      }
+    },
+    "Acceleration 0.2 · Brake 0.1 · Post-meal 0.02 · SMB ratio 70 % · iobTH 60 % · SMB size × 2.5" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Beschleunigung 0,2 · Abbremsen 0,1 · Nach dem Essen 0,02 · SMB-Anteil 70 % · iobTH 60 % · SMB-Größe × 2,5"
+          }
+        }
+      }
+    },
+    "Both: autoISF max 2.0 / min 0.3, duration 0.2, glucose-level weights 0, even/odd target on, SMB always and with high target on, UAM on, 120 SMB/UAM minutes, SMB every 3 min, autosens 1.0 (off), high target raises sensitivity on." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Beide: autoISF Max 2,0 / Min 0,3, Dauer 0,2, Gewichte über/unter dem Ziel 0, gerades/ungerades Ziel an, SMB immer und mit hohem Ziel an, UAM an, 120 SMB/UAM-Minuten, SMB alle 3 min, Autosens 1,0 (aus), hohes Ziel erhöht Empfindlichkeit an."
+          }
+        }
+      }
+    },
+    "Default: 0" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Standard: 0"
+          }
+        }
+      }
+    },
+    "Default: 0.005" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Standard: 0,005"
+          }
+        }
+      }
+    },
+    "Default: 0.2" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Standard: 0,2"
+          }
+        }
+      }
+    },
+    "Default: 0.05" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Standard: 0,05"
+          }
+        }
+      }
+    },
+    "Default: 0.025" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Standard: 0,025"
+          }
+        }
+      }
+    },
+    "aISF" : {
+
+    },
+    "autoISF Standard" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "autoISF Standard"
+          }
+        }
+      }
+    },
+    "Value Sets" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wertesätze"
+          }
+        }
+      }
+    },
+    "OpenTrio defaults: autoISF max 1.5 / min 0.7, weights above/below target 0, post-meal 0.005, duration 0.2, acceleration 0.05, brake 0.025, iobTH 100 % (off), SMB size × 1, even/odd target off, B30 off" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OpenTrio-Standardwerte: autoISF Max 1,5 / Min 0,7, Gewichte über/unter dem Ziel 0, nach dem Essen 0,005, Dauer 0,2, Beschleunigung 0,05, Abbremsen 0,025, iobTH 100 % (aus), SMB-Größe × 1, gerades/ungerades Ziel aus, B30 aus"
+          }
+        }
+      }
+    },
+    "Also back to the defaults: SMB delivery ratio 50 %, SMB always and with high target off, UAM off, 30 SMB/UAM minutes, SMB every 3 min, autosens 0.7–1.2, high target raises sensitivity off. autoISF stays on; Max IOB and the safety multipliers stay as they are." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ebenfalls zurück auf Standard: SMB-Abgabeanteil 50 %, SMB immer und mit hohem Ziel aus, UAM aus, 30 SMB/UAM-Minuten, SMB alle 3 min, Autosens 0,7–1,2, hohes Ziel erhöht Empfindlichkeit aus. autoISF bleibt an; Max IOB und die Safety Multiplier bleiben unverändert."
+          }
+        }
+      }
+    },
+    "autoISF Standard restores the values of a fresh OpenTrio installation. The FCL sets come from the FCL e-book (sections 2 and 4): Moderate uses its starting values for the weights, Aggressive the values it reports from experienced users. They also set SMB, UAM, SMB minutes and autosens. Max IOB and the safety multipliers stay as they are. Starting values only: tune them to your own data." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "autoISF Standard stellt die Werte einer frischen OpenTrio-Installation wieder her. Die FCL-Sätze stammen aus dem FCL-E-Book (Kapitel 2 und 4): Moderat nutzt dessen Startwerte für die Gewichte, Aggressiv die Werte, die es von erfahrenen Nutzern nennt. Sie setzen auch SMB, UAM, SMB-Minuten und Autosens. Max IOB und die Safety Multiplier bleiben unverändert. Nur Startwerte: stimme sie auf deine eigenen Daten ab."
+          }
+        }
+      }
+    },
+    "%@ active" : {
+      "comment" : "Accessibility: FCL badge",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ aktiv"
+          }
+        }
+      }
+    },
+    "%@ active, adjusted" : {
+      "comment" : "Accessibility: FCL badge",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ aktiv, angepasst"
+          }
+        }
+      }
+    },
+    "Save Profile" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Profil speichern"
+          }
+        }
+      }
+    },
+    "Saves the basal rates, ISF and carb ratios in use." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Speichert die aktuellen Basalraten, ISF und Kohlenhydratfaktoren."
+          }
+        }
+      }
+    },
+    "Saved Profiles" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gespeicherte Profile"
+          }
+        }
+      }
+    },
+    "Saved as \"%@\"" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gespeichert als „%@“"
+          }
+        }
+      }
+    },
+    "Save Current Profile" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aktuelles Profil speichern"
+          }
+        }
+      }
+    },
+    "Set basal rates, ISF and carb ratios first." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lege zuerst Basalraten, ISF und Kohlenhydratfaktoren fest."
+          }
+        }
+      }
+    },
+    "Profile in Use" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aktuelles Profil"
+          }
+        }
+      }
+    },
+    "No saved profiles yet." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Noch keine gespeicherten Profile."
+          }
+        }
+      }
+    },
+    "auto" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "auto"
+          }
+        }
+      }
+    },
+    "in use" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "aktiv"
+          }
+        }
+      }
+    },
+    "Restoring sends the basal rates to the pump first and only then takes over ISF and carb ratios. Before that, the profile in use is saved as \"Before Restore\" and a settings backup is made. Glucose targets and all other settings stay as they are." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Beim Wiederherstellen werden zuerst die Basalraten an die Pumpe gesendet und erst danach ISF und Kohlenhydratfaktoren übernommen. Vorher wird das aktuelle Profil als „Vor Wiederherstellung“ gespeichert und ein Einstellungs-Backup angelegt. Zielwerte und alle anderen Einstellungen bleiben unverändert."
+          }
+        }
+      }
+    },
+    "Basal %@ U/day" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Basal %@ IE/Tag"
+          }
+        }
+      }
+    },
+    "ISF %@" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ISF %@"
+          }
+        }
+      }
+    },
+    "CR %@ g/U" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "KH-Faktor %@ g/IE"
+          }
+        }
+      }
+    },
+    "Same as the profile in use" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gleich wie das aktuelle Profil"
+          }
+        }
+      }
+    },
+    "Restore This Profile" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dieses Profil wiederherstellen"
+          }
+        }
+      }
+    },
+    "Rename" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Umbenennen"
+          }
+        }
+      }
+    },
+    "Restore \"%@\"?" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "„%@“ wiederherstellen?"
+          }
+        }
+      }
+    },
+    "Restore Profile" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Profil wiederherstellen"
+          }
+        }
+      }
+    },
+    "The basal rates are sent to the pump, ISF and carb ratios are replaced. The profile in use is saved as \"Before Restore\" first." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die Basalraten werden an die Pumpe gesendet, ISF und Kohlenhydratfaktoren werden ersetzt. Das aktuelle Profil wird vorher als „Vor Wiederherstellung“ gespeichert."
+          }
+        }
+      }
+    },
+    "This profile no longer exists." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dieses Profil gibt es nicht mehr."
+          }
+        }
+      }
+    },
+    "Differs from the profile in use: %@" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abweichend vom aktuellen Profil: %@"
+          }
+        }
+      }
+    },
+    "now %@" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "aktuell %@"
+          }
+        }
+      }
+    },
+    "not in use" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "nicht aktiv"
+          }
+        }
+      }
+    },
+    "Profile Saved" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Profil gespeichert"
+          }
+        }
+      }
+    },
+    "\"%@\" was saved." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "„%@“ wurde gespeichert."
+          }
+        }
+      }
+    },
+    "Profile Not Saved" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Profil nicht gespeichert"
+          }
+        }
+      }
+    },
+    "Profile Restored" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Profil wiederhergestellt"
+          }
+        }
+      }
+    },
+    "Basal rates, ISF and carb ratios of \"%@\" are active again. The basal rates were sent to the pump. The previous profile is listed as \"Before Restore\"." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Basalraten, ISF und Kohlenhydratfaktoren von „%@“ sind wieder aktiv. Die Basalraten wurden an die Pumpe gesendet. Das vorherige Profil steht als „Vor Wiederherstellung“ in der Liste."
+          }
+        }
+      }
+    },
+    "Basal rates, ISF and carb ratios must all be set before the profile can be saved." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Basalraten, ISF und Kohlenhydratfaktoren müssen festgelegt sein, bevor das Profil gespeichert werden kann."
+          }
+        }
+      }
+    },
+    "Before Restore" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vor Wiederherstellung"
+          }
+        }
+      }
+    },
+    "Save basal rates, ISF and carb ratios before changing them, to go back if needed." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Speichere Basalraten, ISF und Kohlenhydratfaktoren, bevor du sie änderst, um bei Bedarf zurückzukehren."
           }
         }
       }

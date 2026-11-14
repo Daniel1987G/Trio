@@ -9,49 +9,15 @@ struct TagCloudView: View {
 
     @Environment(\.colorScheme) var colorScheme
 
-    @State private var totalHeight = CGFloat.zero // << variant for ScrollView/List
-//    = CGFloat.infinity // << variant for VStack
-
     var body: some View {
-        VStack {
-            GeometryReader { geometry in
-                self.generateContent(in: geometry)
-            }
-        }
-        .frame(height: totalHeight) // << variant for ScrollView/List
-//        .frame(maxHeight: totalHeight) // << variant for VStack
-    }
-
-    private func generateContent(in geometry: GeometryProxy) -> some View {
-        var width = CGFloat.zero
-        var height = CGFloat.zero
-
-        return ZStack(alignment: .topLeading) {
-            ForEach(self.tags, id: \.self) { tag in
+        // a flow layout: each row is as tall as its tallest tag, so a tag that wraps onto two
+        // lines no longer overlaps the next row
+        TagFlowLayout(spacing: 0) {
+            ForEach(Array(tags.enumerated()), id: \.offset) { _, tag in
                 self.drawTag(for: tag, isMmolL: shouldParseToMmolL)
                     .padding([.horizontal, .vertical], 3)
-                    .alignmentGuide(.leading, computeValue: { dimensions in
-                        if abs(width - dimensions.width) > geometry.size.width {
-                            width = 0
-                            height -= dimensions.height
-                        }
-                        let result = width
-                        if tag == self.tags.last! {
-                            width = 0 // last item
-                        } else {
-                            width -= dimensions.width
-                        }
-                        return result
-                    })
-                    .alignmentGuide(.top, computeValue: { _ in
-                        let result = height
-                        if tag == self.tags.last! {
-                            height = 0 // last item
-                        }
-                        return result
-                    })
             }
-        }.background(viewHeightReader($totalHeight))
+        }
     }
 
     private func drawTag(for textTag: String, isMmolL: Bool) -> some View {
@@ -217,14 +183,67 @@ struct TagCloudView: View {
 
         return updatedTag
     }
+}
 
-    private func viewHeightReader(_ binding: Binding<CGFloat>) -> some View {
-        GeometryReader { geometry -> Color in
-            let rect = geometry.frame(in: .local)
-            DispatchQueue.main.async {
-                binding.wrappedValue = rect.size.height
+/// Places its subviews left to right and starts a new row when the next one does not fit.
+/// A subview wider than the row gets the full width and wraps its text.
+struct TagFlowLayout: Layout {
+    var spacing: CGFloat = 0
+
+    private struct Row {
+        var indices: [Int] = []
+        var sizes: [CGSize] = []
+        var height: CGFloat = 0
+    }
+
+    private func makeRows(for subviews: Subviews, width: CGFloat) -> [Row] {
+        var rows: [Row] = []
+        var current = Row()
+        var x: CGFloat = 0
+        for index in subviews.indices {
+            var size = subviews[index].sizeThatFits(.unspecified)
+            if size.width > width {
+                size = subviews[index].sizeThatFits(ProposedViewSize(width: width, height: nil))
             }
-            return .clear
+            if !current.indices.isEmpty, x + size.width > width {
+                rows.append(current)
+                current = Row()
+                x = 0
+            }
+            current.indices.append(index)
+            current.sizes.append(size)
+            current.height = max(current.height, size.height)
+            x += size.width + spacing
+        }
+        if !current.indices.isEmpty { rows.append(current) }
+        return rows
+    }
+
+    func sizeThatFits(proposal: ProposedViewSize, subviews: Subviews, cache _: inout ()) -> CGSize {
+        let width = proposal.width ?? .infinity
+        let rows = makeRows(for: subviews, width: width)
+        let height = rows.reduce(CGFloat(0)) { $0 + $1.height } + spacing * CGFloat(max(rows.count - 1, 0))
+        var usedWidth: CGFloat = 0
+        for row in rows {
+            let rowWidth = row.sizes.reduce(CGFloat(0)) { $0 + $1.width } + spacing * CGFloat(max(row.sizes.count - 1, 0))
+            usedWidth = max(usedWidth, rowWidth)
+        }
+        return CGSize(width: proposal.width ?? usedWidth, height: height)
+    }
+
+    func placeSubviews(in bounds: CGRect, proposal _: ProposedViewSize, subviews: Subviews, cache _: inout ()) {
+        var y = bounds.minY
+        for row in makeRows(for: subviews, width: bounds.width) {
+            var x = bounds.minX
+            for (index, size) in zip(row.indices, row.sizes) {
+                subviews[index].place(
+                    at: CGPoint(x: x, y: y),
+                    anchor: .topLeading,
+                    proposal: ProposedViewSize(width: size.width, height: size.height)
+                )
+                x += size.width + spacing
+            }
+            y += row.height + spacing
         }
     }
 }
