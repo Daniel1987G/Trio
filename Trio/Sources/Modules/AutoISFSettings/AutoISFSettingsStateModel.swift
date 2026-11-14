@@ -9,13 +9,13 @@ extension AutoISFSettings {
 
         @Published var autoISFmax: Decimal = 1.5
         @Published var autoISFmin: Decimal = 0.7
-        @Published var higherISFrangeWeight: Decimal = 0.3
-        @Published var lowerISFrangeWeight: Decimal = 0.7
-        @Published var postMealISFweight: Decimal = 0.02
-        @Published var autoISFhourlyChange: Decimal = 0.6
+        @Published var higherISFrangeWeight: Decimal = 0
+        @Published var lowerISFrangeWeight: Decimal = 0
+        @Published var postMealISFweight: Decimal = 0.005
+        @Published var autoISFhourlyChange: Decimal = 0.2
         @Published var enableBGacceleration: Bool = true
-        @Published var bgAccelISFweight: Decimal = 0.15
-        @Published var bgBrakeISFweight: Decimal = 0.15
+        @Published var bgAccelISFweight: Decimal = 0.05
+        @Published var bgBrakeISFweight: Decimal = 0.025
         @Published var autoISFoffSport: Bool = false
 
         @Published var enableSMBEvenOnOddOffAlways: Bool = false
@@ -77,6 +77,32 @@ extension AutoISFSettings {
             subscribePreferencesSetting(\.B30upperLimit, on: $B30upperLimit) { B30upperLimit = $0 }
             subscribePreferencesSetting(\.B30upperDelta, on: $B30upperDelta) { B30upperDelta = $0 }
             subscribePreferencesSetting(\.B30basalFactor, on: $B30basalFactor) { B30basalFactor = $0 }
+        }
+
+        /// Sets the FCL e-book starting values (autoISF, SMB and autosens settings) in one go.
+        func applyStartPreset(_ preset: AutoISFStartPreset) {
+            var preferences = settingsManager.preferences
+            preset.apply(to: &preferences)
+            settingsManager.preferences = preferences
+            dynamicISFActive = false
+            autoisf = preferences.autoisf
+            autoISFmax = preferences.autoISFmax
+            autoISFmin = preferences.autoISFmin
+            higherISFrangeWeight = preferences.higherISFrangeWeight
+            lowerISFrangeWeight = preferences.lowerISFrangeWeight
+            postMealISFweight = preferences.postMealISFweight
+            autoISFhourlyChange = preferences.autoISFhourlyChange
+            enableBGacceleration = preferences.enableBGacceleration
+            bgAccelISFweight = preferences.bgAccelISFweight
+            bgBrakeISFweight = preferences.bgBrakeISFweight
+            autoISFoffSport = preferences.autoISFoffSport
+            enableSMBEvenOnOddOffAlways = preferences.enableSMBEvenOnOddOffAlways
+            iobThresholdPercent = preferences.iobThresholdPercent
+            smbDeliveryRatioBGrange = preferences.smbDeliveryRatioBGrange
+            smbDeliveryRatioMin = preferences.smbDeliveryRatioMin
+            smbDeliveryRatioMax = preferences.smbDeliveryRatioMax
+            smbMaxRangeExtension = preferences.smbMaxRangeExtension
+            enableB30 = preferences.enableB30
         }
 
         /// The iobTH in units for the current max IOB, for the hint.

@@ -44,6 +44,15 @@ struct TherapySettingsView: BaseView {
                 }
             )
             .listRowBackground(Color.chart)
+
+            Section(
+                header: Text("Profiles"),
+                footer: Text("Save basal rates, ISF and carb ratios before changing them, to go back if needed."),
+                content: {
+                    Text("Saved Profiles").navigationLink(to: .profileSnapshots, from: self)
+                }
+            )
+            .listRowBackground(Color.chart)
         }
         .scrollContentBackground(.hidden)
         .background(appState.trioBackgroundColor(for: colorScheme))

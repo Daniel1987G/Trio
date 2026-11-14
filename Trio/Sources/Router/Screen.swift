@@ -55,6 +55,7 @@ enum Screen: Identifiable, Hashable {
     case appDiagnostics
     case settingsExport
     case backupRestore
+    case profileSnapshots
     case aiReport
     case treatmentsSettings
 
@@ -182,6 +183,8 @@ extension Screen {
             SettingsExport.RootView(resolver: resolver)
         case .backupRestore:
             BackupRestore.RootView(resolver: resolver)
+        case .profileSnapshots:
+            ProfileSnapshots.RootView(resolver: resolver)
         case .aiReport:
             AIReport.RootView(resolver: resolver)
         case .treatmentsSettings:

@@ -11,6 +11,7 @@ extension AutoISFSettings {
         @State private var hintPayload: HintPayload?
         @State private var decimalPlaceholder: Decimal = 0.0
         @State private var booleanPlaceholder: Bool = false
+        @State private var pendingPreset: AutoISFStartPreset?
 
         @Environment(\.colorScheme) var colorScheme
         @Environment(AppState.self) var appState
@@ -116,6 +117,7 @@ extension AutoISFSettings {
                 }
 
                 if state.autoisf {
+                    presetSection
                     isfSections
                     smbSections
                     b30Sections
@@ -136,6 +138,83 @@ extension AutoISFSettings {
             .navigationBarTitle("autoISF")
             .navigationBarTitleDisplayMode(.automatic)
             .settingsHighlightScroll()
+        }
+
+        // MARK: - FCL starting values
+
+        private var presetSection: some View {
+            Section {
+                ForEach(AutoISFStartPreset.allCases) { preset in
+                    Button {
+                        pendingPreset = preset
+                    } label: {
+                        VStack(alignment: .leading, spacing: 2) {
+                            Text(Self.title(preset))
+                            Text(Self.summary(preset))
+                                .font(.caption)
+                                .foregroundStyle(.secondary)
+                        }
+                    }
+                }
+            } header: {
+                Text("Value Sets")
+            } footer: {
+                Text(
+                    "autoISF Standard restores the values of a fresh OpenTrio installation. The FCL sets come from the FCL e-book (sections 2 and 4): Moderate uses its starting values for the weights, Aggressive the values it reports from experienced users. They also set SMB, UAM, SMB minutes and autosens. Max IOB and the safety multipliers stay as they are. Starting values only: tune them to your own data."
+                )
+            }
+            .listRowBackground(Color.chart)
+            .confirmationDialog(
+                pendingPreset.map { Self.title($0) } ?? "",
+                isPresented: Binding(get: { pendingPreset != nil }, set: { if !$0 { pendingPreset = nil } }),
+                titleVisibility: .visible,
+                presenting: pendingPreset
+            ) { preset in
+                Button(String(localized: "Set Values")) {
+                    state.applyStartPreset(preset)
+                    pendingPreset = nil
+                }
+                Button(String(localized: "Cancel"), role: .cancel) { pendingPreset = nil }
+            } message: { preset in
+                Text(Self.summary(preset) + "\n\n" + (preset == .standard ? Self.standardSummary : Self.commonSummary))
+            }
+        }
+
+        static func title(_ preset: AutoISFStartPreset) -> String {
+            switch preset {
+            case .standard: return String(localized: "autoISF Standard")
+            case .moderate: return String(localized: "FCL Starting Values Moderate")
+            case .aggressive: return String(localized: "FCL Starting Values Aggressive")
+            }
+        }
+
+        static func summary(_ preset: AutoISFStartPreset) -> String {
+            switch preset {
+            case .standard:
+                return String(
+                    localized: "OpenTrio defaults: autoISF max 1.5 / min 0.7, weights above/below target 0, post-meal 0.005, duration 0.2, acceleration 0.05, brake 0.025, iobTH 100 % (off), SMB size × 1, even/odd target off, B30 off"
+                )
+            case .moderate:
+                return String(
+                    localized: "Acceleration 0.05 · Brake 0.025 · Post-meal 0.005 · SMB ratio 60 % · iobTH 50 % · SMB size × 2"
+                )
+            case .aggressive:
+                return String(
+                    localized: "Acceleration 0.2 · Brake 0.1 · Post-meal 0.02 · SMB ratio 70 % · iobTH 60 % · SMB size × 2.5"
+                )
+            }
+        }
+
+        static var standardSummary: String {
+            String(
+                localized: "Also back to the defaults: SMB delivery ratio 50 %, SMB always and with high target off, UAM off, 30 SMB/UAM minutes, SMB every 3 min, autosens 0.7–1.2, high target raises sensitivity off. autoISF stays on; Max IOB and the safety multipliers stay as they are."
+            )
+        }
+
+        static var commonSummary: String {
+            String(
+                localized: "Both: autoISF max 2.0 / min 0.3, duration 0.2, glucose-level weights 0, even/odd target on, SMB always and with high target on, UAM on, 120 SMB/UAM minutes, SMB every 3 min, autosens 1.0 (off), high target raises sensitivity on."
+            )
         }
 
         // MARK: - ISF
@@ -168,7 +247,7 @@ extension AutoISFSettings {
                 label: String(localized: "Weight Above Target"),
                 miniHint: String(localized: "How strongly glucose above target strengthens the ISF.")
             ) {
-                Text("Default: 0.3").bold()
+                Text("Default: 0").bold()
                 Text(
                     "bg-ISF: from 20 mg/dL (1.1 mmol/L) above target a curve rises with glucose and reaches 0.7 at 90 mg/dL (5 mmol/L) above target. This weight scales the curve: 0.3 gives a factor of 1.21 there. 0 turns it off."
                 )
@@ -179,7 +258,7 @@ extension AutoISFSettings {
                 label: String(localized: "Weight Below Target"),
                 miniHint: String(localized: "How strongly glucose below target weakens the ISF.")
             ) {
-                Text("Default: 0.7").bold()
+                Text("Default: 0").bold()
                 Text(
                     "Up to 10 mg/dL (0.6 mmol/L) above target the curve turns negative: −0.2 at target, −0.5 from 30 mg/dL (1.7 mmol/L) below. This weight scales it: 0.7 gives 0.86 at target and 0.65 further below, so less insulin. autoISF Min still applies. 0 turns it off."
                 )
@@ -190,7 +269,7 @@ extension AutoISFSettings {
                 label: String(localized: "Post-Meal Weight"),
                 miniHint: String(localized: "Strengthens the ISF while glucose rises above target.")
             ) {
-                Text("Default: 0.02").bold()
+                Text("Default: 0.005").bold()
                 Text(
                     "pp-ISF: factor = 1 + delta × weight, only above target + 10 mg/dL and while glucose rises. With 0.02, a rise of 10 mg/dL in 5 minutes gives 1.2."
                 )
@@ -201,7 +280,7 @@ extension AutoISFSettings {
                 label: String(localized: "Duration Weight"),
                 miniHint: String(localized: "Strengthens the ISF the longer glucose stays high.")
             ) {
-                Text("Default: 0.6").bold()
+                Text("Default: 0.2").bold()
                 Text(
                     "dura-ISF: when glucose stays within 5 % of its average for at least 10 minutes above target, the factor grows with time and with the distance to target."
                 )
@@ -223,7 +302,7 @@ extension AutoISFSettings {
                     label: String(localized: "Acceleration Weight"),
                     miniHint: String(localized: "Effect of glucose speeding up away from target.")
                 ) {
-                    Text("Default: 0.15").bold()
+                    Text("Default: 0.05").bold()
                     Text("Higher values strengthen the ISF more while glucose speeds up away from target.")
                 }
                 decimalRow(
@@ -232,7 +311,7 @@ extension AutoISFSettings {
                     label: String(localized: "Brake Weight"),
                     miniHint: String(localized: "Effect of glucose slowing down or turning.")
                 ) {
-                    Text("Default: 0.15").bold()
+                    Text("Default: 0.025").bold()
                     Text(
                         "Higher values weaken the ISF more while glucose slows down, and when the curve predicts glucose below target within 30 minutes."
                     )

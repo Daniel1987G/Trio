@@ -94,6 +94,11 @@ extension Home {
         var autosensMax: Decimal = 1.2
         /// Dynamic ISF (preferences.useNewFormula) is on; the loop tile then shows how it moves the ISF.
         var isDynamicISFEnabled = false
+        /// autoISF is on and can act (never together with Dynamic ISF).
+        var isAutoISFEnabled = false
+        /// FCL value set in use (nil without), and whether its values were tuned since.
+        var activeFCLSet: AutoISFStartPreset?
+        var isFCLSetAdjusted = false
         var lowGlucose: Decimal = 70
         var highGlucose: Decimal = 180
         var currentGlucoseTarget: Decimal = 100
@@ -766,6 +771,9 @@ extension Home {
             glucoseColorScheme = settingsManager.settings.glucoseColorScheme
             autosensMax = settingsManager.preferences.autosensMax
             isDynamicISFEnabled = settingsManager.preferences.useNewFormula
+            isAutoISFEnabled = settingsManager.preferences.autoisf && !settingsManager.preferences.useNewFormula
+            activeFCLSet = AutoISFStartPreset.activeFCL(in: settingsManager.preferences)
+            isFCLSetAdjusted = activeFCLSet?.isAdjusted(in: settingsManager.preferences) ?? false
             lowGlucose = settingsManager.settings.low
             highGlucose = settingsManager.settings.high
             eA1cDisplayUnit = settingsManager.settings.eA1cDisplayUnit
@@ -1116,6 +1124,9 @@ extension Home.StateModel:
     func preferencesDidChange(_: Preferences) {
         autosensMax = settingsManager.preferences.autosensMax
         isDynamicISFEnabled = settingsManager.preferences.useNewFormula
+        isAutoISFEnabled = settingsManager.preferences.autoisf && !settingsManager.preferences.useNewFormula
+        activeFCLSet = AutoISFStartPreset.activeFCL(in: settingsManager.preferences)
+        isFCLSetAdjusted = activeFCLSet?.isAdjusted(in: settingsManager.preferences) ?? false
         settingHalfBasalTarget = settingsManager.preferences.halfBasalExerciseTarget
         highTTraisesSens = settingsManager.preferences.highTemptargetRaisesSensitivity
         isExerciseModeActive = settingsManager.preferences.exerciseMode

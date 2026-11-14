@@ -92,8 +92,8 @@ enum AutoISFReason {
 
         if tVertex > 0 {
             return status.bg_acceleration < 0
-                ? "Parabolic Fit: predicts Max of \(extremumBG), in about \(minsDelta)min, "
-                : "Parabolic Fit: predicts Min of \(extremumBG), in about \(minsDelta)min, "
+                ? "Parabolic Fit: predicts Max of \(extremumBG) in about \(minsDelta)min, "
+                : "Parabolic Fit: predicts Min of \(extremumBG) in about \(minsDelta)min, "
         } else {
             return status.bg_acceleration < 0
                 ? "Parabolic Fit: saw Max of \(extremumBG), about \(minsDelta)min ago, "
@@ -204,5 +204,18 @@ enum AutoISFReason {
         // the resulting ISF is already in the "ISF: …→…" tag at the start of the reason
         parts.append("final Ratio: \(finalISF.jsRounded(scale: 2))")
         return parts.joined(separator: ", ")
+    }
+
+    // MARK: - Reading back
+
+    /// The autoISF factor of a stored determination, read from its reason: the "final Ratio"
+    /// (ISF = profile ISF / factor), 1 when autoISF left the ISF alone, nil when the reason has
+    /// no autoISF ISF result (autoISF off, disabled for exercise, no glucose history).
+    static func finalRatio(fromReason reason: String) -> Decimal? {
+        let tags = reason.components(separatedBy: "; ").first?.components(separatedBy: ", ") ?? []
+        if let tag = tags.first(where: { $0.hasPrefix("final Ratio: ") }) {
+            return Decimal(string: String(tag.dropFirst("final Ratio: ".count)), locale: Locale(identifier: "en_US_POSIX"))
+        }
+        return tags.contains(adjustNotModified) ? 1 : nil
     }
 }

@@ -82,6 +82,22 @@ extension Home.RootView {
         }
     }
 
+    /// ISF badge of the loop tile: Dynamic ISF's sensitivity ratio or the autoISF factor.
+    @ViewBuilder private var loopTileISFBadge: some View {
+        if state.isDynamicISFEnabled,
+           let ratio = state.enactedAndNonEnactedDeterminations.first?.sensitivityRatio?.decimalValue,
+           ratio > 0
+        {
+            DynamicISFBadge(ratio: ratio)
+        } else if state.isAutoISFEnabled,
+                  let reason = state.enactedAndNonEnactedDeterminations.first?.reason,
+                  let factor = AutoISFReason.finalRatio(fromReason: reason),
+                  factor > 0
+        {
+            DynamicISFBadge(ratio: factor, source: .autoISF)
+        }
+    }
+
     private var bentoLoopTile: some View {
         BentoTile(tint: nil) {
             VStack(alignment: .leading, spacing: 4) {
@@ -104,12 +120,14 @@ extension Home.RootView {
                         hasDeviceIssue: state.hasDeviceIssue,
                         determination: state.determinationsFromPersistence
                     )
-                    if state.isDynamicISFEnabled,
-                       let ratio = state.enactedAndNonEnactedDeterminations.first?.sensitivityRatio?.decimalValue,
-                       ratio > 0
-                    {
+                    if state.isDynamicISFEnabled || state.isAutoISFEnabled {
                         Spacer(minLength: 0)
-                        DynamicISFBadge(ratio: ratio)
+                        VStack(alignment: .trailing, spacing: 3) {
+                            loopTileISFBadge
+                            if let fclSet = state.activeFCLSet {
+                                FCLBadge(preset: fclSet, isAdjusted: state.isFCLSetAdjusted)
+                            }
+                        }
                     }
                 }
             }
