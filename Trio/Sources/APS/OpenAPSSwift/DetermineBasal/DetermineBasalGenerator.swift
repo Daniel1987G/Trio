@@ -466,6 +466,25 @@ enum DeterminationGenerator {
             return DosingEngine.recommendNoChange(determination: determination)
         }
 
+        // Falling guard (opt-in): glucose falls much faster than the insulin explains, so the
+        // forecasts above are too optimistic. Stop insulin before anything adds more.
+        if let fall = FallingGuard.unexplainedFall(
+            enabled: preferences.fallingGuard,
+            thresholdMgdlPerHour: preferences.fallingGuardThreshold,
+            delta: glucoseStatus.delta,
+            shortAvgDelta: glucoseStatus.shortAvgDelta,
+            glucoseImpact: currentGlucoseImpact
+        ) {
+            determination.reason += FallingGuard.reason(fall: fall, threshold: preferences.fallingGuardThreshold)
+            return try TempBasalFunctions.setTempBasal(
+                rate: 0,
+                duration: FallingGuard.suspendMinutes,
+                profile: profile,
+                determination: determination,
+                currentTemp: currentTemp
+            )
+        }
+
         // autoISF B30 boost basal. Unlike Tai it runs only after the low glucose suspend above,
         // so a low or a predicted low still stops insulin.
         if let autoISF {

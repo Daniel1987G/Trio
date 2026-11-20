@@ -118,6 +118,10 @@ extension Treatments {
 
         var externalInsulin: Bool = false
 
+        /// The last time a meal with this note was eaten, and the bolus suggested from it.
+        var mealRecall: MealRecall.Recall?
+        @ObservationIgnored private var mealRecallTask: Task<Void, Never>?
+
         // Meal photo analysis
         /// Photos of the current meal; several photos add up to one entry.
         var mealPhotoParts: [MealPhotoPart] = []
@@ -933,6 +937,41 @@ extension Treatments {
                     self.mealPhotoTasks[id] = nil
                 }
             }
+        }
+
+        // MARK: - Meal recall
+
+        /// Looks up the same meal (by note) from earlier days; called when the note changes.
+        func updateMealRecall() {
+            mealRecallTask?.cancel()
+            let note = note
+            guard MealRecall.normalized(note).count >= MealRecall.minimumNoteLength else {
+                mealRecall = nil
+                return
+            }
+            let low = lowGlucose
+            let increment = settingsManager.preferences.bolusIncrement
+            let storage = fileStorage!
+            mealRecallTask = Task { [weak self] in
+                // typing: wait for a pause
+                try? await Task.sleep(for: .milliseconds(400))
+                guard !Task.isCancelled else { return }
+                let recall = await MealRecallDataSource.recall(
+                    note: note,
+                    lowMgdl: low,
+                    isfMgdl: MealRecallDataSource.isfMgdl(storage: storage),
+                    increment: increment,
+                    context: CoreDataStack.shared.newTaskContext()
+                )
+                guard !Task.isCancelled else { return }
+                await MainActor.run { self?.mealRecall = recall }
+            }
+        }
+
+        /// Puts the bolus suggested from the last time into the bolus field.
+        func useMealRecall() {
+            guard let suggested = mealRecall?.suggested else { return }
+            amount = min(suggested, maxBolus)
         }
 
         /// Takes the estimate over into the entry fields; the user still confirms the treatment.

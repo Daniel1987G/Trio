@@ -25,6 +25,22 @@ struct OverridePresetsView: View {
     var body: some View {
         NavigationView {
             List {
+                NavigationLink {
+                    WorkoutView(state: state)
+                } label: {
+                    if state.workout.isRunning, let start = state.workout.startDate {
+                        HStack {
+                            Label("Workout", systemImage: "figure.run")
+                            Spacer()
+                            Text(start, style: .timer)
+                                .font(.caption2.monospacedDigit())
+                                .foregroundStyle(Color.loopGreen)
+                        }
+                    } else {
+                        Label("Workout", systemImage: "figure.run")
+                    }
+                }
+
                 if let active = activeOverride {
                     Button("Stop \(active.name)") {
                         state.sendCancelOverrideRequest()

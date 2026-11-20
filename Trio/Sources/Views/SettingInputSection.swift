@@ -212,6 +212,10 @@ struct SettingInputSection<VerboseHint: View>: View {
             return pickerSettingsProvider.settings.B30upperDelta
         case "B30basalFactor":
             return pickerSettingsProvider.settings.B30basalFactor
+        case "autoISFBudgetHours":
+            return pickerSettingsProvider.settings.autoISFBudgetHours
+        case "fallingGuardThreshold":
+            return pickerSettingsProvider.settings.fallingGuardThreshold
         default:
             return nil
         }

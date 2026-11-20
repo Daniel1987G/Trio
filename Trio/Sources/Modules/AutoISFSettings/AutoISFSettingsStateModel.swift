@@ -32,13 +32,18 @@ extension AutoISFSettings {
         @Published var B30upperLimit: Decimal = 130
         @Published var B30upperDelta: Decimal = 8
         @Published var B30basalFactor: Decimal = 5
+        @Published var autoISFBudgetEnabled: Bool = true
+        @Published var autoISFBudgetHours: Decimal = 3
 
         var units: GlucoseUnits = .mgdL
         var maxIOB: Decimal = 0
+        /// The highest scheduled basal rate, for the budget hint (U/h).
+        var highestBasalRate: Decimal = 0
 
         override func subscribe() {
             units = settingsManager.settings.units
             maxIOB = settingsManager.preferences.maxIOB
+            highestBasalRate = provider.basalProfile().map(\.rate).max() ?? 0
             dynamicISFActive = settingsManager.preferences.useNewFormula
 
             subscribePreferencesSetting(\.autoisf, on: $autoisf, initial: { autoisf = $0 }, map: { [weak self] isOn in
@@ -77,6 +82,8 @@ extension AutoISFSettings {
             subscribePreferencesSetting(\.B30upperLimit, on: $B30upperLimit) { B30upperLimit = $0 }
             subscribePreferencesSetting(\.B30upperDelta, on: $B30upperDelta) { B30upperDelta = $0 }
             subscribePreferencesSetting(\.B30basalFactor, on: $B30basalFactor) { B30basalFactor = $0 }
+            subscribePreferencesSetting(\.autoISFBudgetEnabled, on: $autoISFBudgetEnabled) { autoISFBudgetEnabled = $0 }
+            subscribePreferencesSetting(\.autoISFBudgetHours, on: $autoISFBudgetHours) { autoISFBudgetHours = $0 }
         }
 
         /// Sets the FCL e-book starting values (autoISF, SMB and autosens settings) in one go.

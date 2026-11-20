@@ -669,6 +669,11 @@ final class BaseWatchManager: NSObject, WCSessionDelegate, Injectable, WatchMana
                 return
             }
 
+            if let event = message[WatchMessageKeys.workout] as? String {
+                self.handleWorkout(event, at: message[WatchMessageKeys.date] as? TimeInterval)
+                return
+            }
+
             if let snoozeMinutes = message[WatchMessageKeys.snoozeDuration] as? Int {
                 debug(.watchManager, "📱 Received snooze request from watch: \(snoozeMinutes) minutes")
                 await self.notificationsManager.applySnooze(for: TimeInterval(snoozeMinutes * 60))
@@ -790,6 +795,13 @@ final class BaseWatchManager: NSObject, WCSessionDelegate, Injectable, WatchMana
     func session(_: WCSession, didReceiveUserInfo userInfo: [String: Any] = [:]) {
         if let logs = userInfo["watchLogs"] as? String {
             SimpleLogReporter.appendToWatchLog(logs)
+        }
+
+        if let event = userInfo[WatchMessageKeys.workout] as? String {
+            let timestamp = userInfo[WatchMessageKeys.date] as? TimeInterval
+            Task { @MainActor [weak self] in
+                self?.handleWorkout(event, at: timestamp)
+            }
         }
 
         if let snoozeMinutes = userInfo[WatchMessageKeys.snoozeDuration] as? Int {
@@ -971,6 +983,73 @@ final class BaseWatchManager: NSObject, WCSessionDelegate, Injectable, WatchMana
             } catch {
                 debug(.watchManager, "❌ Error processing combined request: \(error)")
                 sendAcknowledgment(toWatch: false, message: "Failed to log carbs and bolus", ackCode: .genericFailure)
+            }
+        }
+    }
+
+    /// A workout started or ended on the watch: starts the workout override, then the one for
+    /// afterwards (or stops the workout override). Late events (watch out of reach) are only
+    /// acted on while they still matter.
+    private func handleWorkout(_ event: String, at timestamp: TimeInterval?) {
+        let date = timestamp.map { Date(timeIntervalSince1970: $0) } ?? Date()
+        let settings = settingsManager.settings
+        let age = Date().timeIntervalSince(date)
+        debug(.watchManager, "📱 Workout \(event) on watch at \(date)")
+
+        Task {
+            do {
+                switch event {
+                case "started":
+                    let preset = settings.workoutOverridePreset
+                    guard !preset.isEmpty, age < 3 * 3600 else { return }
+                    try await adjustmentManager.activateOverride(.presetName(preset), source: .watch)
+                    PropertyPersistentFlags.shared.workoutOverrideRunning = true
+                    self.sendAcknowledgment(
+                        toWatch: true,
+                        message: String(
+                            localized: "Workout: Override \"\(preset)\" started.",
+                            comment: "Watch workout acknowledgment"
+                        ),
+                        ackCode: .overrideStarted
+                    )
+                case "ended":
+                    let after = settings.workoutAfterOverridePreset
+                    let startedByWorkout = PropertyPersistentFlags.shared.workoutOverrideRunning == true
+                    PropertyPersistentFlags.shared.workoutOverrideRunning = false
+                    if !after.isEmpty, age < 2 * 3600 {
+                        try await adjustmentManager.activateOverride(.presetName(after), source: .watch)
+                        self.sendAcknowledgment(
+                            toWatch: true,
+                            message: String(
+                                localized: "Workout ended: Override \"\(after)\" started.",
+                                comment: "Watch workout acknowledgment"
+                            ),
+                            ackCode: .overrideStarted
+                        )
+                    } else if startedByWorkout {
+                        try await adjustmentManager.cancelOverride(source: .watch)
+                        self.sendAcknowledgment(
+                            toWatch: true,
+                            message: String(
+                                localized: "Workout ended: Override stopped.",
+                                comment: "Watch workout acknowledgment"
+                            ),
+                            ackCode: .overrideStopped
+                        )
+                    }
+                default:
+                    break
+                }
+            } catch {
+                debug(.watchManager, "❌ Workout override error: \(error)")
+                self.sendAcknowledgment(
+                    toWatch: false,
+                    message: (error as? AdjustmentError)?.errorDescription ?? String(
+                        localized: "Workout: the override could not be changed.",
+                        comment: "Watch workout acknowledgment"
+                    ),
+                    ackCode: .genericFailure
+                )
             }
         }
     }

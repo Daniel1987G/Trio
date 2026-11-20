@@ -276,6 +276,20 @@ struct DecimalPickerSettings {
         max: Decimal(string: "10")!,
         type: PickerSetting.PickerSettingType.factorRaw
     )
+    var autoISFBudgetHours = PickerSetting(
+        value: Decimal(string: "3")!,
+        step: Decimal(string: "0.5")!,
+        min: Decimal(string: "1")!,
+        max: Decimal(string: "6")!,
+        type: PickerSetting.PickerSettingType.hour
+    )
+    var fallingGuardThreshold = PickerSetting(
+        value: Decimal(string: "35")!,
+        step: Decimal(string: "5")!,
+        min: Decimal(string: "20")!,
+        max: Decimal(string: "80")!,
+        type: PickerSetting.PickerSettingType.glucose
+    )
 }
 
 struct PickerSetting {

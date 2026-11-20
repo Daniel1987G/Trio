@@ -452,4 +452,44 @@ import Testing
             #expect(p.maxSMBBasalMinutes <= 180)
         }
     }
+
+    // MARK: - Falling guard
+
+    @Test("Falling guard: zero temp and no SMB when glucose falls faster than the insulin explains") func fallingGuard() throws {
+        var inputs = baseInputs(glucose: 150, delta: -6)
+        inputs.preferences.fallingGuard = true
+        let guarded = try #require(try run(inputs))
+        #expect(guarded.rate == 0)
+        #expect(guarded.duration == 30)
+        #expect(guarded.units == nil)
+        #expect(guarded.reason.contains("Falling guard"))
+
+        inputs.preferences.fallingGuard = false
+        let unguarded = try #require(try run(inputs))
+        #expect(!unguarded.reason.contains("Falling guard"))
+    }
+
+    @Test("Falling guard stays out of Basal Testing") func fallingGuardNotInBasalTesting() throws {
+        var inputs = baseInputs(glucose: 150, delta: -6)
+        inputs.preferences.fallingGuard = true
+        inputs.profile.suspendOnly = true
+        let determination = try #require(try run(inputs))
+        #expect(!determination.reason.contains("Falling guard"))
+    }
+
+    @Test("Budget and guard settings decode with their defaults") func safetyDefaults() throws {
+        let preferences = try JSONDecoder().decode(Preferences.self, from: Data("{}".utf8))
+        #expect(preferences.autoISFBudgetEnabled)
+        #expect(preferences.autoISFBudgetHours == 3)
+        #expect(!preferences.fallingGuard)
+        #expect(preferences.fallingGuardThreshold == 35)
+        let custom = try JSONDecoder().decode(
+            Preferences.self,
+            from: Data(#"{"falling_guard": true, "falling_guard_threshold": 50, "autoisf_budget": false}"#.utf8)
+        )
+        #expect(custom.fallingGuard)
+        #expect(custom.fallingGuardThreshold == 50)
+        #expect(!custom.autoISFBudgetEnabled)
+    }
+
 }

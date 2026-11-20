@@ -374,6 +374,16 @@ extension Treatments {
                 .accessibilityHint(Text("Copies the recommended amount into the bolus field"))
             }
 
+            if let recall = state.mealRecall {
+                MealRecallRow(
+                    recall: recall,
+                    carbsNow: state.carbs,
+                    units: state.units,
+                    amount: state.amount,
+                    onUse: { state.useMealRecall() }
+                )
+            }
+
             HStack {
                 Text("Bolus")
                 Spacer()
@@ -655,6 +665,7 @@ extension Treatments {
                                         placeholder: String(localized: "Note..."),
                                         maxLength: 25
                                     )
+                                    .onChange(of: state.note) { state.updateMealRecall() }
                                 }
                             }.listRowBackground(Color.chart)
 

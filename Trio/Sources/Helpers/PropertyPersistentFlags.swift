@@ -25,6 +25,9 @@ final class PropertyPersistentFlags {
     // TODO: This flag can be deleted in March 2027. Check the commit for other places to cleanup.
     @PersistedProperty(key: "hasSeenFatProteinOrderChange") var hasSeenFatProteinOrderChange: Bool?
 
+    /// The running override was started by a workout on the Apple Watch.
+    @PersistedProperty(key: "workoutOverrideRunning") var workoutOverrideRunning: Bool?
+
     // MARK: - Telemetry
 
     //

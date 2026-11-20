@@ -121,6 +121,7 @@ extension AutoISFSettings {
                     isfSections
                     smbSections
                     b30Sections
+                    budgetSections
                 }
             }
             .listSectionSpacing(sectionSpacing)
@@ -215,6 +216,52 @@ extension AutoISFSettings {
             String(
                 localized: "Both: autoISF max 2.0 / min 0.3, duration 0.2, glucose-level weights 0, even/odd target on, SMB always and with high target on, UAM on, 120 SMB/UAM minutes, SMB every 3 min, autosens 1.0 (off), high target raises sensitivity on."
             )
+        }
+
+        // MARK: - Insulin budget
+
+        @ViewBuilder private var budgetSections: some View {
+            toggleRow(
+                $state.autoISFBudgetEnabled,
+                label: String(localized: "autoISF Insulin Budget"),
+                miniHint: String(localized: "Caps the extra insulin autoISF gives beyond plain oref in 3 hours."),
+                header: String(localized: "Safety")
+            ) {
+                Text("Default: On").bold()
+                Text(
+                    "Every loop OpenTrio also calculates what plain oref, without autoISF, would do, and keeps a record of both. The difference over the last 3 hours is the extra insulin autoISF gave, B30 included."
+                )
+                Text(
+                    "When a loop would take that above the budget, it doses as plain oref instead. Loops in which autoISF gave less count against the tally. The loop status shows the tally, e.g. \"aISF budget 1.2/3U\", and \": oref\" when the budget was used up."
+                )
+                Text(
+                    "The idea comes from GlucOS (UC Davis), which runs its machine-learning dosing within such a budget."
+                )
+            }
+            if state.autoISFBudgetEnabled {
+                decimalRow(
+                    $state.autoISFBudgetHours,
+                    key: "autoISFBudgetHours",
+                    label: String(localized: "Budget in Hours of Basal"),
+                    miniHint: String(
+                        localized: "\(Self.units(state.highestBasalRate * state.autoISFBudgetHours)) U extra within 3 hours, from your highest basal rate.",
+                        comment: "autoISF budget mini hint"
+                    )
+                ) {
+                    Text("Default: 3 hours").bold()
+                    Text(
+                        "The budget is this many hours of your highest scheduled basal rate. With a highest rate of 1 U/h and 3 hours, autoISF may give up to 3 U more than plain oref within 3 hours."
+                    )
+                    Text("Lower values limit autoISF more; FCL users with large meals may need more.")
+                }
+            }
+        }
+
+        private static func units(_ value: Decimal) -> String {
+            let formatter = NumberFormatter()
+            formatter.numberStyle = .decimal
+            formatter.maximumFractionDigits = 1
+            return formatter.string(from: value as NSNumber) ?? "\(value)"
         }
 
         // MARK: - ISF

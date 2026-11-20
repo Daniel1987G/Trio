@@ -220,6 +220,68 @@ extension AlgorithmAdvancedSettings {
                 )
 
                 SettingInputSection(
+                    decimalValue: $decimalPlaceholder,
+                    booleanValue: $state.fallingGuard,
+                    shouldDisplayHint: $shouldDisplayHint,
+                    selectedVerboseHint: Binding(
+                        get: { selectedVerboseHint },
+                        set: {
+                            selectedVerboseHint = $0.map { AnyView($0) }
+                            hintLabel = String(localized: "Falling Guard", comment: "Falling Guard")
+                        }
+                    ),
+                    units: state.units,
+                    type: .boolean,
+                    label: String(localized: "Falling Guard", comment: "Falling Guard"),
+                    miniHint: String(
+                        localized: "Stop insulin when glucose falls much faster than the insulin explains.",
+                        comment: "Mini Hint for Falling Guard"
+                    ),
+                    verboseHint:
+                    VStack(alignment: .leading, spacing: 10) {
+                        Text("Default: OFF").bold()
+                        Text(
+                            "Every loop compares how fast glucose falls with what the insulin on board explains (the BGI in the loop status). When glucose falls faster than that by more than the limit below, over the last 5 minutes and over about 15 minutes, OpenTrio sets a zero temp basal for 30 minutes and gives no SMB."
+                        )
+                        Text(
+                            "This catches what the forecasts do not know about: exercise without an override, insulin delivered twice, an ISF that is too weak. It acts before a low is predicted; the low glucose suspend works as before."
+                        )
+                        Text(
+                            "The idea comes from GlucOS (UC Davis), where it is called the biological invariant. Not active in Basal Testing."
+                        )
+                    }
+                )
+
+                if state.fallingGuard {
+                    SettingInputSection(
+                        decimalValue: $state.fallingGuardThreshold,
+                        booleanValue: $booleanPlaceholder,
+                        shouldDisplayHint: $shouldDisplayHint,
+                        selectedVerboseHint: Binding(
+                            get: { selectedVerboseHint },
+                            set: {
+                                selectedVerboseHint = $0.map { AnyView($0) }
+                                hintLabel = String(localized: "Falling Guard Limit", comment: "Falling Guard Limit")
+                            }
+                        ),
+                        units: state.units,
+                        type: .decimal("fallingGuardThreshold"),
+                        label: String(localized: "Falling Guard Limit", comment: "Falling Guard Limit"),
+                        miniHint: String(
+                            localized: "Unexplained fall per hour that stops insulin.",
+                            comment: "Mini Hint for Falling Guard Limit"
+                        ),
+                        verboseHint:
+                        VStack(alignment: .leading, spacing: 10) {
+                            Text("Default: 35 mg/dL (1.9 mmol/L) per hour").bold()
+                            Text(
+                                "Lower values stop insulin earlier and more often; higher values only on a steep, unexplained fall."
+                            )
+                        }
+                    )
+                }
+
+                SettingInputSection(
                     decimalValue: $state.smbDeliveryRatio,
                     booleanValue: $booleanPlaceholder,
                     shouldDisplayHint: $shouldDisplayHint,

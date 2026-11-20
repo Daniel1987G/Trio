@@ -72,6 +72,27 @@ extension WatchState {
         }
     }
 
+    /// Tells the iPhone that a workout started or ended ("started" / "ended"). Sent right away when
+    /// the iPhone is in reach, otherwise queued until it is.
+    func sendWorkoutEvent(_ event: String, at date: Date = Date()) {
+        guard let session = session else { return }
+        let message: [String: Any] = [
+            WatchMessageKeys.workout: event,
+            WatchMessageKeys.date: date.timeIntervalSince1970
+        ]
+        Task {
+            await WatchLogger.shared.log("⌚️ Sending workout \(event)")
+        }
+        if session.isReachable {
+            session.sendMessage(message, replyHandler: nil) { error in
+                Task { await WatchLogger.shared.log("⌚️ Workout message failed, queueing: \(error)") }
+                session.transferUserInfo(message)
+            }
+        } else {
+            session.transferUserInfo(message)
+        }
+    }
+
     /// Sends a request to cancel the current override preset to the paired iPhone
     func sendCancelOverrideRequest() {
         guard let session = session, session.isReachable else {

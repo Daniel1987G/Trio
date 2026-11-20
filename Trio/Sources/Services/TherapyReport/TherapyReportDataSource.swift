@@ -54,13 +54,18 @@ enum TherapyReportDataSource {
 
             let determinationRequest = NSFetchRequest<OrefDetermination>(entityName: "OrefDetermination")
             determinationRequest.predicate = NSPredicate(format: "deliverAt >= %@", start as NSDate)
-            determinationRequest.propertiesToFetch = ["sensitivityRatio", "deliverAt"]
+            determinationRequest.propertiesToFetch = ["sensitivityRatio", "deliverAt", "reason"]
             let determinations = (try? context.fetch(determinationRequest)) ?? []
             input.sensitivityRatios = determinations.compactMap { $0.sensitivityRatio?.decimalValue }
             input.sensitivitySamples = determinations.compactMap { determination in
                 guard let date = determination.deliverAt, let ratio = determination.sensitivityRatio?.decimalValue
                 else { return nil }
                 return (date: date, ratio: ratio)
+            }
+            input.autoISFFactors = determinations.compactMap { determination in
+                guard let date = determination.deliverAt, let reason = determination.reason, reason.contains("Ratio")
+                else { return nil }
+                return TuningAnalysis.autoISFFactors(fromReason: reason, date: date)
             }
 
             let overrideRequest = NSFetchRequest<OverrideRunStored>(entityName: "OverrideRunStored")

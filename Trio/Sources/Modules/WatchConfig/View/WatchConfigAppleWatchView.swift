@@ -20,6 +20,12 @@ struct WatchConfigAppleWatchView: BaseView {
         state.deleteGarminDevice()
     }
 
+    /// The presets, plus a stored name whose preset was renamed or deleted, so the picker shows it.
+    private func presetChoices(including selected: String) -> [String] {
+        selected.isEmpty || state.overridePresetNames.contains(selected) ?
+            state.overridePresetNames : state.overridePresetNames + [selected]
+    }
+
     var body: some View {
         List {
             SettingInputSection(
@@ -63,6 +69,33 @@ struct WatchConfigAppleWatchView: BaseView {
                 ),
                 headerText: String(localized: "Apple Watch Configuration")
             )
+
+            Section {
+                Picker(selection: $state.workoutOverridePreset) {
+                    Text("None").tag("")
+                    ForEach(presetChoices(including: state.workoutOverridePreset), id: \.self) { name in
+                        Text(name).tag(name)
+                    }
+                } label: {
+                    Text("During Workout")
+                }
+                Picker(selection: $state.workoutAfterOverridePreset) {
+                    Text("Stop Override").tag("")
+                    ForEach(presetChoices(including: state.workoutAfterOverridePreset), id: \.self) { name in
+                        Text(name).tag(name)
+                    }
+                } label: {
+                    Text("After Workout")
+                }
+                .disabled(state.workoutOverridePreset.isEmpty)
+            } header: {
+                Text("Workout")
+            } footer: {
+                Text(
+                    "Start a workout in OpenTrio on the watch (override button → Workout). OpenTrio then starts the override chosen for the workout, and when it ends the one for afterwards, e.g. a preset with 80 % for 2 hours. Without one, the workout override is stopped. Create the presets under Adjustments first."
+                )
+            }
+            .listRowBackground(Color.chart)
 
             Section(
                 header: Text("Contact Image"),

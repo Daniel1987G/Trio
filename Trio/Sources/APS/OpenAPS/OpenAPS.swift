@@ -336,7 +336,7 @@ final class OpenAPS {
         }
 
         // Determine basal
-        let orefDetermination = try determineBasal(
+        var orefDetermination = try determineBasal(
             glucose: glucose,
             currentTemp: currentTemp,
             iob: iob,
@@ -349,6 +349,42 @@ final class OpenAPS {
             preferences: preferences,
             trioCustomOrefVariables: trioCustomOrefVariables
         )
+
+        // autoISF insulin budget: compare with plain oref and fall back to it over the cap
+        if let autoISFDetermination = orefDetermination,
+           preferences.autoisf, !preferences.useNewFormula,
+           preferences.autoISFBudgetEnabled, preferences.autoISFBudgetHours > 0
+        {
+            var plainPreferences = preferences
+            plainPreferences.autoisf = false
+            plainPreferences.enableB30 = false
+            var plainProfile = profile
+            plainProfile.applyAutoISF(from: plainPreferences)
+            let plainDetermination = try determineBasal(
+                glucose: glucose,
+                currentTemp: currentTemp,
+                iob: iob,
+                profile: plainProfile,
+                autosens: autosens,
+                meal: meal,
+                microBolusAllowed: true,
+                reservoir: reservoir,
+                pumpHistory: pumpHistory,
+                preferences: plainPreferences,
+                trioCustomOrefVariables: trioCustomOrefVariables
+            )
+            if let plainDetermination {
+                orefDetermination = applyAutoISFBudget(
+                    autoISF: autoISFDetermination,
+                    plain: plainDetermination,
+                    currentTemp: currentTemp,
+                    scheduledBasal: profile.currentBasal ?? 0,
+                    basalProfile: basalProfile,
+                    hours: preferences.autoISFBudgetHours,
+                    record: !simulation
+                )
+            }
+        }
 
         debug(.openAPS, "\(simulation ? "[SIMULATION]" : "") OREF DETERMINATION: \(String(describing: orefDetermination))")
 
@@ -687,6 +723,69 @@ final class OpenAPS {
         )
 
         return ratio8h.ratio < ratio24h.ratio ? ratio8h : ratio24h
+    }
+
+    /// Picks the autoISF or the plain oref determination by the autoISF insulin budget, and
+    /// records the loop in the ledger (not for simulations such as the bolus calculator's).
+    private func applyAutoISFBudget(
+        autoISF: Determination,
+        plain: Determination,
+        currentTemp: TempBasal,
+        scheduledBasal: Decimal,
+        basalProfile: [BasalProfileEntry],
+        hours: Decimal,
+        record: Bool
+    ) -> Determination {
+        let now = autoISF.deliverAt ?? Date()
+        var ledger: AutoISFBudget.Ledger
+        if let raw = storage.retrieveRaw(Monitor.autoISFBudget) {
+            if let stored = AutoISFBudget.Ledger(from: raw) {
+                ledger = stored
+            } else {
+                warning(.openAPS, "autoISF budget ledger unreadable; plain oref for the next 3 hours")
+                ledger = AutoISFBudget.Ledger(reset: now)
+            }
+        } else {
+            ledger = AutoISFBudget.Ledger()
+        }
+
+        let budget = AutoISFBudget.budget(basalProfile: basalProfile, hours: hours)
+        let autoISFDose = AutoISFBudget.Dose(autoISF, currentTemp: currentTemp, scheduledBasal: scheduledBasal)
+        let plainDose = AutoISFBudget.Dose(plain, currentTemp: currentTemp, scheduledBasal: scheduledBasal)
+        let verdict = AutoISFBudget.verdict(ledger: ledger, now: now, budget: budget, autoISF: autoISFDose, plain: plainDose)
+
+        var chosen: Determination
+        let programmed: AutoISFBudget.Dose
+        switch verdict {
+        case let .allowed(used):
+            chosen = autoISF
+            chosen.reason = AutoISFBudget.tagging(
+                chosen.reason,
+                with: AutoISFBudget.tag(used: used, budget: budget, exceeded: false)
+            )
+            programmed = autoISFDose
+        case let .exceeded(used):
+            debug(.openAPS, "autoISF budget exceeded (\(used) of \(budget) U): dosing as plain oref")
+            chosen = plain
+            chosen.reason = AutoISFBudget.tagging(
+                chosen.reason,
+                with: AutoISFBudget.tag(used: used, budget: budget, exceeded: true)
+            )
+            programmed = plainDose
+        }
+
+        if record {
+            let entry = AutoISFBudget.Entry(
+                date: now,
+                rate: programmed.rate,
+                plainRate: plainDose.rate,
+                smb: programmed.smb,
+                plainSMB: plainDose.smb,
+                minutes: programmed.minutes
+            )
+            storage.save(AutoISFBudget.recording(entry, in: ledger), as: Monitor.autoISFBudget)
+        }
+        return chosen
     }
 
     private func determineBasal(
