@@ -141,7 +141,25 @@ extension AIReport {
                             }
                         }
                     }
-                } else {
+                }
+                if let tuning = state.tuning {
+                    NavigationLink {
+                        TuningSuggestionsView(state: state)
+                    } label: {
+                        HStack(spacing: 12) {
+                            Image(systemName: "slider.horizontal.3")
+                                .frame(width: 24)
+                                .foregroundStyle(Color.accentColor)
+                            VStack(alignment: .leading, spacing: 2) {
+                                Text("Settings Suggestions")
+                                Text(TuningSuggestionsView.summary(tuning))
+                                    .font(.caption)
+                                    .foregroundStyle(.secondary)
+                            }
+                        }
+                    }
+                }
+                if state.report == nil {
                     HStack {
                         ProgressView()
                         Text("Calculating…").foregroundStyle(.secondary)

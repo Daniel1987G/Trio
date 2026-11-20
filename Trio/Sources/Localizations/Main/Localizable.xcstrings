@@ -13305,7 +13305,7 @@
       }
     },
     "%lld days" : {
-      "comment" : "AI report period",
+      "comment" : "AI report period\nTuning: days with data",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -92120,7 +92120,7 @@
       }
     },
     "CR" : {
-      "comment" : "Option for Carb Ratio",
+      "comment" : "Carb ratio short\nOption for Carb Ratio",
       "localizations" : {
         "bg" : {
           "stringUnit" : {
@@ -210593,7 +210593,7 @@
       }
     },
     "Name" : {
-      "comment" : "DiaExpert",
+      "comment" : "DiaExpert\nProfile snapshot name field",
       "localizations" : {
         "bg" : {
           "stringUnit" : {
@@ -359163,6 +359163,7 @@
       }
     },
     "Save Profile" : {
+      "comment" : "Profile snapshot alert title",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -359193,6 +359194,7 @@
       }
     },
     "Saved as \"%@\"" : {
+      "comment" : "Profile snapshot: current is saved",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -359273,6 +359275,7 @@
       }
     },
     "Basal %@ U/day" : {
+      "comment" : "Profile summary",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -359283,6 +359286,7 @@
       }
     },
     "ISF %@" : {
+      "comment" : "Profile summary",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -359293,6 +359297,7 @@
       }
     },
     "CR %@ g/U" : {
+      "comment" : "Profile summary",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -359323,6 +359328,7 @@
       }
     },
     "Rename" : {
+      "comment" : "Profile snapshot rename",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -359333,6 +359339,7 @@
       }
     },
     "Restore \"%@\"?" : {
+      "comment" : "Profile snapshot restore title",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -359343,6 +359350,7 @@
       }
     },
     "Restore Profile" : {
+      "comment" : "Profile snapshot restore button",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -359363,6 +359371,7 @@
       }
     },
     "This profile no longer exists." : {
+      "comment" : "Profile snapshot error",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -359373,6 +359382,7 @@
       }
     },
     "Differs from the profile in use: %@" : {
+      "comment" : "Profile snapshot comparison",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -359383,6 +359393,7 @@
       }
     },
     "now %@" : {
+      "comment" : "Profile snapshot: value in use",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -359393,6 +359404,7 @@
       }
     },
     "not in use" : {
+      "comment" : "Profile snapshot: time not in the profile in use",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -359403,6 +359415,7 @@
       }
     },
     "Profile Saved" : {
+      "comment" : "Profile snapshot alert title",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -359413,6 +359426,7 @@
       }
     },
     "\"%@\" was saved." : {
+      "comment" : "Profile snapshot alert",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -359423,6 +359437,7 @@
       }
     },
     "Profile Not Saved" : {
+      "comment" : "Profile snapshot alert title",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -359433,6 +359448,7 @@
       }
     },
     "Profile Restored" : {
+      "comment" : "Profile snapshot alert title",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -359443,6 +359459,7 @@
       }
     },
     "Basal rates, ISF and carb ratios of \"%@\" are active again. The basal rates were sent to the pump. The previous profile is listed as \"Before Restore\"." : {
+      "comment" : "Profile snapshot alert",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -359453,6 +359470,7 @@
       }
     },
     "Basal rates, ISF and carb ratios must all be set before the profile can be saved." : {
+      "comment" : "Profile snapshot error",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -359463,6 +359481,7 @@
       }
     },
     "Before Restore" : {
+      "comment" : "Name of the profile saved before restoring another",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -359478,6 +359497,900 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Speichere Basalraten, ISF und Kohlenhydratfaktoren, bevor du sie änderst, um bei Bedarf zurückzukehren."
+          }
+        }
+      }
+    },
+    "All Day" : {
+      "comment" : "Tuning ISF row",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ganzer Tag"
+          }
+        }
+      }
+    },
+    "Change %@?" : {
+      "comment" : "Tuning confirmation",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ ändern?"
+          }
+        }
+      }
+    },
+    "Change one thing at a time if you can, and watch the effect for a few days." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ändere möglichst nur eine Sache auf einmal und beobachte die Wirkung ein paar Tage lang."
+          }
+        }
+      }
+    },
+    "Evening (16–5)" : {
+      "comment" : "Tuning meal time",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abend (16–5)"
+          }
+        }
+      }
+    },
+    "Midday (11–16)" : {
+      "comment" : "Tuning meal time",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mittag (11–16)"
+          }
+        }
+      }
+    },
+    "Morning (5–11)" : {
+      "comment" : "Tuning meal time",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Morgen (5–11)"
+          }
+        }
+      }
+    },
+    "From meals of at least 20 g without further carbs in the 4 hours after: carbs divided by the insulin the meal needed." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aus Mahlzeiten ab 20 g ohne weitere KH in den 4 Stunden danach: Kohlenhydrate geteilt durch das Insulin, das die Mahlzeit gebraucht hat."
+          }
+        }
+      }
+    },
+    "From the last %lld days of glucose, insulin and carbs. A time block needs data on at least %lld days." : {
+      "comment" : "Tuning intro",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aus Glukose, Insulin und KH der letzten %lld Tage. Ein Zeitblock braucht Daten an mindestens %lld Tagen."
+          }
+        }
+      }
+    },
+    "From times without carbs and meal boluses." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aus Zeiten ohne KH und ohne Mahlzeitenbolus."
+          }
+        }
+      }
+    },
+    "From times without carbs in which extra insulin brought high glucose down. One factor for the whole day." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aus Zeiten ohne KH, in denen zusätzliches Insulin einen hohen Wert gesenkt hat. Ein Faktor für den ganzen Tag."
+          }
+        }
+      }
+    },
+    "Glucose often stays high for long after meals." : {
+      "comment" : "Tuning verdict",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die Glukose bleibt nach Mahlzeiten oft lange hoch."
+          }
+        }
+      }
+    },
+    "High peaks: %lld · late lows: %lld · long highs: %lld" : {
+      "comment" : "Tuning meals",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hohe Spitzen: %lld · späte Hypos: %lld · lange Hochs: %lld"
+          }
+        }
+      }
+    },
+    "In the order of the FCL e-book: first acceleration, then post-meal, brake and duration. One step of 15–20 % at a time; give each step a few days." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "In der Reihenfolge des FCL-E-Books: zuerst Beschleunigung, dann Nach-Mahlzeit, Bremse und Dauer. Jeweils ein Schritt von 15–20 %; jedem Schritt ein paar Tage geben."
+          }
+        }
+      }
+    },
+    "Insulin Sensitivity (ISF)" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Insulinempfindlichkeit (ISF)"
+          }
+        }
+      }
+    },
+    "Like autotune: what glucose did beyond the effect of the insulin shows where the profile is off. Suggestions go half way to the measured value and at most 20 % per step." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wie Autotune: Was die Glukose über die Wirkung des Insulins hinaus getan hat, zeigt, wo das Profil nicht passt. Vorschläge gehen den halben Weg zum gemessenen Wert und höchstens 20 % pro Schritt."
+          }
+        }
+      }
+    },
+    "Meals look fine: no change needed." : {
+      "comment" : "Tuning verdict",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die Mahlzeiten sehen gut aus: keine Änderung nötig."
+          }
+        }
+      }
+    },
+    "Meals peak high without later lows: autoISF can act more strongly." : {
+      "comment" : "Tuning verdict",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mahlzeiten steigen hoch an ohne spätere Hypos: autoISF kann stärker wirken."
+          }
+        }
+      }
+    },
+    "Profile: %lld suggestions" : {
+      "comment" : "Tuning summary",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Profil: %lld Vorschläge"
+          }
+        }
+      }
+    },
+    "Profile: no change suggested" : {
+      "comment" : "Tuning summary",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Profil: keine Änderung vorgeschlagen"
+          }
+        }
+      }
+    },
+    "Settings Suggestions" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Einstellungsvorschläge"
+          }
+        }
+      }
+    },
+    "Several meals end in a low: autoISF acts too strongly." : {
+      "comment" : "Tuning verdict",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mehrere Mahlzeiten enden in einer Hypo: autoISF wirkt zu stark."
+          }
+        }
+      }
+    },
+    "Suggested Profile" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vorgeschlagenes Profil"
+          }
+        }
+      }
+    },
+    "Suggestion" : {
+      "comment" : "Name of a suggested profile",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vorschlag"
+          }
+        }
+      }
+    },
+    "Suggestion Active" : {
+      "comment" : "Tuning suggestion alert title",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vorschlag aktiv"
+          }
+        }
+      }
+    },
+    "Suggestions only, calculated from your data with fixed rules (no AI). Overrides and temporary targets are left out. Sport, illness or unusual days can mislead them: check before you use them and talk to your diabetes team." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nur Vorschläge, aus deinen Daten mit festen Regeln berechnet (keine KI). Overrides und temporäre Ziele bleiben außen vor. Sport, Krankheit oder ungewöhnliche Tage können sie verfälschen: Prüfe sie vor der Übernahme und sprich mit deinem Diabetesteam."
+          }
+        }
+      }
+    },
+    "The suggested profile is active and saved as \"%@\". Your previous profile is listed as \"Before Restore\" under Saved Profiles." : {
+      "comment" : "Tuning suggestion alert",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Das vorgeschlagene Profil ist aktiv und als „%@“ gespeichert. Dein bisheriges Profil steht als „Vor Wiederherstellung“ unter Gespeicherte Profile."
+          }
+        }
+      }
+    },
+    "Too few meals to judge yet." : {
+      "comment" : "Tuning verdict",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Noch zu wenige Mahlzeiten für eine Beurteilung."
+          }
+        }
+      }
+    },
+    "Use Suggested Profile" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vorschlag als Profil übernehmen"
+          }
+        }
+      }
+    },
+    "Use This Weight" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gewicht übernehmen"
+          }
+        }
+      }
+    },
+    "Use the suggested profile?" : {
+      "comment" : "Tuning confirmation",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vorgeschlagenes Profil übernehmen?"
+          }
+        }
+      }
+    },
+    "Watch the next meals for a few days before the next step." : {
+      "comment" : "Tuning suggestion alert",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Beobachte die nächsten Mahlzeiten ein paar Tage, bevor du den nächsten Schritt machst."
+          }
+        }
+      }
+    },
+    "Weight Changed" : {
+      "comment" : "Tuning suggestion alert title",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gewicht geändert"
+          }
+        }
+      }
+    },
+    "Your profile in use is saved first and can be restored under Therapy → Saved Profiles. The basal rates are sent to the pump." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dein aktuelles Profil wird vorher gespeichert und lässt sich unter Therapie → Gespeicherte Profile wiederherstellen. Die Basalraten werden an die Pumpe gesendet."
+          }
+        }
+      }
+    },
+    "%lld meals, %lld without carb entry" : {
+      "comment" : "Tuning meals",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld Mahlzeiten, %lld ohne KH-Eintrag"
+          }
+        }
+      }
+    },
+    "autoISF Weights" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "autoISF-Gewichte"
+          }
+        }
+      }
+    },
+    "autoISF often reaches autoISF Max: a higher weight would not add more. Check autoISF Max first." : {
+      "comment" : "Tuning verdict",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "autoISF erreicht oft autoISF Max: Ein höheres Gewicht brächte nichts mehr. Prüfe zuerst autoISF Max."
+          }
+        }
+      }
+    },
+    "autoISF: next step" : {
+      "comment" : "Tuning summary",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "autoISF: nächster Schritt"
+          }
+        }
+      }
+    },
+    "autoISF: no change" : {
+      "comment" : "Tuning summary",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "autoISF: keine Änderung"
+          }
+        }
+      }
+    },
+    "fits" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "passt"
+          }
+        }
+      }
+    },
+    "less insulin" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "weniger Insulin"
+          }
+        }
+      }
+    },
+    "more insulin" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "mehr Insulin"
+          }
+        }
+      }
+    },
+    "After Workout" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nach dem Workout"
+          }
+        }
+      }
+    },
+    "Apple Health is not available on this watch." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Health ist auf dieser Watch nicht verfügbar."
+          }
+        }
+      }
+    },
+    "Budget in Hours of Basal" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Budget in Stunden Basal"
+          }
+        }
+      }
+    },
+    "Caps the extra insulin autoISF gives beyond plain oref in 3 hours." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Begrenzt das Zusatzinsulin, das autoISF in 3 Stunden über reines oref hinaus gibt."
+          }
+        }
+      }
+    },
+    "Cycling" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Radfahren"
+          }
+        }
+      }
+    },
+    "Default: 3 hours" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Standard: 3 Stunden"
+          }
+        }
+      }
+    },
+    "Default: 35 mg/dL (1.9 mmol/L) per hour" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Standard: 35 mg/dL (1,9 mmol/L) pro Stunde"
+          }
+        }
+      }
+    },
+    "Different amount of carbs today (%@ g): compare with the recommendation." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Heute andere KH-Menge (%@ g): mit der Empfehlung vergleichen."
+          }
+        }
+      }
+    },
+    "During Workout" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Während des Workouts"
+          }
+        }
+      }
+    },
+    "End Workout" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Workout beenden"
+          }
+        }
+      }
+    },
+    "Every loop OpenTrio also calculates what plain oref, without autoISF, would do, and keeps a record of both. The difference over the last 3 hours is the extra insulin autoISF gave, B30 included." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bei jedem Loop berechnet OpenTrio zusätzlich, was reines oref ohne autoISF tun würde, und protokolliert beides. Die Differenz der letzten 3 Stunden ist das Zusatzinsulin, das autoISF gegeben hat, B30 eingeschlossen."
+          }
+        }
+      }
+    },
+    "Every loop compares how fast glucose falls with what the insulin on board explains (the BGI in the loop status). When glucose falls faster than that by more than the limit below, over the last 5 minutes and over about 15 minutes, OpenTrio sets a zero temp basal for 30 minutes and gives no SMB." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jeder Loop vergleicht, wie schnell die Glukose fällt, mit dem, was das aktive Insulin erklärt (BGI im Loop-Status). Fällt sie über die letzten 5 und etwa 15 Minuten um mehr als die Grenze unten schneller, setzt OpenTrio für 30 Minuten eine Null-Basalrate und gibt keinen SMB."
+          }
+        }
+      }
+    },
+    "Falling Guard" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abfall-Wächter"
+          }
+        }
+      }
+    },
+    "Falling Guard Limit" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Grenze Abfall-Wächter"
+          }
+        }
+      }
+    },
+    "Hiking" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wandern"
+          }
+        }
+      }
+    },
+    "How it went is unclear (next meal too soon or no glucose data)." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verlauf danach unklar (nächste Mahlzeit zu früh oder keine Glukosedaten)."
+          }
+        }
+      }
+    },
+    "Last Time" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Letztes Mal"
+          }
+        }
+      }
+    },
+    "Lower values limit autoISF more; FCL users with large meals may need more." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Niedrigere Werte begrenzen autoISF stärker; im FCL mit großen Mahlzeiten kann mehr nötig sein."
+          }
+        }
+      }
+    },
+    "Lower values stop insulin earlier and more often; higher values only on a steep, unexplained fall." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Niedrigere Werte stoppen Insulin früher und öfter; höhere nur bei einem steilen, unerklärten Abfall."
+          }
+        }
+      }
+    },
+    "Running" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Laufen"
+          }
+        }
+      }
+    },
+    "Start a workout in OpenTrio on the watch (override button → Workout). OpenTrio then starts the override chosen for the workout, and when it ends the one for afterwards, e.g. a preset with 80 % for 2 hours. Without one, the workout override is stopped. Create the presets under Adjustments first." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Starte ein Workout in OpenTrio auf der Watch (Override-Knopf → Workout). OpenTrio startet dann den Override für das Workout und an dessen Ende den für danach, z. B. eine Vorlage mit 80 % für 2 Stunden. Ohne Vorlage für danach wird der Workout-Override beendet. Lege die Vorlagen vorher unter Anpassungen an."
+          }
+        }
+      }
+    },
+    "Starts the workout override set in OpenTrio on the iPhone; ending it starts the one for afterwards." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Startet den Workout-Override aus OpenTrio auf dem iPhone; beim Beenden den für danach."
+          }
+        }
+      }
+    },
+    "Stop insulin when glucose falls much faster than the insulin explains." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Insulin stoppen, wenn die Glukose viel schneller fällt, als das Insulin erklärt."
+          }
+        }
+      }
+    },
+    "Strength Training" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Krafttraining"
+          }
+        }
+      }
+    },
+    "The budget is this many hours of your highest scheduled basal rate. With a highest rate of 1 U/h and 3 hours, autoISF may give up to 3 U more than plain oref within 3 hours." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Das Budget sind so viele Stunden deiner höchsten Basalrate. Bei höchstens 1 IE/h und 3 Stunden darf autoISF in 3 Stunden bis zu 3 IE mehr geben als reines oref."
+          }
+        }
+      }
+    },
+    "The idea comes from GlucOS (UC Davis), where it is called the biological invariant. Not active in Basal Testing." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die Idee stammt aus GlucOS (UC Davis), dort „biological invariant“. Im Basaltest nicht aktiv."
+          }
+        }
+      }
+    },
+    "The idea comes from GlucOS (UC Davis), which runs its machine-learning dosing within such a budget." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die Idee stammt aus GlucOS (UC Davis), das seine Machine-Learning-Dosierung in einem solchen Budget laufen lässt."
+          }
+        }
+      }
+    },
+    "The workout could not be started." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Das Workout konnte nicht gestartet werden."
+          }
+        }
+      }
+    },
+    "Then a low (%@): one step (%@ U) less." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Danach eine Hypo (%@): einen Schritt (%@ IE) weniger."
+          }
+        }
+      }
+    },
+    "Then a rise of +%@: one step (%@ U) more." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Danach ein Anstieg um +%@: einen Schritt (%@ IE) mehr."
+          }
+        }
+      }
+    },
+    "Then in range (peak +%@): same bolus." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Danach im Zielbereich (Spitze +%@): gleicher Bolus."
+          }
+        }
+      }
+    },
+    "This catches what the forecasts do not know about: exercise without an override, insulin delivered twice, an ISF that is too weak. It acts before a low is predicted; the low glucose suspend works as before." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Das fängt ab, was die Vorhersagen nicht kennen: Sport ohne Override, doppelt abgegebenes Insulin, einen zu schwachen ISF. Er greift, bevor eine Hypo vorhergesagt wird; die Abschaltung bei niedriger Glukose arbeitet wie bisher."
+          }
+        }
+      }
+    },
+    "Unexplained fall per hour that stops insulin." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unerklärter Abfall pro Stunde, der das Insulin stoppt."
+          }
+        }
+      }
+    },
+    "Use bolus from last time, %@ units" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bolus vom letzten Mal übernehmen, %@ Einheiten"
+          }
+        }
+      }
+    },
+    "Walking" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gehen"
+          }
+        }
+      }
+    },
+    "When a loop would take that above the budget, it doses as plain oref instead. Loops in which autoISF gave less count against the tally. The loop status shows the tally, e.g. \"aISF budget 1.2/3U\", and \": oref\" when the budget was used up." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Würde ein Loop das Budget überschreiten, dosiert er stattdessen wie reines oref. Loops, in denen autoISF weniger gab, werden gegengerechnet. Der Loop-Status zeigt den Stand, z. B. „aISF budget 1.2/3U“, und „: oref“, wenn das Budget aufgebraucht war."
+          }
+        }
+      }
+    },
+    "Workout" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Workout"
+          }
+        }
+      }
+    },
+    "Workout ended: Override \"%@\" started." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Workout beendet: Override „%@“ gestartet."
+          }
+        }
+      }
+    },
+    "Workout ended: Override stopped." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Workout beendet: Override gestoppt."
+          }
+        }
+      }
+    },
+    "Workout: Override \"%@\" started." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Workout: Override „%@“ gestartet."
+          }
+        }
+      }
+    },
+    "Workout: the override could not be changed." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Workout: Der Override konnte nicht geändert werden."
+          }
+        }
+      }
+    },
+    "%@ U extra within 3 hours, from your highest basal rate." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ IE extra in 3 Stunden, aus deiner höchsten Basalrate."
+          }
+        }
+      }
+    },
+    "%@: %@ U meal bolus for %@ g" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@: %@ IE Mahlzeitenbolus für %@ g"
+          }
+        }
+      }
+    },
+    "%@: %@ g without a meal bolus" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@: %@ g ohne Mahlzeitenbolus"
+          }
+        }
+      }
+    },
+    "autoISF Insulin Budget" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "autoISF-Insulinbudget"
+          }
+        }
+      }
+    },
+    "%@ → %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@ → %2$@"
           }
         }
       }

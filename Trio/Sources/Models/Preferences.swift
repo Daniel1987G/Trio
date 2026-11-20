@@ -80,6 +80,16 @@ struct Preferences: JSON, Equatable {
     var B30basalFactor: Decimal = 5
     /// The autoISF value set last applied (AutoISFStartPreset raw value), "" if none.
     var autoISFValueSet: String = ""
+    /// Caps the insulin autoISF (incl. B30) may give beyond plain oref within 3 hours
+    /// (after GlucOS's ML insulin budget). Over the cap, the loop doses as plain oref.
+    var autoISFBudgetEnabled: Bool = true
+    /// The cap, in hours of the highest scheduled basal rate.
+    var autoISFBudgetHours: Decimal = 3
+    /// Falling guard (after GlucOS's "biological invariant"): zero temp when glucose falls much
+    /// faster than the insulin on board explains.
+    var fallingGuard: Bool = false
+    /// The unexplained fall, in mg/dL per hour, that stops insulin.
+    var fallingGuardThreshold: Decimal = 35
 }
 
 extension Preferences {
@@ -161,6 +171,10 @@ extension Preferences {
         case B30upperDelta = "b30_upperdelta"
         case B30basalFactor = "b30_factor"
         case autoISFValueSet = "autoisf_value_set"
+        case autoISFBudgetEnabled = "autoisf_budget"
+        case autoISFBudgetHours = "autoisf_budget_hours"
+        case fallingGuard = "falling_guard"
+        case fallingGuardThreshold = "falling_guard_threshold"
     }
 }
 
@@ -456,6 +470,19 @@ extension Preferences: Decodable {
         }
         if let autoISFValueSet = try? container.decode(String.self, forKey: .autoISFValueSet) {
             preferences.autoISFValueSet = autoISFValueSet
+        }
+
+        if let autoISFBudgetEnabled = try? container.decode(Bool.self, forKey: .autoISFBudgetEnabled) {
+            preferences.autoISFBudgetEnabled = autoISFBudgetEnabled
+        }
+        if let autoISFBudgetHours = try? container.decode(Decimal.self, forKey: .autoISFBudgetHours) {
+            preferences.autoISFBudgetHours = autoISFBudgetHours
+        }
+        if let fallingGuard = try? container.decode(Bool.self, forKey: .fallingGuard) {
+            preferences.fallingGuard = fallingGuard
+        }
+        if let fallingGuardThreshold = try? container.decode(Decimal.self, forKey: .fallingGuardThreshold) {
+            preferences.fallingGuardThreshold = fallingGuardThreshold
         }
 
         preferences.resolveISFModeConflict()

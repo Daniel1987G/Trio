@@ -7,6 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E71B0C7CAFA095A1DB053726 /* WorkoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F94587585C02D765A0A0E165 /* WorkoutView.swift */; };
+		A8751433CAD03FD1603D0D5D /* WorkoutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C501E51DDD4D2005FCF5E8FC /* WorkoutManager.swift */; };
+		D0FB2CEFC9E707D6E86F857F /* MealRecallTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6894D246765DED0489C91949 /* MealRecallTests.swift */; };
+		E258DC2F8CBA901EA97551C1 /* AutoISFBudgetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EAD36327DAF813FF7F63CC4 /* AutoISFBudgetTests.swift */; };
+		7937EC6A14FD4034CCBC1138 /* FallingGuardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBBDC66D7D2B9A73BCCD178 /* FallingGuardTests.swift */; };
+		27F340336162599B4AD989AE /* MealRecallRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 864D00584465CFE852723AFD /* MealRecallRow.swift */; };
+		4F4C427BAB62A7D923347A70 /* MealRecallDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53519B7268D8FD7D4FB16A24 /* MealRecallDataSource.swift */; };
+		6E25C4B4F92BAC0DEC210970 /* MealRecall.swift in Sources */ = {isa = PBXBuildFile; fileRef = C288B3E4284A81B65A23EB43 /* MealRecall.swift */; };
+		CB80CA6D5062717CB17F3BFF /* AutoISFBudget.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFF451A8FA76DC6005186B63 /* AutoISFBudget.swift */; };
+		E5C9EA5C035D9410075FD11B /* FallingGuard.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3856445EB9B85332CA334E1 /* FallingGuard.swift */; };
+		90FF0EEC8A93267615193568 /* TuningAnalysisTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB969E8CAFE6F6644D62A610 /* TuningAnalysisTests.swift */; };
+		B1169F2F0E306AB9CADB8CAD /* TuningSuggestionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64662FC0FF5900BEEE372E5D /* TuningSuggestionsView.swift */; };
+		CD18C8F4B93E99314CCE0D93 /* TuningAnalysis+TherapyReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87087C2E192EBA379F54B9B2 /* TuningAnalysis+TherapyReport.swift */; };
+		93E4ECC2452CF635EAAF8BC9 /* TuningAnalysis+Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5BE81AA58A873D37D699BE3 /* TuningAnalysis+Profile.swift */; };
+		577D1C5C27DDA114EA9131EB /* TuningAnalysis.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8A8BEA0F5D741070247CC3 /* TuningAnalysis.swift */; };
 		201AB11A42495EFD1E98C79A /* ProfileSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97409C1262F94BA67E67193 /* ProfileSnapshotTests.swift */; };
 		AA21B55EC56B5DA464268C45 /* ProfileSnapshotsRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F270D368F1ABDFD64833382A /* ProfileSnapshotsRootView.swift */; };
 		D499DF88C42F3CA2705B8D7C /* ProfileSnapshotsStateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF78A2AF1F4BB92E3BF3437A /* ProfileSnapshotsStateModel.swift */; };
@@ -1286,6 +1301,21 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		F94587585C02D765A0A0E165 /* WorkoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WorkoutView.swift"; sourceTree = "<group>"; };
+		C501E51DDD4D2005FCF5E8FC /* WorkoutManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WorkoutManager.swift"; sourceTree = "<group>"; };
+		6894D246765DED0489C91949 /* MealRecallTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MealRecallTests.swift"; sourceTree = "<group>"; };
+		5EAD36327DAF813FF7F63CC4 /* AutoISFBudgetTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AutoISFBudgetTests.swift"; sourceTree = "<group>"; };
+		3DBBDC66D7D2B9A73BCCD178 /* FallingGuardTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FallingGuardTests.swift"; sourceTree = "<group>"; };
+		864D00584465CFE852723AFD /* MealRecallRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MealRecallRow.swift"; sourceTree = "<group>"; };
+		53519B7268D8FD7D4FB16A24 /* MealRecallDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MealRecallDataSource.swift"; sourceTree = "<group>"; };
+		C288B3E4284A81B65A23EB43 /* MealRecall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MealRecall.swift"; sourceTree = "<group>"; };
+		FFF451A8FA76DC6005186B63 /* AutoISFBudget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AutoISFBudget.swift"; sourceTree = "<group>"; };
+		E3856445EB9B85332CA334E1 /* FallingGuard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FallingGuard.swift"; sourceTree = "<group>"; };
+		AB969E8CAFE6F6644D62A610 /* TuningAnalysisTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TuningAnalysisTests.swift"; sourceTree = "<group>"; };
+		64662FC0FF5900BEEE372E5D /* TuningSuggestionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TuningSuggestionsView.swift"; sourceTree = "<group>"; };
+		87087C2E192EBA379F54B9B2 /* TuningAnalysis+TherapyReport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TuningAnalysis+TherapyReport.swift"; sourceTree = "<group>"; };
+		F5BE81AA58A873D37D699BE3 /* TuningAnalysis+Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TuningAnalysis+Profile.swift"; sourceTree = "<group>"; };
+		0A8A8BEA0F5D741070247CC3 /* TuningAnalysis.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TuningAnalysis.swift"; sourceTree = "<group>"; };
 		C97409C1262F94BA67E67193 /* ProfileSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProfileSnapshotTests.swift"; sourceTree = "<group>"; };
 		F270D368F1ABDFD64833382A /* ProfileSnapshotsRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProfileSnapshotsRootView.swift"; sourceTree = "<group>"; };
 		AF78A2AF1F4BB92E3BF3437A /* ProfileSnapshotsStateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProfileSnapshotsStateModel.swift"; sourceTree = "<group>"; };
@@ -2834,6 +2864,7 @@
 		31D51E8B0E74DD0EA284FB9E /* View */ = {
 			isa = PBXGroup;
 			children = (
+				64662FC0FF5900BEEE372E5D /* TuningSuggestionsView.swift */,
 				353A37BA07C6A4FAC1BEC35B /* SensitivityReportView.swift */,
 				076718802ADC8373A5161F68 /* AIReportRootView.swift */,
 			);
@@ -3476,6 +3507,10 @@
 		388E5A5925B6F0250019842D /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				C288B3E4284A81B65A23EB43 /* MealRecall.swift */,
+				87087C2E192EBA379F54B9B2 /* TuningAnalysis+TherapyReport.swift */,
+				F5BE81AA58A873D37D699BE3 /* TuningAnalysis+Profile.swift */,
+				0A8A8BEA0F5D741070247CC3 /* TuningAnalysis.swift */,
 				3873B5AE748E7C6AD8ABC77D /* ProfileSnapshot.swift */,
 				E449FF7862B7DC79891C050E /* SensitivityReport.swift */,
 				82E334D03EBCA7485A69FD55 /* TherapyReport.swift */,
@@ -3740,6 +3775,8 @@
 		38FCF3EE25E9028E0078B0D1 /* TrioTests */ = {
 			isa = PBXGroup;
 			children = (
+				6894D246765DED0489C91949 /* MealRecallTests.swift */,
+				AB969E8CAFE6F6644D62A610 /* TuningAnalysisTests.swift */,
 				C97409C1262F94BA67E67193 /* ProfileSnapshotTests.swift */,
 				D4B92E941B0123A19FB3064C /* SensitivityReportTests.swift */,
 				8A42A5F232AA95699F55B57E /* DynamicISFBadgeTests.swift */,
@@ -3935,6 +3972,8 @@
 		3B5CD2C72D4AECD500CE213C /* OpenAPSSwiftTests */ = {
 			isa = PBXGroup;
 			children = (
+				5EAD36327DAF813FF7F63CC4 /* AutoISFBudgetTests.swift */,
+				3DBBDC66D7D2B9A73BCCD178 /* FallingGuardTests.swift */,
 				6ACAF8C9AC2E217A50BD990D /* AutoISFIntegrationTests.swift */,
 				93CAE822B704823C22616F41 /* AutoISFsmbTests.swift */,
 				37885C4D9B6EBF2DAFC4B08E /* AutoISFTests.swift */,
@@ -4236,6 +4275,7 @@
 		B9488883C59C31550E0B4CEC /* View */ = {
 			isa = PBXGroup;
 			children = (
+				864D00584465CFE852723AFD /* MealRecallRow.swift */,
 				54E5F2C9AC8CD01E33E97E8D /* MealPhotoAnalysisSheet.swift */,
 				BDFD16592AE40438007F0DDA /* TreatmentsRootView.swift */,
 				58237D9D2BCF0A6B00A47A79 /* PopupView.swift */,
@@ -4532,6 +4572,7 @@
 		BDA25F1A2D26BCE800035F34 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				F94587585C02D765A0A0E165 /* WorkoutView.swift */,
 				F695824D7A03E78B93373DBE /* WatchDialView.swift */,
 				CDF0393C6836AC0147F2F18F /* WatchArcView.swift */,
 				517F3D56F29B544BA04A63AB /* WatchBentoView.swift */,
@@ -4584,6 +4625,7 @@
 		BDFF7A9C2D25FA730016C40C /* Trio Watch App Extension */ = {
 			isa = PBXGroup;
 			children = (
+				C501E51DDD4D2005FCF5E8FC /* WorkoutManager.swift */,
 				DDFF204D2DB2C00B00AB8A96 /* WatchStateSnapshot.swift */,
 				DDFF20492DB29EF500AB8A96 /* WatchLogger.swift */,
 				BDA25EE52D260D5800035F34 /* WatchState.swift */,
@@ -4638,6 +4680,7 @@
 		C2C98283C436DB934D7E7994 /* Treatments */ = {
 			isa = PBXGroup;
 			children = (
+				53519B7268D8FD7D4FB16A24 /* MealRecallDataSource.swift */,
 				C8D1A7CA8C10C4403D4BBFA7 /* TreatmentsDataFlow.swift */,
 				C19984D62EFC0035A9E9644D /* TreatmentsProvider.swift */,
 				223EC0494F55A91E3EA69EF4 /* TreatmentsStateModel.swift */,
@@ -4967,6 +5010,8 @@
 		DD30B9C52E0624C600DA677C /* DetermineBasal */ = {
 			isa = PBXGroup;
 			children = (
+				FFF451A8FA76DC6005186B63 /* AutoISFBudget.swift */,
+				E3856445EB9B85332CA334E1 /* FallingGuard.swift */,
 				43C75AA8ADC4734ABD364E7F /* AutoISFLoopContext.swift */,
 				DABE05F8D16C766C04C1E596 /* AimiB30.swift */,
 				214B8BB53A9A399439EA16B9 /* AutoISFsmb.swift */,
@@ -5962,6 +6007,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				27F340336162599B4AD989AE /* MealRecallRow.swift in Sources */,
+				4F4C427BAB62A7D923347A70 /* MealRecallDataSource.swift in Sources */,
+				6E25C4B4F92BAC0DEC210970 /* MealRecall.swift in Sources */,
+				CB80CA6D5062717CB17F3BFF /* AutoISFBudget.swift in Sources */,
+				E5C9EA5C035D9410075FD11B /* FallingGuard.swift in Sources */,
+				B1169F2F0E306AB9CADB8CAD /* TuningSuggestionsView.swift in Sources */,
+				CD18C8F4B93E99314CCE0D93 /* TuningAnalysis+TherapyReport.swift in Sources */,
+				93E4ECC2452CF635EAAF8BC9 /* TuningAnalysis+Profile.swift in Sources */,
+				577D1C5C27DDA114EA9131EB /* TuningAnalysis.swift in Sources */,
 				AA21B55EC56B5DA464268C45 /* ProfileSnapshotsRootView.swift in Sources */,
 				D499DF88C42F3CA2705B8D7C /* ProfileSnapshotsStateModel.swift in Sources */,
 				7F1A6403240BCA97981BCDF0 /* ProfileSnapshotsProvider.swift in Sources */,
@@ -6776,6 +6830,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D0FB2CEFC9E707D6E86F857F /* MealRecallTests.swift in Sources */,
+				E258DC2F8CBA901EA97551C1 /* AutoISFBudgetTests.swift in Sources */,
+				7937EC6A14FD4034CCBC1138 /* FallingGuardTests.swift in Sources */,
+				90FF0EEC8A93267615193568 /* TuningAnalysisTests.swift in Sources */,
 				201AB11A42495EFD1E98C79A /* ProfileSnapshotTests.swift in Sources */,
 				99992A07F5827CEBFDD1D001 /* AutoISFIntegrationTests.swift in Sources */,
 				9B496D8E005ECA4079D8F520 /* AutoISFsmbTests.swift in Sources */,
@@ -6925,6 +6983,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E71B0C7CAFA095A1DB053726 /* WorkoutView.swift in Sources */,
+				A8751433CAD03FD1603D0D5D /* WorkoutManager.swift in Sources */,
 				B0CD946F5C13EC281F97C64B /* WatchDialView.swift in Sources */,
 				D7A9BDE0A1CFCF3812023077 /* WatchArcView.swift in Sources */,
 				6C866EFFC9C0C81CE8AB2CAB /* WatchBentoView.swift in Sources */,
@@ -7410,6 +7470,7 @@
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_ENTITLEMENTS = "Trio Watch App/TrioWatchApp.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -7420,6 +7481,9 @@
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = OpenTrio;
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "OpenTrio reads your heart rate and active energy during a workout.";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "OpenTrio saves workouts you start on the watch to Apple Health.";
+				INFOPLIST_KEY_WKBackgroundModes = "workout-processing";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = "$(BUNDLE_IDENTIFIER)";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -7448,6 +7512,7 @@
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_ENTITLEMENTS = "Trio Watch App/TrioWatchApp.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -7458,6 +7523,9 @@
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = OpenTrio;
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "OpenTrio reads your heart rate and active energy during a workout.";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "OpenTrio saves workouts you start on the watch to Apple Health.";
+				INFOPLIST_KEY_WKBackgroundModes = "workout-processing";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = "$(BUNDLE_IDENTIFIER)";
 				LD_RUNPATH_SEARCH_PATHS = (

@@ -57,6 +57,8 @@ struct TherapyReportInput {
     var sensitivityRatios: [Decimal] = []
     /// The same ratios with their time, for the evaluation by time of day.
     var sensitivitySamples: [(date: Date, ratio: Decimal)] = []
+    /// autoISF factors per loop cycle, read from the determinations' reasons (empty without autoISF).
+    var autoISFFactors: [TuningAnalysis.Input.AutoISFFactors] = []
     var adjustments: [Adjustment] = []
     /// Scheduled basal: start offset in minutes since midnight and rate (U/h).
     var basalProfile: [(minutes: Int, rate: Decimal)] = []

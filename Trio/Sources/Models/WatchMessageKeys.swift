@@ -26,6 +26,9 @@ enum WatchMessageKeys {
     static let cancelOverride = "cancelOverride"
     static let activateOverride = "activateOverride"
 
+    // Workout Keys: "started" or "ended", with `date`
+    static let workout = "workout"
+
     // Temp Target Keys
     static let cancelTempTarget = "cancelTempTarget"
     static let activateTempTarget = "activateTempTarget"

@@ -17,6 +17,8 @@ extension AlgorithmAdvancedSettings {
         @Published var useCustomPeakTime: Bool = false
         @Published var insulinPeakTime: Decimal = 75
         @Published var skipNeutralTemps: Bool = false
+        @Published var fallingGuard: Bool = false
+        @Published var fallingGuardThreshold: Decimal = 35
         @Published var unsuspendIfNoTemp: Bool = false
         @Published var min5mCarbimpact: Decimal = 8
         @Published var remainingCarbsFraction: Decimal = 1.0
@@ -41,6 +43,8 @@ extension AlgorithmAdvancedSettings {
             subscribePreferencesSetting(\.useCustomPeakTime, on: $useCustomPeakTime) { useCustomPeakTime = $0 }
             subscribePreferencesSetting(\.insulinPeakTime, on: $insulinPeakTime) { insulinPeakTime = $0 }
             subscribePreferencesSetting(\.skipNeutralTemps, on: $skipNeutralTemps) { skipNeutralTemps = $0 }
+            subscribePreferencesSetting(\.fallingGuard, on: $fallingGuard) { fallingGuard = $0 }
+            subscribePreferencesSetting(\.fallingGuardThreshold, on: $fallingGuardThreshold) { fallingGuardThreshold = $0 }
             subscribePreferencesSetting(\.unsuspendIfNoTemp, on: $unsuspendIfNoTemp) { unsuspendIfNoTemp = $0 }
             subscribePreferencesSetting(\.min5mCarbimpact, on: $min5mCarbimpact) { min5mCarbimpact = $0 }
             subscribePreferencesSetting(\.remainingCarbsFraction, on: $remainingCarbsFraction) { remainingCarbsFraction = $0 }

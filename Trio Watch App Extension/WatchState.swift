@@ -92,9 +92,14 @@ import WatchConnectivity
 
     var deviceType = WatchSize.current
 
+    /// The workout started from the watch; its start and end switch the workout overrides.
+    let workout = WorkoutManager()
+
     override init() {
         super.init()
         setupSession()
+        workout.onStarted = { [weak self] _ in self?.sendWorkoutEvent("started") }
+        workout.onEnded = { [weak self] in self?.sendWorkoutEvent("ended") }
     }
 
     /// Configures the WatchConnectivity session if supported on the device

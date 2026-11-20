@@ -55,6 +55,8 @@ protocol BackupManager: AnyObject {
     /// The profile in use, as an unsaved snapshot; nil when a part is missing.
     func currentProfile() -> ProfileSnapshot?
     @discardableResult func saveCurrentProfile(name: String) throws -> ProfileSnapshot
+    /// Adds a profile that is not the one in use (e.g. a suggestion) to the saved profiles.
+    func saveProfileSnapshot(_ snapshot: ProfileSnapshot)
     func renameProfileSnapshot(id: UUID, to name: String) throws
     func deleteProfileSnapshot(id: UUID)
     /// Restores basal rates (sent to the pump first), ISF and carb ratios. The profile in use is saved as
@@ -830,6 +832,13 @@ final class BaseBackupManager: BackupManager, Injectable {
         storage.save(all, as: OpenAPS.Settings.profileSnapshots)
         debug(.service, "Profile saved: \(snapshot.name) (\(origin.rawValue))")
         return snapshot
+    }
+
+    func saveProfileSnapshot(_ snapshot: ProfileSnapshot) {
+        var all = profileSnapshots()
+        all.removeAll { $0.id == snapshot.id }
+        all.insert(snapshot, at: 0)
+        storage.save(all, as: OpenAPS.Settings.profileSnapshots)
     }
 
     func renameProfileSnapshot(id: UUID, to name: String) throws {

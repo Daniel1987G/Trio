@@ -62,6 +62,10 @@ struct TrioSettings: JSON, Equatable, Encodable {
     var maxProtein: Decimal = 250
     var confirmBolusFaster: Bool = false
     var showForecastWatch: Bool = false
+    /// Override preset started when a workout starts on the Apple Watch ("" = none).
+    var workoutOverridePreset: String = ""
+    /// Override preset started when the workout ends ("" = none: the workout override is stopped).
+    var workoutAfterOverridePreset: String = ""
     var overrideFactor: Decimal = 0.8
     var fattyMeals: Bool = false
     var fattyMealFactor: Decimal = 0.7
@@ -332,6 +336,14 @@ extension TrioSettings: Decodable {
 
         if let showForecastWatch = try? container.decode(Bool.self, forKey: .showForecastWatch) {
             settings.showForecastWatch = showForecastWatch
+        }
+
+        if let workoutOverridePreset = try? container.decode(String.self, forKey: .workoutOverridePreset) {
+            settings.workoutOverridePreset = workoutOverridePreset
+        }
+
+        if let workoutAfterOverridePreset = try? container.decode(String.self, forKey: .workoutAfterOverridePreset) {
+            settings.workoutAfterOverridePreset = workoutAfterOverridePreset
         }
 
         if let displayPresets = try? container.decode(Bool.self, forKey: .displayPresets) {

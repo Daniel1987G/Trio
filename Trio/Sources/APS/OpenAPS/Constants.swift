@@ -25,6 +25,7 @@ extension OpenAPS {
         static let meal = "monitor/meal.json"
         static let glucose = "monitor/glucose.json"
         static let iob = "monitor/iob.json"
+        static let autoISFBudget = "monitor/autoisf_budget.json"
         static let cob = "monitor/cob.json"
         static let cgmState = "monitor/cgm-state.json"
         static let podAge = "monitor/pod-age.json"
